@@ -104,8 +104,12 @@ def wheel_path(tmp_path_factory):
         timeout=300,
     )
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    wheels = list(out.glob("hermes_verbatim-*.whl"))
+    wheels = sorted(out.glob("*.whl"))
     assert wheels, proc.stdout + proc.stderr
+    # Glob loosely: the distribution name (verbatim-memory) normalises to
+    # underscores in the wheel filename, and a rename must not silently
+    # break this fixture again.
+    assert len(wheels) == 1, [w.name for w in wheels]
     return wheels[0]
 
 
