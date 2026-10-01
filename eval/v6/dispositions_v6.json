@@ -1,0 +1,971 @@
+{
+  "_doc": "Curated overlay for the V6 requirements ledger (SPEC_V6 V6-00.06/04.01). Keys per requirement: owner, profile, stage, code_surfaces, scenarios (F ids plus inherited E/C/D ids added beyond the spec's phase anchors), gate (G6 ids; G4/G5 inherited), evidence_type (DOC/CODE/LOCAL/BENCH/INDEPENDENT), executed_evidence (named executed checks/runs — required for locally_measured/qualified), implementation_status, qualification_status, blocker, note. spec_sha256 is refreshed by `tools/gen_v6_ledger.py --write`.",
+  "requirements": {
+    "V6-00.01": {
+      "implementation_status": "not_applicable",
+      "note": "§00 authority clause — SPEC_V6 authorizes implementation only, never publication/provider activation; contract text, no code surface.",
+      "qualification_status": "not_applicable"
+    },
+    "V6-00.02": {
+      "implementation_status": "not_applicable",
+      "note": "§00 amendment-binding governance scope — contract text; the MUST-NOT-weaken invariants are enforced through the measured rows (quote permission, quarantine cascade, deletion closure).",
+      "qualification_status": "not_applicable"
+    },
+    "V6-00.03": {
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "tools/gen_v6_ledger.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§00 namespaces + declared registries (F01–F32 / G6-00–G6-08) enforced by the ledger validator — duplicate/undefined/out-of-registry ids reject.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-00.04": {
+      "code_surfaces": [
+        "verbatim/__init__.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f02_import_has_no_side_effects 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§00 import side-effect isolation verified in a clean subprocess — no threads, files, sockets, or downloads on `import verbatim`.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-00.05": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py",
+        "eval/v6/run.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes A0/A0-cache/A1/A3 verdict=missed published with numbers; portfolio verdict=inconclusive, never promoted"
+      ],
+      "implementation_status": "implemented",
+      "note": "§00 misses published honestly: every §02.2 envelope miss is in report_v6.md with actuals beside budgets.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-00.06": {
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "eval/v6/dispositions_v6.json",
+        "tools/gen_v6_ledger.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§00 two-axis ledger implemented; locally_measured/qualified rows without named executed evidence are rejected by validate().",
+      "qualification_status": "locally_measured"
+    },
+    "V6-00.07": {
+      "code_surfaces": [
+        "eval/v6/notes_wave1.md"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — mid-run churn detected (2026-09-22 14:58–15:01: verbatim/memory/facade.py + tests/v6/test_scenarios_f.py rewritten by a concurrent worker; sibling `pytest tests/v6` ran 15:01–15:22). The 14:57 portfolio run was discarded and rerun 15:22 on a quiet tree — the rerun note is in eval/v6/notes_wave1.md"
+      ],
+      "implementation_status": "implemented",
+      "note": "§00 quiet-tree discipline applied in anger this wave: churn detected, run discarded, rerun.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-00.08": {
+      "implementation_status": "not_applicable",
+      "note": "§00 precedence clause — where V6 amends V5 text the V6 text governs; unamended V5 MUSTs stay binding. Contract text, no code surface.",
+      "qualification_status": "not_applicable"
+    },
+    "V6-01.01": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py",
+        "README.md"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 front door add/search/inspect/forget verified end-to-end on a managed-worker Memory through the public API only.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.02": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_wheel_contains_markers_and_entry_points 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 same-session add→search of the accepted quote verified on the public route (no drain/review/internal imports by the caller). Disclosure: wheel *contents* asserted; a clean-env install outside this checkout is not exercised (see V6-01.13).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.03": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1: 40/40 live-load reads returned honest 'pending' (causal_satisfied=false path), a0 immediate_add_search 4/4 pending — never a fake empty success"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 bounded readiness statuses measured under live load; pending rows are reported, not smoothed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.04": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f03_infer_modes_and_agent_attribution 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 infer=True produces typed lines while source bytes stay retained and agent-attributed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.05": {
+      "code_surfaces": [
+        "README.md"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f16_public_copy_no_defeat_claims 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 README/public copy carries no competitor-defeat phrasing (banned-phrase scan green).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.06": {
+      "implementation_status": "implemented",
+      "note": "§01 distribution name 'hermes-verbatim' is declared in pyproject with the hermes_agent.memory_providers entry (asserted by test_packaging); legal-usability verification and clean-env tutorial resolution were not exercised this wave.",
+      "qualification_status": "not_run"
+    },
+    "V6-01.07": {
+      "code_surfaces": [
+        "verbatim/compat/mem0.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f11_mem0_shim_honesty 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 compat.mem0 shim over Memory verified: update/delete keep CAS/closure; pending is never reported as success.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.08": {
+      "code_surfaces": [
+        "verbatim/api_v3/mcp.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f10_mcp_consumer_tools_exact 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 consumer MCP profile advertises+dispatches exactly v5_capture/v5_recall; operator tools denied by absence.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.09": {
+      "code_surfaces": [
+        "verbatim/adapters/langchain.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/adapters/test_langchain.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 duck-typed LangChain retriever adapter ships and is verified against the recorded stub interface — no matrix promised.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.10": {
+      "code_surfaces": [
+        "clients/ts/memory-client/src/index.ts",
+        "verbatim/service/memory_api.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f24_ts_client_end_to_end 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 TypeScript MemoryClient is a thin fetch client of the §05 routes — verified against a stub server and the live loopback.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.11": {
+      "code_surfaces": [
+        "verbatim/__init__.py",
+        "verbatim/adapters/hermes_v3.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/test_provider_v4.py 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f15_packaging_surface 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 register() is the provider entry point (hermes_agent.memory_providers: verbatim:register asserted); host-owner acceptance of upstream default status remains out of scope and unclaimed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.12": {
+      "code_surfaces": [
+        "pyproject.toml",
+        "verbatim/py.typed",
+        "LICENSE",
+        "README.md"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_packaging.py 2026-09-22 (9 tests)",
+        "pytest tests/v6/test_scenarios_f.py::test_f15_packaging_surface 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 py.typed + MIT LICENSE + verbatim-service/verbatim-mcp entry points verified in the built wheel; README first screen is install→add→search→inspect→forget; no urllib3/jev pin remains in pyproject.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-01.13": {
+      "implementation_status": "implemented",
+      "note": "§01 clean-venv `pip install .` on aarch64+x86_64 not exercised this wave — the wheel builds in test_packaging but the install path is unmeasured.",
+      "qualification_status": "not_run"
+    },
+    "V6-02.01": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 settled searches run the typed-memory lane end-to-end"
+      ],
+      "implementation_status": "implemented",
+      "note": "§01 default ranking runs on the eligible typed-memory+identifier set; delivered hits pin to source bytes.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.02": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02 delivered typed lines carry verifiable span pins into retained source bytes; unpinnable extractions never appear as facts.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.03": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f14_fallback_never_skips_holds 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02 candidate accelerators never bypass eligibility/HMAC/quarantine — fallback path still enforces holds.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.04": {
+      "code_surfaces": [
+        "verbatim/retrieval"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/retrieval/test_f4_stats.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02 corpus statistics (df/avgdl/BM25 universe) verified by the stats test module — candidate-set statistics are never labeled exact.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.05": {
+      "implementation_status": "planned",
+      "note": "§02 ANN gate: A0/A1 hashing have now officially missed their settled targets (report_v6.json 2026-09-22), so the precondition for ANN evaluation is met — no ANN work landed this wave.",
+      "qualification_status": "not_run"
+    },
+    "V6-02.06": {
+      "code_surfaces": [
+        "verbatim/retrieval/cache.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0_cache: cache provisioned via real config surface; counters published lookups=120 hits=0 stores=0 (never hit — named miss)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02 pack-cache path measured honestly: it is consulted on the consumer route but never hits at this workload (fingerprint never restamps); the flag stays default-off per the conservative invalidation gate — the SHOULD-enable default is disclosed unmet.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.07": {
+      "code_surfaces": [
+        "verbatim/storage/commit_notify.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f17_cross_store_commit_wake 2026-09-22",
+        "pytest tests/storage/test_commit_notify.py 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 managed-worker run exercises commit→barrier wakeups under load"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.1 cross-store commit_notify exists and wakes barriers on another Store object (F17 asserts commit-time wake vs poll ramp).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.08": {
+      "code_surfaces": [
+        "verbatim/storage/commit_notify.py",
+        "verbatim/ingest.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f18_unblock_first_drain 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 managed drain under 2w/10r load; backlog bounded (peak 536 → 0)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.1 barrier-marked sources drain ahead of ordinary queued work (advisory mark, never correctness).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.09": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1: 40/40 reads exhausted the bounded barrier budget and reported 'pending' (causal_satisfied=false), never a silent weaken"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.1 barrier deadline bounded and honest — measured under live load.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.10": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f19_eventual_consistency_honesty 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.1 consistency='eventual' skips the barrier with causal_satisfied=false + warning.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.11": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 at 512 memories/40 reads/16 writes, managed worker: search p50 298.4ms p95 462.1ms p99 539.6ms (MISS vs 40ms), add-ack p95 310.1ms (MISS vs 50ms), visibility 6/6 satisfied (observed at ~250ms vs 200ms budget — published)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 A1 measured and missed on the pinned machine — the miss stays published (V5's ~120ms settled-profile miss at n=256 compares to V6's 462ms live-load p95 at n=512; different conditions, both honest misses).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.12": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 immediate_add_search_ms p50≈295ms (all 4 probes pending) beside settled_search p95 125.7ms; add_ack_scaling stage profile at n=512/1024"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 immediate_add_search and settled_search both appear in the artifact — barrier cost visible, never averaged away.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.13": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 cache-off at 512 memories: search p95 125.7ms > 25ms, p99 143.6ms > 75ms (MISS published); a0_cache warm-pass p95 104.6ms > 8ms with hits=0 (MISS published)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 A0 measured cache-off (the qualifying config) and cache-on as additional — both miss on this machine; pending/partial rows counted separately, never qualifying settled latency.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.14": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py",
+        "eval/v6/run.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — A0 hashing miss at 25ms stays published in report_v6.json/md with budgets alongside actuals"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 published-miss discipline verified: corpus/hardware/stats unchanged; the miss is data, not suppressed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.15": {
+      "code_surfaces": [
+        "eval/v5/harness.py",
+        "eval/v6/envelopes.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a3 seeded 2048 records via bulk_seed (drain_every=64, 4192 jobs processed) while measured reads/adds went through the public API"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 harness-side bulk seed used and disclosed; measured ops stay on the public route.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-02.16": {
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — add_ack_scaling at n=512/1024: all stage alphas <1; envelopes.a3 at n=512/1024/2048 names source_state superlinear (alpha≈1.15, 0.89ms→4.38ms) as a V6-02.16 defect"
+      ],
+      "implementation_status": "implemented",
+      "note": "§02.2 add-ack scaling profiled per stage; the superlinear source_state stage is a named defect, not absorbed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.01": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f12_neural_unavailable_and_hashing_honest 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0_neural reports unavailable (encoder available()=False), never a hashing rerun relabeled neural"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03 hashing stays the non-neural default; requesting neural without a verified artifact is honestly unavailable.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.02": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f05_replace_after_returns_successor 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — consolidation grounding passed (25 delivered hits checked, 0 violations)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03 replace+after returns successor-as-current with predecessor labeled; contrary evidence packs as a group, never dropped.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.03": {
+      "code_surfaces": [
+        "eval/v6/twins.py",
+        "verbatim/querying/auto_update.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — twins suite: auto_applied 5/5 true pairs, false_applied 0/13 twins, upper95_bound 0.2281 (bound <0.01 NOT met at 13 twins — needs ~300; published)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03 auto_safe twin suite executed end-to-end through Memory.add; the <0.01 bound is honestly unmet at corpus size — verdict pass on behavior, bound_met=false on the gate.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.04": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03 inspect returns source identity/revision/locators; quotes round-trip against stored bytes.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.05": {
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f07_forget_closes_all_derivatives 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03 forget is suppression-then-closure across source, typed memory, vector, and cache paths; restart stays empty.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.06": {
+      "code_surfaces": [
+        "verbatim/embeddings/artifact.py",
+        "verbatim/embeddings/artifact_build.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f29_artifact_build_load_cycle 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural suite built + verified the pinned artifact (manifest+sha256, encoder_id artifact:hash-distilled:v1)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.1 artifact format is parse-only + hash-pinned: manifest names files+sha256; revision required, 'latest' rejected.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.07": {
+      "code_surfaces": [
+        "eval/v6/neural.py",
+        "verbatim/embeddings/artifact_build.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural suite: build_dev_artifact trained the distilled-hashing table over the seeded corpus (vocab 244, dim 384, manifest reproducible)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.1 offline build path executed: training inputs/code/seed recorded in the manifest.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.08": {
+      "code_surfaces": [
+        "verbatim/embeddings/artifact.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f29_artifact_build_load_cycle 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural arm loads artifact:hash-distilled:v1 with available()=True after manifest verification; a0_neural probe shows the fail-closed path without an artifact"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.1 artifact loads through ArtifactEncoder; available() only after verify; encoder_id flows into source_vectors.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.09": {
+      "code_surfaces": [
+        "verbatim/querying/calibration.py",
+        "eval/v6/neural.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -c eval.v6.neural.fit_calibration 2026-09-22 — support_calibration/v1 entry for artifact:hash-distilled:v1: floor 0.85 fitted on the dev slice, separates=true (reject envelope max 0.707)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.1 the artifact encoder has its own fitted calibration entry — not a threshold copied from hashing.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.10": {
+      "code_surfaces": [
+        "eval/v6/neural.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural paired_quality: recall@k artifact 1.0000 vs hashing 1.0000 (not strictly better), precision non-inferior → neural_recommended=False published"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.1 paired gate executed on the shared corpus — the label stays unrecommended and the loss is published.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.11": {
+      "code_surfaces": [
+        "eval/v5/corpus.py",
+        "eval/v5/consolidation.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — consolidation: fixture 4 same-slot claims over 2 distinct families, qualified_slots=2, observations=2 produced (positive outcome reached; honest-zero contract kept)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.2 eval corpus carries ≥2 same-slot whitelist-predicate claims from distinct evidence families; the positive path is reachable.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.12": {
+      "code_surfaces": [
+        "eval/v5/consolidation.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — corroboration verdict=passed on folded hit.corroboration=2 (proof-bearing group; raw counts diagnostic only)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.2 corroboration probe requires the folded group, not corr_hits ≥2.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.13": {
+      "code_surfaces": [
+        "verbatim/observations/aggregate.py",
+        "eval/v5/consolidation.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f25_consolidation_positive 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f26_held_pin_withholds_summary 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — observations pins resolve 5/5 byte-traceable, sole_trace=False, ungrounded=0"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.2 grounded-consolidation invariants hold on the real path: pins resolve to source bytes, held/erased pins fail closed, summary is never the sole trace.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.14": {
+      "code_surfaces": [
+        "verbatim/influence/exposure.py",
+        "verbatim/memory/facade.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f28_source_exposure_rows 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — feedback exposure_rows_recorded=passed (source_exposure rows minted on the consumer search path)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.3 source-lane deliveries mint source_exposure rows on the consumer path — measured, not assumed.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.15": {
+      "code_surfaces": [
+        "verbatim/policy/artifacts.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f27_learned_active_artifact_gate 2026-09-22",
+        "pytest tests/policy/test_artifacts.py 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — feedback kill_switch=passed: learned_active refused at config naming the missing artifact binding"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.3 policy-artifact registration flow exists; validated-state transitions require executed paired evidence.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-03.16": {
+      "code_surfaces": [
+        "verbatim/config.py",
+        "verbatim/policy/artifacts.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f27_learned_active_artifact_gate 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — learned_active without a bound validated artifact refuses CONFIG_INVALID (message names the binding)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§03.3 learned_shadow is the honest maximum until an artifact passes the paired gate.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-04.01": {
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "eval/v6/dispositions_v6.json",
+        "tools/gen_v6_ledger.py",
+        "eval/v6/ledger_v6.json"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§04 eval/v6 ledger module exists: dispositions overlay + generated ledger + summary + --check, carrying the V5 tail read-only.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-04.02": {
+      "code_surfaces": [
+        "eval/v5/dispositions_v5.json",
+        "eval/v6/portfolio.py"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m pytest tests/v6/test_scenarios_f.py::test_f31_v5_tail_re_dispositioned 2026-09-24 (green — run_v5_tail unresolved_count=0)",
+        "eval/v5/dispositions_v5.json re-evidencing: V5-20.03 locally_measured (executed A0 cache-off envelope, MISS published), V5-22.10 locally_measured (executed comparator ladder's absent/unobservable/tested distinction), V5-30.22 deferred (T2/T3 unimplemented; owner post-V6 extraction program)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§04 V5 implemented_unmeasured tail re-evidenced this wave: all 3 carried rows got a real disposition — two measured, one explicitly deferred with owner+reason; no silent drops (the deferred row stays visibly open in the ledger's carried tail).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-04.03": {
+      "code_surfaces": [
+        "eval/v5/dispositions_v5.json",
+        "eval/v6/ledger_v6.json",
+        "eval/v6/summary.md"
+      ],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m pytest tests/v6/test_scenarios_f.py::test_f31_v5_tail_re_dispositioned 2026-09-24 (green — run_v5_tail unresolved_count=0)",
+        "python tools/gen_v6_ledger.py --check 2026-09-24 (exit 0 — carried V5 tail 20 rows, each qual=deferred with an owner+reason note; the published deferral list)",
+        "python tools/gen_v5_ledger.py --check 2026-09-24 (exit 0)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§04 V5 planned tail re-dispositioned this wave: all 42 planned rows got a V6 disposition — 11 locally_measured on wave-1 executed evidence, 12 not_applicable (conditional/absent-object obligations or authority clauses), 19 deferred with owner+reason+closing condition; the deferral list is published in ledger_v6.json's carried block and summary.md.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-04.04": {
+      "implementation_status": "planned",
+      "note": "§04 predecessor regression: this wave executed tests/v6 + tests/eval/test_v6_* + adapter/service/stats/policy/commit_notify modules (202 green, 1 fail — f31 spec-bar on the open tail). The full v3+v4+v4.5+compat+mutation re-run is not done this wave.",
+      "qualification_status": "not_run"
+    },
+    "V6-04.05": {
+      "implementation_status": "planned",
+      "note": "§04 E-scenario evidence-row updates + stale-xfail sweep not performed this wave.",
+      "qualification_status": "not_run"
+    },
+    "V6-05.01": {
+      "code_surfaces": [
+        "verbatim/service/memory_api.py",
+        "verbatim/service/auth.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22",
+        "pytest tests/connectors/test_service.py 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§05 /v2/memory add/readiness/search/inspect/forget round-trips over real loopback with bearer-token→host-principal binding.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-05.02": {
+      "code_surfaces": [
+        "verbatim/service/memory_api.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§05 wire schemas are the frozen v5/1 contract types via the canonical serializer — verified by service + TS-stub tests.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-05.03": {
+      "code_surfaces": [
+        "verbatim/service/auth.py",
+        "verbatim/service/memory_api.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f23_service_scope_binding 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§05 cross-workspace token access fails closed (403 on foreign namespace).",
+      "qualification_status": "locally_measured"
+    },
+    "V6-05.04": {
+      "code_surfaces": [
+        "verbatim/service/memory_api.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/connectors/test_service.py 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§05 /v2/memory/status + capabilities report worker mode, TLS-absent, bind, and request bounds honestly.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-05.05": {
+      "code_surfaces": [
+        "clients/ts/memory-client/src/index.ts"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f24_ts_client_end_to_end 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "implementation_status": "implemented",
+      "note": "§05 TS client consumes exactly the §05 routes — stub-verified plus live loopback smoke.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-06.01": {
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — comparators: verbatim_memory acc 1.000, verbatim_v2 0.852, naive_fts 0.889, vector_rag 0.778, no_memory 0.148 — all real arms, same corpus/tasks/k"
+      ],
+      "implementation_status": "implemented",
+      "note": "§06 always-run arms execute offline and paired; comparisons verbatim_memory-vs-each VALID.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-06.02": {
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — mem0_oss + mem0_oss_inferfalse rows report unavailable: 'mem0ai not installed' (verbatim probe error kept)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§06 pinned Mem0 OSS infeasible in this environment — the rows report unavailable with the reason, never a fake tested.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-06.03": {
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — named unavailable rows: graphiti_oss (graphiti_core + neo4j absent), holographic (absent), zep_hosted + mem0_platform (out_of_scope — hosted, unauthorized)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§06 absence is reported, not hidden.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-06.04": {
+      "code_surfaces": [
+        "eval/v6/comparators.py",
+        "eval/v5/comparators.py"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — all comparator rows carry the 13 pins; compare() refusal rules enforced (track/weakened/unpinned/missing-metric)"
+      ],
+      "implementation_status": "implemented",
+      "note": "§06 pin coverage + refusal contract verified per row.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-06.05": {
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — recall@k/precision@k/abstain/forbidden/accuracy/latency p50-p95 + cost categories published; verbatim_memory losses to no arm on accuracy at this corpus"
+      ],
+      "implementation_status": "implemented",
+      "note": "§06 comparison metrics published per arm; unmeasured categories labeled partial.",
+      "qualification_status": "locally_measured"
+    },
+    "V6-08.01": {
+      "implementation_status": "not_applicable",
+      "note": "§08 release-level gate mapping — descriptive registry text; the G6-* gates bind at release time per V6-00.06.",
+      "qualification_status": "not_applicable"
+    }
+  },
+  "schema": 1,
+  "spec_sha256": {
+    "SPEC_V6.md": "3ce97f77d79562eb01b1789bb88390784aeba906b586e6c1222ca0fc595ea66b"
+  }
+}

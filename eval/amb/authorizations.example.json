@@ -1,0 +1,24 @@
+{
+  "schema": "amb_authorizations/v1",
+  "_comment": "Owner records for SPEC_V8 §26 O decisions. Copy to authorizations.json and set granted:true only where the owner has actually recorded the decision. An absent file means every decision is undecided — all rows report blocked_on_authorization (the §26 defaults).",
+  "decisions": {
+    "O1": {"granted": false, "note": "LoCoMo CC BY-NC 4.0 local-only evaluation for AMB LoCoMo10", "recorded_at": null},
+    "O2": {"granted": false, "note": "LongMemEval download (MIT)", "recorded_at": null},
+    "O3": {"granted": false, "note": "BEAM, PersonaMem, LifeBench, DolphinBench license review", "recorded_at": null},
+    "O5": {"granted": false, "note": "Reader and judge spend: AMB's pinned Gemini models (spend cap, key custody)", "recorded_at": null},
+    "O6": {"granted": false, "note": "Comparator infrastructure: Hindsight OSS local stack inside AMB", "recorded_at": null},
+    "O11": {"granted": false, "note": "AMB participation and publication (upstream provider, published rows)", "recorded_at": null},
+    "O13": {"granted": false, "note": "One-shot LoCoMo test-partition run on a frozen manifest", "recorded_at": null}
+  },
+  "amb_license": {
+    "verified": false,
+    "commit": null,
+    "digest": null,
+    "note": "V8-15.11 — the AMB repository license, commit, and leaderboard JSON digest are recorded before the first run; unverified keeps results internal"
+  },
+  "amb_pin": {
+    "commit": null,
+    "root": null,
+    "note": "Pinned agent-memory-benchmark checkout: commit sha + local path (prompt/model digests load from it)"
+  }
+}

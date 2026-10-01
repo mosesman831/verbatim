@@ -1,0 +1,162 @@
+# b4-ltr-features — learning-to-rank on eligibility-safe features for Verbatim
+
+Scope note: every candidate below is a **fusion-stage or rerank-stage** change. Nothing here touches candidate generation, eligibility admission, or the byte pin. Latency and bytes are therefore **independent of corpus size** — the reranker only ever sees the fused candidate pool (C ≈ 200), so the "10k vs 100k memories" columns below differ only in the upstream lanes that feed the pool, not in the rerank cost itself.
+
+## 1. Candidate formulas, exact
+
+All notation: query q; candidate pool P = {d₁…d_C}, C=200 after eligibility admission; L lanes, lane l produces score s_l(d) for the eligible candidates it returned (presence indicator 𝟙_l(d)); rank r_l(d) ∈ {1..C} computed **within the eligible pool only**.
+
+### 1a. RRF (status quo), k=60
+S_RRF(d) = Σ_l 𝟙_l(d) · 1/(k + r_l(d)), k=60.
+
+k=60 confirmed: Cormack/Clarke/Buettcher fixed it from a pilot and report MAP flat in k (0.2072@k=0 → 0.2146–0.2147 plateau k∈[30,500] → 0.2098@k=500), "the choice of k was not critical." Sensitive only if a lane's *score scale* leaks in — RRF uses ranks only, so it is immune to per-lane score mis-calibration; that robustness is exactly why learned score-fusion only beats it by single digits.
+
+Worked example (3 lanes × 5 candidates, all present in every lane): ranks d1=(1,4,2), d2=(5,·,·) means absent→0. With uniform w: d1=1/61+1/64+1/62=0.02849 > d3=1/63+1/61+1/65=0.02842 > d5… =0.02394 > d4=0.01190 > d2=0.00820. RRF rewards breadth: a candidate ranked 4th in two lanes (0.03125) beats one ranked 1st in one lane and absent elsewhere (0.01639+0=0.01639 vs uniform 3-lane: 0.01639 < 0.03125 — presence is implicitly weighted, which is a *learnable* knob RRF hardcodes).
+
+### 1b. Weighted RRF / RRF-CC / tuned lane weights
+S_wRRF(d) = Σ_l w_l · 𝟙_l(d)/(k + r_l(d)), w_l ≥ 0, |w| = L params.
+Bruch et al. (TOIS 2023, independent, funded by Pinecone) tested per-lane weight learning ("RRF-CC" variant) and found the extra weight gives **no significant improvement** over uniform RRF — and fully-parameterized RRF (per-lane k AND weight) is **sensitive to the training sample and degrades out-of-domain** (HotpotQA: RRF(10,4)=0.621 < RRF(60,60)=0.675). Read: per-lane-k is the fragile direction; a *bounded* weight vector on top of k=60 is the safe direction. Our sim agrees: dev-tuned wRRF gains only ~+0.02–0.05 any@10 over untuned and sometimes lands below it at N≤200 training queries.
+
+### 1c. TM2C2 — convex score combination (the evidence-backed simple upgrade)
+For two lanes/lists: S(d) = α·ŝ₁(d) + (1−α)·ŝ₂(d), where ŝ_l is min-max normalized to [0,1] **over the eligible candidates in that lane's list** (non-returned d ⇒ ŝ=0), α ∈ [0.6, 0.8] learned. Generalizes to m lanes as a convex combination Σ α_l·ŝ_l(d), Σα=1.
+
+Published result (Bruch/Gai/Ingber, TOIS 2023, arXiv:2210.11934v2 — vendor-authored but *independent published reproduction* of their own system): TM2C2 α=0.8 beats RRF η=60 NDCG@1000 on **all 9 BEIR/MSMARCO datasets, all significant**: MSMARCO 0.454 vs 0.425 (+6.8%), NQ .542/.514, Quora .901/.877, NFCorpus .327/.312, HotpotQA .699/.675, FEVER .744/.721, SciFact .753/.730, DBPedia .512/.489, FiQA .496/.464. Crucially for Verbatim: **α converges with <5% of the training queries** (a "small set of queries" — tens, not hundreds), and normalized-score fusion provably ≻ rank-only fusion under score perturbations (Lipschitz argument). This is the highest-confidence published gain over RRF that fits in a dev slice.
+
+### 1d. Pointwise logistic reranker
+p(d) = σ(β₀ + Σ_j β_j·x_j(d)), x ∈ R^p, p ≈ 10–24 features. Inference: one dot product per candidate: O(C·p) flops.
+Features proposed (eligibility-safe versions, §3): per-lane normalized rank r_l/C, min-max-normalized score ŝ_l (recomputed on eligible set), presence 𝟙_l, lane-agreement count Σ𝟙_l, term coverage (query terms matched in d / |terms(q)|), entity-overlap Jaccard, |t_doc − t_q| in days, eligible-proof count, query-class one-hots (3 classes from query analysis).
+Cost: pure-Python loop measured **0.19–0.22 ms** for 200×24; numpy X@w 0.003 ms. Serialization: p+1 floats; 25 float64 = **200 B** in SQLite (or ~100 B as float32/JSON text). Train: sklearn LogisticRegression C=1.0 on N·C pairs, grouped by query for eval.
+
+### 1e. Small GBDT (pointwise) — LightGBM depth ≤ 3, num_leaves = 8
+F(x) = Σ_{t=1}^{T} ν·f_t(x), f_t = leaf value of the depth-3 walk; T≈100–300, ν=0.05.
+Model text format (verified by writing one: `/tmp/ltr_proto/gbm_300.txt`): per tree stores split_feature[7], threshold[7], decision_type[7], left_child[7], right_child[7], leaf_value[8], plus training stats (split_gain, leaf/internal weight+count) — **914–927 B/tree as text, 277,180 B for 300 trees**; the stats arrays are training-only metadata. An inference-only binary layout (u8 feature + f32 threshold + i8 left + i8 right per internal node = 8 B × 7 + f32 × 8 leaves = **88 B/tree**) → **26.4 KB for 300 trees**, 8.8 KB for 100. sklearn's own pickle of the same model: 377,848 B (do not ship pickles).
+Inference cost, 200 candidates × 300 depth-3 trees = 180k node visits, measured here:
+- native LightGBM `predict`: **0.47 ms** (300t) / 0.58 ms (500t)
+- numpy-vectorized walk (all candidates in lockstep): **7.7 ms**
+- pure-Python walk over `array.array` nodes: **17.9 ms**
+- pure-Python walk with numpy-scalar indexing: **61.9 ms**
+Takeaway: a compact-tree interpreter in pure Python is ~18–62 ms/query — borderline vs the ~85 ms p95 budget before feature extraction; the numpy walk or a vendored native lib makes it trivially fast but adds a dependency.
+
+### 1f. LambdaMART (pairwise/listwise)
+Same functional form as 1e (Σ ν·f_t) — the *artifact* is identical; only training differs (λ-gradients on NDCG). LGBMRanker, lambdarank_truncation_level=10. Data needs are strictly higher than pointwise (it fits pairwise residuals on ~C² pairs per query but the independent unit is still the query), and published small-data ablations (§4) show it degrades faster than it helps at <~600 queries. Verdict-path: reject as a *separate* candidate — if a GBDT ships, it should be trained pointwise first; LambdaMART is a retraining option, not a different model on disk.
+
+### 1g. ProbFuse — data-light probabilistic fusion (sleeper candidate)
+Per lane m, segment its returned list into x=25 segments of size k=C/x. From Q training queries: P(seg_j | m) = (1/Q)·Σ_q |R_{j,q} ∩ Rel| / |seg_j| — probability lane m returns relevant docs in segment j. Score: S(d) = Σ_m P(seg_{j(d)} | m) / j(d).
+Published: beats CombMNZ at **every** training size including t=10% ≈ **5 queries** (TREC-3 +14.5% MAP, TREC-5 +45.8% MAP); judged-vs-unjudged-document variants nearly identical; optimal x≈25. Params: L×25 segment probabilities = 150 floats ≈ 1.2 KB — storable in SQLite, pure-Python inference = O(L·C) ≈ 0.2 ms like RRF. Caveat: evidence is TREC-ad-hoc metasearch lanes, all lexical — mechanism (per-lane reliability by depth) transfers to Verbatim's heterogeneous lanes but magnitude is an extrapolation.
+
+## 2. Worked micro-example — 3 lanes × 5 eligible candidates
+
+Lanes return eligible candidates only: lex = [d1,d3,d5,d2,d4], ent = [d3,d1], time = [d5,d1,d4]. (r=rank)
+
+- RRF k=60: d1 = 1/61+1/62+1/62 = 0.0487 → top. d3 = 1/62+1/61 = 0.0325. d5 = 1/63+1/61 = 0.0323. d4 = 1/64+1/63 = 0.0315. d2 = 1/64 = 0.0156.
+- wRRF, w=(1.0, 0.9, 0.5): d1 = .0164+.0145+.0081 = .0390; d3 = .0161+.0147 = .0308; d5 = .0159+.0081 = .0240. Order preserved here — weights matter only near ties.
+- TM2C2-style convex (α_ents=0.3 on min-max normalized scores, suppose lex scores 9,8,7,6,5 → ŝ = 1,.75,.5,.25,0): d1 = 1.0·0.7 + 0.75·0.3 ≈ …—— point is the learned α shifts mass toward whichever lane historically delivers, and one scalar fits in a dev slice.
+- ProbFuse, x=2 segments (top/rest): if ent historically returns 80% of its relevant docs in seg1, P(seg1|ent)=0.8 → d3 gets 0.8/1 + 0.2/2 ≈ 0.9 from ent alone.
+
+## 3. Eligibility-safe feature taxonomy (the actual hard part)
+
+Rule: **any aggregate computed over "all memories" leaks** if it includes ineligible ones — quarantined/suppressed items would shift the statistics that rank eligible ones. Features fall in three classes:
+
+| class | features | rule |
+|---|---|---|
+| intrinsically safe (query×candidate local) | presence 𝟙_l, per-lane rank r_l *within the eligible list*, term coverage, entity overlap, |Δt|, query-class one-hots, byte-length, source-type | compute per (q,d) pair only |
+| safe only if recomputed per eligible scope | min-max ŝ_l, BM25/IDF+avgdl (the engine already mandates eligible-set BM25), RRF components, lane-hit counts, **proof count** (must count eligible supporters only), percentile-of-score features | recompute on the post-admission set; never read table-global stats |
+| unsafe by construction | global IDF over all memories, corpus-wide document frequency, graph centralities, **PPR/graph-walk scores over the unpruned edge table** (ineligible nodes leak connectivity into eligible scores), any embedding-centroid/global-PCA feature | reject or recompute over the eligible subgraph before the walk |
+
+The last row is the subtle one: graph-lane features (PPR from the query seed) are *not* eligibility-safe unless the walk runs on the edge table minus ineligible endpoints. Same discipline as BM25.
+
+## 4. How much labeled data — reconciling the pair-vs-query confusion
+
+Naive EPV counting (Peduzzi 1996: ≥10 events/parameter) on candidate pairs says p=24 needs ≥240 positive pairs → at prevalence φ and C=200 that's **12–40 queries**. That arithmetic is *misleading*: candidates inside a query share noise, so the independent unit is the **query**, not the pair. Riley et al. 2020 shrinkage criterion (n for global shrinkage ≥0.9) gives n_pairs = p/((S−1)·ln(1−R²cs/S)): at R²cs=0.10–0.30 that's 592–2038 *pairs*, i.e. still small — but every published LTR benchmark uses **≥800 queries** (MQ2008), not pairs, for a reason. Evidence on degradation:
+
+- RCRank ablation (independent, MSLR-WEB10k): training set cut 10× (~600 queries) → LambdaMART NDCG@10 −5.64%; cut 70× (~85 queries) → **−11.15%**. Removing 86/136 features on the small set *recovered* +0.37% — feature count must shrink with query count.
+- ProbFuse: trains on ~5–50 queries (150 params but each estimated from counts, not gradient descent).
+- Bruch TM2C2: α converges with <5% of training set — 1 parameter ≈ tens of queries.
+- Our Monte Carlo (24 seeds × {100,200,500,1000} train queries, 400 held-out, 6-lane synthetic): **P(model < RRF) and mean Δany@10 — see table §6.** At N=100–200 queries LR wins most seeds but the spread overlaps zero; GBDT/LambdaMART win everywhere *because our synthetic lanes carry complementary signal* — an assumption to verify on real dev data, not a prediction.
+
+**Answer to "is a 200–500-query dev slice realistic":** yes for ≤~10-parameter models (tuned wRRF, TM2C2 α, small logistic with feature selection); marginal for a 24-feature logistic (train on queries not pairs, use K-fold, keep p ≤ N/15); **not enough** for a 300-tree GBDT to be trusted without a held-out gate — its wins in the sim rely on real non-linear structure that must first be shown to exist in Verbatim's features.
+
+## 5. Expected gain over tuned RRF — what published comparisons actually say
+
+| evidence | vendor/indep | result | bearing on Verbatim |
+|---|---|---|---|
+| Bruch TOIS'23, 9 datasets | vendor-funded, indep published | TM2C2 +3–7% NDCG@1000 over RRF, all sig | mechanism: normalized scores > ranks; 1-param training |
+| RRF paper itself, LETOR-3 | indep | RRF .6051 MAP > ListNet .585, RankSVM .574, AdaRank .578 (CombMNZ .611 ~tie) | **counter-evidence**: when fusion features are just ranks, simple beats learned — a warning for expecting big LTR gains |
+| Aslam&Montague'01 survey | indep | Savoy logistic fusion +~11% over best input system | old but on-point: logistic-level fusion suffices |
+| ProbFuse'06 | indep | +14–46% MAP over CombMNZ at all train sizes | per-lane reliability is learnable from ~5 queries |
+| This sim (correlated lane noise) | calculated | gbm +0.11–0.16, lmart +0.08–0.16, lr +0.07–0.08, tuned-wRRF +0.04–0.06 any@10; P(<RRF)≈0 for all | ceiling depends on lane complementarity |
+| This sim (independent noise) | calculated | gbm +0.08–0.11, lmart +0.08–0.14, tuned-wRRF +0.02–0.03; **lr −0.03…−0.06, below RRF in 92–100% of seeds at every N** | vote-aggregation beats a noise-diluted linear model |
+
+Honest expectation for Verbatim post-fix: **tuned weights / TM2C2-style: +2–5 pts any@10; logistic on a pre-selected ~10–20-feature set: −3…+8 pts (sign depends on whether lanes really correlate — a held-out gate is mandatory); GBDT: +3–10 pts only if lane×query-class interaction structure exists**. The RRF-paper result is the calibration: nobody publishes >15% fusion gains at C≈200, and published learned-vs-RRF deltas are single-digit NDCG, not the double-digit gaps our synthetic ceiling shows.
+
+## 6. Simulation summary + overfitting thresholds
+
+Monte Carlo (`/tmp/ltr_proto/sim4.log`, `/tmp/ltr_proto/part4_sim.py`): 6 synthetic lanes, C=200 eligible candidates/query, 19 lane-derived features (6 RRF-components, 6 min-max scores, 4 misc, 3 query-class one-hots), train N ∈ {100,200,500,1000} queries, 400 held-out eval queries, 24 seeds, metric = any@10. Two regimes:
+
+**Correlated lane noise** (75% shared Student-t error across lanes — lanes fail together):
+
+| N | rrf | lr | gbm(d3,300t) | lmart | tuned wRRF |
+|---|---|---|---|---|---|
+|100|0.390|0.455|0.496|0.468|0.429|
+|200|0.390|0.463|0.522|0.506|0.441|
+|500|0.390|0.467|0.547|0.550|0.446|
+|1000|0.390|0.468|0.548|0.553|0.442|
+
+P(model < rrf): lr 0–4%, gbm 0%, lmart 0%, tw 0–8%.
+
+**Independent lane noise** (each lane errs alone — RRF's design assumption):
+
+| N | rrf | lr | gbm(d3,300t) | lmart | tuned wRRF |
+|---|---|---|---|---|---|
+|100|0.652|0.597|0.735|0.736|0.667|
+|200|0.652|0.614|0.750|0.764|0.674|
+|500|0.652|0.620|0.764|0.781|0.676|
+|1000|0.652|0.619|0.766|0.789|0.680|
+
+P(model < rrf): **lr 92–100% at every N (d ≈ −0.03…−0.055)**, gbm 0%, lmart 0%, tw 8–17% at N≤500.
+
+The two regimes bracket reality and expose the decision-relevant mechanics:
+- **Pointwise LR is the only model that reliably loses to RRF** — when lanes err independently, RRF's implicit presence-vote (candidates in many lanes win) is near-optimal and LR's extra weak features (within-lane normalized score ≈ noise ordering here) only inject variance. Feature selection/stronger L2 would pull it back to ≈ tuned-wRRF (+0.02). This is the concrete answer to "when does LTR underperform hand-tuned RRF": when the feature set is noise-diluted and the true aggregation is the vote, at *any* train size — not only small N. (Consistent with RRF beating ListNet/RankSVM/AdaRank on LETOR-3 in the original paper.)
+- **Trees win in both regimes (+0.08…+0.16)** because the generator bakes in (a) per-lane reliability modulated by query class — a multiplicative interaction LR can't represent — and (b) same-direction signal across lanes. These are *assumptions*, not established facts about Verbatim: treat +0.10 as the ceiling if lane×class interactions are real, not the expectation.
+- **Tuned wRRF ≈ +0.02–0.05** in both regimes with occasional below-RRF draws — matches Bruch's finding that bounded weight-learning helps a little and doesn't blow up.
+- N=100 vs N=500 mattered much less than regime: the sample-size cliff in RCRank (−11% at ~85 queries) didn't reproduce here because 19 features × 100 queries × 200 pairs is still well-conditioned; the real small-N hazard was *feature dilution*, not variance.
+
+Arithmetic behind the ms column (why both corpus columns are identical): the rerank stage input is the fused eligible pool, C≈200 regardless of corpus size. Logistic: C·p = 200·24 = 4.8k multiply-adds ≈ 4.8k × ~40ns Python-level ≈ 0.19 ms (measured 0.19–0.22). GBDT: C·T·depth = 200·300·3 = 180k node visits ≈ 180k × ~100ns ≈ 18 ms (measured 17.9 with `array.array` nodes; ×3.5 with numpy-scalar indexing → 61.9). RRF fuse: L·(C log C + C) ≈ 6·(200·8) ≈ ~10k ops ≈ 0.22 ms. Feature extraction ~2 ms is dominated by term-coverage string ops (1.9 ms measured on 200×120-token docs) — flat vs corpus size because it also only sees eligible candidates. What *does* grow from 10k→100k is upstream (FTS5 posting merges, eligibility admission volume), outside this question's scope.
+
+Per-query cost on the 4-core reference (measured on 8-core Xeon 8559C here; ×~1.3 scalar headroom for 4 cores — marked *):
+
+| stage | 10k memories | 100k memories | notes |
+|---|---|---|---|
+| RRF fuse, 6 lanes × 200 | 0.22 ms*→~0.3 | identical | O(L·C log C); corpus-independent |
+| feature extraction (~20 feats) | ~2–4 ms* | ~2–6 ms* | dominated by term coverage string ops (measured 1.9 ms py); grows only if eligible set grows |
+| logistic score 200×24 | 0.19 ms* (pure py) | identical | O(C·p) |
+| GBDT 300t×d3 | 18–62 ms* py / 7.7 numpy / 0.5 native | identical | O(C·T·depth) |
+| ProbFuse score | ~0.2 ms* | identical | O(L·C) |
+
+Model bytes (constant vs corpus size — it's a per-query artifact, not an index):
+
+| model | bytes | per-100k-memories |
+|---|---|---|
+| logistic, 25 f64 | 200 B | 200 B |
+| ProbFuse, 150 f32 | ~0.6–1.2 KB | same |
+| GBDT 300t, LightGBM text | 277 KB | same |
+| GBDT 300t, inference-only binary | 26 KB | same |
+
+When does LTR underperform hand-tuned RRF? Three reproducible conditions: (i) train queries < ~10× effective params after *feature selection* (RCRank: 85 queries → −11% NDCG); (ii) hyperparameters fit to the training sample (fully-parameterized RRF per-lane-k degraded OOD: .621 vs .675, Bruch); (iii) lane errors are independent and lanes already complementary — then RRF's presence-vote is near-optimal and a learned model can only fit noise (our independent-noise sim: lr below RRF in 92–100% of seeds at all N, tw below in 8–17% at N≤500).
+
+## 7. Verdicts (stage each candidate occupies)
+
+- **stay-RRF → ship (floor, not ceiling):** *replaces fusion stage.* Keep RRF k=60 as the default fusion and the fallback when dev data < ~150 judged queries; it's 0.2 ms and unbreakable. Confidence: high.
+- **tuned wRRF / TM2C2 convex (α_l, Σα=1, on eligible-normalized scores) → ship (default):** *replaces fusion stage.* 3–7 params, published +3–7% over RRF on 9/9 datasets, converges on tens of queries, pure Python, ~100 B. Gate: only accept weights that beat uniform RRF on a held-out dev split — else keep w_l=1. Confidence: high.
+- **pointwise logistic reranker (pre-selected ~10–20 eligible-safe features, strong L2) → optional (gated):** *rerank stage over the fused pool (replaces bounded post-fusion boosts).* 200 B, 0.2 ms — but our sim shows it is the *only* candidate that reliably loses to RRF when lanes err independently (−3…−6 pts, 92–100% of seeds, at every N up to 1000): a noise-diluted linear model can't express the presence-vote. Ship only if it beats tuned-RRF on a held-out split of a ≥300-query dev set AND features are pre-selected (drop within-lane normalized scores if they don't pull weight — the RCRank ablation recovered +0.37% by dropping 86/136). Confidence: medium — the gate converts its failure mode from silent to detectable.
+- **small GBDT (LightGBM d≤3, ≤300 trees) → optional (quality/max profile):** *rerank stage.* The only candidate that beat RRF in *both* noise regimes (+0.08–0.16 any@10) — it exploits lane×query-class interactions linear models can't; 26 KB compact-binary (88 B/tree inference-only), but a pure-Python walk costs 18–62 ms — only comfortable with the numpy-vectorized walk (7.7 ms) or vendored native predict (0.5 ms). Needs ≥500–1000 judged queries before trusting it over the convex fusion; its +10 is a ceiling conditioned on real interaction structure. Confidence: medium.
+- **LambdaMART (listwise GBDT) → reject as separate candidate:** same on-disk artifact as pointwise GBDT, strictly hungrier (−11% NDCG at ~85 queries vs −5.6% at ~600); if GBDT graduates, its training objective is a footnote, not a model.
+- **ProbFuse → optional (cheap hedge):** *replaces fusion stage.* 150 floats, 0.2 ms, trains on ~5–50 queries; worth one prototype against wRRF before committing to logistic — it may capture most of the gain with none of the overfitting. Confidence: medium-low (TREC-only evidence, lexical lanes).
+- **fully-parameterized RRF (per-lane k AND w) → reject:** Bruch shows it fits the training sample and degrades OOD (.621 vs .675 on HotpotQA).
+
+## 8. What would change these verdicts
+
+- If the real dev slice shows lanes *independent* and balanced → expect ≤+3 pts from anything learned; stay-RRF + tuned-wRRF is then the endpoint.
+- If a feature-importance run on ≥500 queries finds strong interactions (e.g., entity∧lex ⇒ relevant) → GBDT graduates to default behind a latency profile flag.
+- If dev queries < 150 → only TM2C2/ProbFuse/wRRF are trainable; LR and GBDT wait for data.
+- The single most load-bearing number: **model size and latency are corpus-independent** (O(C·F)); the second: **~85 training queries ⇒ −11% NDCG for tree LTR** (RCRank), which is why the dev slice must be ≥300–500 before anything non-trivial ships.

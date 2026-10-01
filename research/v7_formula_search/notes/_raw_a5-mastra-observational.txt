@@ -1,0 +1,145 @@
+Session devin-49cfe2175d884fdc9046feaacb09514d:
+  session_id: 49cfe2175d884fdc9046feaacb09514d
+  title: Workflow verbatim-formula-search-v3: a5-mastra-observational
+  status: suspended
+  status_detail: inactivity
+  url: https://app.devin.ai/sessions/49cfe2175d884fdc9046feaacb09514d
+  acus_consumed: 0.0
+  tags: workflow
+  structured_output:
+    topic: a5-mastra-observational
+    sources: https://github.com/mastra-ai/mastra/tree/main/packages/memory/src/processors/observational-memory | repo | all implementation facts: constants.ts, thresholds.ts, observational-memory.ts (getStatus/getRetrievalInstructions), observer-agent.ts, reflector-agent.ts, reflector-runner.ts, observation-groups.ts (provenance/range mechanics), message-utils.ts (pruning), processor.ts + observation-turn/step.ts (lifecycle triggers), buffering-coordinator.ts, date-utils.ts (relative-time rules), token-counter.ts, https://github.com/mastra-ai/mastra/blob/main/packages/memory/src/tools/om-tools.ts | repo | recall tool schema: cursor paging (page ±1..50, limit ≤20, partIndex+charOffset drill, ≤2000-tok result budget), search mode over observation-group vectors, https://github.com/mastra-ai/mastra/blob/main/packages/memory/src/index.ts | repo | observation vector indexing: observations_384 index, deterministic UUIDv8 ids sha256(resourceId|threadId|groupId|chunkIndex), group_id max-score dedup, range metadata used as recall cursor, https://mastra.ai/docs/memory/observational-memory | vendor | architecture overview, glossary, buffering/activation/retrieval config, https://mastra.ai/reference/memory/observational-memory | vendor | full config surface incl. shareTokenBudget, activateAfterIdle, blockAfter, agent-driven recall semantics, https://mastra.ai/research/observational-memory | vendor | LongMemEval_s vendor-reported scores (gpt-4o 84.23/gpt-5-mini 94.87/gemini-3-pro 93.27 vs full-context 60.2, oracle 82.4), compression 3–6x text / 5–40x tool-heavy — self-reported, no independent reproduction, Cormack, Clarke, Buettcher — Reciprocal Rank Fusion outperforms Condorcet (SIGIR 2009) | paper | canonical basis for confirming RRF k=60 under review, local computation | calculated | obs-lane cost arithmetic: ~8 terms x df~2000 rowids x ~0.15us/row ≈ +1–3 ms p95 at 300k obs docs (100k memories); index size 64–90 B/obs row + ~300–450 B/obs FTS text ≈ 1.0–1.3 kB/memory; extraction ~10 regexes x 600B/turn ≈ <0.05 ms/turn
+    summary: Mastra OM is a context-window compressor, not a per-query retriever: two LLM background agents (Observer firing at 30k pending tokens, Reflector rewriting the entire log at 40k) physically replace raw messages in the actor's context with a dated, priority-tagged observation log; an optional recall tool pages raw messages via the observation-group's message-id range, and an optional vector index embeds observation groups (the retrieval unit is the group, not the raw turn). Nothing in the observation path is deterministic, but its memory atom is exactly what Verbatim needs: a short, dated, priority-tagged span citing a durable source range. Under byte-pinning, the Observer becomes a rule-based extractor emitting pinned sentence spans (mem_id, byte_start, byte_end) with 🔴/🟡/🟢/✅ priorities and resolved event times; the Reflector becomes eligibility edits — normalized/simhash dedup, slot-key supersession, and a budget-driven priority-drop ladder — never text mutation. For retrieval, the deterministic equivalent is a new strong lane (BM25 over short obs docs, w≈1.0–1.25) plus an obs→source citation edge boosting the source turn by α=0.10 — replacing Mastra's range cursor and recall tool with Memory.inspect-style expansion. Vendor LongMemEval numbers (84.2–94.9% vs 60.2% full-context) are self-reported mechanism evidence, not LoCoMo predictions; no independent reproduction was found. Cost model: +1–3 ms p95/query at 100k memories for the obs FTS lane and ~1.0–1.3 kB/memory of index (~270 B/memory if obs stay unindexed annotations). Constants review: RRF k=60 and lane weights stand; add the obs lane at strong weight and α_exp=0.10 inside the existing ±5–10% boost envelope; add a `derived_from` edge kind at weight 1.0 rather than diluting PPR similarity edges.
+    verdicts: pinned-span obs extractor (deterministic Observer, write-path) -> ship: creates the short dated priority-tagged atom; <0.05 ms/turn, ~270 B/memory index, obs lane — BM25 over short pinned obs docs, w=1.0–1.25, stats on eligible set -> ship: +1–3 ms p95 @100k memories; field-length normalization beats turn-level BM25 on assertion questions, obs->source-turn citation edge (α_exp=0.10 bounded boost + pinned-quote delivery via inspect) -> ship: deterministic equivalent of range cursor/recall tool; <0.1 ms join, deterministic supersession by slot-key at eligibility -> ship: Mastra's 'prefer most recent' rule as flag edits, byte-pin safe; targets knowledge-update questions, relative-time resolution table (yesterday/tomorrow/last-week/next-week/early=7 mid=15 late=23; vague→no date) -> ship: fixes filed unresolved-time bug, ~µs write-path, deterministic consolidation ladder L0–L4 (dedup → drop 🟢 → drop 🟡 → keep 🔴/✅) at θ_R≈256KB obs/resource -> ship: pin-safe Reflector analog; background, 0 ms query cost, temporal gap markers (≥10 min) + pack-time relative-time annotations ('3 weeks ago', 'likely already happened') -> ship: cheap write/pack-path formatting from date-utils port, whole-log rewrite reflection -> reject: rewritten text has no byte pin; Candidate F is the equivalent, LLM Observer/Reflector -> reject (default); optional quality/max only as extraction assist where every quote byte-matches source, agentic recall tool (cursor paging, partIndex drill-down) -> reject: Memory.search isn't an agent loop; citation edge + inspect covers it, obs semantic embedding index (observations_384 analog) -> reject default / optional quality as hash-pinned local artifact; adds little over short-doc lexical lane, shareTokenBudget dynamic thresholds -> reject: context-window concern, pack budget already bounded, degenerate-output detector -> reject: deterministic path can't degenerate; revive only with an optional LLM tier, RRF k=60 -> confirm: standard constant, no OM evidence against; obs lane is a strong-lane add at w=1.0–1.25, cross-encoder pool cap 32 -> confirm: OM's whole design avoids per-query reranking; keep CE in optional ≤150ms profile, derived_from edge kind w=1.0 in graph lane -> ship: exact provenance edge, separate from PPR similarity edges
+    notes_markdown: # a5-mastra-observational — Mastra Observational Memory (OM)
+
+Primary sources read: `mastra-ai/mastra@main`, `packages/memory/src/processors/observational-memory/*` (~20k lines), `packages/memory/src/tools/om-tools.ts`, `packages/memory/src/index.ts`, plus Mastra docs + research post. Benchmark numbers below are **vendor self-reported** (Mastra's own LongMemEval runs); no independent reproduction found — kept in a separate column.
+
+## 1. What OM is (the five assigned questions)
+
+### (1) Observation layer architecture — LLM, not deterministic
+OM is a **context-window manager**, not a per-query retrieval engine. Two background LLM agents replace raw history in the actor's context:
+
+- **Observer** (LLM, default `google/gemini-2.5-flash`, temp 0.3, thinkingBudget 215): fires when unobserved pending tokens ≥ `observation.messageTokens` (**30,000** tokenx-estimated tokens). Input = ≤10k-token batch of new messages (`maxTokensPerBatch` = 10,000) + previous-observation tail (cap `previousObserverTokens` = 2,000, fed only so it won't re-emit dups). Output = `<observations>` block of dated lines `* 🔴/🟡/🟢/✅ (HH:MM) text (meaning|estimated DATE)` grouped under `Date:` headers, plus `<current-task>`/`<suggested-response>`/`<thread-title>` extractor sections. 1–5 observations per exchange; short user messages near-verbatim; explicit instruction to preserve identifiers, numbers, and quotable text verbatim. Priority levels: 🔴 user facts/unresolved goals, 🟡 project details/tool results, 🟢 minor/uncertain, ✅ completion signals.
+- **Reflector** (LLM, same model default, temp 0, thinkingBudget 1024): fires when `observationTokenCount` ≥ `reflection.observationTokens` (**40,000**). Rewrites the **entire** observation log (reflections don't accumulate — each reflection re-processes everything incl. prior reflections, condensing older content harder). Compression ladder L0→L4 (none → "8/10 detail" → "6/10" → "4/10" → "2/10"), `maxLevel = startLevel+3`; validates `reflectedTokens < targetThreshold`; degenerate/empty output treated as failed attempt; empty result over non-empty input **never commits** (throws). After max retries returns smallest non-degenerate candidate so the loop terminates.
+- **Observed messages are physically removed** from the live `MessageList` (marker-boundary pruning via `data-om-observation-start/end` message parts, fallback `record.observedMessageIds` + createdAt/id cursor; pending tool-call/result pairs preserved). The actor sees: system message block (`observations` + instructions + `<current-task>` + `<suggested-response>` + extracted values) + continuation hint `<system-reminder>` + unobserved recent messages. Context = append-only, prompt-cacheable. No per-turn dynamic retrieval.
+- **Async buffering** (default on): background Observer runs every `bufferTokens` = 0.2 × 30k = **6,000**-token interval (interval-boundary trigger `floor(pendingTokens/6000)` increments; near the threshold the interval halves — `rampPoint = threshold − bufferTokens×1.1`). Buffered chunks "activate" into the live log when the threshold hits, on `activateAfterIdle` TTL ('auto' = provider prompt-cache TTL), on `activateOnProviderChange`, or at `finalize()`. Retention floor after activation = `threshold × (1 − 0.8)` = **6,000** tokens kept unobserved. Sync fallback blocks at `blockAfter` = 1.2× = 36k. Reflection buffers at `bufferActivation` = 0.5 (20k), same 1.2× blockAfter.
+- **shareTokenBudget** (opt-in): dynamic threshold `eff = max(totalBudget − currentObsTokens, baseThreshold)`, totalBudget = 30k+40k = 70k; observation threshold similarly `max(70k − msgThreshold, 1000)`. (Also disables async buffering — incompatible.)
+
+### (2) Thresholds & triggers for consolidation
+- Observe: pendingTokens ≥ 30,000 (tokenx local estimate; image/file parts use provider-aware heuristics, text-ish `bytes/4`).
+- Buffer chunk: every 6,000 pending tokens (0.2 ratio); activate retention floor 20% (ratio 1−0.8).
+- Reflect: observationTokenCount ≥ 40,000; buffered reflect at ≥ 20,000 (0.5).
+- Multi-batch: resource scope batches threads to `maxTokensPerBatch` = 10,000 per Observer call.
+- Reflection escalation only on compression failure; never on a schedule.
+
+### (3) How observations cite source turns
+- Each Observer output chunk is wrapped `<observation-group id="<8-byte-hex>" range="<firstMsgId>:<lastMsgId>" kind="reflection?">`. `buildMessageRange` uses first/last message **with visible content** (skips data-only parts). Ranges are durable pointers into raw history.
+- Reflection reconciles provenance deterministically (`deriveObservationGroupProvenance`): it renders source groups as `## Group `id`\n_range: `r`` sections to the Reflector, then **line-matches** the rewritten content back to source groups — a reflected group inherits the union of source ranges whose content lines it actually carries (span = first.start→last.end for opaque UUID endpoints; numeric endpoints span by value). `kind="reflection"` marks reflected groups.
+- Vector index (retrieval mode): each group chunked+embedded, upserted to `observations_384` index with metadata `{group_id, range, thread_id, resource_id, observed_at, text}`; vector ids are deterministic UUIDv8s from `sha256(resourceId|threadId|groupId|chunkIndex)` — retry-safe.
+
+### (4) How retrieval treats observations vs raw turns
+- **Default path has no retrieval at all.** The entire compressed log is in-context; raw messages are simply gone from context (still in storage). This is the core design claim: stable, cacheable prompt beats per-turn injection. (Vendor: avg context ~30k tokens across the whole LongMemEval run; 84.23% gpt-4o vs 60.2% full-context vs 82.4% oracle.)
+- **Retrieval mode (opt-in)** registers an agent-driven `recall` tool — not automatic injection: `mode="messages"` (cursor paging, page ±1..50, limit ≤20, `detail=low`≈30 tok/part with text auto-expand 100, `detail=high`, `partIndex`+`charOffset` drill-down, partType/toolName filters), `mode="threads"` (list + before/after), `mode="search"`.
+- **`search` embeds the query and searches only the observation-group index** (resource_id filter ± thread_id ± observed_at range; dedup by group_id max-score; topK≤20, ×3 when filtered; result budget 2,000 tokens). So the **retrieval unit is the observation group, not the raw message**; the raw turn is reached only through the group's `range` as a recall cursor. Search result sections carry thread title, group id, range, score.
+- In-context observations get `optimizeObservationsForContext`: strips 🟡/🟢 emojis (keeps 🔴), strips `[semantic tags]` and `->` arrows, truncates lines >10,000 chars; `addRelativeTimeToObservations` annotates `Date:` headers with "(3 weeks ago)", inserts `[N days/weeks later]` gap markers (>1 day), expands `(estimated/meaning DATE)` → "(meaning May 30, 2023 - 3 weeks ago)" and appends ", likely already happened" when a future-intent line's date has passed. `formatRelativeTime` buckets: today/yesterday/<7d/<14d=1 week/<30d weeks/<60d=1 month/<365d months/≥365d years (mirror for future). `parseDateFromContent`: "Month D, YYYY"; range "Month D–D"→first day; early/mid/late Month→day 7/15/23; "Month to Month YYYY"→second month day 1; vague terms (recently/a while ago/lately/soon) get **no** date.
+- Temporal gap markers (opt-in): synthetic `__temporal_` message when gap ≥ **10 min**, persisted + transient; the Observer sees them so obs can anchor to gaps.
+- Degenerate-output guard (LLM-only): text ≥2,000 chars → sample ~50 200-char windows, >40% duplicate windows → degenerate; any line >50k chars → degenerate; ≥20 lines ≥24 chars with >50% exact-dup → degenerate; retry once then fail.
+- Subconscious layer (experimental, off by default): LLM curator/reminder agents over a pinned knowledge store (`DEFAULT_MAX_STEPS` 50/200, `recentUpdates` 10). Out of scope for OM proper — noting existence only.
+
+### (5) Constants & token budgets (all verified in code)
+| Constant | Value | Where |
+|---|---|---|
+| observation.messageTokens | 30,000 tok | trigger Observer |
+| observation.maxTokensPerBatch | 10,000 tok | per Observer call |
+| observation.previousObserverTokens | 2,000 tok | dedup context for Observer |
+| observation.bufferTokens | 0.2 (→6,000) | async buffer interval |
+| observation.bufferActivation | 0.8 (→retain 6,000) | activation floor |
+| observation.blockAfter | 1.2× (→36,000) | sync fallback bound |
+| reflection.observationTokens | 40,000 tok | trigger Reflector |
+| reflection.bufferActivation | 0.5 (→20,000) | async reflection start |
+| reflection.blockAfter | 1.2× (→48,000) | sync bound |
+| modelSettings | temp 0.3 obs / 0 refl; maxOutputTokens 100k | both agents |
+| thinkingBudget (gemini) | 215 obs / 1024 refl | provider opts |
+| MAX_OBSERVATION_LINE_CHARS | 10,000 | sanitizeObservationLines |
+| Degenerate detector | ≥2,000 chars; 200-char windows/~50 samples/>40%; line >50k; ≥20 lines/>50% dup | observer/reflector |
+| Compression ladder | L0–L4, maxLevel=start+3 | reflector-runner |
+| Temporal gap marker | ≥10 min | temporal-markers |
+| Recall budget | 2,000 tok result; part ≤4,000 tok high-detail; limit ≤20/page | om-tools |
+| Obs vector index | `observations_384`, dim 384 default | memory index.ts |
+| Compression achieved (vendor) | 3–6× text (~6× LME), 5–40× tool-heavy | research post |
+| Vendor LongMemEval_s (500q) | gpt-4o 84.23% (oracle 82.4, full-ctx 60.2, RAG-topK20 80.05, Zep 71.2); gpt-5-mini 94.87%; gemini-3-pro 93.27% | research post — **vendor-reported** |
+
+## 2. So what for Verbatim — the deterministic byte-pinned equivalent
+
+Mastra's real insight isn't "summarize with an LLM" — it's that **a short, dated, priority-tagged observation unit citing a source range is a better memory atom than a raw turn**: (a) BM25-style scoring on a ~20-token pinned span is far stronger on assertion/knowledge-update questions than the same sentence diluted inside a 200-token turn (field-length normalization — a mechanical effect, not an LLM property); (b) the range pointer means compression never loses access to exact bytes (their `recall` cursor) — precisely Verbatim's byte-pin contract; (c) provenance survives consolidation via line-level matching, which a deterministic engine can do exactly (spans+hashes instead of fuzzy line match); (d) consolidation = rewrite-the-world only *because* observations are paraphrased text — under byte-pinning the equivalent is **eligibility edits** (supersede/drop flags), never text mutation, which is already Verbatim's architecture.
+
+OM evidence is architectural, not any@10-predictive for LoCoMo (different benchmark, and their wins come largely from paraphrase-quality + having ALL history in-context). Vendor numbers are self-reported; treat as mechanism evidence only.
+
+### Candidate A — Pinned observation span extraction (write-path, background job)
+Deterministic Observer. On `Memory.add` (or batch job over a turn/session): segment source bytes into sentence/clause spans; classify each span:
+- kind := `assertion` | `question` | `intent` | `state_change` | `completion` | `detail`
+  - `question` iff span ends with '?' or starts with wh-word/modal interrogative (deterministic regex set mirroring Mastra's rule table)
+  - `intent` iff matches future-intent regex (Mastra's `isFutureIntentObservation` port): /\b(will|plans? to|planning to|going to|looking forward to|intends? to|wants? to|needs? to|about to)\b/i — same pattern list, applied to bytes
+  - `state_change` iff matches /(switching|moved|replacing|changed to|no longer|instead of|will start)/i
+  - `completion` iff matches confirmation regex (/\b(thanks|that fixed|got it|perfect|resolved|works now|it worked)\b/i)
+  - `assertion` iff user-authored declarative span with a first/second-person or entity+predicate shape (default for non-question user spans carrying entities/numbers/proper nouns)
+- priority := 🔴 if kind∈{assertion,intent,state_change} or span has entity/number/proper-noun density ≥ θ_p; 🟢 if hedged (/\b(might|maybe|I think|not sure|probably)\b/i) ; ✅ if kind=completion; else 🟡. θ_p := presence of ≥1 capitalized non-sentence-initial token OR digit/proper-noun — mirrors Mastra's "preserve identifiers" rule, deterministically.
+- obs row := (obs_id, mem_id, byte_start, byte_end, kind, priority, observed_at, event_lo, event_hi_or_null, group_id, slot_key_opt, superseded_by_opt). **Pin is free**: the quote is the span — `(mem_id, byte_start, byte_end)`.
+- Cap: keep ≤5 obs per turn by (priority, novelty-hash) — Mastra's 1–5/exchange guideline. Dedup: skip if `blake2b64(normalize(span))` already observed for this resource.
+- Cost: ~10 regexes × ~600 B/turn → <0.05 ms/turn; O(bytes) total. Index: ~64 B/obs row + ~24 B (dedup+slot hashes) ≈ 90 B/obs ≈ **270 B/memory** at ~3 obs/memory. Latency: 0 ms query-time (write-path only).
+- Stage: **write-path**. Verdict: **ship** — creates the retrieval atom Mastra validates; no model needed.
+
+### Candidate B — Obs lane: index each pinned span as a short FTS5 doc
+Own table `obs_fts` (or kind-flagged docs in main FTS with lane tag). BM25 stats computed on the eligible obs set (per Verbatim's eligible-set rule). Lane weight w_obs := 1.0–1.25 (strong lane; Mastra treats obs as primary memory). Rationale: assertion-type questions — the LoCoMo cats where Verbatim trails BM25 — match a 20-token obs doc at much higher rank than the same sentence inside a 600-B turn.
+- Equation: `s_obs(d,q) = BM25_obs(q|d) · w_obs`, fed into RRF with the other lanes; obs eligibility = NOT superseded, NOT dropped, same auth/quarantine flags.
+- Complexity: one extra FTS5 MATCH — ~8 terms × df~2k rowids × ~0.15µs/row ≈ +1–3 ms p95 @300k obs docs (100k memories); +0.5–1 ms @10k. Bounded by existing lane candidate cap.
+- Index: obs text slice ~110 B → FTS5 content+postings ≈ +300–450 B/obs ≈ **~1.0–1.3 kB/memory** (dup text). Cheaper variant (Candidate B′): no obs FTS — treat obs as span annotations scored only via expansion edge (~90 B/obs, no text dup). Recommend B now, B′ if index size hurts.
+- Stage: **lane**. Verdict: **ship**.
+
+### Candidate C — Obs→source-turn citation edge (deterministic recall)
+Mastra's `range` cursor as a graph edge, not a tool: obs row carries mem_id/span; when an obs is a fusion candidate, its source turn enters/raises in the turn candidate set:
+- Equation: `s_turn := s_turn + α_exp · max_{obs→turn} s_obs`, α_exp := 0.10 (within Verbatim's bounded ±5–10% post-fusion boost policy). Citation edge is exact provenance, weight 1.0 — do NOT mix into PPR similarity edges; separate edge kind `derived_from`.
+- Also: if obs wins a pack slot, deliver the **pinned quote** (span bytes) + `range` link; `Memory.inspect` resolves the link to full source bytes — deterministic recall, no agent loop.
+- Complexity: O(#obs hits) hash join, <0.1 ms at any scale. Index: 0 extra (reuses obs.mem_id). Stage: **fusion boost + pack**. Verdict: **ship**.
+
+### Candidate D — Deterministic supersession (Mastra's "newer supersedes older" rule as eligibility)
+Reflector prompt says "prefer MOST RECENT information" — implement exactly as eligibility, not score: slot_key := `blake2b64(subject_entity, predicate_token)` extracted via slot patterns (`my X is`, `favorite X`, `I use/wear/prefer`, `moved to`, `switching to`, `works at`). When a new obs lands with an existing slot_key → `old.superseded_by := new.obs_id`. Superseded obs are ineligible for lanes (bytes retained; `inspect` shows the chain).
+- Cost: slot-table 8–16 B/obs; write-path O(1) lookup. Query: 0 ms (eligibility filter). Stage: **eligibility/write-path**. Verdict: **ship** — directly targets knowledge-update questions, byte-pin safe (drops rows, never rewrites text).
+
+### Candidate E — Relative-time resolution (port of date-utils)
+Fixes the filed "unresolved relative time phrases" bug with Mastra's exact rule table:
+- event_lo/hi := resolve(span_time_refs, msg_ts): yesterday→T−1d, tomorrow→T+1d, "last week"→T−7d, "next week"→T+7d, "this weekend"→next Sat–Sun, "in <Month>"→that month this year (+1y if past), "early/mid/late <Month>"→day 7/15/23, "<Month> to <Month> <Y>"→second month day 1, vague (recently/a while ago/lately/soon)→**no date** (Mastra omits too — don't fabricate).
+- Pack-time annotation (not index-time): `formatRelativeTime` buckets (today/yesterday/Nd/Nw/Nm/Ny ago; "likely already happened" iff intent+past event) + gap markers `[N days later]` when consecutive obs dates differ >1 day; conversation gap marker when Δmsg ≥ 10 min.
+- Cost: ~µs/turn write-path; <0.1 ms pack-time string format. Index: +16 B/obs (event_lo/hi). Stage: **temporal/write-path + pack**. Verdict: **ship**.
+
+### Candidate F — Deterministic consolidation (Reflector analog)
+Trigger: `Σ obs_bytes(resource) > θ_R` or `#obs since last pass > N`. θ_R := 256 KB/resource (≈40k tokens, matching Mastra's obs budget) — tune on corpus; N := 500.
+- Escalation ladder (deterministic, Mastra L0–L4 mapped to eligibility drops — never text edits):
+  - L0: nothing (all obs eligible)
+  - L1: drop 🟢 spans that are normalized-text duplicates or simhash64(Hamming≤3) near-dups of higher-priority obs
+  - L2: drop all 🟢
+  - L3: drop 🟡 older than T_recent (30d)
+  - L4: keep only 🔴/✅
+  - Choose minimal L s.t. eligible obs bytes ≤ budget — mirrors "reflected < threshold" validation. Recompute idempotently each pass (equivalent of "rewrite whole log" but as flag flips; supersession chains accumulate).
+- Near-dup: simhash64 over token 3-grams of normalized span — 8 B/obs; pairwise within slot/group buckets O(n_obs·k) per resource — background, ~5–20 ms @300k obs.
+- Query cost: 0 ms. Stage: **write-path + eligibility**. Verdict: **ship**.
+
+### Rejected / optional items
+- Whole-log rewrite reflection: **reject** — violates byte pin (rewritten text has no pin). Candidate F is the pin-safe equivalent.
+- LLM Observer/Reflector: **reject** for default profile (model-free rule); **optional** only as extraction *assist* under quality/max — and only if every emitted quote byte-matches source (their own prompt already says "quote their exact words"/"preserve verbatim" for the reproducible subset — the subset is where an LLM could legally add facts under Verbatim's add-fact rule; never update/delete).
+- Agentic `recall` tool (cursor paging, part drill-down): **reject** — Memory.search isn't an agent loop; Candidate C is the deterministic equivalent (Memory.inspect already resolves ranges).
+- Obs semantic embedding index (`observations_384` analog): **reject** default (non-semantic policy); **optional** under quality only as a hash-pinned local artifact — and Verbatim already has a semantic lane slot; an obs-embedding lane adds little over Candidate B's short-doc lexical gain.
+- shareTokenBudget dynamic thresholds: **reject** — context-window concern; Verbatim's pack budget is already bounded.
+- Degenerate-output detector: **reject** — deterministic output can't degenerate; revive only if an optional LLM tier is added.
+- 30k/40k token thresholds verbatim: **replace** — write-path batching isn't latency-bound for Verbatim; use per-resource byte budgets (θ_R above) and add-time extraction instead of context-pressure triggers.
+- Subconscious curator/reminder agents: **reject** — LLM-managed knowledge store; orthogonal experimental feature.
+
+## 3. Provisional constants review (this source's bearing only)
+- **RRF k=60 → confirm.** Standard (Cormack et al., SIGIR'09); OM gives no evidence about RRF k. Adding the obs lane doesn't change k sensitivity.
+- **Lane weights {1.0/0.75/0.5} → confirm + add obs at 1.0–1.25.** OM treats observations as the primary memory; obs should be a strong lane.
+- **Boost alphas 0.2/0.2/0.1 → confirm envelope; add α_exp=0.10** for citation expansion (inside the ±5–10% bounded-boost policy).
+- **BM25F field weights → no new evidence.** If obs docs get fields {obs_text} only, BM25F is moot for that lane.
+- **PPR hop/edge weights → add edge kind `derived_from` w=1.0** (exact citation, not similarity); don't fold into similarity PPR mass.
+- **Entity alias rules → supported indirectly**: Mastra's "preserve identifiers verbatim" → deterministic rule: never alias-rewrite inside pinned spans; entity match should lowercase-fold at *query-analysis* time only (fixes the filed case-sensitive bug), never mutate stored obs.
+- **Cross-encoder pool 32 → confirm (no OM evidence either way).** OM's whole thesis is avoiding a per-query reranker; a ≤150 ms optional profile stays optional.

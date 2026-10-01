@@ -1,0 +1,893 @@
+{
+  "artifact_revision": "g8w1_a65f576a1e8b936e",
+  "trained_on": {
+    "ingest": "v3",
+    "lambda": 0.5,
+    "method": "executed forced-action paired arms (V3-43.04/05)",
+    "run_ids": [
+      "rr_02d9374003991dbf15d0872c",
+      "rr_683f5dbf84d920defecf5a91",
+      "rr_852174a5cc49e0ee034720ac",
+      "rr_18787fbed3332639de81eb73",
+      "rr_98fdb3eaef63b87ea22c0c0f",
+      "rr_c2335993418132fd81a0dfef",
+      "rr_5296e09e2e9d48e4d289dc76",
+      "rr_fd971b30d2f5523a27168e5e",
+      "rr_c7fdb3743276e6eaf99c0828",
+      "rr_b3174327f17a7320b39bd612",
+      "rr_4b6352dc09bd3cd9357a7ed9",
+      "rr_c149257c3abe8cf86745a004",
+      "rr_2434385e0e22ae006607c248",
+      "rr_295ae208532b44c046b4d6cb",
+      "rr_5564cb146234f9a34511df37",
+      "rr_a85a5e4bce5e63b1baa650f2",
+      "rr_d70217af64db6e2601d0a456",
+      "rr_a7a8d1b57036113b11e74ba9",
+      "rr_4f692ab460faa5e511b8057d",
+      "rr_871aeefa27bde0aa8f1108af",
+      "rr_1f9e7d64c5ffa4569605c734",
+      "rr_14d4330f66ee8fce6f891421",
+      "rr_0101c4f3165b6ea6de4238a9",
+      "rr_7bc6256da341ac9a1bb083c0",
+      "rr_8fa03fc87ff551fe7197a923",
+      "rr_1e181da740c6becf8b971a6e",
+      "rr_c0f677a3ed981ac68a8b90ef",
+      "rr_b64fbfbf68936956c8378817",
+      "rr_8b356edb443d76b15f422e0e",
+      "rr_397966b999e6f79601131ff8",
+      "rr_67ef08e8f41692dc0bcb590d",
+      "rr_e365efd22480c091f0ecebfb",
+      "rr_33d2bf42040126ccea4817c4",
+      "rr_11542e65320e1a158a35b0aa",
+      "rr_2dbf096c49958b4920349bec",
+      "rr_d9c2cedbe4fd624e159b142b",
+      "rr_ea71baea4de9ce1920b2d778",
+      "rr_1978d2b348a48537e371541f",
+      "rr_f40c1b0f5efa82722070f082",
+      "rr_e0a7a3c80f4e508bc88d55de",
+      "rr_5ebb127e94692e3a29e41716",
+      "rr_88d37aae8e6c025a9c9ffadf",
+      "rr_e170124587c5bcac19d7034c",
+      "rr_17e3540dd5aa983c329fa443",
+      "rr_141a4932c8ce3ecd07d2358d",
+      "rr_2238c6e74653f89f80c3d86d",
+      "rr_2b424e765a934668d618a626",
+      "rr_9c6b162090ffa28a8cd55101",
+      "rr_8a83d31c6717d4d62383e7e5",
+      "rr_38073223cfcef38a2248a077",
+      "rr_bdaeb3c559097bde28f4f81c",
+      "rr_45ef3d9bc6b05d5364dcf4ba"
+    ],
+    "tasks": 52
+  },
+  "verdict": {
+    "criterion": "success lower paired 95% interval > -0.01 with >= 10% total task-token reduction, or success +0.03 with positive interval at equal tokens (|token_reduction| < 5%)",
+    "det_bytes": 33270,
+    "det_success": 1.0,
+    "disclosures": {
+      "seeds": "1 (deterministic harness \u2014 no seed variance to repeat)",
+      "train_eval_same_corpus": true
+    },
+    "fallback_verified": true,
+    "g8_pass": false,
+    "learned_bytes": 33270,
+    "learned_success": 1.0,
+    "per_kind_ci95": {
+      "abstention": {
+        "n": 6,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "benign_instructional": {
+        "n": 4,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "exploratory": {
+        "n": 3,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "factual_lookup": {
+        "n": 12,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "history": {
+        "n": 4,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "poisoning": {
+        "n": 8,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "procedure_reuse": {
+        "n": 12,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "scope_isolation": {
+        "n": 3,
+        "success_diff_ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "per_task": [
+      {
+        "det": {
+          "bytes": 522,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 522,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-001"
+      },
+      {
+        "det": {
+          "bytes": 526,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 526,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-002"
+      },
+      {
+        "det": {
+          "bytes": 531,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 531,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-003"
+      },
+      {
+        "det": {
+          "bytes": 533,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 533,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-004"
+      },
+      {
+        "det": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-005"
+      },
+      {
+        "det": {
+          "bytes": 510,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 510,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-006"
+      },
+      {
+        "det": {
+          "bytes": 529,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 529,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-007"
+      },
+      {
+        "det": {
+          "bytes": 531,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 531,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "fl-008"
+      },
+      {
+        "det": {
+          "bytes": 509,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 509,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "pr-001"
+      },
+      {
+        "det": {
+          "bytes": 524,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 524,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "pr-002"
+      },
+      {
+        "det": {
+          "bytes": 541,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 541,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "pr-003"
+      },
+      {
+        "det": {
+          "bytes": 556,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 556,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-004"
+      },
+      {
+        "det": {
+          "bytes": 1084,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1084,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-005"
+      },
+      {
+        "det": {
+          "bytes": 548,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 548,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-006"
+      },
+      {
+        "det": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-007"
+      },
+      {
+        "det": {
+          "bytes": 546,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 546,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "pr-008"
+      },
+      {
+        "det": {
+          "bytes": 540,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 540,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "hi-001"
+      },
+      {
+        "det": {
+          "bytes": 1061,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1061,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "hi-002"
+      },
+      {
+        "det": {
+          "bytes": 529,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 529,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "hi-003"
+      },
+      {
+        "det": {
+          "bytes": 564,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 564,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "insufficient_groups_omitted"
+        ],
+        "task_id": "hi-004"
+      },
+      {
+        "det": {
+          "bytes": 1535,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1535,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ex-001"
+      },
+      {
+        "det": {
+          "bytes": 1052,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1052,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ex-002"
+      },
+      {
+        "det": {
+          "bytes": 1057,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1057,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ex-003"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "weak_term_coverage",
+          "no_supported_groups"
+        ],
+        "task_id": "ab-001"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "no_authorized_evidence"
+        ],
+        "task_id": "ab-002"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "weak_term_coverage",
+          "no_supported_groups"
+        ],
+        "task_id": "ab-003"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "weak_term_coverage",
+          "no_supported_groups"
+        ],
+        "task_id": "ab-004"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "no_authorized_evidence"
+        ],
+        "task_id": "ab-005"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "no_authorized_evidence"
+        ],
+        "task_id": "ab-006"
+      },
+      {
+        "det": {
+          "bytes": 520,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 520,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ben-001"
+      },
+      {
+        "det": {
+          "bytes": 549,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 549,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ben-002"
+      },
+      {
+        "det": {
+          "bytes": 533,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 533,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ben-003"
+      },
+      {
+        "det": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "ben-004"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "no_authorized_evidence"
+        ],
+        "task_id": "sc-001"
+      },
+      {
+        "det": {
+          "bytes": 523,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 523,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "sc-002"
+      },
+      {
+        "det": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 0,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable",
+          "no_authorized_evidence"
+        ],
+        "task_id": "sc-003"
+      },
+      {
+        "det": {
+          "bytes": 1087,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1087,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-001"
+      },
+      {
+        "det": {
+          "bytes": 1085,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1085,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-002"
+      },
+      {
+        "det": {
+          "bytes": 1111,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1111,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-003"
+      },
+      {
+        "det": {
+          "bytes": 1075,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1075,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-004"
+      },
+      {
+        "det": {
+          "bytes": 1120,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1120,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-005"
+      },
+      {
+        "det": {
+          "bytes": 1116,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1116,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-006"
+      },
+      {
+        "det": {
+          "bytes": 1083,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1083,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-007"
+      },
+      {
+        "det": {
+          "bytes": 1120,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1120,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "po-008"
+      },
+      {
+        "det": {
+          "bytes": 538,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 538,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-012"
+      },
+      {
+        "det": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-009"
+      },
+      {
+        "det": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 543,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-010"
+      },
+      {
+        "det": {
+          "bytes": 559,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 559,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "pr-011"
+      },
+      {
+        "det": {
+          "bytes": 1556,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1556,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "up-001"
+      },
+      {
+        "det": {
+          "bytes": 1039,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1039,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "up-002"
+      },
+      {
+        "det": {
+          "bytes": 1067,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 1067,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "up-003"
+      },
+      {
+        "det": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned": {
+          "bytes": 544,
+          "success": 1.0
+        },
+        "learned_warnings": [
+          "dense:encoder_or_rows_unavailable"
+        ],
+        "task_id": "up-004"
+      }
+    ],
+    "success_diff": 0.0,
+    "success_diff_ci95": [
+      0.0,
+      0.0
+    ],
+    "tasks": 52,
+    "token_reduction": 0.0,
+    "token_reduction_ci95": [
+      0.0,
+      0.0
+    ]
+  }
+}

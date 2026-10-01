@@ -1,0 +1,7281 @@
+{
+ "n_lane_miss_answerable": 99,
+ "class_counts": {
+  "produced_then_lost": 60,
+  "lane_cap": 37,
+  "zero_overlap": 2
+ },
+ "questions": [
+  {
+   "task_id": "conv-30/q002",
+   "query": "How do Jon and Gina both like to destress?",
+   "category": "single_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:05ab55be9e8725f3a1c57924",
+    "u7:d65ebe6579af5f678335ae06"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:05ab55be9e8725f3a1c57924",
+     "ref": "conv-30:D1:6",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "and"
+     ],
+     "terms_with_post": [
+      "jon"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "and": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:d65ebe6579af5f678335ae06",
+     "ref": "conv-30:D1:7",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "jon",
+      "gina",
+      "to"
+     ],
+     "terms_with_post": [
+      "jon",
+      "gina"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "gina": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 96,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 486,
+    "scored": 686,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q009",
+   "query": "Which city have both Jean and John visited?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:651b1dc6e7d9675553de188a",
+    "u7:b2e460b2732223755432d8e6"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:651b1dc6e7d9675553de188a",
+     "ref": "conv-30:D15:1",
+     "speaker_canon": "jon",
+     "overlap_terms": [],
+     "terms_with_post": [],
+     "stage": "zero_overlap"
+    },
+    {
+     "unit_id": "u7:b2e460b2732223755432d8e6",
+     "ref": "conv-30:D2:5",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "visited"
+     ],
+     "terms_with_post": [
+      "visited"
+     ],
+     "term_fates": {
+      "visited": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 117,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "typed"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 269,
+    "scored": 469,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q018",
+   "query": "Do Jon and Gina start businesses out of what they love?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:69e2d3ab8c9b4700f70a99c4",
+    "u7:dc1b56a6a005e7b46288aa2e"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:69e2d3ab8c9b4700f70a99c4",
+     "ref": "conv-30:D6:8",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "and",
+      "gina",
+      "love"
+     ],
+     "terms_with_post": [
+      "gina",
+      "love"
+     ],
+     "term_fates": {
+      "and": "df_pre_gate",
+      "gina": "kept",
+      "love": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:dc1b56a6a005e7b46288aa2e",
+     "ref": "conv-30:D1:4",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "and",
+      "start"
+     ],
+     "terms_with_post": [
+      "jon",
+      "start"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "and": "df_pre_gate",
+      "start": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 485,
+    "scored": 685,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q031",
+   "query": "How long did it take for Jon to open his studio?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:4e43e280708a2e7dc39a1544",
+    "u7:9bf92faf049d66c75518e01b"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:4e43e280708a2e7dc39a1544",
+     "ref": "conv-30:D1:2",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "take",
+      "jon",
+      "to"
+     ],
+     "terms_with_post": [
+      "take",
+      "jon"
+     ],
+     "term_fates": {
+      "take": "kept",
+      "jon": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 122,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent",
+      "time"
+     ]
+    },
+    {
+     "unit_id": "u7:9bf92faf049d66c75518e01b",
+     "ref": "conv-30:D15:13",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "open"
+     ],
+     "terms_with_post": [
+      "jon",
+      "open"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "open": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 111,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "it",
+      "df": 2062
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 369,
+    "scored": 569,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q043",
+   "query": "What do the dancers in the photo represent?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:1af2588cf531d7ba7f0f0092"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:1af2588cf531d7ba7f0f0092",
+     "ref": "conv-30:D1:25",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "the"
+     ],
+     "terms_with_post": [
+      "the"
+     ],
+     "term_fates": {
+      "the": "kept"
+     },
+     "stage": "zero_overlap",
+     "detail": "only non-content overlap ['the'] \u2014 never nominates"
+    }
+   ],
+   "class": "zero_overlap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 311,
+    "scored": 511,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q044",
+   "query": "What does Gina say about the dancers in the photo?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:6785309cd449cc49c6bd23b1"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:6785309cd449cc49c6bd23b1",
+     "ref": "conv-30:D1:26",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "the"
+     ],
+     "terms_with_post": [
+      "the"
+     ],
+     "term_fates": {
+      "the": "kept"
+     },
+     "stage": "zero_overlap",
+     "detail": "only non-content overlap ['the'] \u2014 never nominates"
+    }
+   ],
+   "class": "zero_overlap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 517,
+    "scored": 717,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q056",
+   "query": "What did Jon and Gina compare their entrepreneurial journeys to?",
+   "category": "single_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:d1a6a3813e68a57d7c150d6e",
+    "u7:ef5080a7e91fd986af5cad18"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d1a6a3813e68a57d7c150d6e",
+     "ref": "conv-30:D6:15",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "and",
+      "to"
+     ],
+     "terms_with_post": [
+      "jon"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "and": "df_pre_gate",
+      "to": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:ef5080a7e91fd986af5cad18",
+     "ref": "conv-30:D6:16",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "gina",
+      "to"
+     ],
+     "terms_with_post": [
+      "gina"
+     ],
+     "term_fates": {
+      "gina": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 203,
+    "scored": 403,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q057",
+   "query": "What advice does Gina give to Jon about running a successful business?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:ba466c9e3ac0a3731c37817e"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:ba466c9e3ac0a3731c37817e",
+     "ref": "conv-30:D7:5",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "to",
+      "jon"
+     ],
+     "terms_with_post": [
+      "jon"
+     ],
+     "term_fates": {
+      "to": "df_pre_gate",
+      "jon": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 254,
+    "scored": 454,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q072",
+   "query": "How does Jon feel about the opening night of his dance studio?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:73ab28e64663753b955dd180"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:73ab28e64663753b955dd180",
+     "ref": "conv-30:D15:7",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "feel"
+     ],
+     "terms_with_post": [
+      "jon",
+      "feel"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "feel": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 304,
+    "scored": 504,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q074",
+   "query": "What does Jon plan to do at the grand opening of his dance studio?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:1da01211a249be2aed25bced"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:1da01211a249be2aed25bced",
+     "ref": "conv-30:D15:9",
+     "speaker_canon": "jon",
+     "overlap_terms": [
+      "jon",
+      "to",
+      "the",
+      "of"
+     ],
+     "terms_with_post": [
+      "jon",
+      "the",
+      "of"
+     ],
+     "term_fates": {
+      "jon": "kept",
+      "to": "df_pre_gate",
+      "the": "kept",
+      "of": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 198,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 199,
+    "scored": 399,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q075",
+   "query": "What does Gina say to Jon about the grand opening?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:f43c70039ea206479f32cfc5"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:f43c70039ea206479f32cfc5",
+     "ref": "conv-30:D15:12",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "gina",
+      "jon"
+     ],
+     "terms_with_post": [
+      "gina",
+      "jon"
+     ],
+     "term_fates": {
+      "gina": "kept",
+      "jon": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 187,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 183,
+    "scored": 383,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-30/q081",
+   "query": "What offer does Gina make to Jon regarding social media?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:d4e53fdfa246597c250399b2"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d4e53fdfa246597c250399b2",
+     "ref": "conv-30:D18:13",
+     "speaker_canon": "gina",
+     "overlap_terms": [
+      "gina",
+      "make",
+      "to",
+      "jon"
+     ],
+     "terms_with_post": [
+      "gina",
+      "make",
+      "jon"
+     ],
+     "term_fates": {
+      "gina": "kept",
+      "make": "kept",
+      "to": "df_pre_gate",
+      "jon": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 71,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 431,
+    "scored": 631,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q000",
+   "query": "Is it likely that Nate has friends besides Joanna?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:66eb6eb11d8a625c24890e47"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:66eb6eb11d8a625c24890e47",
+     "ref": "conv-42:D1:7",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "it",
+      "df": 2062
+     }
+    ],
+    "cap": 200,
+    "overflow": 726,
+    "scored": 926,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q005",
+   "query": "What are Joanna's hobbies?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:e803f7d1c1810b1f0dceb630",
+    "u7:ea30b709fd00b67ae6250c40"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:e803f7d1c1810b1f0dceb630",
+     "ref": "conv-42:D1:10",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:ea30b709fd00b67ae6250c40",
+     "ref": "conv-42:D2:25",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 2,
+    "nomination_eligible_terms": 2,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 231,
+    "scored": 431,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q008",
+   "query": "When did Nate get his first two turtles?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:d32d0bf56bbad07aed01baf2"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d32d0bf56bbad07aed01baf2",
+     "ref": "conv-42:D2:12",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 337,
+    "scored": 537,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q014",
+   "query": "What nickname does Nate use for Joanna?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:ebfb6af39e4e67bcc4eb5a5c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:ebfb6af39e4e67bcc4eb5a5c",
+     "ref": "conv-42:D7:1",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "what",
+      "nate"
+     ],
+     "terms_with_post": [
+      "what",
+      "nate"
+     ],
+     "term_fates": {
+      "what": "kept",
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 571,
+    "scored": 771,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q026",
+   "query": "When did Nate win his third tourney?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:d74b44bdbf9abc279dd86e26"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d74b44bdbf9abc279dd86e26",
+     "ref": "conv-42:D14:8",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 271,
+    "scored": 471,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q034",
+   "query": "What book recommendations has Joanna given to Nate?",
+   "category": "multi_hop",
+   "n_gold": 3,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:16388ef30571d5b2b5cc3a21",
+    "u7:fe1f4cce871ebb511382d70c",
+    "u7:fe25ae52baf972eea06bb8c0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:16388ef30571d5b2b5cc3a21",
+     "ref": "conv-42:D3:17",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:fe1f4cce871ebb511382d70c",
+     "ref": "conv-42:D19:16",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "what",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "what",
+      "joanna"
+     ],
+     "term_fates": {
+      "what": "kept",
+      "joanna": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:fe25ae52baf972eea06bb8c0",
+     "ref": "conv-42:D19:14",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "book",
+      "joanna",
+      "to"
+     ],
+     "terms_with_post": [
+      "book",
+      "joanna"
+     ],
+     "term_fates": {
+      "book": "kept",
+      "joanna": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 43,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 485,
+    "scored": 685,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q042",
+   "query": "What movies have both Joanna and Nate seen?",
+   "category": "multi_hop",
+   "n_gold": 3,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:16388ef30571d5b2b5cc3a21",
+    "u7:a8e7ffab216927f55af62694",
+    "u7:e1af46fba116fc5adc2531f5"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:16388ef30571d5b2b5cc3a21",
+     "ref": "conv-42:D3:17",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "and"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "and": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:a8e7ffab216927f55af62694",
+     "ref": "conv-42:D10:1",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "and",
+      "nate"
+     ],
+     "terms_with_post": [
+      "joanna",
+      "nate"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "and": "df_pre_gate",
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:e1af46fba116fc5adc2531f5",
+     "ref": "conv-42:D22:8",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "and",
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "and": "df_pre_gate",
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 437,
+    "scored": 637,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q050",
+   "query": "What is something Nate gave to Joanna that brings her a lot of joy?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:1a2a2d99ae28118e263c6da8",
+    "u7:cdde2c1d08a12a9123df3c23"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:1a2a2d99ae28118e263c6da8",
+     "ref": "conv-42:D13:9",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "joanna",
+      "a",
+      "of"
+     ],
+     "terms_with_post": [
+      "nate",
+      "joanna",
+      "of"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "joanna": "kept",
+      "a": "df_pre_gate",
+      "of": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:cdde2c1d08a12a9123df3c23",
+     "ref": "conv-42:D24:2",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "what",
+      "nate",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "what",
+      "nate",
+      "joanna"
+     ],
+     "term_fates": {
+      "what": "kept",
+      "nate": "kept",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 195,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 655,
+    "scored": 855,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q051",
+   "query": "When did Nate get Tilly for Joanna?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:1a2a2d99ae28118e263c6da8",
+    "u7:cdde2c1d08a12a9123df3c23"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:1a2a2d99ae28118e263c6da8",
+     "ref": "conv-42:D13:9",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "for",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "nate",
+      "for",
+      "joanna"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "for": "kept",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 77,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "time"
+     ]
+    },
+    {
+     "unit_id": "u7:cdde2c1d08a12a9123df3c23",
+     "ref": "conv-42:D24:2",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "nate",
+      "for",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "nate",
+      "for",
+      "joanna"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "for": "kept",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 75,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "time"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 429,
+    "scored": 629,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q054",
+   "query": "When was Joanna's second movie script shown on the big screens?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:24e2025f30bdbbb757e16644"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:24e2025f30bdbbb757e16644",
+     "ref": "conv-42:D25:1",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "joanna",
+      "on"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "on": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "on",
+      "df": 3647
+     }
+    ],
+    "cap": 200,
+    "overflow": 294,
+    "scored": 494,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q056",
+   "query": "What animal do both Nate and Joanna like?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:88005428aa6ad25b607934f8",
+    "u7:b445b1c87f581dbfac5f052c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:88005428aa6ad25b607934f8",
+     "ref": "conv-42:D26:9",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "nate",
+      "and",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "nate",
+      "joanna"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "and": "df_pre_gate",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 161,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:b445b1c87f581dbfac5f052c",
+     "ref": "conv-42:D5:6",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "and"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "and": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 673,
+    "scored": 873,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q058",
+   "query": "What things has Nate reccomended to Joanna?",
+   "category": "multi_hop",
+   "n_gold": 6,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "partial",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:12620c9914d50503b523b576",
+    "u7:70b218a1e52ca899f17fdf8e",
+    "u7:80a6cb56a7c8108d8b983cfc",
+    "u7:86be41a75ca525ef33f36668",
+    "u7:aae0f7720d0b4b97f9ce08a7",
+    "u7:bb413e59a38ea527a50deccc"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:12620c9914d50503b523b576",
+     "ref": "conv-42:D9:14",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "has",
+      "nate"
+     ],
+     "terms_with_post": [
+      "has",
+      "nate"
+     ],
+     "term_fates": {
+      "has": "kept",
+      "nate": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 95,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:70b218a1e52ca899f17fdf8e",
+     "ref": "conv-42:D27:23",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "reccomended"
+     ],
+     "terms_with_post": [
+      "nate",
+      "reccomended"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "reccomended": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 100,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:80a6cb56a7c8108d8b983cfc",
+     "ref": "conv-42:D9:12",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:86be41a75ca525ef33f36668",
+     "ref": "conv-42:D10:11",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "reccomended",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "reccomended",
+      "joanna"
+     ],
+     "term_fates": {
+      "reccomended": "kept",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 58,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "ent"
+     ]
+    },
+    {
+     "unit_id": "u7:aae0f7720d0b4b97f9ce08a7",
+     "ref": "conv-42:D19:17",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "things",
+      "nate"
+     ],
+     "terms_with_post": [
+      "things",
+      "nate"
+     ],
+     "term_fates": {
+      "things": "kept",
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:bb413e59a38ea527a50deccc",
+     "ref": "conv-42:D2:14",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "reccomended"
+     ],
+     "terms_with_post": [
+      "nate",
+      "reccomended"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "reccomended": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 57,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 429,
+    "scored": 629,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q069",
+   "query": "How many turtles does Nate have?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:9e60b0d1d021bcf0a1bb5b43",
+    "u7:c17eec001a6d427caeda68aa"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:9e60b0d1d021bcf0a1bb5b43",
+     "ref": "conv-42:D28:23",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "turtles",
+      "nate"
+     ],
+     "terms_with_post": [
+      "turtles",
+      "nate"
+     ],
+     "term_fates": {
+      "turtles": "kept",
+      "nate": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 41,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "time"
+     ]
+    },
+    {
+     "unit_id": "u7:c17eec001a6d427caeda68aa",
+     "ref": "conv-42:D8:3",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "have"
+     ],
+     "terms_with_post": [
+      "nate",
+      "have"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "have": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 109,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "time"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 268,
+    "scored": 468,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q072",
+   "query": "When did Joanna plan on going to Nate's to watch him play with his turtles?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:cce1c6547530d0712580e50e"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:cce1c6547530d0712580e50e",
+     "ref": "conv-42:D28:32",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "on"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "on": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "on",
+      "df": 3647
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 835,
+    "scored": 1035,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q082",
+   "query": "What recipes has Nate made?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:30fb7e38887d0132e0b3c255",
+    "u7:86c13967ccbc1e6e983664c6"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:30fb7e38887d0132e0b3c255",
+     "ref": "conv-42:D3:4",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "has",
+      "nate"
+     ],
+     "terms_with_post": [
+      "has",
+      "nate"
+     ],
+     "term_fates": {
+      "has": "kept",
+      "nate": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 79,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent"
+     ]
+    },
+    {
+     "unit_id": "u7:86c13967ccbc1e6e983664c6",
+     "ref": "conv-42:D4:3",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 355,
+    "scored": 555,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q083",
+   "query": "What are the skills that Nate has helped others learn?",
+   "category": "multi_hop",
+   "n_gold": 3,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:05a0209875c8f35682bb54ca",
+    "u7:3614ef92f3d385c0f83b15f7",
+    "u7:b329e9c7886b8a1b13e274f0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:05a0209875c8f35682bb54ca",
+     "ref": "conv-42:D14:16",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "helped"
+     ],
+     "terms_with_post": [
+      "nate",
+      "helped"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "helped": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:3614ef92f3d385c0f83b15f7",
+     "ref": "conv-42:D26:12",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "the",
+      "nate",
+      "helped"
+     ],
+     "terms_with_post": [
+      "the",
+      "nate",
+      "helped"
+     ],
+     "term_fates": {
+      "the": "kept",
+      "nate": "kept",
+      "helped": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 141,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:b329e9c7886b8a1b13e274f0",
+     "ref": "conv-42:D18:8",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "has"
+     ],
+     "terms_with_post": [
+      "nate",
+      "has"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "has": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 677,
+    "scored": 877,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q087",
+   "query": "What state did Nate visit?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:0a3cc3988519fd2a189f44e5"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0a3cc3988519fd2a189f44e5",
+     "ref": "conv-42:D29:6",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 273,
+    "scored": 473,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q098",
+   "query": "What genre is Joanna's first screenplay?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:b257850d1ab09b7ef4214639"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:b257850d1ab09b7ef4214639",
+     "ref": "conv-42:D2:5",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 198,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 252,
+    "scored": 452,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q101",
+   "query": "What did Nate think of the coconut milk ice cream he made?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:0923200472ce9e965de8b44d"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0923200472ce9e965de8b44d",
+     "ref": "conv-42:D3:6",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 341,
+    "scored": 541,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q107",
+   "query": "Why does Nate like turtles as pets?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:b445b1c87f581dbfac5f052c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:b445b1c87f581dbfac5f052c",
+     "ref": "conv-42:D5:6",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "turtles"
+     ],
+     "terms_with_post": [
+      "nate",
+      "turtles"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "turtles": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 35,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 545,
+    "scored": 745,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q134",
+   "query": "What recipe Nate offer to share with Joanna?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:1e65b4cf2a409fd564086ff2"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:1e65b4cf2a409fd564086ff2",
+     "ref": "conv-42:D16:10",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "to"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 902,
+    "scored": 1102,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q135",
+   "query": "What did Joanna plan to do with the recipe Nate promised to share?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:cba43cb9959f7c14adf47992"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:cba43cb9959f7c14adf47992",
+     "ref": "conv-42:D16:11",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "to"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 956,
+    "scored": 1156,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q137",
+   "query": "Where did Joanna go for a road trip for research?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:7bec51a92b2735f37bac648b"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:7bec51a92b2735f37bac648b",
+     "ref": "conv-42:D17:4",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "a"
+     ],
+     "terms_with_post": [
+      "joanna"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "a": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     }
+    ],
+    "cap": 200,
+    "overflow": 498,
+    "scored": 698,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q147",
+   "query": "What type of ice cream does Joanna mention that Nate makes and is delicious?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:4a9b1a090c008292d2d8528c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:4a9b1a090c008292d2d8528c",
+     "ref": "conv-42:D18:9",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "nate",
+      "makes"
+     ],
+     "terms_with_post": [
+      "joanna",
+      "nate",
+      "makes"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "nate": "kept",
+      "makes": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 138,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 658,
+    "scored": 858,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q151",
+   "query": "How did Nate celebrate winning the international tournament?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:3e1d4e25cdf0511cf3a4f0f6"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:3e1d4e25cdf0511cf3a4f0f6",
+     "ref": "conv-42:D19:9",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate"
+     ],
+     "terms_with_post": [
+      "nate"
+     ],
+     "term_fates": {
+      "nate": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 292,
+    "scored": 492,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q155",
+   "query": "What is Nate's favorite dish from the cooking show he hosted?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:3c2f4100172de6a30e04b7ec"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:3c2f4100172de6a30e04b7ec",
+     "ref": "conv-42:D21:6",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "is",
+      "nate",
+      "the"
+     ],
+     "terms_with_post": [
+      "is",
+      "nate",
+      "the"
+     ],
+     "term_fates": {
+      "is": "kept",
+      "nate": "kept",
+      "the": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 158,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 316,
+    "scored": 516,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q167",
+   "query": "What does Joanna recommend to make a living room comfy like hers?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:245bdbbd0506e89861e4d5bc"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:245bdbbd0506e89861e4d5bc",
+     "ref": "conv-42:D23:26",
+     "speaker_canon": "joanna",
+     "overlap_terms": [
+      "joanna",
+      "to",
+      "make",
+      "a"
+     ],
+     "terms_with_post": [
+      "joanna",
+      "make"
+     ],
+     "term_fates": {
+      "joanna": "kept",
+      "to": "df_pre_gate",
+      "make": "kept",
+      "a": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 747,
+    "scored": 947,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-42/q173",
+   "query": "What encouragement does Nate give to Joanna after her setback?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:079ad664dce78ef50b7c2c9d"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:079ad664dce78ef50b7c2c9d",
+     "ref": "conv-42:D24:13",
+     "speaker_canon": "nate",
+     "overlap_terms": [
+      "nate",
+      "to",
+      "joanna"
+     ],
+     "terms_with_post": [
+      "nate",
+      "joanna"
+     ],
+     "term_fates": {
+      "nate": "kept",
+      "to": "df_pre_gate",
+      "joanna": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 189,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 463,
+    "scored": 663,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q002",
+   "query": "Which places or events have John and James planned to meet at?",
+   "category": "multi_hop",
+   "n_gold": 4,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:816d5626296c239b6c348765",
+    "u7:b9de98d2a38f05e69e12aa92",
+    "u7:cb3670ed8edc8eb241614e43",
+    "u7:f3955fdd874eef745025b5a0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:816d5626296c239b6c348765",
+     "ref": "conv-47:D1:36",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james"
+     ],
+     "terms_with_post": [
+      "james"
+     ],
+     "term_fates": {
+      "james": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:b9de98d2a38f05e69e12aa92",
+     "ref": "conv-47:D23:6",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:cb3670ed8edc8eb241614e43",
+     "ref": "conv-47:D21:15",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james",
+      "to"
+     ],
+     "terms_with_post": [
+      "james"
+     ],
+     "term_fates": {
+      "james": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:f3955fdd874eef745025b5a0",
+     "ref": "conv-47:D23:5",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "john",
+      "and",
+      "james",
+      "to"
+     ],
+     "terms_with_post": [
+      "john",
+      "james"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "and": "df_pre_gate",
+      "james": "kept",
+      "to": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 130,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 649,
+    "scored": 849,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q005",
+   "query": "What are John and James' favorite games?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:20c6a631029a5edf1f3193d2",
+    "u7:9010225b60c3cf2e9857ef30"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:20c6a631029a5edf1f3193d2",
+     "ref": "conv-47:D4:16",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "and",
+      "james",
+      "games"
+     ],
+     "terms_with_post": [
+      "james",
+      "games"
+     ],
+     "term_fates": {
+      "and": "df_pre_gate",
+      "james": "kept",
+      "games": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:9010225b60c3cf2e9857ef30",
+     "ref": "conv-47:D3:11",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "favorite",
+      "games"
+     ],
+     "terms_with_post": [
+      "john",
+      "favorite",
+      "games"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "favorite": "kept",
+      "games": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 33,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "typed"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 620,
+    "scored": 820,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q006",
+   "query": "Does James live in Connecticut?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:a5eb102d98889243d630ccd9"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:a5eb102d98889243d630ccd9",
+     "ref": "conv-47:D5:1",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james",
+      "in"
+     ],
+     "terms_with_post": [
+      "james",
+      "in"
+     ],
+     "term_fates": {
+      "james": "kept",
+      "in": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 61,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 255,
+    "scored": 455,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q017",
+   "query": "What is the board game where you have to find the imposter that John mentions to James?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:8771369025595cb3e4415a09"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:8771369025595cb3e4415a09",
+     "ref": "conv-47:D8:36",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "the",
+      "game",
+      "to",
+      "john"
+     ],
+     "terms_with_post": [
+      "the",
+      "game",
+      "john"
+     ],
+     "term_fates": {
+      "the": "kept",
+      "game": "kept",
+      "to": "df_pre_gate",
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     },
+     {
+      "term": "you",
+      "df": 1675
+     }
+    ],
+    "cap": 200,
+    "overflow": 596,
+    "scored": 796,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q018",
+   "query": "Which books has John recommended to James?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:02e322ef744f137cf2eecd27",
+    "u7:393a0b52aa9ebc4fd0196cad"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:02e322ef744f137cf2eecd27",
+     "ref": "conv-47:D8:14",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:393a0b52aa9ebc4fd0196cad",
+     "ref": "conv-47:D14:10",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 554,
+    "scored": 754,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q022",
+   "query": "Who or which organizations have been the beneficiaries of John's charity tournaments?",
+   "category": "multi_hop",
+   "n_gold": 3,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:205c157e53f62850668f4549",
+    "u7:2e2b63584cb0cac8e93800fd",
+    "u7:72ad0e4e0de0b970e4610471"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:205c157e53f62850668f4549",
+     "ref": "conv-47:D10:12",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "the",
+      "john"
+     ],
+     "terms_with_post": [
+      "the",
+      "john"
+     ],
+     "term_fates": {
+      "the": "kept",
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:2e2b63584cb0cac8e93800fd",
+     "ref": "conv-47:D29:1",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:72ad0e4e0de0b970e4610471",
+     "ref": "conv-47:D10:10",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "which",
+      "the",
+      "john"
+     ],
+     "terms_with_post": [
+      "which",
+      "the",
+      "john"
+     ],
+     "term_fates": {
+      "which": "kept",
+      "the": "kept",
+      "john": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 23,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 300,
+    "scored": 500,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q023",
+   "query": "When will John start his new job?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:fdfd240e58e4ffe1ae48b88e"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:fdfd240e58e4ffe1ae48b88e",
+     "ref": "conv-47:D13:5",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "start"
+     ],
+     "terms_with_post": [
+      "john",
+      "start"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "start": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 53,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "typed"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 485,
+    "scored": 685,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q033",
+   "query": "Did John and James study together?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:0a587ea375cafedf64363ee1"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0a587ea375cafedf64363ee1",
+     "ref": "conv-47:D17:13",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 572,
+    "scored": 772,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q041",
+   "query": "When did James meet Samantha?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:fb59f9f3a128420d63d91e82"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:fb59f9f3a128420d63d91e82",
+     "ref": "conv-47:D19:12",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james"
+     ],
+     "terms_with_post": [
+      "james"
+     ],
+     "term_fates": {
+      "james": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 160,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 243,
+    "scored": 443,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q051",
+   "query": "Which new games did John start play during the course of the conversation with James?",
+   "category": "multi_hop",
+   "n_gold": 6,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:0e2fcafced0255929d2a7584",
+    "u7:3436432ff33020a7c79bd979",
+    "u7:781e069e91ce3bdf84837759",
+    "u7:dcf614c3086a0a7b2e71544e",
+    "u7:e85771a22bddcfcd70111d6a",
+    "u7:f62e1568bf87c6e2b5e9cc82"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0e2fcafced0255929d2a7584",
+     "ref": "conv-47:D24:3",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "games",
+      "did",
+      "john",
+      "the",
+      "of",
+      "with"
+     ],
+     "terms_with_post": [
+      "games",
+      "did",
+      "john",
+      "the",
+      "of",
+      "with"
+     ],
+     "term_fates": {
+      "games": "kept",
+      "did": "kept",
+      "john": "kept",
+      "the": "kept",
+      "of": "kept",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 73,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:3436432ff33020a7c79bd979",
+     "ref": "conv-47:D8:20",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "new",
+      "john",
+      "play"
+     ],
+     "terms_with_post": [
+      "new",
+      "john",
+      "play"
+     ],
+     "term_fates": {
+      "new": "kept",
+      "john": "kept",
+      "play": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 103,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:781e069e91ce3bdf84837759",
+     "ref": "conv-47:D24:1",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "new",
+      "games",
+      "john",
+      "start",
+      "of",
+      "with",
+      "james"
+     ],
+     "terms_with_post": [
+      "new",
+      "games",
+      "john",
+      "start",
+      "of",
+      "with",
+      "james"
+     ],
+     "term_fates": {
+      "new": "kept",
+      "games": "kept",
+      "john": "kept",
+      "start": "kept",
+      "of": "kept",
+      "with": "kept",
+      "james": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 6,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:dcf614c3086a0a7b2e71544e",
+     "ref": "conv-47:D5:4",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "new",
+      "john",
+      "play",
+      "the",
+      "of",
+      "with"
+     ],
+     "terms_with_post": [
+      "new",
+      "john",
+      "play",
+      "the",
+      "of",
+      "with"
+     ],
+     "term_fates": {
+      "new": "kept",
+      "john": "kept",
+      "play": "kept",
+      "the": "kept",
+      "of": "kept",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 48,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:e85771a22bddcfcd70111d6a",
+     "ref": "conv-47:D19:7",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "play",
+      "the",
+      "with"
+     ],
+     "terms_with_post": [
+      "john",
+      "play",
+      "the",
+      "with"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "play": "kept",
+      "the": "kept",
+      "with": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:f62e1568bf87c6e2b5e9cc82",
+     "ref": "conv-47:D30:14",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "games",
+      "john",
+      "play",
+      "the",
+      "with"
+     ],
+     "terms_with_post": [
+      "games",
+      "john",
+      "play",
+      "the",
+      "with"
+     ],
+     "term_fates": {
+      "games": "kept",
+      "john": "kept",
+      "play": "kept",
+      "the": "kept",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 26,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 9,
+    "nomination_eligible_terms": 9,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 813,
+    "scored": 1013,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q056",
+   "query": "Which of James's family members have visited him in the last year?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:167e58a90fe048849240c6b0",
+    "u7:bc92349882b1def4f88d47f9"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:167e58a90fe048849240c6b0",
+     "ref": "conv-47:D28:19",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "of",
+      "james",
+      "in",
+      "the"
+     ],
+     "terms_with_post": [
+      "of",
+      "james",
+      "in",
+      "the"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "james": "kept",
+      "in": "kept",
+      "the": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 147,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent"
+     ]
+    },
+    {
+     "unit_id": "u7:bc92349882b1def4f88d47f9",
+     "ref": "conv-47:D17:28",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james"
+     ],
+     "terms_with_post": [
+      "james"
+     ],
+     "term_fates": {
+      "james": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 420,
+    "scored": 620,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q071",
+   "query": "What did James offer to do for John regarding pets?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:81cd4f402ae8195844f8c0c2"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:81cd4f402ae8195844f8c0c2",
+     "ref": "conv-47:D2:19",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "james",
+      "for",
+      "pets"
+     ],
+     "terms_with_post": [
+      "james",
+      "for",
+      "pets"
+     ],
+     "term_fates": {
+      "james": "kept",
+      "for": "kept",
+      "pets": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 30,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 539,
+    "scored": 739,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q086",
+   "query": "What type of pizza is James' favorite?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:d011416700b410a1a153100a"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d011416700b410a1a153100a",
+     "ref": "conv-47:D9:18",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "of",
+      "james"
+     ],
+     "terms_with_post": [
+      "of",
+      "james"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "james": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 172,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 285,
+    "scored": 485,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q091",
+   "query": "What did the system John created help the charitable foundation with?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:b851027b8f2dde9e921d4f19"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:b851027b8f2dde9e921d4f19",
+     "ref": "conv-47:D11:5",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "the",
+      "system",
+      "john"
+     ],
+     "terms_with_post": [
+      "the",
+      "system",
+      "john"
+     ],
+     "term_fates": {
+      "the": "kept",
+      "system": "kept",
+      "john": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 25,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 299,
+    "scored": 499,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q096",
+   "query": "Which football club does John support?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:4afeaf2eefee4f4a7c5316a8"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:4afeaf2eefee4f4a7c5316a8",
+     "ref": "conv-47:D13:15",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 384,
+    "scored": 584,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q097",
+   "query": "What disagreement do James and John have about their football teams?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:4afeaf2eefee4f4a7c5316a8"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:4afeaf2eefee4f4a7c5316a8",
+     "ref": "conv-47:D13:15",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "and",
+      "john",
+      "teams"
+     ],
+     "terms_with_post": [
+      "john",
+      "teams"
+     ],
+     "term_fates": {
+      "and": "df_pre_gate",
+      "john": "kept",
+      "teams": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 76,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 499,
+    "scored": 699,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q107",
+   "query": "What made John leave his IT job?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:218b0a941681e59a85677cc1"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:218b0a941681e59a85677cc1",
+     "ref": "conv-47:D18:3",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "it"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "it": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "it",
+      "df": 2062
+     }
+    ],
+    "cap": 200,
+    "overflow": 360,
+    "scored": 560,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q119",
+   "query": "What kind of programs are John's siblings making?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:9d5e474919b68b35edaa3eab"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:9d5e474919b68b35edaa3eab",
+     "ref": "conv-47:D22:12",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "making"
+     ],
+     "terms_with_post": [
+      "john",
+      "making"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "making": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 146,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 510,
+    "scored": 710,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q128",
+   "query": "What kind of dream did James have recently?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:be7832e5358c9ae352fa1505"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:be7832e5358c9ae352fa1505",
+     "ref": "conv-47:D24:8",
+     "speaker_canon": "james",
+     "overlap_terms": [
+      "of",
+      "james"
+     ],
+     "terms_with_post": [
+      "of",
+      "james"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "james": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 316,
+    "scored": 516,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q129",
+   "query": "What kind of music does John like?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:94d2d8faa2428890eb851ed0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:94d2d8faa2428890eb851ed0",
+     "ref": "conv-47:D24:13",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "music",
+      "john"
+     ],
+     "terms_with_post": [
+      "music",
+      "john"
+     ],
+     "term_fates": {
+      "music": "kept",
+      "john": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 15,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 535,
+    "scored": 735,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q133",
+   "query": "What type of game is John's upcoming mobile game?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:e687ccc156c8fdc3f71295a0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:e687ccc156c8fdc3f71295a0",
+     "ref": "conv-47:D25:9",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "of",
+      "game",
+      "john"
+     ],
+     "terms_with_post": [
+      "of",
+      "game",
+      "john"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "game": "kept",
+      "john": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 103,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 407,
+    "scored": 607,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q135",
+   "query": "What kind of gig was John offered at the game dev non-profit organization?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:494d0adbe327b7d3de72a150"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:494d0adbe327b7d3de72a150",
+     "ref": "conv-47:D26:3",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john",
+      "game"
+     ],
+     "terms_with_post": [
+      "john",
+      "game"
+     ],
+     "term_fates": {
+      "john": "kept",
+      "game": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 8,
+    "nomination_eligible_terms": 8,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 434,
+    "scored": 634,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q136",
+   "query": "What does John feel about starting the journey as a programming mentor for game developers?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:955a3396a8937c1594a9f1b9"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:955a3396a8937c1594a9f1b9",
+     "ref": "conv-47:D26:5",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "what",
+      "john",
+      "a"
+     ],
+     "terms_with_post": [
+      "what",
+      "john"
+     ],
+     "term_fates": {
+      "what": "kept",
+      "john": "kept",
+      "a": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 8,
+    "nomination_eligible_terms": 8,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     }
+    ],
+    "cap": 200,
+    "overflow": 651,
+    "scored": 851,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-47/q147",
+   "query": "What did John suggest James practice before playing FIFA 23 together?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:69d28db9d4ee0fd0ebca8a55"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:69d28db9d4ee0fd0ebca8a55",
+     "ref": "conv-47:D30:18",
+     "speaker_canon": "john",
+     "overlap_terms": [
+      "john"
+     ],
+     "terms_with_post": [
+      "john"
+     ],
+     "term_fates": {
+      "john": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 8,
+    "nomination_eligible_terms": 8,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 791,
+    "scored": 991,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q036",
+   "query": "How old is Jolene?",
+   "category": "open_domain",
+   "n_gold": 10,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:18584feb0a77394a60de9849",
+    "u7:36dc595d2f39e9aad0d20b62",
+    "u7:525c213898a752354b66b362",
+    "u7:9d8d40ff3c93e9d1a8be38ec",
+    "u7:b68b59ac003eeb90b3f4db65",
+    "u7:c3fa2c14d0595be2e688fa80",
+    "u7:c4a2322eab9be8cebe681d43",
+    "u7:ccbb88b3880a254837a14894",
+    "u7:f3d1945378f170910e1d1deb",
+    "u7:f6a832a974c71da53cc85b50"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:18584feb0a77394a60de9849",
+     "ref": "conv-48:D26:6",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:36dc595d2f39e9aad0d20b62",
+     "ref": "conv-48:D13:5",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:525c213898a752354b66b362",
+     "ref": "conv-48:D21:8",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:9d8d40ff3c93e9d1a8be38ec",
+     "ref": "conv-48:D24:2",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "how",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "how",
+      "jolene"
+     ],
+     "term_fates": {
+      "how": "kept",
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 88,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:b68b59ac003eeb90b3f4db65",
+     "ref": "conv-48:D22:6",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "how",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "how",
+      "jolene"
+     ],
+     "term_fates": {
+      "how": "kept",
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 120,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:c3fa2c14d0595be2e688fa80",
+     "ref": "conv-48:D25:5",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 188,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:c4a2322eab9be8cebe681d43",
+     "ref": "conv-48:D24:14",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:ccbb88b3880a254837a14894",
+     "ref": "conv-48:D21:6",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "is",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "is",
+      "jolene"
+     ],
+     "term_fates": {
+      "is": "kept",
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 117,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    },
+    {
+     "unit_id": "u7:f3d1945378f170910e1d1deb",
+     "ref": "conv-48:D8:2",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "is",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "is",
+      "jolene"
+     ],
+     "term_fates": {
+      "is": "kept",
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 86,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    },
+    {
+     "unit_id": "u7:f6a832a974c71da53cc85b50",
+     "ref": "conv-48:D22:14",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 2,
+    "nomination_eligible_terms": 2,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 219,
+    "scored": 419,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q043",
+   "query": "When did Deborah go for a bicycle ride with Anna?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:385b2941e5d361e5f682dafd"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:385b2941e5d361e5f682dafd",
+     "ref": "conv-48:D12:1",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "deborah",
+      "a",
+      "with"
+     ],
+     "terms_with_post": [
+      "deborah",
+      "with"
+     ],
+     "term_fates": {
+      "deborah": "kept",
+      "a": "df_pre_gate",
+      "with": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     }
+    ],
+    "cap": 200,
+    "overflow": 440,
+    "scored": 640,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q048",
+   "query": "Which US state did Jolene visit during her internship?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:ca1354db72a38f9c387ab366"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:ca1354db72a38f9c387ab366",
+     "ref": "conv-48:D13:15",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 366,
+    "scored": 566,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q074",
+   "query": "What do Deborah and Jolene plan to try when they meet in a new cafe?",
+   "category": "single_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:0729bd503e423efd6c98062d",
+    "u7:6e540c9ef946506d749f582a"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0729bd503e423efd6c98062d",
+     "ref": "conv-48:D26:12",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "to",
+      "in",
+      "a"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "in"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "to": "df_pre_gate",
+      "in": "kept",
+      "a": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:6e540c9ef946506d749f582a",
+     "ref": "conv-48:D26:10",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "try",
+      "meet",
+      "a",
+      "cafe"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "try",
+      "meet",
+      "cafe"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "try": "kept",
+      "meet": "kept",
+      "a": "df_pre_gate",
+      "cafe": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 2,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 804,
+    "scored": 1004,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q078",
+   "query": "Where did Jolene and her partner spend most of September 2023?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:c50f4fb1e7af514ae5587cf4"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:c50f4fb1e7af514ae5587cf4",
+     "ref": "conv-48:D2:1",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "jolene",
+      "and",
+      "spend",
+      "of",
+      "2023"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "spend",
+      "of"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "and": "df_pre_gate",
+      "spend": "kept",
+      "of": "kept",
+      "2023": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 172,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [
+     {
+      "term": "2023",
+      "df": 2168,
+      "reason": "df_threshold"
+     }
+    ],
+    "df_prefetch_gated": [
+     {
+      "term": "2023",
+      "df": 2168
+     },
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 451,
+    "scored": 651,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q081",
+   "query": "When did the Deboran and Jolene agree to go surfing?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:42616d08b5052986660ae8cd"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:42616d08b5052986660ae8cd",
+     "ref": "conv-48:D29:34",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "and",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "and": "df_pre_gate",
+      "jolene": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 479,
+    "scored": 679,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q099",
+   "query": "What do Deborah and Jolene plan to try when they meet in a new cafe?",
+   "category": "single_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:0729bd503e423efd6c98062d",
+    "u7:6e540c9ef946506d749f582a"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0729bd503e423efd6c98062d",
+     "ref": "conv-48:D26:12",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "to",
+      "in",
+      "a"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "in"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "to": "df_pre_gate",
+      "in": "kept",
+      "a": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:6e540c9ef946506d749f582a",
+     "ref": "conv-48:D26:10",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "try",
+      "meet",
+      "a",
+      "cafe"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "try",
+      "meet",
+      "cafe"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "try": "kept",
+      "meet": "kept",
+      "a": "df_pre_gate",
+      "cafe": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 2,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 804,
+    "scored": 1004,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q103",
+   "query": "Where did Deborah meet her new neighbor Anna?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:8e52590e1eb14cece85742df"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:8e52590e1eb14cece85742df",
+     "ref": "conv-48:D3:6",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "deborah"
+     ],
+     "terms_with_post": [
+      "deborah"
+     ],
+     "term_fates": {
+      "deborah": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 153,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 365,
+    "scored": 565,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q114",
+   "query": "How did Jolene and her partner initially meet?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:fd7c33ef2c0d6cc204223feb"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:fd7c33ef2c0d6cc204223feb",
+     "ref": "conv-48:D7:9",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "and"
+     ],
+     "terms_with_post": [
+      "jolene"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "and": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 154,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     }
+    ],
+    "cap": 200,
+    "overflow": 221,
+    "scored": 421,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q117",
+   "query": "What did Deb share a photo of, which brought a smile to Jolene's face?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:8ab93ad6d871f4fff548016b"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:8ab93ad6d871f4fff548016b",
+     "ref": "conv-48:D8:22",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "deb",
+      "jolene"
+     ],
+     "terms_with_post": [
+      "deb",
+      "jolene"
+     ],
+     "term_fates": {
+      "deb": "kept",
+      "jolene": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 67,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 737,
+    "scored": 937,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q139",
+   "query": "Why did Jolene decide to get a snake as a pet?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:fd3f5cafc706ac2811a01b4f"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:fd3f5cafc706ac2811a01b4f",
+     "ref": "conv-48:D15:18",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "to",
+      "a",
+      "pet"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "pet"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "to": "df_pre_gate",
+      "a": "df_pre_gate",
+      "pet": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 30,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 248,
+    "scored": 448,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q141",
+   "query": "What activity does Deborah do with her cats?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:b8538bf21f2ae6e4477f32ee"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:b8538bf21f2ae6e4477f32ee",
+     "ref": "conv-48:D15:27",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "deborah",
+      "with"
+     ],
+     "terms_with_post": [
+      "deborah",
+      "with"
+     ],
+     "term_fates": {
+      "deborah": "kept",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 183,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 199,
+    "scored": 399,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q144",
+   "query": "How did Jolene come to have her pet, Susie?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:608bc895a04d6d1f3fc0286c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:608bc895a04d6d1f3fc0286c",
+     "ref": "conv-48:D16:6",
+     "speaker_canon": "jolene",
+     "overlap_terms": [
+      "jolene",
+      "her"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "her"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "her": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 45,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 301,
+    "scored": 501,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q146",
+   "query": "What kind of yoga routine does Deborah recommend to Jolene?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:d23f7020ea9298d731ceeba0"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:d23f7020ea9298d731ceeba0",
+     "ref": "conv-48:D16:15",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "of",
+      "yoga",
+      "routine",
+      "deborah"
+     ],
+     "terms_with_post": [
+      "of",
+      "yoga",
+      "routine",
+      "deborah"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "yoga": "kept",
+      "routine": "kept",
+      "deborah": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 8,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 527,
+    "scored": 727,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q155",
+   "query": "What habits does Jolene practice to feel balanced?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:f4c55bb07fd8a8a0660f70b1"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:f4c55bb07fd8a8a0660f70b1",
+     "ref": "conv-48:D20:12",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "jolene",
+      "balanced"
+     ],
+     "terms_with_post": [
+      "jolene",
+      "balanced"
+     ],
+     "term_fates": {
+      "jolene": "kept",
+      "balanced": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 85,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 374,
+    "scored": 574,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q180",
+   "query": "What did Deborah do with their mom's old friends?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:39c9c0d73c7b8df239d7b4ee"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:39c9c0d73c7b8df239d7b4ee",
+     "ref": "conv-48:D28:7",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "deborah"
+     ],
+     "terms_with_post": [
+      "deborah"
+     ],
+     "term_fates": {
+      "deborah": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 250,
+    "scored": 450,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-48/q188",
+   "query": "What outdoor activity did Jolene suggest doing together with Deborah?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:7c966a3ee1455232a71403f8"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:7c966a3ee1455232a71403f8",
+     "ref": "conv-48:D29:27",
+     "speaker_canon": "deborah",
+     "overlap_terms": [
+      "together",
+      "deborah"
+     ],
+     "terms_with_post": [
+      "together",
+      "deborah"
+     ],
+     "term_fates": {
+      "together": "kept",
+      "deborah": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 79,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 836,
+    "scored": 1036,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q024",
+   "query": "What significant event happened in Sam's life towards the end of summer 2023?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:24e6d42ebe794bb5f837c0a9"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:24e6d42ebe794bb5f837c0a9",
+     "ref": "conv-49:D5:1",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "happened",
+      "sam",
+      "the",
+      "of",
+      "2023"
+     ],
+     "terms_with_post": [
+      "happened",
+      "sam",
+      "the",
+      "of"
+     ],
+     "term_fates": {
+      "happened": "kept",
+      "sam": "kept",
+      "the": "kept",
+      "of": "kept",
+      "2023": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 76,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "time"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 8,
+    "nomination_dropped": [
+     {
+      "term": "2023",
+      "df": 2168,
+      "reason": "df_threshold"
+     }
+    ],
+    "df_prefetch_gated": [
+     {
+      "term": "2023",
+      "df": 2168
+     }
+    ],
+    "cap": 200,
+    "overflow": 326,
+    "scored": 526,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q027",
+   "query": "What electronic device could Evan gift Sam to help him keep up with his fitness goals?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:2f8a794ce16a1a475d3d68a2"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:2f8a794ce16a1a475d3d68a2",
+     "ref": "conv-49:D5:7",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "up",
+      "with",
+      "fitness"
+     ],
+     "terms_with_post": [
+      "evan",
+      "up",
+      "with",
+      "fitness"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "up": "kept",
+      "with": "kept",
+      "fitness": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 42,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 8,
+    "nomination_eligible_terms": 8,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 554,
+    "scored": 754,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q028",
+   "query": "What kind of writing does Sam do to relax and cope with his health issues?",
+   "category": "multi_hop",
+   "n_gold": 2,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:072099aa80a27eac1ae7e1ef",
+    "u7:b9d6436215eb586cd4797e1b"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:072099aa80a27eac1ae7e1ef",
+     "ref": "conv-49:D11:7",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "of",
+      "sam",
+      "and"
+     ],
+     "terms_with_post": [
+      "of",
+      "sam"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "sam": "kept",
+      "and": "df_pre_gate"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:b9d6436215eb586cd4797e1b",
+     "ref": "conv-49:D6:4",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "of",
+      "sam",
+      "to",
+      "and",
+      "with"
+     ],
+     "terms_with_post": [
+      "of",
+      "sam",
+      "with"
+     ],
+     "term_fates": {
+      "of": "kept",
+      "sam": "kept",
+      "to": "df_pre_gate",
+      "and": "df_pre_gate",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 194,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 314,
+    "scored": 514,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q067",
+   "query": "When did Evan and Sam planned a trip to the beach together?",
+   "category": "temporal",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "partial",
+    "graph": "partial",
+    "typed": "partial",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:9f6d3ef406f568f7c125c2d7"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:9f6d3ef406f568f7c125c2d7",
+     "ref": "conv-49:D16:24",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "planned",
+      "together"
+     ],
+     "terms_with_post": [
+      "evan",
+      "planned",
+      "together"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "planned": "kept",
+      "together": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 38,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "time"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     },
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 489,
+    "scored": 689,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q071",
+   "query": "Which major holiday season conincides with Evan's wedding?",
+   "category": "open_domain",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "partial",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:458bcf7480bcb395e88cc61c"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:458bcf7480bcb395e88cc61c",
+     "ref": "conv-49:D21:2",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan"
+     ],
+     "terms_with_post": [
+      "evan"
+     ],
+     "term_fates": {
+      "evan": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 196,
+    "scored": 396,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q077",
+   "query": "How does Evan spend his time with his bride after the wedding?",
+   "category": "multi_hop",
+   "n_gold": 4,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:0c7faee37bb8c303169cfaf5",
+    "u7:496a9313cf1e6e6ce0ee10ff",
+    "u7:b6573814b29f1bf373e1b415",
+    "u7:eac6b0f212a4c81bbc921677"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:0c7faee37bb8c303169cfaf5",
+     "ref": "conv-49:D23:15",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "the"
+     ],
+     "terms_with_post": [
+      "evan",
+      "the"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "the": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:496a9313cf1e6e6ce0ee10ff",
+     "ref": "conv-49:D23:23",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "with",
+      "the"
+     ],
+     "terms_with_post": [
+      "evan",
+      "with",
+      "the"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "with": "kept",
+      "the": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 163,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent"
+     ]
+    },
+    {
+     "unit_id": "u7:b6573814b29f1bf373e1b415",
+     "ref": "conv-49:D24:9",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan"
+     ],
+     "terms_with_post": [
+      "evan"
+     ],
+     "term_fates": {
+      "evan": "kept"
+     },
+     "stage": "lane_cap"
+    },
+    {
+     "unit_id": "u7:eac6b0f212a4c81bbc921677",
+     "ref": "conv-49:D23:25",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "the"
+     ],
+     "terms_with_post": [
+      "evan",
+      "the"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "the": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 186,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 383,
+    "scored": 583,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q084",
+   "query": "How did Evan get into watercolor painting?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:bfbcdaa8ca24e13eadc9bf22"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:bfbcdaa8ca24e13eadc9bf22",
+     "ref": "conv-49:D1:16",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "into"
+     ],
+     "terms_with_post": [
+      "evan",
+      "into"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "into": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 43,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 3,
+    "nomination_eligible_terms": 3,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 193,
+    "scored": 393,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q086",
+   "query": "What advice did Evan give Sam about finding a passion?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:ab6f2f44f3aeb5693165ec0f"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:ab6f2f44f3aeb5693165ec0f",
+     "ref": "conv-49:D1:18",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "finding"
+     ],
+     "terms_with_post": [
+      "evan",
+      "finding"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "finding": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "a",
+      "df": 2095
+     }
+    ],
+    "cap": 200,
+    "overflow": 495,
+    "scored": 695,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q088",
+   "query": "What did Evan find relaxing about his road trip to Jasper?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:18618b06ce3f8ed7c440c722"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:18618b06ce3f8ed7c440c722",
+     "ref": "conv-49:D2:3",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan"
+     ],
+     "terms_with_post": [
+      "evan"
+     ],
+     "term_fates": {
+      "evan": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 255,
+    "scored": 455,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q091",
+   "query": "What did Sam agree to try instead of soda and candy?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:40c3b56bb28364383500bdaf"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:40c3b56bb28364383500bdaf",
+     "ref": "conv-49:D3:6",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "sam",
+      "try"
+     ],
+     "terms_with_post": [
+      "sam",
+      "try"
+     ],
+     "term_fates": {
+      "sam": "kept",
+      "try": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 41,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "ent",
+      "graph"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 6,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 329,
+    "scored": 529,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q109",
+   "query": "What fun activity did Evan mention doing in July 2023?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "partial",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:59a111ca48625472d2a6ab50"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:59a111ca48625472d2a6ab50",
+     "ref": "conv-49:D8:26",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "fun",
+      "evan",
+      "2023"
+     ],
+     "terms_with_post": [
+      "fun",
+      "evan"
+     ],
+     "term_fates": {
+      "fun": "kept",
+      "evan": "kept",
+      "2023": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 125,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 6,
+    "nomination_dropped": [
+     {
+      "term": "2023",
+      "df": 2168,
+      "reason": "df_threshold"
+     }
+    ],
+    "df_prefetch_gated": [
+     {
+      "term": "2023",
+      "df": 2168
+     }
+    ],
+    "cap": 200,
+    "overflow": 732,
+    "scored": 932,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q110",
+   "query": "What injury did Evan suffer from in August 2023?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "ok",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "ok",
+    "graph": "partial",
+    "typed": "ok",
+    "obs": "skipped"
+   },
+   "gold_units": [
+    "u7:c635f072935154ddb0b6a549"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:c635f072935154ddb0b6a549",
+     "ref": "conv-49:D9:2",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "august",
+      "2023"
+     ],
+     "terms_with_post": [
+      "evan",
+      "august"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "august": "kept",
+      "2023": "df_pre_gate"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 162,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense",
+      "ent",
+      "time"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [
+     {
+      "term": "2023",
+      "df": 2168,
+      "reason": "df_threshold"
+     }
+    ],
+    "df_prefetch_gated": [
+     {
+      "term": "2023",
+      "df": 2168
+     }
+    ],
+    "cap": 200,
+    "overflow": 518,
+    "scored": 718,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q112",
+   "query": "What suggestion did Sam give to Evan to help with his knee issue?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:c68de2c00f3c3347f35af214"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:c68de2c00f3c3347f35af214",
+     "ref": "conv-49:D9:5",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "sam",
+      "to",
+      "help",
+      "with"
+     ],
+     "terms_with_post": [
+      "sam",
+      "help",
+      "with"
+     ],
+     "term_fates": {
+      "sam": "kept",
+      "to": "df_pre_gate",
+      "help": "kept",
+      "with": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 168,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 320,
+    "scored": 520,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q121",
+   "query": "Where did Sam and his mate plan to try kayaking?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:dfdeccbe98b8afb12b10bc9e"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:dfdeccbe98b8afb12b10bc9e",
+     "ref": "conv-49:D13:14",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "sam",
+      "kayaking"
+     ],
+     "terms_with_post": [
+      "sam",
+      "kayaking"
+     ],
+     "term_fates": {
+      "sam": "kept",
+      "kayaking": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 7,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "and",
+      "df": 1825
+     },
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 374,
+    "scored": 574,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q130",
+   "query": "How did Sam suggest Evan view the setback with his broken Prius?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:c3a9a956aef70a62c1b8c9ed"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:c3a9a956aef70a62c1b8c9ed",
+     "ref": "conv-49:D18:5",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan"
+     ],
+     "terms_with_post": [
+      "evan"
+     ],
+     "term_fates": {
+      "evan": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 338,
+    "scored": 538,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q132",
+   "query": "What did Sam offer Evan regarding yoga?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:f65289f6f245e90c91c0a477"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:f65289f6f245e90c91c0a477",
+     "ref": "conv-49:D18:10",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "sam",
+      "evan",
+      "yoga"
+     ],
+     "terms_with_post": [
+      "sam",
+      "evan",
+      "yoga"
+     ],
+     "term_fates": {
+      "sam": "kept",
+      "evan": "kept",
+      "yoga": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 7,
+     "in_fused": true,
+     "in_scored": false,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 5,
+    "nomination_eligible_terms": 5,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 394,
+    "scored": 594,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q139",
+   "query": "What did Sam suggest Evan should do with his keys?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:7272549183c734043ba1c395"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:7272549183c734043ba1c395",
+     "ref": "conv-49:D21:21",
+     "speaker_canon": "sam",
+     "overlap_terms": [
+      "sam",
+      "evan",
+      "keys"
+     ],
+     "terms_with_post": [
+      "sam",
+      "evan",
+      "keys"
+     ],
+     "term_fates": {
+      "sam": "kept",
+      "evan": "kept",
+      "keys": "kept"
+     },
+     "stage": "produced_then_lost",
+     "lex_rank": 10,
+     "in_fused": true,
+     "in_scored": true,
+     "in_pack": false,
+     "produced_lanes": [
+      "lex",
+      "dense"
+     ]
+    }
+   ],
+   "class": "produced_then_lost",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 4,
+    "nomination_eligible_terms": 4,
+    "nomination_dropped": [],
+    "df_prefetch_gated": null,
+    "cap": 200,
+    "overflow": 345,
+    "scored": 545,
+    "n_eligible": 2877
+   }
+  },
+  {
+   "task_id": "conv-49/q145",
+   "query": "What did Evan offer to share with Sam after talking about healthy snacks?",
+   "category": "single_hop",
+   "n_gold": 1,
+   "lex_status": "ok",
+   "lex_reason": null,
+   "lane_status": {
+    "lex": "ok",
+    "fuzzy": "skipped",
+    "dense": "ok",
+    "ent": "ok",
+    "time": "skipped",
+    "graph": "partial",
+    "typed": "skipped",
+    "obs": "ok"
+   },
+   "gold_units": [
+    "u7:59269a802351eef73a4d7bf8"
+   ],
+   "per_unit": [
+    {
+     "unit_id": "u7:59269a802351eef73a4d7bf8",
+     "ref": "conv-49:D22:12",
+     "speaker_canon": "evan",
+     "overlap_terms": [
+      "evan",
+      "to",
+      "share",
+      "with"
+     ],
+     "terms_with_post": [
+      "evan",
+      "share",
+      "with"
+     ],
+     "term_fates": {
+      "evan": "kept",
+      "to": "df_pre_gate",
+      "share": "kept",
+      "with": "kept"
+     },
+     "stage": "lane_cap"
+    }
+   ],
+   "class": "lane_cap",
+   "lex_stats": {
+    "nominate_terms_max": 32,
+    "nominated_terms": 7,
+    "nomination_eligible_terms": 7,
+    "nomination_dropped": [],
+    "df_prefetch_gated": [
+     {
+      "term": "to",
+      "df": 1712
+     }
+    ],
+    "cap": 200,
+    "overflow": 858,
+    "scored": 1058,
+    "n_eligible": 2877
+   }
+  }
+ ],
+ "relabel_note": "two 'other' questions re-derived as zero_overlap: their only lexical overlap was the stopword 'the' (non-content terms collect postings and score but never nominate)"
+}

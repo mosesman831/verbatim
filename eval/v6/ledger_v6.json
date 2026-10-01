@@ -1,0 +1,4351 @@
+{
+  "carried": {
+    "by_status": {
+      "implemented_unmeasured": 0,
+      "planned": 20
+    },
+    "missing": false,
+    "rows": [
+      {
+        "id": "V5-18.01",
+        "implementation_status": "planned",
+        "note": "Deferred — metadata chooses hermes-verbatim dist / verbatim import, but the legally-verified distribution-identity + import-coexistence decision record (the pypi `verbatim` namespace is occupied by an unrelated project) is not produced; owed before public install instructions beyond the repo README.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-20.01",
+        "implementation_status": "planned",
+        "note": "Deferred — no controlled reference machine is pinned; this host is a loaded shared aarch64 box (loadavg ~1.8-8.8 recorded during runs) and cannot serve as the pinned reference. environment() records actuals per run in the meantime.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-21.03",
+        "implementation_status": "planned",
+        "note": "Deferred — the >=200-paired-task cross-host floor needs real Hermes + ADK installs that are absent here: not measurable in this environment. The A-12 narrower named-host path remains open.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-21.06",
+        "implementation_status": "planned",
+        "note": "Deferred — pinned permitted LongMemEval/LoCoMo corpora are license-restricted and absent from this tree; the owned synthetic corpus remains the executed stratum. Restricted datasets stay blocked until permission exists.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-24.03",
+        "implementation_status": "planned",
+        "note": "Deferred — property/state-machine tests generating add/retry/search/replace/hold/revoke/forget/restart histories against an authority reference model are unauthored; the scenario suites remain the executed stratum.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-24.06",
+        "implementation_status": "planned",
+        "note": "Deferred — controlled isolated/quiescent worktrees for qualification runs are not established; this wave's re-executed suites ran on a loaded host (loadavg recorded per run), so they count as regression evidence, not qualification evidence.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-25.01",
+        "implementation_status": "planned",
+        "note": "Deferred — the six manifest axes (implementation, conformance, host qualification, performance, statistical outcome, independent reproduction) bind at release; RELEASE_MANIFEST_V4.json demonstrates the separated-axis pattern but no V5/V6 release manifest exists.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-25.02",
+        "implementation_status": "planned",
+        "note": "Deferred — the early-exposed optional-feature safety rule binds when a release runs; none executed. Optional lanes shipped today (semantic extra, learned controller) stay fail-closed or honestly degraded under their own gates.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-25.03",
+        "implementation_status": "planned",
+        "note": "Deferred — the failed-gate record (owner, cause, evidence, next verification, narrower claims) binds when a release gate fails; no release gate has run. The retention machinery itself is measured (V5-20.14).",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-25.04",
+        "implementation_status": "planned",
+        "note": "Deferred — the publication wording rule binds an A0-qualified consumer publication; none is authorized, so the 'does not certify S0/S1 or complete M0/M5' wording has no artifact to attach to.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-26.06",
+        "implementation_status": "planned",
+        "note": "Deferred — build-completion is partially exercised (predecessor regression suites re-executed green and ledgers regenerated this wave); executed public examples and actual SLO reports remain owed.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-29.01",
+        "implementation_status": "planned",
+        "note": "Deferred — the comparator ladder executed measured slices (v6 report 2026-09-22) but the published section-29 row->requirement->measurement mapping table is not produced; rows without measured slices stay out of comparison copy.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-29.04",
+        "implementation_status": "planned",
+        "note": "Deferred — the first executed comparison exists; the after-each-comparison loop it triggers (next mechanism change must name a measured loss on a named slice, with an ablation proving causation) is forward-looking and owed by the P7 improvement program.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-30.22",
+        "implementation_status": "planned",
+        "note": "Deferred — T2/T3 proposition-emitting extraction tiers are not implemented (verbatim/enrichment/grounding.py: deterministic T1 only), so the span-pinned emission contract cannot be measured; the grounding-failure half IS measured (e82 fabricated proposition fails grounding, green).",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-30.23",
+        "implementation_status": "planned",
+        "note": "Deferred — the G5-13 floors are adjudication targets: delivered-grounding checked 25 hits with 0 violations, but n=25 gives an upper-95% bound far above the 0.01 floor; a larger adjudicated slice is owed.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-30.24",
+        "implementation_status": "planned",
+        "note": "Deferred — no per-tier extraction cost run was produced; the comparator cost schema reports unmeasured categories (extraction, embeddings, consolidation, answer_reading, maintenance) honestly rather than estimating.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-31.04",
+        "implementation_status": "planned",
+        "note": "Deferred — per-signal A2 ablation runs were not executed; the default ranking/v1 signal table ships unablated and the two-point regression rule has no run to apply to.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-32.06",
+        "implementation_status": "planned",
+        "note": "Deferred — LongMemEval/LoCoMo-class category reporting needs licensed corpora absent from this environment; owned natural histories exist at small scale and BEAM-scale (10M) stays inherited and unclaimed.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-33.11",
+        "implementation_status": "planned",
+        "note": "Deferred — no CI gate runs the wide-threshold perf smoke; stage timers exist and are exercised (e95 per-stage timers green) but nothing gates merges on them.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      },
+      {
+        "id": "V5-33.12",
+        "implementation_status": "planned",
+        "note": "Deferred — the exact-oracle differential exists (tests/retrieval/v3/test_source_lane.py::test_lexical_bm25_matches_naive_reference) but the per-optimization-PR differential+profile gate is not established.",
+        "qualification_status": "deferred",
+        "status": "planned"
+      }
+    ],
+    "source": "eval/v5/dispositions_v5.json",
+    "source_sha256": "70a639534a3708ba1ac727653429bcb7d6c552269c86d43b4037e9894e1a60da",
+    "statuses": [
+      "planned",
+      "implemented_unmeasured"
+    ],
+    "total": 20
+  },
+  "evidence_labels": [
+    "DOC",
+    "CODE",
+    "LOCAL",
+    "BENCH",
+    "INDEPENDENT"
+  ],
+  "gates": {
+    "G6-00": {
+      "bound_requirements": [
+        "V6-08.01"
+      ],
+      "envelopes": [],
+      "name": "Authority",
+      "permits": "V5 G5-00/01/02 hold on these defaults; mutation still kills quote/eligibility/closure skips",
+      "scenarios": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 211,
+      "status": "not_run"
+    },
+    "G6-01": {
+      "bound_requirements": [
+        "V6-02.05",
+        "V6-02.07",
+        "V6-02.08",
+        "V6-02.09",
+        "V6-02.10",
+        "V6-02.11",
+        "V6-02.12",
+        "V6-02.13",
+        "V6-02.14",
+        "V6-08.01"
+      ],
+      "envelopes": [
+        "A0",
+        "A0-cache",
+        "A1"
+      ],
+      "name": "Instant personal search",
+      "permits": "A0 cache-off; A0-cache if enabled; A1 if claimed; F17–F21",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 212,
+      "status": "not_run"
+    },
+    "G6-02": {
+      "bound_requirements": [
+        "V6-02.05",
+        "V6-03.01",
+        "V6-03.06",
+        "V6-03.07",
+        "V6-03.08",
+        "V6-03.09",
+        "V6-03.10"
+      ],
+      "envelopes": [
+        "A0-neural"
+      ],
+      "name": "Recommended quality",
+      "permits": "Pinned local artifact; A0-neural; grounding floors; paraphrase does not break identifiers; F29–F30",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 213,
+      "status": "not_run"
+    },
+    "G6-03": {
+      "bound_requirements": [
+        "V6-03.01",
+        "V6-03.02",
+        "V6-03.03",
+        "V6-03.04",
+        "V6-03.05",
+        "V6-03.11",
+        "V6-03.12",
+        "V6-03.13",
+        "V6-03.14",
+        "V6-03.15",
+        "V6-03.16",
+        "V6-08.01"
+      ],
+      "envelopes": [],
+      "name": "Trustworthy pack",
+      "permits": "F05–F07, F13, F25–F26; I1 default; auto_safe off until twin bound holds",
+      "scenarios": [
+        "F05",
+        "F06",
+        "F07",
+        "F13",
+        "F25",
+        "F26"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 214,
+      "status": "not_run"
+    },
+    "G6-04": {
+      "bound_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05",
+        "V6-08.01"
+      ],
+      "envelopes": [],
+      "name": "Adoption surface",
+      "permits": "F01, F10–F12, F15, F22–F24; verified package name; two-tool MCP; shim subset",
+      "scenarios": [
+        "F01",
+        "F10",
+        "F11",
+        "F12",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 215,
+      "status": "not_run"
+    },
+    "G6-05": {
+      "bound_requirements": [
+        "V6-01.05",
+        "V6-04.01",
+        "V6-04.02",
+        "V6-04.03",
+        "V6-04.04",
+        "V6-04.05",
+        "V6-06.01",
+        "V6-06.02",
+        "V6-06.03",
+        "V6-06.04",
+        "V6-06.05",
+        "V6-08.01"
+      ],
+      "envelopes": [],
+      "name": "Local OSS comparison",
+      "permits": "Pinned Mem0 OSS row + all always-run arms, equal tokens, losses visible; F32",
+      "scenarios": [
+        "F32"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 216,
+      "status": "not_run"
+    },
+    "G6-06": {
+      "bound_requirements": [
+        "V6-01.05",
+        "V6-08.01"
+      ],
+      "envelopes": [],
+      "name": "Named leadership",
+      "permits": "Inherited G4-10/G4-14 / G5-10/11; expires in 90 days",
+      "scenarios": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 217,
+      "status": "not_run"
+    },
+    "G6-07": {
+      "bound_requirements": [
+        "V6-02.15"
+      ],
+      "envelopes": [
+        "A3"
+      ],
+      "name": "Long history",
+      "permits": "A3 envelope executed at declared scale; F21 superlinear-stage check",
+      "scenarios": [
+        "F21"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 218,
+      "status": "not_run"
+    },
+    "G6-08": {
+      "bound_requirements": [
+        "V6-04.01",
+        "V6-04.02",
+        "V6-04.03",
+        "V6-04.04",
+        "V6-04.05",
+        "V6-06.01",
+        "V6-06.02",
+        "V6-06.03",
+        "V6-06.04",
+        "V6-06.05"
+      ],
+      "envelopes": [],
+      "name": "Qualification closure",
+      "permits": "F31: V5 tail re-dispositioned; predecessor suites green",
+      "scenarios": [
+        "F31"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 219,
+      "status": "not_run"
+    }
+  },
+  "generated_by": "tools/gen_v6_ledger.py",
+  "implementation_statuses": [
+    "planned",
+    "in_progress",
+    "implemented",
+    "not_applicable"
+  ],
+  "qualification_statuses": [
+    "not_run",
+    "locally_measured",
+    "qualified",
+    "failed",
+    "not_applicable",
+    "deferred"
+  ],
+  "requirements": {
+    "V6-00.01": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [],
+      "implementation_status": "not_applicable",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 authority clause — SPEC_V6 authorizes implementation only, never publication/provider activation; contract text, no code surface.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_applicable",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 20,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "not_applicable",
+      "subsection": "",
+      "text": "This file is approved for implementation only. Approval of design does not authorize competitive claims, publication, or provider activation."
+    },
+    "V6-00.02": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [],
+      "implementation_status": "not_applicable",
+      "inherited_gates": [],
+      "inherited_requirements": [
+        "V4-28.03",
+        "V5-11"
+      ],
+      "inherited_scenarios": [
+        "F4-11"
+      ],
+      "note": "§00 amendment-binding governance scope — contract text; the MUST-NOT-weaken invariants are enforced through the measured rows (quote permission, quarantine cascade, deletion closure).",
+      "owner": "unset",
+      "profile": [
+        "local_memory",
+        "local_memory_neural"
+      ],
+      "qualification_status": "not_applicable",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 21,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "not_applicable",
+      "subsection": "",
+      "text": "V6 MAY change recommended defaults, shipping surface, and default-path indexes for the consumer profile `local_memory` and a new recommended quality profile `local_memory_neural`. It MUST NOT weaken quote permission, purpose constraints, eligibility-before-rank, authorization-local statistics (V4-28.03 / F4-11 / V5-11), quarantine cascade, or deletion closure."
+    },
+    "V6-00.03": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "tools/gen_v6_ledger.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 namespaces + declared registries (F01–F32 / G6-00–G6-08) enforced by the ledger validator — duplicate/undefined/out-of-registry ids reject.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 22,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Requirements use `V6-NN.MM`, scenarios `F01`–`F32`, gates `G6-00`–`G6-08`. These namespaces MUST NOT overwrite V4/V5 identifiers or evidence."
+    },
+    "V6-00.04": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [
+        "verbatim/__init__.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f02_import_has_no_side_effects 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [
+        "V5-09"
+      ],
+      "inherited_scenarios": [],
+      "note": "§00 import side-effect isolation verified in a clean subprocess — no threads, files, sockets, or downloads on `import verbatim`.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 23,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Importing `verbatim` MUST still create no files, threads, sockets, or downloads. Constructing `Memory` remains the explicit activation seam (V5-09)."
+    },
+    "V6-00.05": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [
+        "eval/v6/envelopes.py",
+        "eval/v6/run.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes A0/A0-cache/A1/A3 verdict=missed published with numbers; portfolio verdict=inconclusive, never promoted"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [
+        "G4-06"
+      ],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 misses published honestly: every §02.2 envelope miss is in report_v6.md with actuals beside budgets.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 24,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "A V6 consumer release MAY ship while inherited S0/S1/G4-06 remain missed, but MUST say so. It MUST NOT relabel a failed systems envelope as an adoption pass."
+    },
+    "V6-00.06": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "eval/v6/dispositions_v6.json",
+        "tools/gen_v6_ledger.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 two-axis ledger implemented; locally_measured/qualified rows without named executed evidence are rejected by validate().",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 25,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Every V6 requirement MUST land in the V6 ledger (`eval/v6/`) with `owner`, `code_surfaces`, `scenarios`, `evidence_type`, and an honest `qualification_status`. Statuses: `planned`, `in_progress`, `implemented_unmeasured`, `locally_measured`, `qualified`, `failed`, `not_applicable`. `qualified` requires named executed evidence from the declared gate procedure."
+    },
+    "V6-00.07": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [
+        "eval/v6/notes_wave1.md"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — mid-run churn detected (2026-09-22 14:58–15:01: verbatim/memory/facade.py + tests/v6/test_scenarios_f.py rewritten by a concurrent worker; sibling `pytest tests/v6` ran 15:01–15:22). The 14:57 portfolio run was discarded and rerun 15:22 on a quiet tree — the rerun note is in eval/v6/notes_wave1.md"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 quiet-tree discipline applied in anger this wave: churn detected, run discarded, rerun.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 26,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Measurements MUST run on a quiet tree — no concurrent worker edits, no competing pytest or profiling processes. Any run polluted by mid-edit churn MUST be discarded and rerun; the rerun note is part of the artifact. (Process lesson from V5: an eval executed while a worker edited `source_lane.py` reported recall 0.444 and `source_lane_unavailable` on a system that measured 1.000 when quiet.)"
+    },
+    "V6-00.08": {
+      "blocker": "",
+      "capability": "authority",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [],
+      "implementation_status": "not_applicable",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§00 precedence clause — where V6 amends V5 text the V6 text governs; unamended V5 MUSTs stay binding. Contract text, no code surface.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_applicable",
+      "scenarios": [],
+      "section": "V6-00",
+      "section_title": "Authority and what V6 is allowed to change",
+      "spec": "SPEC_V6.md",
+      "spec_line": 27,
+      "spec_scenarios": [],
+      "stage": "P0",
+      "stage_source": "fallback",
+      "status": "not_applicable",
+      "subsection": "",
+      "text": "Where V6 changes a contract V5 stated differently, the V6 text governs and MUST name the superseded requirement id. V5's unamended MUSTs remain binding."
+    },
+    "V6-01.01": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/memory/facade.py",
+        "README.md"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 front door add/search/inspect/forget verified end-to-end on a managed-worker Memory through the public API only.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 33,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The documented front door MUST be `from verbatim import Memory` then `add` / `search` / `inspect` / `forget`. Grants, drain, lanes, and EffectPlan MUST NOT appear in the primary README, tutorial, or model-facing tool descriptions."
+    },
+    "V6-01.02": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_wheel_contains_markers_and_entry_points 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [
+        "E02"
+      ],
+      "note": "§01 same-session add→search of the accepted quote verified on the public route (no drain/review/internal imports by the caller). Disclosure: wheel *contents* asserted; a clean-env install outside this checkout is not exercised (see V6-01.13).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 34,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "A fresh wheel outside this checkout MUST complete add → same-session search of the accepted quote without the caller draining, reviewing, or importing internal classes (V5 E02). Empty or mocked execution cannot pass."
+    },
+    "V6-01.03": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1: 40/40 live-load reads returned honest 'pending' (causal_satisfied=false path), a0 immediate_add_search 4/4 pending — never a fake empty success"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 bounded readiness statuses measured under live load; pending rows are reported, not smoothed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 35,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Default `search` MUST wait on this session’s source-visibility receipts up to the bounded readiness budget, then return `ready` / `partial` / `pending` / `blocked` / `unavailable` — never a successful empty that pretends the add vanished."
+    },
+    "V6-01.04": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f03_infer_modes_and_agent_attribution 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 infer=True produces typed lines while source bytes stay retained and agent-attributed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 36,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "`infer=True` MAY produce typed memory lines. It MUST NOT delete, overwrite, or impersonate source bytes. Agent-submitted text MUST remain agent-attributed."
+    },
+    "V6-01.05": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "README.md"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f16_public_copy_no_defeat_claims 2026-09-22"
+      ],
+      "gate": [
+        "G6-04",
+        "G6-05",
+        "G6-06"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [
+        "G4-10"
+      ],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 README/public copy carries no competitor-defeat phrasing (banned-phrase scan green).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 37,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Public copy MUST NOT name Mem0, Holographic, or any competitor as defeated until G6-05/G6-06 and inherited G4-10 evidence exist. A two-arm stale-deploy demo of this engine is allowed if labeled exactly that."
+    },
+    "V6-01.06": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 distribution name 'hermes-verbatim' is declared in pyproject with the hermes_agent.memory_providers entry (asserted by test_packaging); legal-usability verification and clean-env tutorial resolution were not exercised this wave.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_run",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 43,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "implemented_unmeasured",
+      "subsection": "01.1",
+      "text": "Before any public install instruction, the owner MUST choose and verify a legally usable distribution name and import-coexistence policy. Tutorials MUST resolve to that artifact in a clean environment."
+    },
+    "V6-01.07": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/compat/mem0.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f11_mem0_shim_honesty 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 compat.mem0 shim over Memory verified: update/delete keep CAS/closure; pending is never reported as success.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 44,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "`verbatim.compat.mem0` MUST remain a shim over `Memory`, covering the pinned Mem0 OSS subset (`add`, `search`, `get`, `get_all`, `update`, `delete`, `infer`, filters, pagination). Unsupported options fail; pending results MUST NOT become fake empty success; `delete`/`update` keep CAS and closure."
+    },
+    "V6-01.08": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/api_v3/mcp.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f10_mcp_consumer_tools_exact 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 consumer MCP profile advertises+dispatches exactly v5_capture/v5_recall; operator tools denied by absence.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 45,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "The consumer MCP profile MUST advertise and dispatch exactly two tools — `v5_capture` and `v5_recall` — by default. Inspect, forget, review, authorize, and drain require the explicit `operator` profile plus bound authority."
+    },
+    "V6-01.09": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/adapters/langchain.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/adapters/test_langchain.py 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 duck-typed LangChain retriever adapter ships and is verified against the recorded stub interface — no matrix promised.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 46,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "Ship one verified framework adapter (LangChain retriever interface, LlamaIndex, or CrewAI) that calls `Memory.search` and returns documents carrying `source_id`. The adapter MUST be duck-typed — importable without the framework installed — and verified against a recorded stub of the framework interface. Do not promise a matrix."
+    },
+    "V6-01.10": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "clients/ts/memory-client/src/index.ts",
+        "verbatim/service/memory_api.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f24_ts_client_end_to_end 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 TypeScript MemoryClient is a thin fetch client of the §05 routes — verified against a stub server and the live loopback.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 47,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "A TypeScript `MemoryClient` MUST be a thin client of the authenticated service surface (§05) and the same schemas. Documentation MUST name the required Python process. Native-JS-as-engine is out of scope."
+    },
+    "V6-01.11": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "verbatim/__init__.py",
+        "verbatim/adapters/hermes_v3.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/test_provider_v4.py 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f15_packaging_surface 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 register() is the provider entry point (hermes_agent.memory_providers: verbatim:register asserted); host-owner acceptance of upstream default status remains out of scope and unclaimed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 48,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "Hermes qualification MUST use `register()`, share the intended store, and document session-end drain plus optional prefetch. Changing ambient host capture or claiming upstream default status requires host-owner acceptance."
+    },
+    "V6-01.12": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [
+        "pyproject.toml",
+        "verbatim/py.typed",
+        "LICENSE",
+        "README.md"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_packaging.py 2026-09-22 (9 tests)",
+        "pytest tests/v6/test_scenarios_f.py::test_f15_packaging_surface 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 py.typed + MIT LICENSE + verbatim-service/verbatim-mcp entry points verified in the built wheel; README first screen is install→add→search→inspect→forget; no urllib3/jev pin remains in pyproject.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 49,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "01.1",
+      "text": "Packaging MUST ship `py.typed` (PEP 561), a `LICENSE` file, console entry points for the service (`verbatim-service`) and consumer MCP (`verbatim-mcp`), and a README whose first screen is install → add → search → inspect → forget. The `jev` extra's unused `urllib3` pin MUST be removed or justified."
+    },
+    "V6-01.13": {
+      "blocker": "",
+      "capability": "adoption",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 clean-venv `pip install .` on aarch64+x86_64 not exercised this wave — the wheel builds in test_packaging but the install path is unmeasured.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_run",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-01",
+      "section_title": "Adoption thesis",
+      "spec": "SPEC_V6.md",
+      "spec_line": 50,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "implemented_unmeasured",
+      "subsection": "01.1",
+      "text": "`pip install .` in a clean venv MUST produce a working `import verbatim; Memory()` path on Linux aarch64 and x86_64 with only the declared runtime deps (`cryptography`). The `semantic` extra MUST remain optional and lazy."
+    },
+    "V6-02.01": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 settled searches run the typed-memory lane end-to-end"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§01 default ranking runs on the eligible typed-memory+identifier set; delivered hits pin to source bytes.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 67,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Default consumer ranking MUST run on the eligible set of grounded typed memories and identifier hits in the bound namespace, not on a full source-transcript scan as the first stage. Source projections remain searchable via inspect, identifier miss, and explicit evidence/archive mode."
+    },
+    "V6-02.02": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [
+        "V5-30"
+      ],
+      "inherited_scenarios": [],
+      "note": "§02 delivered typed lines carry verifiable span pins into retained source bytes; unpinnable extractions never appear as facts.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 68,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Every delivered typed line MUST carry verifiable span pins into retained source bytes (V5-30). An unpinnable extraction is `unsupported_extraction` and MUST NOT appear as a fact."
+    },
+    "V6-02.03": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f14_fallback_never_skips_holds 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02 candidate accelerators never bypass eligibility/HMAC/quarantine — fallback path still enforces holds.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 69,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Candidate accelerators (FTS match lists, hashing/neural top-N, optional ANN) MUST NOT deliver an object that fails kernel eligibility, HMAC verification, or quarantine. Approximate candidate recall is allowed; approximate authorization is not."
+    },
+    "V6-02.04": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/retrieval"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/retrieval/test_f4_stats.py 2026-09-22"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [
+        "V5-11"
+      ],
+      "inherited_scenarios": [],
+      "note": "§02 corpus statistics (df/avgdl/BM25 universe) verified by the stats test module — candidate-set statistics are never labeled exact.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 70,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "BM25/N/df/avgdl on the strict path MUST equal the full request-eligible corpus. Candidate-set statistics MUST NOT be labeled exact. Per-scope FTS5 is allowed only when that index universe is demonstrably E for the request (V5-11)."
+    },
+    "V6-02.05": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [],
+      "envelopes": [
+        "A0",
+        "A0-neural",
+        "A1"
+      ],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-01",
+        "G6-02"
+      ],
+      "implementation_status": "planned",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02 ANN gate: A0/A1 hashing have now officially missed their settled targets (report_v6.json 2026-09-22), so the precondition for ANN evaluation is met — no ANN work landed this wave.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_run",
+      "scenarios": [
+        "F09",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 71,
+      "spec_scenarios": [
+        "F09",
+        "F20"
+      ],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "planned",
+      "subsection": "",
+      "text": "ANN MAY be recommended only after A0/A1 hashing miss their settled targets or A0-neural candidate generation blows its stage budget, and only on a provably eligible partition or with a noninterfering filter plus exact rescoring. Exact streaming cosine remains the oracle."
+    },
+    "V6-02.06": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/retrieval/cache.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0_cache: cache provisioned via real config surface; counters published lookups=120 hits=0 stores=0 (never hit — named miss)"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02 pack-cache path measured honestly: it is consulted on the consumer route but never hits at this workload (fingerprint never restamps); the flag stays default-off per the conservative invalidation gate — the SHOULD-enable default is disclosed unmet.",
+      "owner": "unset",
+      "profile": [
+        "local_memory"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 72,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "After source-projection dependencies are in the cache fingerprint, `local_memory` SHOULD enable the existing pack cache by default. Causal `after` / session barriers still run first; hold/revoke/purge/correction MUST miss or revalidate."
+    },
+    "V6-02.07": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/storage/commit_notify.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f17_cross_store_commit_wake 2026-09-22",
+        "pytest tests/storage/test_commit_notify.py 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 managed-worker run exercises commit→barrier wakeups under load"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.1 cross-store commit_notify exists and wakes barriers on another Store object (F17 asserts commit-time wake vs poll ramp).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 78,
+      "spec_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "Cross-store commit signaling MUST exist. A commit on any `Store` object opened on the same database file MUST wake barriers waiting on another `Store` object in this process — today the managed worker's commit notifies only the worker's `_commit_cond`, so a facade barrier burns its poll ramp (~15–20 ms dead time per wait). Mechanism: a process-wide per-path commit registry (path-keyed condition fanout) or `PRAGMA data_version` polling ≤5 ms; correctness MUST NOT depend on wakeup delivery (polls always re-verify)."
+    },
+    "V6-02.08": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/storage/commit_notify.py",
+        "verbatim/ingest.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f18_unblock_first_drain 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 managed drain under 2w/10r load; backlog bounded (peak 536 → 0)"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.1 barrier-marked sources drain ahead of ordinary queued work (advisory mark, never correctness).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 79,
+      "spec_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "The managed worker MUST drain jobs whose sources block live session barriers ahead of ordinary queued work — a bounded \"unblock-first\" priority pass, never a second scheduler and never ahead of privacy/correctness lanes. Receipts whose `source_lexical_ready` is awaited by an active barrier MAY be marked so the drainer picks them first; the mark is advisory, never correctness."
+    },
+    "V6-02.09": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1: 40/40 reads exhausted the bounded barrier budget and reported 'pending' (causal_satisfied=false), never a silent weaken"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.1 barrier deadline bounded and honest — measured under live load.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 80,
+      "spec_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "The barrier deadline MUST remain bounded and honest: `min(ready_timeout_ms, timeout_ms)` from call entry, shared across all session receipts. A search that exhausts the budget reports `pending`/`partial` with `causal_satisfied=false` — it MUST NOT silently weaken to eventual consistency."
+    },
+    "V6-02.10": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f19_eventual_consistency_honesty 2026-09-22"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.1 consistency='eventual' skips the barrier with causal_satisfied=false + warning.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 81,
+      "spec_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "`consistency=\"eventual\"` MUST keep skipping the barrier entirely with explicit `readiness.causal_satisfied=false` + warning, and the docs MUST say so plainly."
+    },
+    "V6-02.11": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "envelopes": [
+        "A0",
+        "A1"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a1 at 512 memories/40 reads/16 writes, managed worker: search p50 298.4ms p95 462.1ms p99 539.6ms (MISS vs 40ms), add-ack p95 310.1ms (MISS vs 50ms), visibility 6/6 satisfied (observed at ~250ms vs 200ms budget — published)"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 A1 measured and missed on the pinned machine — the miss stays published (V5's ~120ms settled-profile miss at n=256 compares to V6's 462ms live-load p95 at n=512; different conditions, both honest misses).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F09",
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 82,
+      "spec_scenarios": [
+        "F09",
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "Measured target — same-session eligible add→search observes the write ≥99% (A0) / ≥95% (A1) within 200 ms or reports pending/blocked honestly. A1 settled search p95 ≤40 ms while a 2 ops/s writer runs on the same `Memory` — measured, not inferred."
+    },
+    "V6-02.12": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 immediate_add_search_ms p50≈295ms (all 4 probes pending) beside settled_search p95 125.7ms; add_ack_scaling stage profile at n=512/1024"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 immediate_add_search and settled_search both appear in the artifact — barrier cost visible, never averaged away.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 83,
+      "spec_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "stage": "P1",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.1",
+      "text": "`immediate_add_search` and `settled_search` MUST both appear in the stage-profile artifact so the barrier cost is visible, never averaged away."
+    },
+    "V6-02.13": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "envelopes": [
+        "A0"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0 cache-off at 512 memories: search p95 125.7ms > 25ms, p99 143.6ms > 75ms (MISS published); a0_cache warm-pass p95 104.6ms > 8ms with hits=0 (MISS published)"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 A0 measured cache-off (the qualifying config) and cache-on as additional — both miss on this machine; pending/partial rows counted separately, never qualifying settled latency.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F09"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 97,
+      "spec_scenarios": [
+        "F09"
+      ],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.2",
+      "text": "A0 MUST pass cache-off. Cache-on is additional. Timing includes barrier check, ranking, packing, serialization, and mandatory writes. Pending/partial rows cannot qualify settled latency."
+    },
+    "V6-02.14": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v6/envelopes.py",
+        "eval/v6/run.py"
+      ],
+      "envelopes": [
+        "A0"
+      ],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — A0 hashing miss at 25ms stays published in report_v6.json/md with budgets alongside actuals"
+      ],
+      "gate": [
+        "G6-01"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 published-miss discipline verified: corpus/hardware/stats unchanged; the miss is data, not suppressed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F09"
+      ],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 98,
+      "spec_scenarios": [
+        "F09"
+      ],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.2",
+      "text": "If A0 hashing misses 25 ms after fact-index-first, ranked iteration, and one statistics materialization per query, the miss stays published. Changing corpus, hardware, or eligible-statistics semantics to pass is prohibited. A later reviewed target may replace 25 ms; a silent change may not."
+    },
+    "V6-02.15": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v5/harness.py",
+        "eval/v6/envelopes.py"
+      ],
+      "envelopes": [
+        "A3"
+      ],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a3 seeded 2048 records via bulk_seed (drain_every=64, 4192 jobs processed) while measured reads/adds went through the public API"
+      ],
+      "gate": [
+        "G6-07"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 harness-side bulk seed used and disclosed; measured ops stay on the public route.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 99,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.2",
+      "text": "The A3 envelope MAY seed through a dedicated bulk-seed path (`Memory.bulk_add` or the corpus seeder with the managed drain kept live) so seeding cost is honest but not serial-ack-bound; the measured reads/writes still go through the public API."
+    },
+    "V6-02.16": {
+      "blocker": "",
+      "capability": "performance",
+      "code_surfaces": [
+        "eval/v6/envelopes.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — add_ack_scaling at n=512/1024: all stage alphas <1; envelopes.a3 at n=512/1024/2048 names source_state superlinear (alpha≈1.15, 0.89ms→4.38ms) as a V6-02.16 defect"
+      ],
+      "gate": [],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§02.2 add-ack scaling profiled per stage; the superlinear source_state stage is a named defect, not absorbed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [],
+      "section": "V6-02",
+      "section_title": "Performance thesis — small facts on the hot path",
+      "spec": "SPEC_V6.md",
+      "spec_line": 100,
+      "spec_scenarios": [],
+      "stage": "P2",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "02.2",
+      "text": "Add-ack scaling MUST be profiled at n=1k/5k/20k; any stage growing superlinearly (obligation fan-out, session receipt tracking, prescan, commit) is a named defect, not absorbed silently."
+    },
+    "V6-03.01": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f12_neural_unavailable_and_hashing_honest 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — envelopes.a0_neural reports unavailable (encoder available()=False), never a hashing rerun relabeled neural"
+      ],
+      "gate": [
+        "G6-02",
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03 hashing stays the non-neural default; requesting neural without a verified artifact is honestly unavailable.",
+      "owner": "unset",
+      "profile": [
+        "local_memory_neural"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 106,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Install default remains hashing, labeled non-neural. Quality claims and the recommended tutorial path MUST use `local_memory_neural` only after a pinned local encoder is provisioned and G6-02 passes. Requesting neural without weights is unavailable, not a silent hashing pretend."
+    },
+    "V6-03.02": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f05_replace_after_returns_successor 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — consolidation grounding passed (25 delivered hits checked, 0 violations)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03 replace+after returns successor-as-current with predecessor labeled; contrary evidence packs as a group, never dropped.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 107,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Current-state `search` MUST NOT present a known superseded item as current. Authorized contrary/supersession MUST pack as a group or yield insufficiency/abstain (I1 as default pack). Token savings from dropping contradictions, identifiers, or conditions fail this contract."
+    },
+    "V6-03.03": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "eval/v6/twins.py",
+        "verbatim/querying/auto_update.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — twins suite: auto_applied 5/5 true pairs, false_applied 0/13 twins, upper95_bound 0.2281 (bound <0.01 NOT met at 13 twins — needs ~300; published)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03 auto_safe twin suite executed end-to-end through Memory.add; the <0.01 bound is honestly unmet at corpus size — verdict pass on behavior, bound_met=false on the gate.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 108,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "`add(..., replaces=ref)` remains the reliable correction. A namespace policy `auto_safe` MAY apply a replacement only for same-type, same-identifier/entity, unhedged value/version/polarity changes that pass a published twin suite (false-auto-update upper 95% bound <0.01). Hedged, quoted, hypothetical, and cross-entity cases stay advisory `possible_updates`."
+    },
+    "V6-03.04": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f01_front_door_round_trip 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f04_typed_hit_pins_to_source_bytes 2026-09-22"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03 inspect returns source identity/revision/locators; quotes round-trip against stored bytes.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 109,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "`inspect` MUST show source identity, revision, locators, producer, and lifecycle. Exact quotes still require `quote`. Verification means bytes/locators, not world-truth."
+    },
+    "V6-03.05": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f07_forget_closes_all_derivatives 2026-09-22"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03 forget is suppression-then-closure across source, typed memory, vector, and cache paths; restart stays empty.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 110,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "`forget` is suppression-then-closure. Success ack is durable suppression; physical cleanup is a separate honest state. Model-default tools MUST NOT gain query-delete."
+    },
+    "V6-03.06": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/embeddings/artifact.py",
+        "verbatim/embeddings/artifact_build.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f29_artifact_build_load_cycle 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural suite built + verified the pinned artifact (manifest+sha256, encoder_id artifact:hash-distilled:v1)"
+      ],
+      "gate": [
+        "G6-02"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.1 artifact format is parse-only + hash-pinned: manifest names files+sha256; revision required, 'latest' rejected.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 116,
+      "spec_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "stage": "P5",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.1",
+      "text": "The artifact format MUST be parse-only and hash-pinned: a manifest (`artifact_manifest.json` layout per `verbatim/embeddings/artifact.py`) naming each file + sha256 + loader source-hash; `artifact_revision` required, `latest` rejected; no pickle/eval/`torch.load`; safetensors or a documented parse-only equivalent."
+    },
+    "V6-03.07": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "eval/v6/neural.py",
+        "verbatim/embeddings/artifact_build.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural suite: build_dev_artifact trained the distilled-hashing table over the seeded corpus (vocab 244, dim 384, manifest reproducible)"
+      ],
+      "gate": [
+        "G6-02"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.1 offline build path executed: training inputs/code/seed recorded in the manifest.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 117,
+      "spec_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "stage": "P5",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.1",
+      "text": "V6 MUST ship the artifact *build path*: an offline trainer that produces a small pinned artifact (e.g., a distilled projection over deterministic features, or a bundled word-vector table) fitting the contract above, with the training inputs/code/seed recorded so the artifact is reproducible."
+    },
+    "V6-03.08": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/embeddings/artifact.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f29_artifact_build_load_cycle 2026-09-22",
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural arm loads artifact:hash-distilled:v1 with available()=True after manifest verification; a0_neural probe shows the fail-closed path without an artifact"
+      ],
+      "gate": [
+        "G6-02"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.1 artifact loads through ArtifactEncoder; available() only after verify; encoder_id flows into source_vectors.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 118,
+      "spec_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "stage": "P5",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.1",
+      "text": "The produced artifact MUST load through `ArtifactEncoder` (or an equivalent reviewed loader), pass `Float32Codec` output validation, report `available()=True` only after manifest verification, and mint `encoder_id` `artifact:<model>:<revision>` that flows into `source_vectors.encoder`/`embeddings.encoder_id`."
+    },
+    "V6-03.09": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/querying/calibration.py",
+        "eval/v6/neural.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -c eval.v6.neural.fit_calibration 2026-09-22 — support_calibration/v1 entry for artifact:hash-distilled:v1: floor 0.85 fitted on the dev slice, separates=true (reject envelope max 0.707)"
+      ],
+      "gate": [
+        "G6-02"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.1 the artifact encoder has its own fitted calibration entry — not a threshold copied from hashing.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 119,
+      "spec_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "stage": "P5",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.1",
+      "text": "The new encoder gets its own `support_calibration/v1` entry fitted on a dev slice (never a threshold copied from hashing), `validate()` reporting `separates` on no-answer/near-miss slices; unknown/unfitted classes fail closed."
+    },
+    "V6-03.10": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "eval/v6/neural.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — neural paired_quality: recall@k artifact 1.0000 vs hashing 1.0000 (not strictly better), precision non-inferior → neural_recommended=False published"
+      ],
+      "gate": [
+        "G6-02"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.1 paired gate executed on the shared corpus — the label stays unrecommended and the loss is published.",
+      "owner": "unset",
+      "profile": [
+        "local_memory_neural"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F29",
+        "F30"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 120,
+      "spec_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "stage": "P5",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.1",
+      "text": "Neural quality MUST be *measured*, not assumed: paired hashing-vs-artifact runs on the quality suite at fixed corpus; the artifact earns the `local_memory_neural` label only if recall@k strictly improves with precision@k non-inferior, or the label stays unrecommended and the loss is published."
+    },
+    "V6-03.11": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "eval/v5/corpus.py",
+        "eval/v5/consolidation.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — consolidation: fixture 4 same-slot claims over 2 distinct families, qualified_slots=2, observations=2 produced (positive outcome reached; honest-zero contract kept)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.2 eval corpus carries ≥2 same-slot whitelist-predicate claims from distinct evidence families; the positive path is reachable.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 126,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.2",
+      "text": "The eval corpus MUST contain ≥2 same-slot, whitelist-predicate claims from distinct evidence families (e.g., two items phrased \"My favourite café is …\"), so a positive observation outcome is reachable; the probe MUST also accept honestly-reported zero when no slot qualifies."
+    },
+    "V6-03.12": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "eval/v5/consolidation.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — corroboration verdict=passed on folded hit.corroboration=2 (proof-bearing group; raw counts diagnostic only)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.2 corroboration probe requires the folded group, not corr_hits ≥2.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 127,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.2",
+      "text": "The corroboration probe MUST require folded `hit.corroboration ≥ 2` (proof-bearing group), not merely `corr_hits ≥ 2` distinct hits."
+    },
+    "V6-03.13": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/observations/aggregate.py",
+        "eval/v5/consolidation.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f25_consolidation_positive 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f26_held_pin_withholds_summary 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — observations pins resolve 5/5 byte-traceable, sole_trace=False, ungrounded=0"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.2 grounded-consolidation invariants hold on the real path: pins resolve to source bytes, held/erased pins fail closed, summary is never the sole trace.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 128,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.2",
+      "text": "Grounded-consolidation invariants, tested: (a) every observation's pins resolve to independently retrievable source bytes — a summary is never the sole trace; (b) held/erased/superseded pin → summary withheld or retired; (c) deterministic re-derivation from pins reproduces the observation byte-identically; (d) derived views stay labeled `derived_view` with `support_pins` — never source-kind."
+    },
+    "V6-03.14": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/influence/exposure.py",
+        "verbatim/memory/facade.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f28_source_exposure_rows 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — feedback exposure_rows_recorded=passed (source_exposure rows minted on the consumer search path)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.3 source-lane deliveries mint source_exposure rows on the consumer path — measured, not assumed.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 134,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.3",
+      "text": "Source-lane deliveries MUST mint influence/exposure rows (or an equivalent disclosed accounting) so `exposure_rows_recorded` can pass on the consumer path — today only the claim lane instruments deliveries."
+    },
+    "V6-03.15": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/policy/artifacts.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f27_learned_active_artifact_gate 2026-09-22",
+        "pytest tests/policy/test_artifacts.py 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — feedback kill_switch=passed: learned_active refused at config naming the missing artifact binding"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.3 policy-artifact registration flow exists; validated-state transitions require executed paired evidence.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 135,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.3",
+      "text": "A policy-artifact registration flow MUST exist: fit offline → `load_artifact` validation → `policy_artifacts.register` with `validation_state` transitions gated by an executed paired evaluation → `learned_active` accepted only when a *validated* artifact id/digest is bound to config. The kill-switch refusal message MUST name the missing artifact."
+    },
+    "V6-03.16": {
+      "blocker": "",
+      "capability": "trust-defaults",
+      "code_surfaces": [
+        "verbatim/config.py",
+        "verbatim/policy/artifacts.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f27_learned_active_artifact_gate 2026-09-22",
+        "python -m eval.v5.run --suite consolidation --suite feedback 2026-09-22 — eval/v5/report_v5.json — learned_active without a bound validated artifact refuses CONFIG_INVALID (message names the binding)"
+      ],
+      "gate": [
+        "G6-03"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§03.3 learned_shadow is the honest maximum until an artifact passes the paired gate.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "section": "V6-03",
+      "section_title": "Trustworthy defaults — better than extraction-only memory",
+      "spec": "SPEC_V6.md",
+      "spec_line": 136,
+      "spec_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "stage": "P4",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "03.3",
+      "text": "Until an artifact passes the paired gate, `learned_shadow` stays the honest maximum; `learned_active` without a bound validated artifact MUST refuse at config time (current behavior, kept)."
+    },
+    "V6-04.01": {
+      "blocker": "",
+      "capability": "qualification-closure",
+      "code_surfaces": [
+        "eval/v6/ledger.py",
+        "eval/v6/dispositions_v6.json",
+        "tools/gen_v6_ledger.py",
+        "eval/v6/ledger_v6.json"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python tools/gen_v6_ledger.py --check 2026-09-22 (exit 0)",
+        "pytest tests/eval/test_v6_ledger.py 2026-09-22"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§04 eval/v6 ledger module exists: dispositions overlay + generated ledger + summary + --check, carrying the V5 tail read-only.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-04",
+      "section_title": "Qualification closure — the V5 tail",
+      "spec": "SPEC_V6.md",
+      "spec_line": 142,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "A `eval/v6/` ledger module MUST exist (same shape as V5's: dispositions overlay + generated ledger + `--check`), seeded with the V6 requirements AND carried-forward V5 rows this program touches."
+    },
+    "V6-04.02": {
+      "blocker": "",
+      "capability": "qualification-closure",
+      "code_surfaces": [
+        "eval/v5/dispositions_v5.json",
+        "eval/v6/portfolio.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m pytest tests/v6/test_scenarios_f.py::test_f31_v5_tail_re_dispositioned 2026-09-24 (green — run_v5_tail unresolved_count=0)",
+        "eval/v5/dispositions_v5.json re-evidencing: V5-20.03 locally_measured (executed A0 cache-off envelope, MISS published), V5-22.10 locally_measured (executed comparator ladder's absent/unobservable/tested distinction), V5-30.22 deferred (T2/T3 unimplemented; owner post-V6 extraction program)"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§04 V5 implemented_unmeasured tail re-evidenced this wave: all 3 carried rows got a real disposition — two measured, one explicitly deferred with owner+reason; no silent drops (the deferred row stays visibly open in the ledger's carried tail).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-04",
+      "section_title": "Qualification closure — the V5 tail",
+      "spec": "SPEC_V6.md",
+      "spec_line": 143,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The 57 `implemented_unmeasured` V5 rows MUST be re-evidenced: for each, either (a) executed test/eval evidence registered in V5 dispositions, or (b) an explicit `not_applicable`/`deferred` note with reason. No silent drops."
+    },
+    "V6-04.03": {
+      "blocker": "",
+      "capability": "qualification-closure",
+      "code_surfaces": [
+        "eval/v5/dispositions_v5.json",
+        "eval/v6/ledger_v6.json",
+        "eval/v6/summary.md"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "CODE",
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m pytest tests/v6/test_scenarios_f.py::test_f31_v5_tail_re_dispositioned 2026-09-24 (green — run_v5_tail unresolved_count=0)",
+        "python tools/gen_v6_ledger.py --check 2026-09-24 (exit 0 — carried V5 tail 20 rows, each qual=deferred with an owner+reason note; the published deferral list)",
+        "python tools/gen_v5_ledger.py --check 2026-09-24 (exit 0)"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§04 V5 planned tail re-dispositioned this wave: all 42 planned rows got a V6 disposition — 11 locally_measured on wave-1 executed evidence, 12 not_applicable (conditional/absent-object obligations or authority clauses), 19 deferred with owner+reason+closing condition; the deferral list is published in ledger_v6.json's carried block and summary.md.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-04",
+      "section_title": "Qualification closure — the V5 tail",
+      "spec": "SPEC_V6.md",
+      "spec_line": 144,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The 64 `planned` V5 rows MUST each get a V6 disposition: `implemented` in this wave, `deferred` with owner+reason, or `not_applicable` with reason. The deferral list is published in the V6 report."
+    },
+    "V6-04.04": {
+      "blocker": "",
+      "capability": "qualification-closure",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "planned",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§04 predecessor regression: this wave executed tests/v6 + tests/eval/test_v6_* + adapter/service/stats/policy/commit_notify modules (202 green, 1 fail — f31 spec-bar on the open tail). The full v3+v4+v4.5+compat+mutation re-run is not done this wave.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_run",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-04",
+      "section_title": "Qualification closure — the V5 tail",
+      "spec": "SPEC_V6.md",
+      "spec_line": 145,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "planned",
+      "subsection": "",
+      "text": "Predecessor regression suites (v3 + v4 + v4.5 + compat + mutation) MUST re-execute green under the final V6 tree and be registered as carried evidence."
+    },
+    "V6-04.05": {
+      "blocker": "",
+      "capability": "qualification-closure",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "planned",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§04 E-scenario evidence-row updates + stale-xfail sweep not performed this wave.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_run",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-04",
+      "section_title": "Qualification closure — the V5 tail",
+      "spec": "SPEC_V6.md",
+      "spec_line": 146,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "planned",
+      "subsection": "",
+      "text": "Scenario-level registration: every E-scenario that now passes MUST have its evidence row updated (test name + run), and stale `xfail` markers MUST be removed where the scenario genuinely passes — an `xpass` under a stale marker is not evidence."
+    },
+    "V6-05.01": {
+      "blocker": "",
+      "capability": "service-surface",
+      "code_surfaces": [
+        "verbatim/service/memory_api.py",
+        "verbatim/service/auth.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22",
+        "pytest tests/connectors/test_service.py 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§05 /v2/memory add/readiness/search/inspect/forget round-trips over real loopback with bearer-token→host-principal binding.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-05",
+      "section_title": "Service surface — Memory over HTTP",
+      "spec": "SPEC_V6.md",
+      "spec_line": 152,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The service MUST expose V5 consumer routes — `POST /v2/memory/add`, `POST /v2/memory/search`, `POST /v2/memory/inspect`, `POST /v2/memory/forget`, `GET /v2/memory/status`, `GET /v2/memory/readiness/{receipt_id}` — binding each request's bearer credential to the host principal (never a request-minted identity) exactly as the in-process facade binds it."
+    },
+    "V6-05.02": {
+      "blocker": "",
+      "capability": "service-surface",
+      "code_surfaces": [
+        "verbatim/service/memory_api.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§05 wire schemas are the frozen v5/1 contract types via the canonical serializer — verified by service + TS-stub tests.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-05",
+      "section_title": "Service surface — Memory over HTTP",
+      "spec": "SPEC_V6.md",
+      "spec_line": 153,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Request/response schemas MUST be the V5 contract types (`AddResult`, `SearchResult` incl. `status`/`items`/`coverage`/`causal_token`, `InspectResult`, `ForgetResult` two-phase confirm, `Readiness`) serialized via the canonical `json_dumps` seam — no second serializer, no schema drift."
+    },
+    "V6-05.03": {
+      "blocker": "",
+      "capability": "service-surface",
+      "code_surfaces": [
+        "verbatim/service/auth.py",
+        "verbatim/service/memory_api.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f23_service_scope_binding 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§05 cross-workspace token access fails closed (403 on foreign namespace).",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-05",
+      "section_title": "Service surface — Memory over HTTP",
+      "spec": "SPEC_V6.md",
+      "spec_line": 154,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Service-level authorization MUST map to the same store/namespace resolution as `Memory`; a token scoped to workspace W MUST NOT reach another workspace's namespace. Cross-scope attempts fail closed."
+    },
+    "V6-05.04": {
+      "blocker": "",
+      "capability": "service-surface",
+      "code_surfaces": [
+        "verbatim/service/memory_api.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/connectors/test_service.py 2026-09-22",
+        "pytest tests/v6/test_scenarios_f.py::test_f22_service_memory_routes 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§05 /v2/memory/status + capabilities report worker mode, TLS-absent, bind, and request bounds honestly.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-05",
+      "section_title": "Service surface — Memory over HTTP",
+      "spec": "SPEC_V6.md",
+      "spec_line": 155,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The service MUST report honest capability/limits (`/v2/memory/capabilities`): worker mode, TLS state (unimplemented), bind, per-request bounds."
+    },
+    "V6-05.05": {
+      "blocker": "",
+      "capability": "service-surface",
+      "code_surfaces": [
+        "clients/ts/memory-client/src/index.ts"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "pytest tests/v6/test_scenarios_f.py::test_f24_ts_client_end_to_end 2026-09-22",
+        "pytest tests/v6/test_packaging.py::test_ts_client_wire_format_against_stub 2026-09-22"
+      ],
+      "gate": [
+        "G6-04"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§05 TS client consumes exactly the §05 routes — stub-verified plus live loopback smoke.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "section": "V6-05",
+      "section_title": "Service surface — Memory over HTTP",
+      "spec": "SPEC_V6.md",
+      "spec_line": 156,
+      "spec_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "stage": "P3",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "The TypeScript `MemoryClient` (V6-01.10) consumes exactly these routes; a thin client (fetch + types), one file, no engine reimplementation. Verified against a recorded/stub server plus one live loopback smoke."
+    },
+    "V6-06.01": {
+      "blocker": "",
+      "capability": "comparators",
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — comparators: verbatim_memory acc 1.000, verbatim_v2 0.852, naive_fts 0.889, vector_rag 0.778, no_memory 0.148 — all real arms, same corpus/tasks/k"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§06 always-run arms execute offline and paired; comparisons verbatim_memory-vs-each VALID.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-06",
+      "section_title": "Comparators — evidence that can actually run",
+      "spec": "SPEC_V6.md",
+      "spec_line": 162,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "**Always-run arms** (fully offline, zero installs): `naive_fts` (SQLite FTS5 BM25 over identical items), `vector_rag` (hashing encoder top-k), `verbatim_v2` (predecessor), `no_memory` (control), `verbatim_memory` (V5/V6 path). Each is a real arm in `eval/v6/comparators.py` or the existing v5/v45 harness — paired, same corpus, same tasks, same token budgets, per-arm pins."
+    },
+    "V6-06.02": {
+      "blocker": "",
+      "capability": "comparators",
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — mem0_oss + mem0_oss_inferfalse rows report unavailable: 'mem0ai not installed' (verbatim probe error kept)"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§06 pinned Mem0 OSS infeasible in this environment — the rows report unavailable with the reason, never a fake tested.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-06",
+      "section_title": "Comparators — evidence that can actually run",
+      "spec": "SPEC_V6.md",
+      "spec_line": 163,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "**Pinned Mem0 OSS** when feasible: `pip install mem0ai` + `qdrant-client` local mode + a local embedder (ollama model or sentence-transformers asset). `infer=False` mode is allowed only as a *disclosed* arm (`extractor=\"infer=False raw storage\"`) — never reported as default Mem0. `infer=True` requires a local LLM; if infeasible, the row reports `unavailable` with the reason, never a fake `tested`."
+    },
+    "V6-06.03": {
+      "blocker": "",
+      "capability": "comparators",
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — named unavailable rows: graphiti_oss (graphiti_core + neo4j absent), holographic (absent), zep_hosted + mem0_platform (out_of_scope — hosted, unauthorized)"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§06 absence is reported, not hidden.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-06",
+      "section_title": "Comparators — evidence that can actually run",
+      "spec": "SPEC_V6.md",
+      "spec_line": 164,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "**Named unavailable rows** for every declared-but-unrunnable comparator (Graphiti, Zep, Holographic, hosted Mem0 Platform, …): `status=unavailable`, reason recorded. Absence is reported, not hidden."
+    },
+    "V6-06.04": {
+      "blocker": "",
+      "capability": "comparators",
+      "code_surfaces": [
+        "eval/v6/comparators.py",
+        "eval/v5/comparators.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — all comparator rows carry the 13 pins; compare() refusal rules enforced (track/weakened/unpinned/missing-metric)"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§06 pin coverage + refusal contract verified per row.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-06",
+      "section_title": "Comparators — evidence that can actually run",
+      "spec": "SPEC_V6.md",
+      "spec_line": 165,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Every comparator row carries the 13 required pins (`edition, revision, deployment, extractor, embedder, reader, judge, prompts, settings, indexes, readiness_policy, hardware, pricing_date`); `compare()` refusals (track mismatch, weakened, unpinned, missing metric) stay enforced."
+    },
+    "V6-06.05": {
+      "blocker": "",
+      "capability": "comparators",
+      "code_surfaces": [
+        "eval/v6/comparators.py"
+      ],
+      "envelopes": [],
+      "evidence_type": [
+        "LOCAL",
+        "BENCH"
+      ],
+      "executed_evidence": [
+        "python -m eval.v6.run 2026-09-22 — eval/v6/report_v6.json — recall@k/precision@k/abstain/forbidden/accuracy/latency p50-p95 + cost categories published; verbatim_memory losses to no arm on accuracy at this corpus"
+      ],
+      "gate": [
+        "G6-05",
+        "G6-08"
+      ],
+      "implementation_status": "implemented",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§06 comparison metrics published per arm; unmeasured categories labeled partial.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "locally_measured",
+      "scenarios": [
+        "F31",
+        "F32"
+      ],
+      "section": "V6-06",
+      "section_title": "Comparators — evidence that can actually run",
+      "spec": "SPEC_V6.md",
+      "spec_line": 166,
+      "spec_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "stage": "P6",
+      "stage_source": "fallback",
+      "status": "locally_measured",
+      "subsection": "",
+      "text": "Comparison metrics: recall@k, precision@k, abstention, forbidden deliveries, task success, latency p50/p95, and the eight cost categories — partial totals labeled partial. Losses publish in the report, never buried."
+    },
+    "V6-08.01": {
+      "blocker": "",
+      "capability": "gates",
+      "code_surfaces": [],
+      "envelopes": [],
+      "evidence_type": [],
+      "executed_evidence": [],
+      "gate": [
+        "G6-00",
+        "G6-01",
+        "G6-03",
+        "G6-04",
+        "G6-05",
+        "G6-06"
+      ],
+      "implementation_status": "not_applicable",
+      "inherited_gates": [],
+      "inherited_requirements": [],
+      "inherited_scenarios": [],
+      "note": "§08 release-level gate mapping — descriptive registry text; the G6-* gates bind at release time per V6-00.06.",
+      "owner": "unset",
+      "profile": [
+        "*"
+      ],
+      "qualification_status": "not_applicable",
+      "scenarios": [],
+      "section": "V6-08",
+      "section_title": "Gates G6-00–G6-08",
+      "spec": "SPEC_V6.md",
+      "spec_line": 221,
+      "spec_scenarios": [],
+      "stage": "",
+      "stage_source": "fallback",
+      "status": "not_applicable",
+      "subsection": "",
+      "text": "Developer preview needs G6-00 plus F01–F08. Recommended local consumer needs G6-01/03/04. “Faster than Mem0 OSS” needs G6-01 plus a pinned equal-hardware row. “More trustworthy than Mem0 OSS” needs G6-03 plus update/false-current/forget slices, not a slogan. “Better than Mem0” as a public sentence needs G6-05 and G6-06."
+    }
+  },
+  "scenarios": {
+    "F01": {
+      "anchored_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05"
+      ],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 174,
+      "stage": "P3",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Fresh-wheel add/search/inspect/forget without drain or internal classes"
+    },
+    "F02": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 175,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Import creates no workers; `Memory` starts at most one store-bounded helper"
+    },
+    "F03": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 176,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "`infer=False` is searchable; `infer=True` retains sources; agent notes stay agent"
+    },
+    "F04": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 177,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Typed-memory hit pins to exact source bytes; inspect round-trips the quote"
+    },
+    "F05": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 178,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Explicit replace plus `after` returns successor current and predecessor labeled"
+    },
+    "F06": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 179,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Plain retirement language does not auto-canonize; pack is disputed or dual"
+    },
+    "F07": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 180,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Forget removes source, typed memory, vector, and cache paths; restart stays empty"
+    },
+    "F08": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 181,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Foreign-namespace writes cannot change authorized order or scores"
+    },
+    "F09": {
+      "anchored_requirements": [
+        "V6-02.05",
+        "V6-02.11",
+        "V6-02.13",
+        "V6-02.14"
+      ],
+      "bound_gates": [],
+      "envelopes": [
+        "A0",
+        "A0-cache"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 182,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "A0 cache-off and A0-cache measured on the pinned machine; misses stay published"
+    },
+    "F10": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 183,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "MCP default list and dispatch are exactly the two consumer tools"
+    },
+    "F11": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 184,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Mem0 shim update/delete cannot skip CAS/closure or turn pending into success"
+    },
+    "F12": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 185,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Neural extra without artifacts is unavailable; hashing label stays honest"
+    },
+    "F13": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 186,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Duplicate sources collapse in search; contrary evidence is not collapsed away"
+    },
+    "F14": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 187,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "ANN or cache failure falls back without skipping holds"
+    },
+    "F15": {
+      "anchored_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05"
+      ],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 188,
+      "stage": "P3",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Clean-env install uses the chosen distribution name; `register()` still discovers"
+    },
+    "F16": {
+      "anchored_requirements": [],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 189,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Stale-deploy README demo is two Verbatim arms unless G6-05 exists"
+    },
+    "F17": {
+      "anchored_requirements": [
+        "V6-02.07",
+        "V6-02.08",
+        "V6-02.09",
+        "V6-02.10",
+        "V6-02.11",
+        "V6-02.12"
+      ],
+      "bound_gates": [
+        "G6-01"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 190,
+      "stage": "P1",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Cross-store commit wake: worker commit unblocks a facade barrier in <25 ms of dead time (before: poll-ramp dead time)"
+    },
+    "F18": {
+      "anchored_requirements": [
+        "V6-02.07",
+        "V6-02.08",
+        "V6-02.09",
+        "V6-02.10",
+        "V6-02.11",
+        "V6-02.12"
+      ],
+      "bound_gates": [
+        "G6-01"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 191,
+      "stage": "P1",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Session-blocked source drains ahead of ordinary queue under write load; privacy lane never demoted"
+    },
+    "F19": {
+      "anchored_requirements": [
+        "V6-02.07",
+        "V6-02.08",
+        "V6-02.09",
+        "V6-02.10",
+        "V6-02.11",
+        "V6-02.12"
+      ],
+      "bound_gates": [
+        "G6-01"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 192,
+      "stage": "P1",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "`consistency=\"eventual\"` skips the barrier, warns, and still never leaks held evidence"
+    },
+    "F20": {
+      "anchored_requirements": [
+        "V6-02.05",
+        "V6-02.07",
+        "V6-02.08",
+        "V6-02.09",
+        "V6-02.10",
+        "V6-02.11",
+        "V6-02.12"
+      ],
+      "bound_gates": [
+        "G6-01"
+      ],
+      "envelopes": [
+        "A1"
+      ],
+      "spec": "SPEC_V6.md",
+      "spec_line": 193,
+      "stage": "P1",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "A1 envelope executes on the pinned machine; p95/p99 and backlog published pass-or-miss"
+    },
+    "F21": {
+      "anchored_requirements": [],
+      "bound_gates": [
+        "G6-01",
+        "G6-07"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 194,
+      "stage": "",
+      "stage_source": "unbound",
+      "status": "not_run",
+      "text": "Add-ack profile at 1k/5k/20k; any superlinear stage named"
+    },
+    "F22": {
+      "anchored_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05"
+      ],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 195,
+      "stage": "P3",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Service `/v2/memory/*` round-trips add→wait→search→inspect→forget for a bound token"
+    },
+    "F23": {
+      "anchored_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05"
+      ],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 196,
+      "stage": "P3",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Cross-workspace service token cannot read another namespace (fail closed)"
+    },
+    "F24": {
+      "anchored_requirements": [
+        "V6-01.01",
+        "V6-01.02",
+        "V6-01.03",
+        "V6-01.04",
+        "V6-01.05",
+        "V6-01.06",
+        "V6-01.07",
+        "V6-01.08",
+        "V6-01.09",
+        "V6-01.10",
+        "V6-01.11",
+        "V6-01.12",
+        "V6-01.13",
+        "V6-05.01",
+        "V6-05.02",
+        "V6-05.03",
+        "V6-05.04",
+        "V6-05.05"
+      ],
+      "bound_gates": [
+        "G6-04"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 197,
+      "stage": "P3",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "TypeScript client drives the live loopback service end-to-end (add→search→forget)"
+    },
+    "F25": {
+      "anchored_requirements": [
+        "V6-03.01",
+        "V6-03.02",
+        "V6-03.03",
+        "V6-03.04",
+        "V6-03.05",
+        "V6-03.11",
+        "V6-03.12",
+        "V6-03.13",
+        "V6-03.14",
+        "V6-03.15",
+        "V6-03.16"
+      ],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 198,
+      "stage": "P4",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Consolidation positive fixture: two same-slot distinct-family claims yield a proof-bearing observation; pins resolve; summary never sole trace"
+    },
+    "F26": {
+      "anchored_requirements": [
+        "V6-03.01",
+        "V6-03.02",
+        "V6-03.03",
+        "V6-03.04",
+        "V6-03.05",
+        "V6-03.11",
+        "V6-03.12",
+        "V6-03.13",
+        "V6-03.14",
+        "V6-03.15",
+        "V6-03.16"
+      ],
+      "bound_gates": [
+        "G6-03"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 199,
+      "stage": "P4",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Pin invalidation: held/erased pin retires or withholds the summary"
+    },
+    "F27": {
+      "anchored_requirements": [
+        "V6-03.01",
+        "V6-03.02",
+        "V6-03.03",
+        "V6-03.04",
+        "V6-03.05",
+        "V6-03.11",
+        "V6-03.12",
+        "V6-03.13",
+        "V6-03.14",
+        "V6-03.15",
+        "V6-03.16"
+      ],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 200,
+      "stage": "P4",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "`learned_active` without a validated bound artifact refuses naming the artifact; a registered validated artifact activates"
+    },
+    "F28": {
+      "anchored_requirements": [
+        "V6-03.01",
+        "V6-03.02",
+        "V6-03.03",
+        "V6-03.04",
+        "V6-03.05",
+        "V6-03.11",
+        "V6-03.12",
+        "V6-03.13",
+        "V6-03.14",
+        "V6-03.15",
+        "V6-03.16"
+      ],
+      "bound_gates": [],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 201,
+      "stage": "P4",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Source-lane deliveries record exposure/influence rows on the consumer path"
+    },
+    "F29": {
+      "anchored_requirements": [
+        "V6-03.06",
+        "V6-03.07",
+        "V6-03.08",
+        "V6-03.09",
+        "V6-03.10"
+      ],
+      "bound_gates": [
+        "G6-02"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 202,
+      "stage": "P5",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Locally-built neural artifact: manifest verifies, `available()=True`, encoder_id flows to vectors, `validate()` separates"
+    },
+    "F30": {
+      "anchored_requirements": [
+        "V6-03.06",
+        "V6-03.07",
+        "V6-03.08",
+        "V6-03.09",
+        "V6-03.10"
+      ],
+      "bound_gates": [
+        "G6-02"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 203,
+      "stage": "P5",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Paired hashing-vs-artifact quality run published; neural label earned or loss published"
+    },
+    "F31": {
+      "anchored_requirements": [
+        "V6-04.01",
+        "V6-04.02",
+        "V6-04.03",
+        "V6-04.04",
+        "V6-04.05",
+        "V6-06.01",
+        "V6-06.02",
+        "V6-06.03",
+        "V6-06.04",
+        "V6-06.05"
+      ],
+      "bound_gates": [
+        "G6-08"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 204,
+      "stage": "P6",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "V5 tail closed: all 121 unfinished rows re-dispositioned; predecessor suites re-executed green"
+    },
+    "F32": {
+      "anchored_requirements": [
+        "V6-04.01",
+        "V6-04.02",
+        "V6-04.03",
+        "V6-04.04",
+        "V6-04.05",
+        "V6-06.01",
+        "V6-06.02",
+        "V6-06.03",
+        "V6-06.04",
+        "V6-06.05"
+      ],
+      "bound_gates": [
+        "G6-05"
+      ],
+      "envelopes": [],
+      "spec": "SPEC_V6.md",
+      "spec_line": 205,
+      "stage": "P6",
+      "stage_source": "phase_exit",
+      "status": "not_run",
+      "text": "Comparator ladder: offline arms execute; Mem0 row pinned-or-unavailable with reason; no fake `tested`"
+    }
+  },
+  "schema": 1,
+  "specs": {
+    "SPEC_V6.md": {
+      "sha256": "3ce97f77d79562eb01b1789bb88390784aeba906b586e6c1222ca0fc595ea66b"
+    }
+  },
+  "stages": [
+    "P0",
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6",
+    "P7"
+  ],
+  "stages_defined": {
+    "P0": {
+      "exit": "Ledger `--check` parses all requirements",
+      "exit_envelopes": [],
+      "exit_gates": [],
+      "exit_scenarios": [],
+      "main_work": "Frozen V6 contracts (`core/types_v6.py`, `docs/v6_contracts.md`), ledger scaffold (`eval/v6/`)",
+      "spec": "SPEC_V6.md",
+      "spec_line": 227
+    },
+    "P1": {
+      "exit": "F17–F20 + measured A1 delta",
+      "exit_envelopes": [
+        "A1"
+      ],
+      "exit_gates": [],
+      "exit_scenarios": [
+        "F17",
+        "F18",
+        "F19",
+        "F20"
+      ],
+      "main_work": "Causal-barrier program (cross-store wake, unblock-first drain, barrier semantics) + stage-profile wiring",
+      "spec": "SPEC_V6.md",
+      "spec_line": 228
+    },
+    "P2": {
+      "exit": "A0/A0-cache envelopes executed",
+      "exit_envelopes": [
+        "A0",
+        "A0-cache"
+      ],
+      "exit_gates": [],
+      "exit_scenarios": [],
+      "main_work": "Typed-memory hot path (default ranking over grounded records) + cache default + add-ack scaling",
+      "spec": "SPEC_V6.md",
+      "spec_line": 229
+    },
+    "P3": {
+      "exit": "F01, F15, F22–F24",
+      "exit_envelopes": [],
+      "exit_gates": [],
+      "exit_scenarios": [
+        "F01",
+        "F15",
+        "F22",
+        "F23",
+        "F24"
+      ],
+      "main_work": "Service `/v2/memory/*` + TS client + packaging polish (py.typed, LICENSE, entry points, README)",
+      "spec": "SPEC_V6.md",
+      "spec_line": 230
+    },
+    "P4": {
+      "exit": "F25–F28",
+      "exit_envelopes": [],
+      "exit_gates": [],
+      "exit_scenarios": [
+        "F25",
+        "F26",
+        "F27",
+        "F28"
+      ],
+      "main_work": "Consolidation fixtures + invariants, feedback artifact path + source-lane exposure",
+      "spec": "SPEC_V6.md",
+      "spec_line": 231
+    },
+    "P5": {
+      "exit": "F29–F30, G6-02",
+      "exit_envelopes": [],
+      "exit_gates": [
+        "G6-02"
+      ],
+      "exit_scenarios": [
+        "F29",
+        "F30"
+      ],
+      "main_work": "Neural artifact build path + calibration + paired quality",
+      "spec": "SPEC_V6.md",
+      "spec_line": 232
+    },
+    "P6": {
+      "exit": "F31–F32, G6-05/07/08",
+      "exit_envelopes": [],
+      "exit_gates": [
+        "G6-05",
+        "G6-07",
+        "G6-08"
+      ],
+      "exit_scenarios": [
+        "F31",
+        "F32"
+      ],
+      "main_work": "Comparator ladder execution + V5-tail closure + full regression + final report",
+      "spec": "SPEC_V6.md",
+      "spec_line": 233
+    },
+    "P7": {
+      "exit": "Report verdicts",
+      "exit_envelopes": [],
+      "exit_gates": [],
+      "exit_scenarios": [],
+      "main_work": "Improvements driven by measured losses only",
+      "spec": "SPEC_V6.md",
+      "spec_line": 234
+    }
+  },
+  "statuses": [
+    "planned",
+    "in_progress",
+    "implemented_unmeasured",
+    "locally_measured",
+    "qualified",
+    "failed",
+    "not_applicable"
+  ],
+  "summary": {
+    "by_implementation_status": {
+      "implemented": 62,
+      "in_progress": 0,
+      "not_applicable": 4,
+      "planned": 3
+    },
+    "by_qualification_status": {
+      "deferred": 0,
+      "failed": 0,
+      "locally_measured": 60,
+      "not_applicable": 4,
+      "not_run": 5,
+      "qualified": 0
+    },
+    "by_stage": {
+      "": 1,
+      "P0": 8,
+      "P1": 6,
+      "P2": 10,
+      "P3": 18,
+      "P4": 11,
+      "P5": 5,
+      "P6": 10,
+      "P7": 0
+    },
+    "by_status": {
+      "failed": 0,
+      "implemented_unmeasured": 2,
+      "in_progress": 0,
+      "locally_measured": 60,
+      "not_applicable": 4,
+      "planned": 3,
+      "qualified": 0
+    },
+    "carried_by_status": {
+      "implemented_unmeasured": 0,
+      "planned": 20
+    },
+    "carried_total": 20,
+    "disposition_overrides": 69,
+    "gates_total": 9,
+    "requirements_with_gates": 55,
+    "requirements_with_scenarios": 53,
+    "scenarios_total": 32,
+    "total": 69
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "version": "3.0.0-p0",
+  "schema_version": 3,
+  "spec": "SPEC_V3.md R1",
+  "generated_by": "eval/v3 — P0 release skeleton; every capability and gate status is declared, not claimed",
+  "honesty_contract": {
+    "note": "statuses distinguish specification targets from measured results (V3-54.11); deferred capabilities remain visible and can never appear as completed checklist items (V3-05.06); optional/research omissions are recorded as deferred, not passed (V3-05.08)",
+    "capability_statuses": [
+      "declared",
+      "implemented",
+      "validated",
+      "deferred"
+    ],
+    "capability_dimensions": [
+      "implemented",
+      "installed",
+      "configured",
+      "authorized",
+      "healthy",
+      "measured",
+      "recommended"
+    ],
+    "capability_dimensions_note": "V3-05.01: status reports all seven dimensions; this manifest fixes declared tier status — measurement evidence lives in eval/v3/registry/ledger.json"
+  },
+  "capabilities": {
+    "embedded": {
+      "tier": "core_v3.0",
+      "status": "implemented",
+      "measured": false,
+      "note": "single SQLite authority, rules-only inference, no network; the only profile with a working store today — unvalidated against the v3 requirement evidence matrix",
+      "required_profiles": ["embedded"],
+      "requirements": ["V3-05.01", "V3-05.02", "V3-05.03"]
+    },
+    "local_semantic": {
+      "tier": "core_v3.0",
+      "status": "declared",
+      "measured": false,
+      "note": "one pinned local dense encoder path is a required v3.0 deliverable; encoder is an optional extra, never auto-downloaded — not yet implemented or measured",
+      "required_profiles": ["local_semantic"],
+      "requirements": ["V3-05.01", "V3-05.03"]
+    },
+    "team_service": {
+      "tier": "optional_v3.x",
+      "status": "deferred",
+      "measured": false,
+      "note": "roadmap profile (V3-05.10); requires HTTP/OAuth and shared-authority work not in v3.0 scope"
+    },
+    "scaled_service": {
+      "tier": "optional_v3.x",
+      "status": "deferred",
+      "measured": false,
+      "note": "advertised only for configurations passing the §44 mixed-load matrix on the reviewed engine (V3-05.04); no such run exists"
+    },
+    "split_privacy": {
+      "tier": "optional_v3.x",
+      "status": "deferred",
+      "measured": false,
+      "note": "sanitized remote enrichment; requires §35 vault plus per-recipient audited consent (V3-05.05)"
+    },
+    "portable_workspace": {
+      "tier": "optional_v3.x",
+      "status": "deferred",
+      "measured": false,
+      "note": "signed bundles and file projections; offline handoff/migration use case"
+    }
+  },
+  "core_v3_0_deliverables": [
+    {"capability": "sqlite_evidence_authority", "status": "implemented", "measured": false, "note": "v2 store works; v3 requirement evidence matrix pending"},
+    {"capability": "v2_regression_repairs", "status": "declared", "measured": false, "note": "F13–F27 dispositioned in eval/v3/f_items_audit.json (10 evidenced, 3 fixed, 1 partially_evidenced, 1 explicitly_deferred); F27 reproduced and attributed in eval/v3/f27_report.json"},
+    {"capability": "requirement_evidence_matrix", "status": "implemented", "measured": true, "note": "eval/v3/registry/ledger.json seeds all 616 V3-NN.MM requirements as pending"},
+    {"capability": "local_grants_perspectives", "status": "implemented", "measured": true, "note": "verbatim/governance: principals, grants, delegation, consent, epochs, revocation, propagation, perspectives — 61 tests; security_privacy suite measures authorization (0 disclosure violations)"},
+    {"capability": "screening", "status": "implemented", "measured": true, "note": "verbatim/security + write-channel screening in ingest_envelope (§34.01); labels + quarantine on suspicious/blocked; security_privacy suite: flag rate 1.000 on 8 poison patterns, 0 false positives on benign instructional content"},
+    {"capability": "vault_routing_encryption", "status": "implemented", "measured": false, "note": "verbatim/privacy/vault.py: AES-256-GCM via cryptography.hazmat, per-scope keys, no plaintext fallback; 61 vault tests; not yet exercised by an eval suite"},
+    {"capability": "purge_restore", "status": "implemented", "measured": false, "note": "verbatim/privacy/deletion.py: plan/execute/verify closure over derivation graph; 19 deletion tests incl. orphan detection; not yet exercised by an eval suite"},
+    {"capability": "python_api_cli", "status": "implemented", "measured": false},
+    {"capability": "coding_trajectory_loop", "status": "implemented", "measured": false, "note": "trajectories, episodes, transitions, procedure compiler, anchors all landed (68 experience + 65 procedure tests); the capture→compile→retrieve→measure→correct loop through live Hermes/ADK hosts remains unmeasured — G5 requires paired host executions"},
+    {"capability": "stdio_mcp_fresh_store", "status": "implemented", "measured": true, "note": "McpV3Server: 8 v3_* tools over stdio, launch-bound caller identity, no default admin/review authority; 38 api/MCP tests incl. fresh-store capture→recall e2e"},
+    {"capability": "hermes_adapter", "status": "implemented", "measured": false, "note": "verbatim/adapters/hermes_v3.py landed with SDK; v3 conformance through a live Hermes host unmeasured"},
+    {"capability": "adk_adapter", "status": "implemented", "measured": false, "note": "verbatim/adapters/adk.py landed; ADK deps remain an install extra"},
+    {"capability": "four_suite_harness", "status": "implemented", "measured": true, "note": "eval/v3: conformance, retrieval_quality, paired_usefulness, security_privacy; begins in P0 (V3-53)"}
+  ],
+  "dependencies": [
+    {
+      "name": "cryptography",
+      "constraint": ">=42,<47",
+      "required": true,
+      "purpose": "reviewed AES-256-GCM vault implementation (V3-35.02); no custom crypto, no plaintext fallback",
+      "status": "used_by_verbatim/privacy/vault.py"
+    }
+  ],
+  "supply_chain": {
+    "runtime_downloads": "prohibited",
+    "artifact_pinning": "required for any model artifacts (T13)",
+    "sbom": "not yet generated"
+  },
+  "gates": {
+    "G0": {"name": "foundation", "status": "partially_measured", "evidence": "eval/v3/registry/ledger.json + eval/v3/f27_report.json + eval/v3/suite_conformance.py + eval/v3/f_items_audit.json", "measured": "F27 reproduced and fully attributed at saved-baseline scale (0.61/0.88 vs saved 0.58/0.89, 0 unattributed — mechanism is rank_shift/packed_out lexical candidates, not generation stranding). Conformance suite (the declared §53 fourth suite, previously never executed) now runs via --suite conformance: 132/132 requirement-tagged cases pass across core-api (A01–A25), cli, mcp-stdio, api-v3, mcp-v3, capture-sdk, adapters surfaces; hermes-live and adk-live declared unavailable lanes. F13–F27 per-item audit registered: 10 evidenced (incl. F18 full replay lab — paired delivery + paired admission arms cover every §43.02 stage), 3 fixed (F21 structural, F22 scope dedup, F27), 1 partially_evidenced (F23 corpus scale), 1 explicitly_deferred (F20 multilingual)", "note": "F27 + A01–A25 + API/CLI/MCP/SDK/ADK-harness conformance + F-item audit registered + G3 deep twin corpus (0/460, bound 0.0065); remaining G0 items — live Hermes/ADK host conformance (approval-gated), G7/G8 licensed corpus + learned controller"},
+    "G1": {"name": "deterministic integrity/privacy", "status": "measured", "evidence": "eval/v3/report_wave3.md", "measured": "disclosure_violations = 0 on verbatim_v3 (52-task security suite)", "feeds_from_suites": ["conformance", "security_privacy"]},
+    "G2": {"name": "admission and capture automation", "status": "measured", "evidence": "tests/test_v3_integration.py + report_wave3.md", "measured": "capture→screen→harvest→admit→recall verified e2e; 8/8 poison blocked at ingest", "feeds_from_suites": ["conformance"]},
+    "G3": {"name": "update automation", "status": "measured", "evidence": "eval/v3/report_wave3.md + eval/v3/g3_report.json + corpus supersession fixtures", "measured": "on verbatim_v3: supersede applied 5/5 true pairs (pr-007 + pr-009..012), false-positive twins clean 4/4. Deep twin corpus (eval/v3/g3_twins.py): 460 synthetic near-miss twins over 12 categories through both real detectors — 0 false positives, upper-95% false-supersession bound 0.0065 (rule-of-three) / 0.0083 (Wilson), under the <0.01 spec target; 30/30 true pairs detected. Bound is on a template-generated corpus — declared synthetic, not natural text", "feeds_from_suites": ["retrieval_quality"], "note": "deep-corpus bound achieved on synthetic twins; natural-text coverage still thin"},
+    "G4": {"name": "useful retrieval", "status": "measured", "evidence": "eval/v3/report_wave3.md", "measured": "recall@k 1.000, precision 0.936, abstain P/R 1.000, spurious 0.000, poison exposure 0.000, grounded 1.000 on verbatim_v3 under provisioned hashing encoder (52-task corpus)", "feeds_from_suites": ["retrieval_quality"]},
+    "G4b": {"name": "observation injection", "status": "not_run", "evidence": "eval/v3/registry/ledger.json", "optional": true, "feeds_from_suites": ["paired_usefulness"]},
+    "G5": {"name": "experience benefit", "status": "measured", "evidence": "eval/v3/report_wave3.md", "measured": "paired delta +0.917 CI [0.760,1.000] over 12 trials on verbatim_v3 (harness-level paired execution; not live Hermes/ADK hosts)", "feeds_from_suites": ["paired_usefulness"], "note": "G5 spec additionally requires paired executions on real hosts — harness-level result does not satisfy the host requirement"},
+    "G6": {"name": "operations", "status": "measured", "evidence": "tests/ops/test_operational.py", "measured": "6/6 operational scenarios pass: mixed-load (concurrent ingest+recall+drain, integrity clean), crash/restore (SIGKILL mid-tx — committed survives, uncommitted rolls back, reopen clean), vault key rotation under concurrent reads (6/6 rewrap, exact bytes or typed error, never wrong bytes), deletion closure under load (atomic purge, payload scrub, inline verify, sibling scope untouched), T1 workload (1K claims, recall p95 24.4ms vs 25ms target), T2 workload (10K claims, recall p95 44.9ms vs 60ms target — claim-volume approximation, episode/procedure mix not seeded)", "note": "covers T1/T2 workload, mixed load, crash/restore, key rotation, deletion closure"},
+    "G7": {"name": "competitive claim", "status": "not_run", "evidence": "eval/v3/registry/ledger.json", "optional": true, "note": "no competitor-superiority claim without executed paired comparisons (V3-54.13)"},
+    "G8": {"name": "learned controller", "status": "executed_not_met", "evidence": "eval/v3/g8_report.json + eval/v3/g8_policy.json", "optional": true, "measured": "paired sandbox executions ran for real: 11 bounded actions × 52 corpus tasks as forced arms through real recall_v3 (eval/v3/g8.py trainer), then deterministic-vs-learned paired evaluation — success_diff 0.0 ci95 [0.0,0.0], token_reduction 0.0. Learned converges to the deterministic warm start: every bounded action delivered identical bytes on this corpus (packs too small for caps to bind). Criterion not met — honest measurement, not a pass", "note": "machinery is real: verbatim/retrieval/v3/learned.py bounded contextual policy (11-action delta set, tabular Q over state_key, ≤µs selection), artifact schema + validation, deterministic fallback on missing/corrupt artifact (B36), replay_learned/forced/learned_shadow channels via policy_tables; learned_active stays config-refused until a G8-passed artifact exists"},
+    "G9": {"name": "probabilistic attack/privacy resistance", "status": "measured", "evidence": "eval/v3/report_wave3.md", "measured": "benign pass 1.000; poison exposure 0.000 post-write-channel; disclosure 0 on verbatim_v3", "feeds_from_suites": ["security_privacy"]}
+  },
+  "evidence": {
+    "registry": "eval/v3/registry/ledger.json",
+    "suites": "eval/v3/suites.py",
+    "harness": "eval/v3/harness.py",
+    "ledger": "eval/v3/ledger.py",
+    "f27_investigation": "eval/v3/f27.py",
+    "report_generator": "eval/v3/report_v3.py",
+    "threat_model": "THREAT_MODEL.md",
+    "tests": "tests/eval/test_v3_harness.py"
+  },
+  "applicability": {
+    "note": "V3-05.08/V3-05.09: shared evidence/security invariants bind every shipped capability; optional/research items are deferred, never silently not_applicable; §63 consumes this same manifest"
+  },
+  "known_limitations": [
+    {"id": "L1", "area": "semantic retrieval", "status": "implemented_measured", "detail": "hashing backend: deterministic pure-stdlib subword encoder (blake2b feature hashing, word unigrams + char n-grams 3-5, 384-dim L2-normalized; encoder_id hashing:subword-ngram:v1, no downloads/models/network — satisfies 'one pinned local dense encoder integration'). store.encoder wire + apply_transition embed obligation added — claims activated via the public API previously never enqueued EMBED jobs. Measured (eval/v3/report_wave3.md): vector_rag recall 1.000 / precision 0.530 / spurious 1.000 (no abstention machinery, by design); verbatim_v3 recall 1.000 / precision 0.936, abstain P/R 1.000, spurious 0.000, poison exposure 0.000 under the provisioned encoder — group-verdict filter rejects weak semantic matches where v2's all-or-nothing _semantic_possible gate collapses (v2 abstain 0.000, spurious 1.000, measured). Honest bound: lexical-subword signal only — paraphrase-level semantics limited; neural artifact backend remains fail-closed (ENCODER_UNAVAILABLE); sparse/late lanes still artifact-gated unavailable"},
+    {"id": "L2", "area": "stale evidence ranking", "status": "resolved_measured", "detail": "pr-007 fixed: verbatim/evidence/supersession.py detects explicit retirement signals ('X was retired/deprecated/removed', subject+object forms) in newly-admitted v3-origin claims and proposes operator-gated supersede reviews — topic-binding + corroboration guards bound false supersession. Retrieval: supersedes edges are optional deps; terminal counterparties (superseded/rejected/archived) no longer break group completeness. Measured: tasks suite verbatim_v3 1.000 memory success, +0.917 paired delta over 12 trials, negative transfer 0.000 (was 0.125, shared with v2)"},
+    {"id": "L3", "area": "retrieval recall", "status": "resolved_measured", "detail": "recall@k now 1.000 with precision 0.936 on the 52-task corpus: the earlier 0.972 gap was a poisoning fixture's intentionally-weak benign item (1/3 term coverage) withheld by the V3-29.05 coverage floor; under v3-ingest routing the poisoned co-fixture is quarantined at write, and the benign item was strengthened to 3/3 coverage so the fixture measures a real answer"},
+    {"id": "L4", "area": "eval comparability", "status": "disclosed", "detail": "all four suites route each arm through baseline.ingest_mode (v3 arm exercises its real screened write channel everywhere; other arms stay on shared v2-ingest for comparability). Consequence: v3-arm retrieval/security numbers now reflect quarantine-at-write behavior — poisoned sources never become claims (po-008's weak benign item strengthened to 3/3 coverage so the fixture stays well-formed under the coverage floor)"},
+    {"id": "L5", "area": "paired execution", "status": "measured_with_caveat", "detail": "G5 delta +0.917 over 12 trials is harness-level paired execution on scripted fixtures, not live Hermes/ADK hosts — the spec's host requirement is unsatisfied"},
+    {"id": "L6", "area": "evidence granularity", "status": "disclosed", "detail": "ledger evidence is section-granular (test files cover requirements collectively); 244 pass / 322 partial / 50 unverified at that granularity"},
+    {"id": "L7", "area": "tool-output harvest", "status": "implemented", "detail": "V3-15.13 wired: tool_call/tool_result/file_diff/test_result/verification/error/recovery envelopes enqueue HARVEST; _do_harvest routes them through harvest_v3's structural segmenter; claims carry host_observed trust + volatile freshness (verify-on-delivery, V3-24.04/05). Admission still requires capture.tool_outputs (v2 capability gate) — conservative default preserved"},
+    {"id": "L8", "area": "update automation", "status": "measured", "detail": "G3 update-pair slice measured: 5/5 true pairs supersede-applied across deprecated/removed/replaced/decommissioned forms; 4/4 false-positive twins clean (hedged/modal mentions, no counterparty, noun-form, no shared topic). Hedging guard added: adverbs hedge standalone, modal verbs need complementizer, whether alone hedges (known bound: bare 'verify X was removed' treated as assertion). Deep twin corpus (eval/v3/g3_twins.py, 460 synthetic twins, 12 categories): 0 false positives through both real detectors — upper-95% bound 0.0065 (rule-of-three) / 0.0083 (Wilson), under the <0.01 spec target; 30/30 true pairs detected"},
+    {"id": "L9", "area": "learned controller", "status": "executed_not_met", "detail": "G8 machinery exists and ran for real: verbatim/retrieval/v3/learned.py bounded contextual policy (11-action RouteSet deltas, tabular Q per state_key, warm start = deterministic on unseen states, ≤µs local selection), trained via eval/v3/g8.py forced-action paired arms (V3-43.04 documented action support), evaluated deterministic-vs-learned over the 52-task corpus — success_diff 0.0 ci95 [0.0,0.0], token_reduction 0.0, g8_pass=false. Learned converges to deterministic on this corpus; criterion not met. learned_active remains config-refused until a passing artifact exists"},
+    {"id": "L10", "area": "operations gates", "status": "measured", "detail": "G6 operational runs executed (tests/ops/test_operational.py): mixed-load concurrency, crash/restore WAL recovery, vault key rotation under concurrent hydration, deletion closure under load — all pass. T1/T2 workload measured: recall p95 24.4ms (T1 1K claims, ≤25ms target) and 44.9ms (T2 10K claims, ≤60ms target), both under spec targets; T2 seeds claim volume only, episode/procedure mix approximated. G7 competitive claims still have no licensed corpus"},
+    {"id": "L11", "area": "replay laboratory", "status": "implemented", "detail": "verbatim/replay/: replay_routing re-executes recorded routing_decisions in a sandbox under variant policy tables (state_json pins inputs; unpinned rows not_replayable). paired_execution runs delivery-path arms (V3-43.05): same snapshot, isolated writes, identical replay authorization, real recall_v3 deliveries compared on item sets. paired_admission runs write-side arms through real Ingester+run_pending drains. Every §43.02 stage executes — controller routing, lane weights, budgets, abstention thresholds, packing, harvesting, screening, admission, relation discovery, consolidation drain. model_calls=0 (V3-43.06)"}
+  ]
+}

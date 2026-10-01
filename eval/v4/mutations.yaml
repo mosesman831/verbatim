@@ -1,0 +1,242 @@
+# Declared mutation set — attack-resistance evidence (SPEC_V4 V4-52.*, gate G4-11).
+# Each entry removes exactly one enforcement check via exact-string
+# replacement; the named pytest node ids must fail under the mutant
+# (outcome=killed) or the seam is an enforcement gap. Runner:
+# tools/run_mutation.py — sequential, 60s per-test cap, SHA-256
+# verified restore after every mutation.
+version: 1
+contract: 'SPEC_V4 62 / V4-52.* + gate G4-11 — mutation evidence: removing an enforcement check must fail a real test'
+runner: tools/run_mutation.py
+mutations:
+- id: MUT-01
+  check: 'kernel: suppression-tombstone gate in _check_object (resolve_access/read_verified/seal_delivery)'
+  file: verbatim/kernel/service.py
+  anchor: "        if self._suppressed_refs(conn, binding, revision):\n            _deny()"
+  replacement: "        if False:\n            _deny()"
+  killed_by:
+  - tests/kernel/test_kernel.py::test_suppressed_object_denied
+  requirements:
+  - V4-61.05
+  - V4-08.01
+  - G4-11
+- id: MUT-02
+  check: 'kernel: quote-verb gate in read_verified — read leases get metadata/derived only'
+  file: verbatim/kernel/service.py
+  anchor: '        if lease.verb is not Verb.QUOTE:'
+  replacement: '        if False:'
+  killed_by:
+  - tests/kernel/test_kernel.py::test_read_verb_yields_metadata_only
+  requirements:
+  - V4-61.05
+  - V4-08.02
+  - F4-02
+  - G4-11
+- id: MUT-03
+  check: 'kernel: quarantine cascade check in _check_object'
+  file: verbatim/kernel/service.py
+  anchor: "            if _quarantine.is_quarantined(conn, k, oid, rev):\n                _deny()"
+  replacement: "            if False:\n                _deny()"
+  killed_by:
+  - tests/kernel/test_kernel.py::test_quarantined_object_denied
+  requirements:
+  - V4-61.05
+  - V4-08.01
+  - V3-14.10
+  - G4-11
+- id: MUT-04
+  check: 'kernel: epoch-vector drift check in _require_lease (seal_delivery fence)'
+  file: verbatim/kernel/service.py
+  anchor: '            if _epochs.current_epoch(conn, sid) != int(pinned):'
+  replacement: '            if False:'
+  killed_by:
+  - tests/kernel/test_kernel.py::test_epoch_drift_stales_lease
+  requirements:
+  - V4-61.05
+  - V4-08.04
+  - V4-11.07
+  - G4-11
+- id: MUT-05
+  check: 'storage: SourcesRepo.payload skips payload_hmac verification'
+  file: verbatim/storage/repos.py
+  anchor: "        if row[1] is not None and not hmac.compare_digest(\n            self._store.hmac(payload), bytes(row[1])\n        ):"
+  replacement: "        if False and row[1] is not None and not hmac.compare_digest(\n            self._store.hmac(payload), bytes(row[1])\n        ):"
+  killed_by:
+  - tests/storage/test_repos.py::test_source_payload_tampered_hmac_raises_corrupt
+  requirements:
+  - V4-61.05
+  - V4-08.03
+  - G4-11
+- id: MUT-06
+  check: 'storage: SpansRepo.text skips excerpt_hmac verification'
+  file: verbatim/storage/repos.py
+  anchor: "        if row[3] is not None and not hmac.compare_digest(\n            self._store.hmac(excerpt), bytes(row[3])\n        ):"
+  replacement: "        if False and row[3] is not None and not hmac.compare_digest(\n            self._store.hmac(excerpt), bytes(row[3])\n        ):"
+  killed_by:
+  - tests/storage/test_repos.py::test_span_text_tampered_payload_raises_corrupt
+  requirements:
+  - V4-61.05
+  - V4-08.03
+  - G4-11
+- id: MUT-07
+  check: 'broker: consent gate at dispatch-permit issuance'
+  file: verbatim/privacy/broker.py
+  anchor: '                if row is None or not self._gate.consent_epoch_ok(row):'
+  replacement: '                if False:'
+  killed_by:
+  - tests/privacy/test_broker.py::test_open_dispatch_wrong_purpose_or_recipient_consent
+  requirements:
+  - V4-61.05
+  - V4-12.06
+  - G4-11
+- id: MUT-08
+  check: 'broker: daily-budget room check before reservation insert'
+  file: verbatim/privacy/broker.py
+  anchor: '            if spent + reserved_microusd > daily:'
+  replacement: '            if False:'
+  killed_by:
+  - tests/privacy/test_broker.py::test_budget_room_enforced
+  requirements:
+  - V4-61.05
+  - V4-12.04
+  - V4-12.05
+  - G4-11
+- id: MUT-09
+  check: 'broker: dispatch-permit one-use transition — the open→dispatched flip
+    is what makes a permit non-replayable (both the state pre-check and the
+    CAS rowcount guard depend on it); leaving the permit open allows reuse'
+  file: verbatim/privacy/broker.py
+  anchor: '                (PERMIT_DISPATCHED, row["permit_id"], PERMIT_OPEN),'
+  replacement: '                (PERMIT_OPEN, row["permit_id"], PERMIT_OPEN),'
+  killed_by:
+  - tests/privacy/test_broker.py::test_dispatch_consumes_permit_once
+  requirements:
+  - V4-61.05
+  - V4-12.03
+  - G4-11
+- id: MUT-10
+  check: 'governance: authorize() returns success unconditionally after grant scan'
+  file: verbatim/governance/grants.py
+  anchor: "    if not allowed:\n        _snap_put(skey, conn, mkey, \"deny\", None)\n        _deny()"
+  replacement: "    if not allowed:\n        _snap_put(skey, conn, mkey, \"deny\", None)\n        return None"
+  killed_by:
+  - tests/governance/test_governance.py::test_authorize_denies_without_grant
+  requirements:
+  - V4-61.05
+  - V4-10.06
+  - V4-11.01
+  - G4-11
+- id: MUT-11
+  check: 'governance: empty-purpose delegation coerced to ANY instead of NONE'
+  file: verbatim/governance/grants.py
+  anchor: '        return PurposeConstraint.set(value)'
+  replacement: "        _vals = tuple(value)\n        return PurposeConstraint.set(_vals) if _vals else PurposeConstraint.any()"
+  killed_by:
+  - tests/governance/test_purpose_constraints.py::test_c09_empty_delegated_purposes_grant_no_authority
+  requirements:
+  - V4-61.05
+  - F4-03
+  - V4-62.05
+  - G4-11
+- id: MUT-12
+  check: 'jobs: commit-time lease/generation fence in _complete'
+  file: verbatim/jobs/queue.py
+  anchor: "        if not self._is_current(row, owner, generation):\n            return False"
+  replacement: "        if False:\n            return False"
+  killed_by:
+  - tests/jobs/test_queue.py::test_stale_worker_cannot_overwrite
+  requirements:
+  - V4-61.05
+  - V4-09.04
+  - V4-42.01
+  - G4-11
+- id: MUT-13
+  check: 'coordinator: epoch re-verification inside apply_plan disabled by default'
+  file: verbatim/jobs/coordinator.py
+  anchor: '        verify_epochs: bool = True,'
+  replacement: '        verify_epochs: bool = False,'
+  killed_by:
+  - tests/jobs/test_coordinator.py::test_epoch_gate_rejects_stale_pin
+  requirements:
+  - V4-61.05
+  - V4-09.02
+  - V4-11.07
+  - G4-11
+- id: MUT-14
+  check: 'coordinator: operation-id reuse conflict check (input_digest compare)'
+  file: verbatim/jobs/coordinator.py
+  anchor: '        if row["input_digest"] != digest:'
+  replacement: '        if False:'
+  killed_by:
+  - tests/jobs/test_coordinator.py::test_operation_key_reuse_with_different_inputs_conflicts
+  requirements:
+  - V4-61.05
+  - V4-09.05
+  - G4-11
+- id: MUT-15
+  check: 'closure: suppression-registry (purge_targets) write skipped before cleanup'
+  file: verbatim/privacy/closure.py
+  anchor: "        for k, i, r in norm:\n            conn.execute("
+  replacement: "        for k, i, r in ():\n            conn.execute("
+  killed_by:
+  - tests/privacy/test_closure.py::test_begin_suppresses_roots_and_excludes_descendants
+  requirements:
+  - V4-61.05
+  - V4-38.01
+  - G4-11
+- id: MUT-16
+  check: 'purge: suppression confirmation (tombstone commit) skipped on execute'
+  file: verbatim/purge.py
+  anchor: '        purges.confirm_suppress(conn, purge_id)  # tombstones commit first'
+  replacement: '        pass  # mutation: suppression confirmation skipped'
+  killed_by:
+  - tests/mutation/test_purge_suppression_commit.py::test_execute_purge_commits_suppression_marker
+  requirements:
+  - V4-61.05
+  - V2-41.03
+  - G4-11
+- id: MUT-17
+  check: 'retrieval: per-scope purpose-aware authorize in _scope_contributes bypassed'
+  file: verbatim/retrieval/v3/recall.py
+  anchor: "    for verb in (Verb.READ.value, Verb.QUOTE.value):\n        try:\n            governance.authorize("
+  replacement: "    for verb in (Verb.READ.value, Verb.QUOTE.value):\n        try:\n            return True or governance.authorize("
+  killed_by:
+  - tests/retrieval/v3/test_f4_authorization.py::test_c07_evaluate_scope_cannot_leak_into_recall
+  requirements:
+  - V4-61.05
+  - F4-01
+  - V4-11.04
+  - G4-11
+- id: MUT-18
+  check: 'retrieval: requesting-scope authorize() removed from _authorized_scopes'
+  file: verbatim/retrieval/v3/recall.py
+  anchor: "            governance.authorize(\n                conn, caller, request.scope_id, Verb.READ.value,\n                purpose=request.purpose,\n            )"
+  replacement: '            pass  # mutation: requesting-scope authorize skipped'
+  killed_by:
+  - tests/retrieval/v3/test_f4_authorization.py::test_c07_request_scope_denied_for_wrong_purpose
+  requirements:
+  - V4-61.05
+  - V4-10.05
+  - G4-11
+- id: MUT-19
+  check: 'retrieval: pack-level quote gate — exact bytes released without quote authority'
+  file: verbatim/retrieval/v3/pack.py
+  anchor: '    permitted = gate.item_permits(item, object_scope) if exact else True'
+  replacement: '    permitted = True  # mutation: quote gate removed'
+  killed_by:
+  - tests/retrieval/v3/test_f4_authorization.py::test_c08_read_only_gets_metadata_view_only
+  requirements:
+  - V4-61.05
+  - F4-02
+  - V4-08.02
+  - G4-11
+- id: MUT-20
+  check: 'api_v3 facade: _evidence_lane skips source-level suppression tombstones'
+  file: verbatim/api_v3/facade.py
+  anchor: "                if source_id in suppressed:\n                    continue"
+  replacement: "                if False:\n                    continue"
+  killed_by:
+  - tests/v4/test_surface_parity.py::test_source_scoped_suppression_withholds_everywhere
+  requirements:
+  - V4-61.05
+  - V4-07.07
+  - G4-11

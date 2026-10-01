@@ -1,0 +1,173 @@
+# e3-embed-tier-sizing — Sizing the first semantic tier for Verbatim
+
+Working note. Reference machine: 4-core CPU. Candidate encoders: (a) **static mean-pool table** of the model2vec class (~29.5k vocab × 256d, potion-base-8M used as the concrete instance), (b) **small ONNX bi-encoder** of the MiniLM-L6 class (~22.7M params, 384d, all-MiniLM-L6-v2 as concrete instance), (c) **stay on blake2b subword-ngram hashing** (`hashing:subword-ngram:v1`).
+
+All numbers below are either (i) read from primary sources and labeled [vendor] / [independent], or (ii) measured/derived on this box and labeled [measured] / [derived]. Wherever a number drives the recommendation I show the arithmetic.
+
+---
+
+## 1. What each candidate actually is (exact mechanics + formulas)
+
+### 1a. Static mean-pool table (model2vec class, potion-base-8M)
+
+Concrete artifact verified on HF: `minishlab/potion-base-8M`
+- `model.safetensors` = 30,236,672 B payload, header says tensor `embeddings: F32 [29528, 256]` — i.e. **29,528 tokens × 256 dims = 30.24 MB fp32** [measured: HTTP range-read of the safetensors header].
+- `config.json`: `{"model_type":"model2vec","tokenizer_name":"baai/bge-base-en-v1.5","apply_pca":256,"apply_zipf":true,"hidden_dim":256,"normalize":true}` — distilled from bge-base-en-v1.5, PCA→256d, Zipf+SIF re-weighted, outputs L2-normalized. Tokenizer: `tokenizer.json` = 0.68 MB.
+- Encoder formula (inference):
+  - tokenize query → ids `t_1..t_T` (WordPiece, bge vocab);
+  - `v = (1/T) Σ_i E[t_i]`, `E` = the 29,528×256 table (a gather, not a matmul);
+  - `v := v / ||v||`.
+  - That is the *whole* encoder. No attention, no matmul, no runtime dependency beyond an array gather.
+- Distillation-side formulas (for completeness, from the model2vec docs/blog [vendor]):
+  - PCA to 256d — model2vec reports PCA *increased* quality by de-biasing the space.
+  - SIF token weighting `w = 1e-3 / (1e-3 + p)`, with `p` approximated by Zipf's law from tokenizer rank (no corpus needed).
+- Optional quantization supported by the library: fp16/int8 table, "2×–4× smaller with minimal performance loss" [vendor claim].
+
+Retrieval-quality anchor (MTEB Retrieval column, model2vec results README [vendor]):
+| model | MTEB Ret |
+|---|---|
+| all-MiniLM-L6-v2 | 42.92 |
+| potion-retrieval-32M (512d) | 35.06 (81.7% of MiniLM) |
+| static-retrieval-mrl-en-v1 | 34.95 |
+| potion-base-32M (512d) | 32.67 |
+| **potion-base-8M (256d)** | **31.11 (72.5% of MiniLM)** |
+
+So on MTEB the 8M static table retains ~72% of MiniLM retrieval quality; a retrieval-tuned static retains ~82%. The "~80–90% of MiniLM" figure in the assignment is confirmed at the top end by potion-retrieval-32M (81.69%) and at the bottom by potion-base-8M (72.5% — i.e. the cheapest tier is somewhat below the claimed band; worth stating because 8M is the size that fits the shipped-bytes budget best).
+
+### 1b. ONNX MiniLM-L6-class bi-encoder (all-MiniLM-L6-v2)
+
+- HF config: `hidden_size=384, num_hidden_layers=6, num_attention_heads=12, vocab_size=30,522, max_position=512` → ~22.7M params [HF config.json].
+- Artifacts on HF: `model.safetensors` 90.87 MB fp32; `onnx/model.onnx` 90.41 MB; `onnx/model_qint8_avx512.onnx` / `model_quint8_avx2.onnx` **23.03/23.05 MB int8**; `onnx/model_O4.onnx` 45.21 MB (fp16); `openvino_model_qint8_quantized.bin` 22.93 MB [HF file tree].
+- Encoder: tokenize → 6 transformer layers → mean-pool over token states → normalize. Real matmul work; needs onnxruntime (pip wheel ~15–40 MB installed) plus tokenizer.json 0.47 MB.
+- MTEB Retrieval 42.92 [vendor table above]; sbert docs [vendor]: semantic-search (6 BEIR datasets) for sibling msmarco-MiniLM-L6-cos-v5 = 42.16, throughput 750 queries/s CPU on their reference machine (≈1.3 ms/query — that is a server CPU number, treat as best case).
+
+### 1c. blake2b subword-ngram hashing (`hashing:subword-ngram:v1`, today's tier)
+
+- Zero shipped bytes, µs-scale encode, similarity ≈ weighted char-ngram overlap — lexical, **non-semantic**: paraphrases with low surface overlap score ~0.
+- Verbatim's own measurement already places it below a 40-line BM25 on every cut (any@10 0.546 vs 0.596; open-domain 0.196 vs 0.370) — so "hashing ≈ a weak lexical lane," strictly dominated by BM25 itself.
+
+---
+
+## 2. Resident bytes per 100k memory units
+
+Resident = stored vectors + embedding table (+ tokenizer). Per-row: `d·b` vector bytes + ~24 B row overhead (rowid + page/index slack — SQLite BLOBs add ~1–2%).
+
+| Tier | vec bytes/mem | 100k vectors | + table | + tokenizer | total resident/100k |
+|---|---|---|---|---|---|
+| static fp32 256d | 1,024 | 102.4 MB | 30.24 MB | 0.68 MB | **~133 MB** |
+| **static int8 256d** | 256 | 25.6 MB | **7.56 MB** | 0.68 MB | **~34 MB** |
+| static int8 64d | 64 | 6.4 MB | 7.56 MB | 0.68 MB | **~15 MB** |
+| MiniLM fp32 384d | 1,536 | 153.6 MB | 90.4 MB onnx | 0.47 MB | ~245 MB |
+| **MiniLM int8 384d** | 384 | 38.4 MB | **23.03 MB** onnx | 0.47 MB | **~62 MB** + onnxruntime ~15–40 MB |
+| hashing | 0 (recomputed) | 0 | 0 | 0 | **0** |
+
+[derived] Bytes: fp32 `100,000·256·4 = 102.4 MB`; int8 `100,000·256 = 25.6 MB`; 64d int8 `100,000·64 = 6.4 MB`; MiniLM int8 `100,000·384 = 38.4 MB`. Table int8 = fp32_size/4 (per-row max-abs symmetric quant): 30.24/4 = **7.56 MB** for potion-8M; 129.21/4 = **32.3 MB** for potion-retrieval-32M (512d).
+
+Reading: int8 256d static is the sweet spot — 28.0 MB/100k with row overhead vs 104.8 MB fp32, and the table itself drops to 7.56 MB. 64d truncation saves only ~19 MB more at unknown quality cost (see §5). MiniLM-int8 total footprint ~62 MB + a native runtime dep — 1.8× the static tier.
+
+---
+
+## 3. Query-path time complexity (per query, 4-core reference)
+
+Formula: `T_q = T_tok + T_encode + T_scan(N) + T_topk`. Static: `T_encode` = gather T rows + mean + norm → `O(T·d)` memory ops. MiniLM: `≈ 2·P·T` FLOPs. Scan: `O(N·d)`.
+
+### Static-int8 [measured on this 8-core box; 4-core ~1.5–2× worst case]
+
+- Encode (gather+mean+norm, T=32): **9.7 µs** (T=16: 8.9 µs; T=64: 12.3 µs). + Rust tokenize ~10–30 µs → **encode ≈ 20–60 µs**, inside the "~10–50 µs" assumption.
+- Brute-force top-10 scan, contiguous int8 table, blocked dequantize+dot: **0.81 ms @10k, 7.9 ms @100k**; naive cast+dot 11.5 ms @100k; memory-bound floor ≈ 25.6 MB / ~10 GB/s ≈ 2.6 ms.
+- fp32-resident scan (for comparison): 0.045 ms @10k, **0.71 ms @100k** — fp32 is *faster* per scan (no dequant) but costs 4× RAM. With N≤100k, fp32-resident is a legitimate runtime option: store int8 on disk, upcast to a 102 MB fp32 shadow on open.
+- **Total static-int8 query path: ≈ 0.9 ms @10k, ≈ 8–12 ms @100k** (including topk) — comfortably inside "tens of ms" p95, with HNSW unnecessary at this scale (a plus: brute force = exact candidate generation, eligibility still applied post-hoc anyway).
+
+### ONNX MiniLM-L6 [derived — not locally measured, no onnxruntime/weights on the box]
+
+FLOP model: `2·P·T + 2·2·d·T²·L` ≈ 45.4 MFLOP/token (attention term negligible at T≤128).
+
+| seq T | GFLOP | @40 GF/s | @100 GF/s |
+|---|---|---|---|
+| 16 | 0.73 | 18 ms | 7 ms |
+| 32 | 1.46 | 37 ms | 15 ms |
+| 128 | 5.96 | 149 ms | 60 ms |
+
+int8-ONNX runs ~2–3× faster than fp32 → **~5–15 ms for a LoCoMo-length query (10–30 tok)**, matching the assignment's assumption; worst case long query on a weak 4-core fp32 can hit ~40–60 ms. Query encode is the only on-path cost (memory-side encoding is a background job, so its ~ms×N cost doesn't hit search p95).
+- **Total MiniLM-int8 query path: ≈ 6–9 ms @10k, ≈ 15–25 ms @100k** (encode-dominated). Still under the 150 ms "with a small cross-encoder" budget — and it's a bi-encoder, so it needs no per-candidate passes at all. The 300-passes problem doesn't apply.
+
+### hashing [trivial]
+
+µs encode, candidate generation via existing lanes; zero marginal cost. It is not a semantic tier — it loses to BM25 on Verbatim's own eval.
+
+---
+
+## 4. Expected any@10 gain over hashing (extrapolated — label everything)
+
+Anchors, kept in separate columns:
+
+| Source | Lexical BM25 | hashing-class | static-256d | static-retrieval | MiniLM-L6 |
+|---|---|---|---|---|---|
+| MTEB Retrieval [vendor: model2vec results README] | — | — | 31.11 (8M) | 35.06 (32M-ret) | 42.92 |
+| BEIR avg nDCG@10 [independent: Kamalloo et al. SIGIR'24 reproduction, 18 datasets] | 0.429 | — | — | — | TAS-B (MiniLM-class distilled) 0.424; Contriever 0.448 |
+| Verbatim LoCoMo measured | 0.596 any@10 (toy 40-line) | 0.546 / 0.196 open-dom | — | — | — |
+
+Independent BEIR per-dataset deltas (BM25 → TAS-B / Contriever), i.e. *where dense wins vs lexical*: NQ (open-domain QA) .329→.465/.498 (+42%/51% rel), Quora (paraphrase) .789→.835/.865, DBPedia .313→.384/.413, FiQA .236→.296/.329, Robust04 .407→.461/.473; dense *loses* on TREC-COVID, BioASQ, Signal-1M, Touché, SCIDOCS. Pattern: **dense wins exactly on open-domain/paraphrase/entity-style queries and loses on keyword-rich technical corpora** — Verbatim's LoCoMo profile is closer to the former (conversational, paraphrase-heavy, open-domain deficit already measured: hashing 0.196 vs BM25 0.370).
+
+Extrapolation model [derived — assumptions explicit]:
+- Let `q_od` = fraction of evidence-bearing questions that are open-domain/paraphrase-type ≈ 0.25–0.35 (LoCoMo cat-4 share of 1536).
+- Semantic lane closes a fraction `ρ` of the hashing↔MiniLM gap on that subset: `ρ_static ≈ 0.72` (MTEB-retention ratio), `ρ_miniLM ≈ 1.0` by construction.
+- Observed gap to close on open-domain: BM25 sits at 0.370 vs hashing 0.196 → lexical headroom ≈ +0.17 absolute *within the subset*; dense adds paraphrase-only wins BEIR-style (+10–40% rel on top).
+- Static-int8 estimate: open-domain any@10 → ~0.30–0.38; overall any@10 `0.546 + q_od·(0.10–0.18)·ρ` ≈ **0.57–0.62 (+2 to +7 pts)**.
+- ONNX MiniLM estimate: open-domain → ~0.34–0.45; overall **+4 to +10 pts**.
+- Biggest single lever available: the 160/1536 zero-hit questions — BM25 held evidence top-20 for 84 of them; a semantic lane that lands those in its top-k converts them to hits even if fused below BM25 rank. If static recovers even ~40–60% of the dense-recoverable zero-hits → +2–3 pts any@10 by itself.
+- Confidence: moderate. These are benchmark→benchmark extrapolations; LoCoMo conversations are short-turn, context-dependent text where static uncontextualized vectors are weakest. Order of magnitude is right; exact points are ±half.
+
+---
+
+## 5. int8 quantization quality check [derived + simulated + vendor]
+
+- Per-row symmetric quant: `q_i = round(127·x_i/max|x|)`. Uniform error ±Δ/2 per coordinate, Δ = 2·max/255.
+- Simulated on 20k random unit-vector pairs (256d): cosine error sd **0.0006**, p99|err| **0.0016**; at 64d sd 0.001. On random vectors — real embeddings concentrate on top PCs so error is similar-or-smaller; treat as a lower bound.
+- Vendor: model2vec quantization is documented as fp16/int8 with "minimal performance loss"; HF ships int8 ONNX MiniLM as a first-class artifact.
+- Verdict arithmetic: a cosine error of ~0.001–0.002 shifts similarity ranks only inside near-tie clumps — materially irrelevant vs the ~0.04 any@10 gaps being sized. **int8 is free accuracy-wise** for this use.
+- 64d truncation: simulated truncation of random 256d→64d retains ~92% correlation but drops cosine magnitude ~42% — real PCA-64 would retain more (energy concentrates), but no published MTEB number exists for a 64d potion variant; unmeasured quality risk to save 19 MB/100k — reject for default.
+
+---
+
+## 6. Shipped-bytes budget
+
+Rule: optional neural tier allowed only as a **hash-pinned local artifact**; default install stays key-free/network-free. Candidates:
+
+- **static-int8 bundle**: table 7.56 MB + tokenizer.json 0.68 MB ≈ **8.2 MB**, blake2b-pinned, needs *zero* new runtime deps (numpy/array gather only — can even be pure-Python `struct`+lists). Fits "one file, no server" ethos; can ship inside the wheel or as a pinned companion artifact. **Acceptable — recommend it.**
+- MiniLM-int8 ONNX bundle: model 23.03 MB + tokenizer 0.47 MB + onnxruntime native lib ~15–40 MB ≈ **39–64 MB effective footprint** + a compiled dependency. Heavier; ship only behind the quality profile flag.
+- hashing: 0 B — stays as the free fallback lane and the write-time/add-ack path.
+
+---
+
+## 7. Which Verbatim stage this touches
+
+- **Lane** (primary): static-int8 replaces/upgrades the current hashing "dense" lane in the peer-candidate set — same interface (query→vector, candidates by similarity), so eligibility-before-ranking and RRF fusion are untouched; keep hashing as a weak lexical lane rather than deleting it (zero cost, occasionally complementary on exact-subword matches).
+- **Fusion**: no constant changes needed — dense lane slots into existing lane weights at 1.0 (strong-lane class). The "skipped dense lane" bug fix simply becomes real.
+- **Write path**: unchanged philosophy — add-ack stays model-free; vector computation remains a background job (document-side encode is offline for *both* candidates; static: ~10 µs/mem → 100k memories ≈ 1 s total; MiniLM: ~10 ms × 100k ≈ 17 min background).
+- **Pack/rerank**: optional fp32 rescore of top-32 fused candidates if int8 vectors are stored (cost ≈ 32 × 0.3 µs — free).
+
+## 8. Comparison table
+
+| | static-int8 (potion-8M) | static-int8 (potion-retrieval-32M, 512d) | ONNX MiniLM-L6 int8 | hashing (status quo) |
+|---|---|---|---|---|
+| MTEB Ret [vendor] | 31.11 | 35.06 | 42.92 | — (≪ BM25) |
+| Retention vs MiniLM | 72% | 82% | 100% | ~50% lexical proxy |
+| Encode/query | ~20–60 µs | ~30–80 µs | ~5–15 ms (est.) | ~µs |
+| Query path @100k | ~8–12 ms | ~15–30 ms | ~15–25 ms | ~8 ms (existing) |
+| Resident/100k | ~34 MB | ~84 MB | ~62 MB + ORT | 0 |
+| Shipped artifact | ~8.2 MB | ~33.8 MB | ~23.5 MB + ORT dep | 0 |
+| Runtime deps | none | none | onnxruntime | none |
+| Semantic paraphrase | yes | yes | yes | no |
+| Est. any@10 | +2–7 pts | +3–8 pts | +4–10 pts | baseline |
+
+## 9. Verdicts
+
+1. **potion-base-8M-class static table @int8 → ship (default profile).** 8.2 MB pinned artifact, ~10 ms query path @100k, zero runtime deps, ~72% of MiniLM MTEB-retrieval, real paraphrase coverage hashing cannot produce. *Confidence: medium-high — this is the only candidate that satisfies "no model download, no native deps" by construction; what would change it: a LoCoMo A/B showing static lane underperforming hashing (unlikely given 0.196 open-domain floor).*
+2. **potion-retrieval-32M-class static (512d) @int8 → optional (quality profile alternative).** Best static retrieval (82% of MiniLM) at ~34 MB table + ~84 MB resident/100k — strictly better quality than 8M, still no native deps. *Confidence: medium — if the ~33 MB artifact is acceptable in the quality profile, prefer it over ONNX-MiniLM since it's dep-free; change trigger: eval shows its extra +3.9 MTEB-Ret points over 8M doesn't survive fusion.*
+3. **ONNX MiniLM-L6 int8 → optional (quality/max profile).** Highest quality (MTEB Ret 42.92), ~15–25 ms query path @100k — inside budget, but adds onnxruntime + ~62 MB footprint for roughly +4–10 pts any@10 vs +2–7. *Confidence: medium — justified only in the quality profile where a native dep is acceptable; change trigger: measured ONNX encode >30 ms p50 on the 4-core box, or eval showing no gain over retrieval-32M static.*
+4. **64d int8 truncation → reject.** Saves ~19 MB/100k for an unmeasured quality drop; storage was never the binding constraint. *Change trigger: a published PCA-64 MTEB number for this table showing ≥95% retention.*
+5. **Stay-hashing as the semantic tier → reject.** Measured below a 40-line BM25 (0.196 open-domain vs 0.370); it's a lexical feature, not a semantic tier. Keep it as a free lane, not the answer.
+6. **fp32 vector residency (upcast shadow) → ship as runtime option.** If RAM allows, upcasting the int8 table to fp32 at open gives ~0.7 ms scans @100k for 102 MB RAM; storage stays int8.
+
+UNRESOLVED: (a) true Verbatim any@10 deltas — needs the post-fix engine + LoCoMo A/B; the +2–7/+4–10 estimates are benchmark extrapolations ±half. (b) ONNX MiniLM latency not locally measured (no onnxruntime/weights on this box, per no-download constraint) — derived from a 2·P·T FLOP model; a 15-min pip install on the target box would close it. (c) hashing encoder's standalone MTEB-equivalent score is unknown — treated as ≤BM25 per Verbatim's own measurements.

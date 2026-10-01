@@ -1,0 +1,41 @@
+CONTEXT — Verbatim is a local-first agent memory engine: Python + SQLite (one file, no server, no Neo4j, no Qdrant, no hosted vector service on the default path). Consumer API: Memory.add / search / inspect / forget. Hard rules of the engine:
+- Every delivered sentence must byte-match retained source bytes ("byte pin" — a quote must match the stored payload). Generated text with no pin is not a memory.
+- Eligibility (authorization, purpose, quarantine, suppression, generation) is applied BEFORE ranking. BM25 statistics must be computed on the ELIGIBLE set, not the whole table. Approximate candidate generation is allowed; approximate authorization is not.
+- Default install works with no API key, no network, no model download. Embeddings today are blake2b subword-ngram feature hashing (encoder id hashing:subword-ngram:v1) — explicitly NON-semantic. An optional neural/static embedding tier is allowed only as a hash-pinned local artifact. An LLM may add a fact only when every quote byte-matches source; it must never update/delete/overwrite prior facts.
+- Add-ack (write acknowledgement) stays model-free; embedding and extraction are background jobs.
+
+PIPELINE TODAY (post-fix target): query analysis -> peer candidate lanes (lexical FTS5/BM25, fuzzy, dense/sparse-semantic, entity, time, graph, typed facts, observations) -> eligibility admission -> score/rank fusion -> optional rerank -> context pack under a byte budget. Current fusion is RRF k=60 with lane weights {1.0 strong lanes, 0.75 mid, 0.5 weak} and bounded post-fusion boosts (recency/temporal/proof-count, +-5-10%).
+
+MEASURED STATE (2026-09-22, consumer Memory.search retrieval only, no reader, LoCoMo categories 1-4, 1536 evidence-bearing questions):
+- Verbatim evidence any@10 = 0.546, any@20 = 0.590
+- A 40-line Okapi BM25 over the same turn text: any@10 = 0.596, any@20 = 0.677
+- Open-domain any@10 = 0.196 vs BM25 0.370
+- 160 of 1536 answerable questions returned zero items; BM25 still had the evidence in its top-20 for 84 of them
+- Search p50/p95 ~= 46/85 ms on ~590 turns
+Known code bugs (typed-lane gating, term-coverage verdict drops, possessive/case-sensitive entity match, min-max fusion tie-collapse, 40-deep sub-lane caps, unicode61-only FTS, skipped dense lane, unresolved relative time phrases, no speaker field) are already filed and will be FIXED in the next build — design formulas for the post-fix engine, not workarounds for the bugs.
+
+HARDWARE/LATENCY: reference machine 4-core CPU. Search p95 targets: tens of ms without a cross-encoder and <=150 ms with a small one, at 10k-100k memories. A method needing ~300 cross-encoder passes per query must show a retrieval gain large enough to justify an optional slower profile ("quality"/"max"), else reject for the default profile.
+
+PROVISIONAL CONSTANTS UNDER REVIEW (confirm, replace, or reject each with evidence): RRF k=60; BM25F field weights; feature-rerank weights; boost alphas 0.2/0.2/0.1; PPR hop and edge weights; entity alias rules; cross-encoder pool capped at 32.
+
+YOUR ASSIGNMENT — question d1-hindsight-code:
+Read the actual code of github.com/vectorize-io/hindsight (clone or browse — it's public). Extract the TEMPR retrieval implementation: the real lane set, fusion formula and constants in code, the reranker pool cap (verify ~32) and reranker used, link-expansion code (hop limit, fan-out, edge weights), entity-resolution weights and merge threshold, the 365-day decay implementation, and observation generation (LLM or deterministic). Also: storage layout (what DB), per-query complexity, and the LICENSE. Report code file paths for each constant. Separate what the code does from what the paper claims.
+
+RETURN CONTRACT — respond via provide_structured_output with:
+- topic: your question id
+- summary: 8-12 sentences of what you found (the "so what" for Verbatim, including the single most important number or constant you established)
+- notes_markdown: a LONG-FORM working note — target 1500-4000 words. This is the primary artifact a synthesis engineer will paste from; thin notes are a failure. Required structure: (1) every candidate formula with its exact equation, all parameters with values and where each came from, (2) per-query time complexity ending in milliseconds on the 4-core reference machine at BOTH 10k and 100k memories — show the arithmetic, (3) index/resident size in bytes per memory or per 100k memories where applicable, (4) which Verbatim stage it replaces or augments (lane / fusion / rerank / graph / temporal / entity / write-path / pack), (5) a comparison table wherever alternatives exist, (6) a verdict per candidate: ship (default profile) | optional (quality/max profile) | reject — with a one-line reason AND a "confidence / what would change this" note.
+- sources: array of strings "url | vendor|paper|repo|calculated | why it mattered" — one entry per claim you rely on, not a token bibliography
+- verdicts: array of strings "candidate -> ship|optional|reject: one-line reason"
+
+DEPTH REQUIREMENTS (this is a two-day deep search, not a skim):
+- Read PRIMARY sources: the actual papers (abstracts are not enough — pull the equations, ablation tables, and hyperparameters from the body) and the actual repository code. For code questions, quote the exact constant values and file paths/line numbers you found them at.
+- When a number matters (a threshold, k, a weight, a latency), verify it against at least two independent sources where they exist, or derive it yourself and show the derivation.
+- Worked examples required: for every formula, compute it on a small concrete example (e.g., 3 lanes x 5 candidates for fusion; a 2-entity merge for entity resolution; one query through the temporal policy) so the reader sees the mechanics, not just the algebra.
+- If you can run a small calculation or prototype locally (pure Python, /tmp files only, no installs that need network beyond pip-stdlib), DO IT and report the numbers — a measured number beats a quoted one.
+- Vendor self-reported scores and independent reproductions stay in SEPARATE columns — mark each.
+- A paper ablation on a different corpus is evidence about a mechanism, not a prediction of Verbatim's any@10; label extrapolations and show assumptions.
+- Do not call paid APIs, do not spend money, do not download model weights, do not download benchmark datasets whose license is not clearly permissive (LoCoMo is CC BY-NC 4.0 — papers are fine). If a page fails to fetch, record the miss and continue.
+- Do not copy benchmark gold answers, question ids, or equivalence rules into any lexicon, prompt, or formula feature.
+- Prefer a number you computed/derived to a number you copied. Show the arithmetic.
+- Coverage check before you finish: re-read your assignment list and confirm every numbered sub-question has an answer in notes_markdown. If one is unanswerable, write "UNRESOLVED: <question> — <why> — <what would close it>" rather than skipping it.

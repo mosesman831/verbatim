@@ -1,0 +1,39 @@
+{
+  "artifact_sha256": {
+    "report_v5.json": "c8399cfe067a1396e8fcc0d65790c3d90f4dc1a772e85558c64fc54f5b1f5108",
+    "report_v5.md": "028503ea56431571c474cef30fd8e10bc64a113967d14d57bf1b77a1505e8344"
+  },
+  "command": "python -m eval.v5.run --suite consolidation --suite feedback",
+  "corpus_digests": {},
+  "dependency_probe": {
+    "mem0": "absent: ModuleNotFoundError",
+    "mem0ai": "absent: ModuleNotFoundError",
+    "verbatim": "0.1.0"
+  },
+  "environment": {
+    "cpu_count_logical": 4,
+    "loadavg_1m": 1.78466796875,
+    "machine": "aarch64",
+    "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+    "processor": "aarch64",
+    "python": "3.12.3",
+    "sqlite": "3.45.1"
+  },
+  "git_dirty": true,
+  "git_revision": "68521e4fa7e3df1512d968e87a61d0989a9b8e70",
+  "manifest_version": "v5-repro-1",
+  "notes": [
+    "stdlib + installed repo deps only; no network",
+    "managed/external worker modes recorded per suite",
+    "scaled-down A3/A0 runs are locally measured, never presented as release qualification"
+  ],
+  "qualification": "locally_measured",
+  "scales": {
+    "consolidation": {
+      "corpus": "v5-consumer-40s42+cons",
+      "digest": "6cc768cd0d948ea17672e85edf8b4b9bf367799dae69c0c71fa696863843f20d",
+      "memories": 40
+    }
+  },
+  "seeds": []
+}

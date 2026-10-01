@@ -1,0 +1,152 @@
+Session devin-9c6f17ce59a84a958628838bec414d84:
+  session_id: 9c6f17ce59a84a958628838bec414d84
+  title: Workflow verbatim-formula-search-v5: b3-combsum-calibration
+  status: suspended
+  status_detail: inactivity
+  url: https://app.devin.ai/sessions/9c6f17ce59a84a958628838bec414d84
+  acus_consumed: 0.0
+  tags: workflow
+  structured_output:
+    topic: b3-combsum-calibration
+    sources: https://trec.nist.gov/pubs/trec2/papers/txt/23.txt | paper (Fox & Shaw, TREC-2) | CombMIN/MAX/SUM/ANZ/MNZ/MED formulas verbatim; CombSUM AP 0.3493 vs best single run 0.2939 (+18.8%); CombANZ~CombMNZ>others, https://cormack.uwaterloo.ca/cormacksigir09-rrf | paper (Cormack, Clarke, Buettcher, SIGIR'09) | RRF=sum 1/(k+rank); k=60 pilot table (.2072->.2146->.2098, plateau k in [20,100]); RRF>Condorcet all sets, >CombMNZ 3/4; ~4-5% MAP margin, https://arxiv.org/html/2210.11934v2 | paper (Bruch, Gai, Ingber, ACM TOIS 2023) | TM2C2 beats RRF on 9/9 datasets NDCG; Theorem 4.5 linear normalizations rank-equivalent under tuned weight; tuned RRF does not generalize; alpha in [0.6,0.8] robust; <5% train data to tune alpha, https://doi.org/10.1145/258525.258587 | paper (Lee, SIGIR'97) | per-query min-max normalization to [0,1] before combination; CombMNZ best of Comb* family; more covering lanes -> higher rank, https://www.ccs.neu.edu/home/jaa/papers/MontagueAs01b.pdf | paper (Montague & Aslam, CIKM'01) | ZMUV CombSUM significantly > min-max CombSUM; sum-norm improves CombMNZ; outlier-insensitivity is the key factor; unretrieved=0 or -2sigma; MNZ needs positive scores, https://cse.msu.edu/~rossarun/BiometricsTextBook/Papers/Multibiometrics/JainNandakumarRoss_ScoreNormalization_PR05.pdf | paper (Jain, Nandakumar, Ross, Pattern Recognition 2005) | normalization taxonomy; min-max & z-score not robust to outliers; median-MAD/double-sigmoid/tanh/biweight robust+efficient; sum-rule fusion wins, http://www.niculescu-mizil.org/papers/calibration.icml05.crc.rev3.pdf | paper (Niculescu-Mizil & Caruana, ICML'05) | Platt formula + out-of-sample targets; PAV algorithm verbatim; isotonic>=Platt at >=1000 calibration cases, Platt better below, https://doi.org/10.1145/775047.775151 | paper (Zadrozny & Elkan, KDD'02) | isotonic regression calibrates arbitrary ranking scores to posterior probabilities; stepwise-constant function = shippable table, https://doi.org/10.3115/1289189.1289265 | paper (Manmatha & Sever, HLT'02) | non-relevant top scores ~ exponential, relevant ~ Gaussian; equalize non-relevant distributions as normalization principle — used to design the simulator, https://docs.opensearch.org/latest/search-plugins/search-pipelines/normalization-processor/ | vendor docs | production normalization/combination options (min_max, l2, z_score + arithmetic/harmonic/geometric mean + weights); 0.0->0.001 floor convention, Vogt & Cottrell, Information Retrieval 1(3) 1999 (secondary, via Montague & Aslam) | paper | learned linear fusion weights predict combination effectiveness from individual system performance — basis for joint-logistic variant, /workspace/verbatim_research/fusion_sim.py, fusion_ablation.py, fusion_mnz.py, fusion_samplesize.py | calculated | all measured any@10 numbers, tie-collapse frequency (27%), calibration sample-efficiency (~10 queries), fusion latency (55-404us), MNZ/coverage-bonus losses
+    summary: Calibrated CombSUM should replace RRF k=60 as Verbatim's default fusion whenever a dev slice exists: per-lane monotone calibration (isotonic PAV table, or Platt logistic when data is scarce) maps each lane's score to P(evidence|lane fired), then a weighted sum combines them with unfired lanes contributing 0. In a 6-lane synthetic mix shaped like Verbatim's (BM25, semantic, fuzzy, entity, facts, time; 160 candidates, 1-3 evidence per query), calibrated sums reached any@10=0.92 vs 0.72 for RRF k=60 and 0.77-0.87 for every label-free normalization; direction is consistent with Bruch et al. (TM2C2 convex sum beat RRF on all 9 BEIR-style datasets) and Montague & Aslam (robust normalizations beat min-max). The single most important measured constant: the per-lane calibration saturates at ~10 labeled queries (~270 lane-points/lane), so a 1500-question LoCoMo dev slice is far more than needed — isotonic ships as <=32 breakpoints (~256B) per lane and Platt as 2 floats. Min-max must be rejected outright: its tie-collapse maps all-tie lists to 1.0, and 27% of sparse entity/facts lane lists were all-tie in simulation (z-score->0, sum-norm->0, tmm->const, calibration->P(rel) are all immune). CombMNZ is rejected: coverage is already implicit in a sum (k firing lanes give k terms), so the x n(d) multiplier double-counts it and buries high-precision single-lane hits — every MNZ variant lost to its paired sum in both regimes tested, and a bounded additive coverage term did not help either. Label-free fallback order: isotonic/Platt (with dev data) > tmm or sum-norm CombSUM (zero-shot, ~0.85-0.89) > RRF k=60 (0.72) > weighted RRF (fragile, 0.62). Latency is a non-differentiator: fusion costs 0.05-0.4 ms/query vs p50=46 ms and is flat in corpus size since the union is capped by lane caps, not memories. Confidence is medium-high on direction, low on magnitude — the synthetic generator plants the structure calibration exploits, so the +20pt gap is an upper bound to be re-measured on the real lane mix post-fix.
+    verdicts: Per-lane isotonic calibration + weighted CombSUM -> ship: best measured (0.92 any@10), ships <=32 breakpoints/lane, tie-safe, answers P(rel|score), Per-lane Platt logistic calibration + weighted CombSUM -> ship: 2 floats/lane, equivalent performance, the safer pick when lane-points < ~1000, Theoretical-min-max CombSUM -> ship (as zero-shot default): no labels needed, most robust label-free normalization (0.85-0.89 in sim), Sum-norm CombSUM -> optional: strongest per-query label-free norm (Montague & Aslam + sim), but needs populated lane lists, RRF k=60 -> ship as fallback/baseline only: strongest label-free rank baseline (Cormack +4-5% MAP), but loses to every calibrated or decent normalized sum, Weighted RRF (per-lane k or weights) -> reject: fragile, does not generalize across domains (Bruch Table 3 + sim -10pts), Per-query min-max normalization -> reject: tie-collapse maps all-tie lists to 1.0 (27% of sparse-lane lists) + outlier-fragile, Per-query z-score (ZMUV) -> reject for primary use: underperformed in sim, negative values break unfired=0 convention, Rank-CDF normalization -> reject: pure-rank uniform spacing loses score-gap information (0.70-0.74), L2 normalization -> reject: single-document lists normalize to 1.0, inflating sparse lanes, CombMNZ -> reject: coverage is already implicit in a sum; x n(d) double-counts it and buries high-precision sparse-lane hits (lost to paired sum in every regime tested), Bounded additive coverage bonus -> optional (default off): tunable and safe but no measured gain, Joint logistic fusion (learned weights+norm) -> optional: simpler (9 floats) but ~2pts under per-lane calibration in sim, Median-MAD / tanh-estimator normalization -> optional: robust per Jain et al. but strictly dominated by calibration, Manmatha-style per-query mixture-fit normalization -> reject: EM fit per query too heavy and fragile on sparse lanes
+    notes_markdown: # b3-combsum-calibration — Score calibration before linear fusion
+
+Verbatim fuses 8 peer lanes (lexical FTS5/BM25, fuzzy, dense/sparse-semantic, entity, time, graph, typed facts, observations) into one ranked list after eligibility admission. Today: RRF k=60 with lane weights {1.0 strong, 0.75 mid, 0.5 weak} + bounded post-fusion boosts. Question: replace/augment with score-calibrated linear fusion (CombSUM family)?
+
+## 0. Headline
+
+**Ship per-lane offline-calibrated weighted CombSUM as the primary fusion** — for each lane `l`, ship a monotone map `φ_l: score → P(evidence | lane fires at this score)` fit on a dev slice (Platt logistic or isotonic PAV, a handful of floats per lane), then `F(d) = Σ_l w_l · φ_l(s_l(d))` with unfired lanes contributing 0. In my 6-lane synthetic lane mix (BM25-semantic-entity-facts-time shaped like Verbatim's), calibrated CombSUM reaches **any@10 = 0.92 vs 0.72 for RRF k=60** and vs 0.77–0.87 for every heuristic normalization; the fit saturates at ~10 labeled queries (~270 lane-points/lane). The runner-up default is **theoretical-min-max or sum-norm CombSUM** (zero-shot, no dev data needed). **CombMNZ loses** — coverage is already implicit in a sum. **RRF stays as the fallback profile** for zero-shot installs and as the reference baseline, not the primary.
+
+## 1. Candidate formulas, with provenance
+
+### 1.1 RRF (incumbent)
+
+`RRF(d) = Σ_r 1/(k + rank_r(d))`, k=60 fixed by pilot (Cormack, Clarke, Büttcher, SIGIR'09). Pilot MAP vs k: .2072(k=0) → .2134(k=20) → .2146(k=60) → .2145(k=100) → .2098(k=500) — flat plateau k∈[20,100]. Their CombMNZ comparator uses `|{r: r(d)≤c}| · Σ s_r(d)`. RRF beat Condorcet on all 4 TREC sets and CombMNZ on 3/4 (Robust .3686 vs .3575; TREC3 .4350 vs .4381; TREC5 .3394 vs .3237; TREC9 .2830 vs .2671); average margin ~4-5% MAP. On LETOR 3, CombMNZ edged RRF (0.6107 vs 0.6051, p≈0.2).
+
+Rank-only; discards score-magnitude information; per-lane `k` tuning does NOT generalize across domains (Bruch et al. 2023, Table 3: tuned η_lex/η_sem gains in-domain, loses out-of-domain).
+
+### 1.2 Per-query normalizations (fit nothing)
+
+| φ_l(s) | formula | needs | failure modes |
+|---|---|---|---|
+| min-max | `(s−min)/(max−min)` | per-query min,max | **tie-collapse**: all-tie → all 1.0; outlier-sensitive (1 freak max squashes the rest); small lists unstable |
+| theoretical-min-max (tmm) | `(s−inf)/(M−inf)`, inf=fixed lane minimum, M=fixed cap (bound or ~q99) | 2 constants/lane | no per-query stats needed; needs bounded-ish scores |
+| z-score (ZMUV) | `(s−μ)/σ` | per-query μ,σ | σ=0 on all-tie → 0 (good); negative values legal — interacts badly with ×coverage (MNZ) and with unfired=0 convention |
+| sum-norm | `(s−min)/Σ(s−min)` | per-query min, Σ | denominator 0 on all-tie → 0 (good); assumes comparable positive scale post-shift |
+| L2 | `s/||s||_2` | per-query norm | preserves ratios; single-doc lists → 1.0 (inflates sparse lanes!) |
+| rank-CDF | `(n−r+1)/n` | nothing | pure rank → loses score gaps (worst in sim) |
+
+Provenance: min-max = Lee's 1997 "standard" normalization (SIGIR'97, per-result shift-and-scale to [0,1]); sum-norm + ZMUV = Montague & Aslam (CIKM 2001), who showed ZMUV-CombSUM almost always significantly beats min-max-CombSUM on TREC3/5/9, and that **the key factor is removing outlier sensitivity**; tmm = Bruch et al. (TOIS'23), who found it the most robust normalization to distribution shift; L2 = OpenSearch production option. Jain, Nandakumar & Ross (Pattern Recognition 2005) — the canonical normalization survey — rate min-max and z-score "not robust" (outlier-sensitive); median-MAD / double-sigmoid / tanh / biweight robust+efficient. Note tanh-estimator `s' = ½[tanh(0.01(s−μ_GP)/σ_GP)+1]` maps to [0,1] with robust fit params — a viable middle path, still needs offline or per-query μ,σ.
+
+Montague & Aslam's three desiderata for any normalization: shift-invariant, scale-invariant, outlier-insensitive. Add a fourth for Verbatim: **degenerate-safe** (defined when a lane's list is all-tie or near-empty).
+
+### 1.3 Offline calibration (fit on a dev slice, ship constants)
+
+These are the only transforms that answer "what does this lane score MEAN" rather than "where does it sit in this list."
+
+- **Platt logistic**: `φ(s) = 1/(1+exp(A·s+B))`; A,B by max-likelihood on {(s_i, y_i)}; out-of-sample targets `y_+ = (N_+ +1)/(N_+ +2)`, `y_- = 1/(N_- +2)` (Platt'99; Niculescu-Mizil & Caruana ICML'05). Storage: **2 floats/lane**. Best when calibration data scarce; NMC crossover ~1000 cases.
+- **Isotonic regression (PAV)**: `m̂ = argmin_z Σ(y_i − z(f_i))²` s.t. z monotone ↑; pool-adjacent-violators gives stepwise-constant `m̂(f)=m̂_{i:j}` on `f_i < f ≤ f_j` (Zadrozny & Elkan KDD'02). Storage: piecewise-constant breakpoints — quantize to 16–32 breakpoints → **64–256 B/lane**. More powerful than Platt (any monotone distortion), slightly more overfit-prone under ~1000 calibration points.
+- **Joint logistic on normalized lane scores** (Vogt & Cottrell-style learned fusion): `F(d) = σ(β_0 + Σ_l β_l·minmax_l(s_l))` — learns weights AND effective normalization in one shot; 9 floats total. My sim: 0.897, ~2pts under per-lane-then-weighted.
+
+Distribution-model normalization (Manmatha & Sever HLT'02; Manmatha/Rath/Feng SIGIR'01): non-relevant top-scores ~ exponential tail, relevant ~ Gaussian; normalize by equalizing each lane's non-relevant score distribution (fit exp+normal mixture per query). Elegant but needs a per-query mixture EM fit — heavy, fragile on sparse lanes, rejected for the default path.
+
+### 1.4 Combination rules on normalized scores
+
+- **CombSUM**: `F(d) = Σ_l w_l φ_l(s_l(d))`, unfired ⇒ contribution 0. (Shaw & Fox TREC-2: CombSUM AP 0.3493 vs best single run 0.2939, +18.8%.)
+- **CombMNZ**: `F(d) = n(d) · Σ_l w_l φ_l(s_l(d))`, n(d)=#lanes returning d (Lee'97 found it best of the Comb* family on TREC subcollections; needs positive scores — ZMUV clashes since half the mass is negative, Montague & Aslam §6.3).
+- **Bounded coverage bonus**: `F(d) = Σ w_lφ_l + β·(n(d)−1)/L` — MNZ's intuition made tunable and bounded (consistent with Verbatim's ±5–10% boost rule).
+- Harmonic/geometric mean (OpenSearch's other two options): geometric ≈ exp-mean of logs — any single lane zero kills the product: bad under sparse lanes. Harmonic is coverage-conservative. Neither beats arithmetic here; mention only to reject.
+
+## 2. Worked example — 3 lanes × 5 candidates (all arithmetic shown)
+
+Lane A BM25: d1=12.3, d2=9.1, d3=6.4, d4=4.0, d5=2.2. Lane B cosine: d2=.81, d3=.79, d6=.77, d1=.55, d7=.40. Lane C entity (all-tie): d3=d8=d9=1.0.
+
+- min-max A: {d1 1.00, d2 .683, d3 .416, d4 .178, d5 0}; B: {d2 1.0, d3 .902, d6 .854, d1 .366, d7 0}; **C: all 1.0 (tie-collapse)** → CombSUM: d3 2.318 > d2 1.683 > d1 1.366 > d8=d9 1.0 > d6 .854. The tie-lane injected two phantom top-documents (d8,d9) with score equal to a top BM25 hit.
+- z-score A (μ=6.80,σ=3.71): {1.48,.62,−.11,−.75,−1.24}; B (μ=.664,σ=.173): {.84,.73,.61,−.66,−1.53}; **C: σ=0 → all 0** → entity contributes nothing; no phantoms.
+- sum-norm A (Σ(s−min)=23.0): {d1 .439, d2 .300, d3 .183, d4 .078, d5 0}; B (Σ=1.32): {d2 .311, d3 .295, d6 .280, d1 .114, d7 0}; C: denominator 0 → 0 → same safe behavior.
+- RRF k=60: A {d1–d5 → .0164,.0161,.0159,.0156,.0154}, B {d2,d3,d6,d1,d7 → .0164,.0159,.0156,.0154,.0152}, C {d3,d8,d9 → .0164,.0159,.0156}. Totals: d3 .0484 > d2 .0325 > d1 .0320 > d8 .0161 > d6=d9 .0159 > d4 .0156. RRF rewards coverage (d3, in 3 lanes, wins) and is tie-safe, but can't tell "entity lane is 90% precise" from "entity lane is noise" — d8,d9 still outrank d4–d7 for free.
+- isotonic (fitted): suppose dev-fit gives φ_C(1.0)=0.15 (entity lane 15% precision) vs φ_A(12.3)=0.9, φ_B(.81)=0.7 → F: d3 ≈ .183·w_A'+.295·w_B'+.15·w_C' — the tie-lane contributes its MEASURED value, not 1.0.
+
+## 3. Measured results — local prototype (numpy, 6 synthetic lanes, NCAND=160, top-40/lane, 1–3 relevant/query, exp-tail non-rel + Gaussian rel per Manmatha)
+
+Test split n=300 unless noted. Lane-quality priors {lex 1.0, sem 1.0, fuzzy 0.5, entity 0.75, facts 0.75, time 0.5}.
+
+| method | any@10 (priors) | any@10 (equal w) |
+|---|---|---|
+| sum_platt (offline logistic) | **0.923±.015** | 0.920±.016 |
+| sum_iso (offline isotonic) | 0.917±.016 | **0.923±.015** |
+| sum_jointlogit (learned w+norm) | 0.897±.018 | — |
+| sum_tmm (fixed bounds) | 0.847±.021 | 0.890±.018 |
+| sum_sumnorm | 0.867±.020 | 0.870±.019 |
+| mnz_minmax / mnz_tmm | 0.817 / 0.810 | 0.820 / 0.843 |
+| sum_l2 | 0.817±.022 | 0.823±.022 |
+| sum_minmax | 0.807±.023 | 0.833±.022 |
+| sum_z | 0.730±.026 | 0.747±.025 |
+| RRF k=60 | 0.717±.026 | (same) |
+| rrf_weighted (priors) | **0.620±.028** | — |
+| sum_cdf (rank-CDF) | 0.697±.027 | 0.740±.025 |
+
+Key measured facts:
+
+1. **Calibration saturates at ~10–25 fit queries** (~270–680 lane-points/lane): n_fit 10→0.925, 50→0.927, 400→0.917. Consistent with Bruch's <5%-of-train convergence and NMC's isotonic-overfits-under-1000 (we sit above that threshold per lane quickly because each query yields ≤160 lane points).
+2. **Tie-collapse frequency is high in sparse lanes**: 285/1039 (27%) of entity/facts lane-lists were all-equal scores → min-max maps all to 1.0.
+3. **MNZ loses** in both regimes tested: coverage multiplier mnz_* < corresponding sum_* every time; bounded `β·(cover−1)/L` at β=0.3–1.0 also slightly hurt (0.827–0.910 vs 0.847–0.923 without). Explanation: in a sum, a doc covered by k lanes already gets k terms — coverage is implicit; multiplying double-counts it. MNZ's historical edge (Lee'97) was vs min-max-CombSUM on ~equal-quality engines; when a sparse lane is high-precision, the ×n(d) factor buries its single-lane hits under common dense-lane documents.
+4. **Lane weights barely matter under calibration** (Platt 0.920–0.923 both weight settings) but matter a lot without it (tmm 0.847→0.890 when priors removed; rrf_weighted 0.620 vs rrf 0.717 — down-weighting sparse lanes cost RRF 10 points). Weighted RRF is fragile — consistent with Bruch: parametric RRF doesn't generalize.
+5. **Weak-dense regime** (dense lanes degraded to near-noise): platt 0.497 > tmm 0.260 > mnz_tmm 0.197 > rrf 0.180 — calibration's margin *grows* when lanes are weak, because P(fire|rel) is exactly what it measures.
+6. Caveat (honest): the generator plants the structure calibrated fits exploit (relevant items fire sparse lanes more). Magnitudes are optimistic; the *direction* is consistent with three independent literatures (Bruch 9/9 datasets; Montague's ZMUV>minmax; Cormack's RRF>CombMNZ).
+
+## 4. Complexity & storage arithmetic
+
+Union size U ≤ Σ lane caps ≈ 8×40 = 320; lanes L=8; isotonic table B≤32 breakpoints.
+
+- Per-lane stats (min/max/μ/σ or nothing if offline): O(K_l) ≈ 320 flops.
+- Calibration eval: binary search over B breakpoints → U·L·log₂B ≈ 320·8·5 ≈ 12.8k compares ≈ 10–50 µs Python (measured 0.40 ms for sklearn predict on U=160,L=6 incl. per-call overhead; a plain dict/array lookup ≪).
+- Accumulate + sort: O(U·L) ≈ 2.6k adds + O(U log U) ≈ 2.7k compares ≈ tens of µs. Measured end-to-end fusion: rrf 55 µs, tmm 85 µs, platt 404 µs at U=160 — all ≪ p50 46 ms. **Latency is a non-differentiator (<0.2–0.9% of query time)**; it is also flat in memory count since U is capped by lane caps, not corpus size — same at 10k and 100k memories. (Lane retrieval cost dominates and is unchanged by this choice.)
+- Storage: Platt 2 floats/lane = 64 B total; isotonic ≤32×8 B×2 = ≤4 KB total; lane weights 64 B. Fits in a config blob — no index impact.
+
+## 5. Answers to the five sub-questions
+
+1. **Normalization options**: min-max is the fragile default (outlier+tie problems); z-score and sum-norm are better per-query statistics (Montague & Aslam: ZMUV>min-max for CombSUM, sum-norm>min-max for CombMNZ); tmm needs only fixed bounds and is most robust to drift (Bruch); logistic/isotonic need a held-out labeled query set but answer the semantically right question (P(rel|score)). **Tie-collapse kills only min-max-family**; sum-norm, z-score (→0), tmm (→const), CDF (→ties), calibration (→measured P) are all safe.
+2. **CombMNZ**: wins when lanes are numerous, comparable-quality, and scores are only roughly normalized (metasearch setting, Lee'97, TREC-2). It loses when a sparse lane is high-precision — its coverage multiplier buries rare-but-correct single-lane hits. Since a sum already gives each covered doc k terms, the explicit ×n(d) double-counts coverage. **Verdict: reject CombMNZ;** if coverage evidence is wanted, use a *bounded additive* term `β·(n(d)−1)/L` (β≤0.3, still optional — it lost in sim too).
+3. **Offline calibration shipped as constants: yes.** Platt = 2 floats/lane; isotonic = ≤4 KB/lane tables; sample requirement ~10–100 labeled queries measured (and NMC's 1000-point rule is per-lane-points, easily exceeded on a 1500-question dev slice since each query yields dozens of lane scores). This is exactly the "handful of floats per lane" the brief posits. Re-fit when a lane's scoring changes (version the table with the encoder/index version id).
+4. **Tie-collapse**: min-max maps all-tie lists to 1.0 — measured in 27% of my sparse-lane lists. z-score→0, sum-norm→0, tmm→const, CDF→tied-ranks, isotonic→P(rel|s) all avoid it. Fix if ever using per-query min-max: `if max−min < ε → contribute 0` (or clip q5/q95 for outlier robustness).
+5. **Does calibrated CombSUM beat RRF k=60 here?** Almost certainly yes *when a dev slice exists* — evidence from sim (+20pts), Bruch (TM2C2 > RRF on 9/9 datasets incl. zero-shot, α∈[0.6,0.8] robust), and score-fusion theory (scores strictly contain ranks; rank fusion discards the score gaps that distinguish a 90%-precise lane's weak hit from a 15%-precise lane's strong hit). **But** keep RRF k=60 as (a) fallback when no labeled data exists or lanes are too degenerate to fit (all-tie with no labels), and (b) the comparison baseline. Lane weights in the combine: prior {1.0/0.75/0.5} is defensible; better is to let the dev slice set them via joint logistic or a small grid — Bruch's α generalizes across domains; per-lane weights are the same object.
+
+## 6. Recipe to ship (default profile)
+
+```
+for each lane l:
+    hits_l = lane top-K (unchanged)
+    φ_l = isotonic table (dev-fit; quantize ≤32 breakpoints)
+          or Platt (A_l, B_l) if dev slice < ~1k lane-points
+          or tmm bounds if lane unscorable/degenerate (e.g. pure-binary)
+    contrib_l(d) = w_l · φ_l(s_l(d))   # 0 if d∉hits_l
+F(d) = Σ_l contrib_l(d)
+    (+ existing bounded post-fusion boosts, unchanged)
+```
+Fallback profile: `F(d) = Σ_l w_l·1/(60+rank_l(d))` — keep as config flag and as eval reference. Weight learning: joint logistic on φ-features, or grid-search w over the same dev slice — either ships as 8 floats.
+
+## 7. Comparison table
+
+| candidate | params/lane | needs labels? | tie-safe | outlier-safe | measured any@10 | verdict |
+|---|---|---|---|---|---|---|
+| RRF k=60 | 0 | no | yes | yes | 0.717 | ship as fallback |
+| weighted RRF | 1 | priors | yes | yes | 0.620 (fragile) | optional |
+| min-max CombSUM | 0 | no | **no (27% collapse)** | no | 0.807 | reject |
+| z-score CombSUM | 0 | no | yes (→0) | no | 0.730 | reject (underperforms) |
+| sum-norm CombSUM | 0 | no | yes (→0) | mild | 0.867 | optional (zero-shot) |
+| tmm CombSUM | 2 constants | no | yes (→const) | yes | 0.847–0.890 | ship w/o dev data |
+| rank-CDF CombSUM | 0 | no | yes | yes | 0.697 | reject |
+| Platt CombSUM | 2 floats | yes (~10 q) | yes (P(rel)) | yes | **0.923** | **ship** |
+| isotonic CombSUM | ≤4KB | yes (~10 q) | yes (P(rel)) | yes | 0.917–0.923 | **ship** |
+| joint logistic | 9 floats | yes | yes | yes | 0.897 | optional (simpler) |
+| CombMNZ (any norm) | 0 | no | — | — | < paired sum | reject |
+| bounded coverage +β | 1 | no | yes | yes | −0.01–0.02 vs sum | optional, default off |
+
+## 8. Confidence / what would change this
+
+- Ship verdict: **medium-high confidence**. Direction is consistent across my sim + 3 literatures; magnitude is unverified on real Verbatim lanes. Would change to "optional" if the LoCoMo dev-fit curves show lane P(rel|score) unstable across folds, or if sparse lanes turn out to have near-zero precision variance (isotonic then degenerates to Platt — harmless anyway).
+- Reject-MNZ verdict: **high confidence** for this lane mix — theory (double-counted coverage) + sim + Montague's negative-score caveat all agree; would revisit only if eval shows correlated sparse lanes dominating errors.
+- Keep-RRF-fallback: **high confidence** — it is the strongest label-free baseline ever measured (Cormack 4–5% over best systems) and costs one float.

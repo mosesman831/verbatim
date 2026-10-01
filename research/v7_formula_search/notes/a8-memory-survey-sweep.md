@@ -1,0 +1,125 @@
+# a8-memory-survey-sweep — retrieval mechanisms worth stealing
+
+Scope note on machine: benchmarks ran on an 8-core box (the kernels measured are effectively single-threaded, so 4-core reference deltas should be small; extrapolation flagged where it matters). All numbers "measured" are from /tmp/memres/bench.py on synthetic corpora; "vendor" = paper/repo self-report.
+
+## 1. System-by-system sweep (formula in one line · LLM at query? · portable?)
+
+| System | Retrieval formula (one line) | LLM at query? | Portable to SQLite+CPU? |
+|---|---|---|---|
+| Generative Agents (2304.03442) | minmax-norm(α_r·recency + α_i·importance + α_rel·cos), all α=1, recency=0.995^(game-hrs since last access) | no (LLM only writes importance at ingest) | yes — arithmetic + one cosine lane; **already in Verbatim boost family** |
+| MemoryBank (2305.10250) | DPR dual-tower top-k; memory strength R=e^(−t/S), S init 1, S+=1 and t reset on each recall hit | no | mechanism (Ebbinghaus S) yes; DPR encoder no |
+| ReadAgent (2402.09727) | LLM paginates text → gist memory → LLM "look-up" actions fetch raw pages | **yes** (lookup is an LLM call) | no — lookup/pagination are model-driven; only the gist-index idea is portable |
+| COMEDY (2402.11975) | no retrieval module — one fine-tuned model compresses all memory into context (Dolphin corpus) | yes (it IS the model) | no — replaces retrieval wholesale; reject |
+| MemGPT/Letta (2310.08560; docs.letta.com) | core memory always-in-context + recall store (timestamp/text search) + archival store (embedding ANN), all behind function-call paging | no for lookup itself | yes — two-store split + paging is an API-shape idea |
+| LangMem (langchain-ai/langmem) | store.search = vector sim + namespace scoping (query_limit=5 default); optional query_model writes search strings | optional (query_model) | yes — namespace scoping = eligibility predicate |
+| A-MEM (2502.12110) | cosine top-k (k=10 default, sweep 10–50 flat) over memory notes + auto-include 1-hop linked notes | no | yes — top-k + link expansion ≈ seeded BFS |
+| Nexus/SMRITI (pypi nexus-memory) | Q = 0.4·cos + 0.2·decay(0.99^days) + 0.2·freq + 0.2·salience; hard strength floor 0.05 | no | yes — pure arithmetic score mix |
+| Zep/Graphiti (2501.13956 + repo) | φ_cos + φ_bm25 + φ_bfs(≤3-hop) over edges/nodes/communities, then reranker: RRF(rank_const=1), MMR(λ=0.5), episode_mentions count, node_distance, or BGE-m3 cross-encoder | optional (cross-encoder path) | yes — all non-CE pieces are SQL/BFS arithmetic |
+| Mem0 / Mem0g (2504.19413) | dense top-k over facts (+ entity-anchor expansion + query-vs-triplet sim in Mem0g); writes dedup via top-s=10 retrieval → LLM ADD/UPDATE/DELETE/NOOP | no at query; yes at write | retrieval yes (dense + entity expansion); write-time dedup partly (needs LLM for conflict ops — Verbatim forbids overwrite anyway) |
+| MemoryOS (2506.06326) | segment F=cos(e_s,e_p)+Jaccard(K_s,K_p) (θ=0.6); retrieval STM all + MTM top-m=5 segs→top-k pages + LPM top-10; Heat=α·N_visit+β·L_int+γ·e^(−Δt/μ), μ=1e7 | no | yes — Jaccard+keyword sets and heat counters are SQL-friendly |
+| MIRIX (2507.07957) | per-component top-10 via embedding_match/bm25_match/string_match, selected by Meta-Manager routing; Active Retrieval pushes top-10 of a generated topic into prompt each turn | yes (topic generation) | routing+BM25/string-match yes; Active Retrieval needs LLM |
+| SimpleMem (2601.02553) | LLM plans (q_sem, q_lex, q_sym, depth d) → parallel top-n over {dense, BM25, SQL symbolic}, n∝d (k_min=3, k_max=20) → ID-union dedup | **yes** (planning LLM) | union-over-views + adaptive-n yes without LLM (fixed default plan); symbolic SQL lane yes |
+| LightMem (2510.18866) | index per {topic_seg, summary,user,model} B=B1(attn)∩B2(adjacent-sim<τ); compression gate P(retain)>Percentile(scores, r); offline neighbor search with timestamp+similarity filter | yes (LLMLingua-2 is a small model, not LLM; segmentation uses attention sim) | percentile thresholds + adjacent-sim segmentation yes |
+| MemInsight (2503.21760) | LLM mines attribute schema → attribute-filter retrieval or Titan-emb+FAISS over augmented memory | yes (mining, offline; filtering can be filter-only) | attribute filters = SQL columns yes |
+| MemGAS (2505.19549) | per-granularity entropy router w^g=(1/H^g)/Σ(1/H^g'), score=Σ w^g·sim; top-α≈15 seeds → PPR → top-K → LLM filter; λ≈0.2 optimal | optional (final LLM filter) | entropy router + seeded PPR yes (both measured below) |
+| Nemori (2508.06441) | hybrid (semantic+lexical) top-k over episodic boundaries; boundary alignment predictor splits episodes (open-source boundary model) | boundary model at write | hybrid retrieval yes; episode boundaries = segment units |
+| O-Mem (2511.13593) | persona-memory always-on + working-topic→interactions + episodic **rare-term clue** ŵ=argmax_{w∈W} 1/df_w → postings | yes (topic extraction at write) | rare-term clue yes — one IDF argmax + one posting scan |
+| EverMemOS (2601.02163) | RRF(dense+BM25 over atomic facts) → MemScene score = max member-cell score → top-N=10 scenes → episode re-rank top-K=10 → Foresight filter t_now∈[t_s,t_e] | yes (sufficiency verifier/rewrite loop) | max-pool group→member + validity filter yes; verifier loop needs LLM |
+| TReMu (2502.01630) | timeline summaries with inferred absolute dates → retrieval + LLM-written Python for temporal math | yes (temporal compute) | write-time date normalization yes; neuro-symbolic compute no |
+| SeCom (2502.05589) | segment-level units (topic-coherent segments) + LLMLingua-2 denoise → retrieval over segments | segmentation/compression at write | **granularity finding** portable: segment > turn/session |
+| MemOS (2507.03724, MemTensor) | MemCubes (content+provenance+versioning) + hybrid FTS5+vector plugins | optional | yes — vendor ships FTS5+vector hybrid locally |
+| HippoRAG (2405.14831) | OpenIE KG + PPR seeded by query concepts | yes (OpenIE write-time) | already in Verbatim's PPR list |
+| MemoRAG (2409.05591) | memory-LLM generates draft-answer "clues" used as retrieval queries | **yes** | no — needs a fine-tuned long-context LLM (HyDE-style); reject for default |
+
+## 2. Candidate mechanisms for Verbatim (exact equations, constants, provenance, cost)
+
+Reference machine: 4-core CPU, SQLite. Measured kernels (this box, 8 cores, single-thread-bound):
+
+| Kernel | p50 @10k | p50 @100k | index/resident size |
+|---|---|---|---|
+| FTS5 bm25 top-10 | 0.76 ms | 8.2 ms | ~390 B/mem over raw text |
+| hashed-vec cosine via inverted index (160 nnz, dim 4096) | 5.8 ms | 75 ms | 1280 B/mem |
+| same via numpy dense matvec (dim 4096) | 0.69 ms | 15.0 ms | 16 KB/mem dense (1.6 GB @100k — too fat resident; block-scan or fp16/int8 needed) |
+| PPR, 10 power iters, deg 6, pure Python | 114 ms | 1168 ms | 24 B/mem adjacency |
+| PPR same graph, scipy.sparse | ~9 ms @100k | — | — |
+| BFS 3-hop, 10 seeds | 0.19 ms | 0.25 ms | shares adjacency |
+| validity-interval WHERE (indexed) | 2.2 ms | 24 ms | 16 B/mem + ~24 B/mem b-tree |
+| entropy router on 4 lanes × top-200 | 0.018 ms | same | none |
+| RRF fuse 8 lanes × 100 | 0.13 ms | same | none |
+
+### M1 — Entropy-adaptive lane weights (replaces fixed {1.0/0.75/0.5})
+- Equation (MemGAS Eq.3–5): p_i^g = softmax(s_i^g/λ); H^g = −Σ p_i^g ln p_i^g; w^g = (1/H^g)/Σ_g'(1/H^g'); fused score_i = Σ_g w^g·s_i^g. Constants: λ≈0.2 (their grid-search optimum), applied over each lane's score vector.
+- Worked example (3 lanes × top-5): lex=[.9,.85,.82,.80,.79] → H=1.588; vec=[.6..56] → H=1.607; ent=[.95,.4,.3,.2,.1] → H=0.527 → weights {0.200, 0.197, 0.603}. A lane with one dominant hit gets 3× the weight of a flat lane — exactly the behavior wanted when an entity lane is "sure".
+- Provenance: MemGAS ablation shows Router is their largest single component (w/o Router R@3 78.51→75.53 on LoCoMo; they report module latency Δ≤0.0191 s). Mechanism evidence, not a prediction of Verbatim any@10.
+- Cost: 0.02 ms — free. Stage: **fusion**. Verdict: **ship** — replaces a hand-tuned constant with a measured, adaptive one; confidence high; would change: if Verbatim's lanes don't emit comparable sims (FTS5 rank isn't a sim), need per-lane score normalization first.
+
+### M2 — Access-driven memory strength (write-path, augments temporal boosts)
+- Equation (MemoryBank): retentiveness R = e^(−t/S), S init 1, S += 1 and t := 0 each time the memory is recalled. MemoryOS/Nexus variants: Heat = α·N_visit + β·L_int + γ·e^(−Δt/μ) (μ=1e7); Nexus strength 0.2 weight, hard floor 0.05.
+- Worked: S=1,t=10d → R≈0; after one recall S=2, clock resets → same memory 10 days later R=e^(−10/2)=0.007 (still low — MemoryBank's S grows slowly; Nexus's 0.99^day = e^(−t/99.5) is the gentler analog).
+- Cost: one UPDATE on hit (amortized); score term adds <0.01 ms. Bytes: +8 B/mem (S, last-access ts). Stage: **write-path** (on-hit hook) + boost. Verdict: **ship** as a small bounded boost — three independent systems converged on it; confidence medium-high; would change: if hit-updates cause write contention or churn, move updates to the background maintenance job.
+
+### M3 — Validity-interval temporal facts (augments temporal stage)
+- Equation: store facts as (body, t_valid, t_invalid); retrieval admits where t_now ∈ [t_valid, t_invalid]; superseded facts are **marked invalid, never deleted**. Graphiti schema (repo, search_config_recipes.py): edges carry valid_at/invalid_at; Mem0g same pattern; EverMemOS Foresight filter identical.
+- Worked: query "current address" → WHERE t_valid<=now AND (t_invalid IS NULL OR t_invalid>now) → excludes stale rows before ranking. Cost: measured 2.2 ms@10k, 24 ms@100k on a naive (t_start,t_end) index; a covering/partial index or precomputed "currently valid" flag cuts the 100k case to ~single ms.
+- Bytes: 16 B/mem. Stage: **temporal/eligibility**. Verdict: **ship** — converged across Zep, Mem0g, EverMemOS; fits byte-pin (old facts stay byte-pinned, just ineligible); confidence high; would change: if Verbatim already treats eligibility-time filters identically, it's a schema column, not a mechanism.
+
+### M4 — Rare-term clue seeding (augments entity/lexical lanes)
+- Equation (O-Mem): clue ŵ = argmax_{w∈W} 1/df_w — take the rarest (highest-IDF) query token, pull its postings/episodic index. df comes free from the FTS5/BM25 stats already maintained.
+- Worked: df{paris:1200, restaurant:3400, vegetarian:90, the:50000} → clue="vegetarian" (df=90) → scan only its postings (~90 rows) instead of full inverted intersection.
+- Cost: ~0.1–2 ms (one df argmax + one posting scan). Stage: **lane** (cheap seed generator feeding PPR/graph lanes or a direct clue lane). Verdict: **ship** — O-Mem reports F1 51.67 vs direct-RAG 50.25 on LoCoMo; mechanism cost ~nothing since IDF already exists; confidence medium (their gain is small); would change: rare-term seeds need a fallback when df_w=0 (OOV) — back off to top-2 rarest.
+
+### M5 — Group→member max-pool retrieval (augments lanes/pack)
+- Equation (EverMemOS): scene_score(S) = max_{c∈S} relevance(c); rank scenes, then re-rank member episodes within top-N scenes (N=10, K=10). SeCom/MemoryOS/Nemori variants: segment-level units beat turn/session-level (SeCom's central finding; MemoryOS F=cos+Jaccard θ=0.6).
+- Cost: SQL `SELECT group_id, MAX(score)` over a candidate table — sub-ms at these sizes; stage-2 re-rank on ≤N·membership rows.
+- Bytes: +4–8 B/mem group key. Stage: **lane → pack** (retrieve groups then expand). Verdict: **ship** the two-stage shape; keep segments optional — four systems independently chose segment granularity over turn/session, which is the strongest cross-system signal in this sweep; confidence high for the two-stage pattern, medium for exact N=10/K=10.
+
+### M6 — Adaptive candidate budget + union-over-views (augments fusion)
+- Equation (SimpleMem): plan emits depth d; n ∝ d with k_min=3, k_max=20 per view; results unioned by ID before scoring (explicitly avoids linear weighting across heterogeneous views).
+- Cost: zero new machinery — cap each lane's list by a difficulty-adaptive n; union dedup is a dict. Stage: **lanes/fusion**. Verdict: **ship** — matches Verbatim's "eligibility before ranking" hygiene (union ≠ score-mixing, keeps weak-lane evidence); confidence medium; would change: without a query-depth estimator, ship n as a fixed config first.
+
+### M7 — 1-hop link expansion (augments graph lane)
+- Equation (A-MEM): results = topk_cos ∪ {neighbors(linked notes of topk)}; link edges built at write time (LLM link decisions in A-MEM — portable version: entity/time co-occurrence edges). Measured BFS 1–3 hop: 0.2–0.25 ms both sizes.
+- Stage: **graph**. Verdict: **ship** — trivially cheap; A-MEM's k plateau (10–50) shows expansion matters more than bigger k; confidence high; would change: if Verbatim's link graph is sparse/late-built, expansion returns nothing — degrade to no-op.
+
+### M8 — Graph rerankers: episode-mentions & node-distance (augments rerank)
+- Equations (Graphiti repo, utils.py/search code): episode_mentions → `reranked_edges.sort(key=lambda e: len(e.episodes))` — literally proof-count, already a Verbatim boost (validation, not new). node_distance → shortest-path hops from a center node; center rescored to 0.1, unreachable=inf. MMR λ=0.5 default (DEFAULT_MMR_LAMBDA).
+- Cost: BFS/heap ~0.2 ms. Stage: **rerank**. Verdict: node-distance **optional** (needs a chosen center node — meaningful when the query names an anchor entity); MMR λ=0.5 **ship** for pack dedup; episode-mentions already present — keep. Confidence medium.
+
+### M9 — RRF constant check: k=60 vs Graphiti k=1 (existing mechanism, constant under review)
+- Graphiti code: `rrf(results, rank_const=1)` → Σ 1/(rank+1). Worked (3 lanes × 5 cands, weights {1,1,.75}): k=60 → d3=0.0444, d1=0.0440, d6=0.0284 (scores compressed, consensus-driven); k=1 → d3=1.000, d1=0.900, d6=0.708 (top-rank dominant). Both order the same here; k=1 sharply rewards any lane's top-3, k=60 keeps weak lanes contributing deep into the list.
+- Verdict: **keep k=60 but A/B k∈{10,30}** — Verbatim already has lane weights; k=60 + weights is the more conservative consensus-seeker and the tie-collapse bug is already filed. Confidence low-medium; would change: any measured any@10 lift on the eval harness.
+
+### M10 — Percentile-adaptive thresholds (augments gating)
+- Equation (LightMem): keep tokens/entries with score > Percentile(scores, r) — threshold derived from the score distribution, not an absolute cut. Port to: lane admission ("keep top-P% of lane scores") and compression gates. Cost: ~free (partial sort over lane list). Stage: **lanes**. Verdict: **optional** — principled but unproven in isolation (LightMem never ablates τ alone); would change: a lane-ablation on Verbatim's harness.
+
+### M11 — Write-time temporal anchoring (augments write-path)
+- Pattern (TReMu, SimpleMem, Zep): resolve relative dates ("last Tuesday") to absolute timestamps at ingest against the turn's timestamp; store both literal text (byte-pinned) and normalized interval. Verbatim's unresolved-relative-time bug makes this directly relevant. Cost: offline per-write. Verdict: **ship** — it's the standard fix; LLM-free normalization (dateparser-style rules) suffices for the common cases. Confidence high.
+
+### M12 — Namespace/attribute eligibility scoping (augments eligibility)
+- LangMem namespace scoping + MemInsight attribute filters = retrieval restricted by structured columns (user/session/agent/attribute-value). Already structurally identical to Verbatim's eligibility admission — treat as **validation of the existing stage**, plus a reminder to index attribute columns used as filters. Verdict: ship-as-validation.
+
+### Rejected for default profile
+- **LLM query-time planning/verifier loops** (SimpleMem planner, EverMemOS sufficiency check, ReadAgent lookup, MemoRAG clues): need an LLM per query → optional quality-profile only.
+- **Cross-encoder rerank >32–64 pool** (Graphiti BGE-m3, MemGAS LLM filter): keep existing ≤32 cap as the optional profile.
+- **COMEDY/ReadAgent gist+lookup** (model-internal memory), **DPR dual-tower** (MemoryBank), **activation/parameter memory** (MemOS layers): weight/model dependencies outside the default install.
+- **Active Retrieval** (MIRIX): turns each user message into an LLM topic → retrieval push; the push-into-prompt idea is fine but LLM topic gen breaks the default budget.
+
+## 3. Ranked shortlist — 5 most portable mechanisms NOT already in Verbatim's list
+
+(excludes: lanes, RRF, BM25F, cross-encoder, entity, temporal boosts, PPR, observations — all already present)
+
+1. **Entropy-adaptive lane weights** (MemGAS) — w^g ∝ 1/H^g replaces fixed {1.0/0.75/0.5}; 0.02 ms, strongest mechanism-level ablation signal found (router is MemGAS's top component); **fusion** stage. *ship.*
+2. **Access-driven strength updates** (MemoryBank R=e^(−t/S), S+=1-on-hit; Nexus/MemoryOS converge) — on-hit write-path arithmetic; turns "recall frequency" into a first-class score; 8 B/mem; **write-path + boosts**. *ship.*
+3. **Validity-interval facts, mark-invalid-not-delete** (Zep/Mem0g/EverMemOS) — WHERE t_now∈[t_valid,t_invalid]; ~1–24 ms measured, 16 B/mem; preserves byte-pin while adding typed-fact temporality; **temporal/eligibility**. *ship.*
+4. **Group→member max-pool two-stage retrieval** (EverMemOS scene=max-cell; SeCom/Nemori segment-granularity finding) — GROUP BY + MAX over candidates then expand; sub-ms; four systems independently chose segment granularity; **lane→pack**. *ship.*
+5. **Rare-term clue seeding** (O-Mem ŵ=argmax 1/df_w) — reuse BM25 IDF to pick the rarest query token and scan only its postings; ~0.1–2 ms; doubles as a cheap seed source for the graph lane; **lane**. *ship.*
+
+Runner-up (6th): adaptive per-lane n + ID-union dedup (SimpleMem) — free and complements #1; fold it into the fusion work.
+
+## 4. Constants to bring back to the synthesis table
+- λ_router ≈ 0.2 (MemGAS optimum); entropy over each lane's full score vector
+- PPR seeds α≈15 (MemGAS); Graphiti bfs depth cap 3, default limit 10
+- MMR λ=0.5 (Graphiti DEFAULT_MMR_LAMBDA); min_score floor 0.6
+- Scene count N=10, member K=10 (EverMemOS); segment merge θ=0.6 (MemoryOS)
+- Ebbinghaus S init 1, +1 per recall (MemoryBank); strength floor 0.05 (Nexus)
+- per-view n ∈ [3,20] ∝ query depth (SimpleMem); top-k=10 flat-plateau (A-MEM)

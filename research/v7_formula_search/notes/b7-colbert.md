@@ -1,0 +1,101 @@
+# b7-colbert — Late interaction (ColBERT/MaxSim) vs single-vector bi-encoders for Verbatim
+
+Scope: retrieval/rerank mechanics only; all scores reorder already-admitted, byte-pinned candidates, so the byte-pin and eligibility-before-ranking invariants are unaffected. Every neural option below requires a trained checkpoint delivered as a hash-pinned local artifact — the blake2b hash encoder cannot produce meaningful multi-vector semantics (verdict on that shortcut: reject, see Candidate F).
+
+## 1. MaxSim, precisely
+
+ColBERT encodes query q and document d independently; the encoder emits one L2-normalized 128-dim vector per token (dim is a linear projection on top of BERT; `dim=128` in `colbert/infra/config/settings.py: DocSettings`). Because both sides are unit-normalized, cosine similarity = dot product. The late-interaction score is the asymmetric Chamfer/"sum of max" form:
+
+    score(q,d) = Σ_{i=1..n} max_{j=1..m} ⟨q_i, d_j⟩
+
+with n = padded query length (32; `query_maxlen=32`, short queries padded with `[MASK]` query augmentation — the v1 ablation shows removing augmentation measurably drops MRR), m = document token count (encoder truncates at `doc_maxlen=220`; Verbatim turns ~80). In code the interaction has **no trainable parameters** — all quality lives in the encoder + training.
+
+Worked example (n=3, m=4): q rows = [1,0], [0.7,0.7], [0.2,0.98]; d rows = [0.9,0.44], [0.44,0.9], [0,1], [1,0].
+per-query-token maxima: q1 → ⟨q1,d4⟩=1.0; q2 → ⟨q2,d1⟩=⟨q2,d2⟩=0.938 (vs 0.7 for d3/d4); q3 → ⟨q3,d3⟩=0.98. score = 1.0+0.938+0.98 = 2.918. Compare a competing doc whose best alignment per query token scores 0.6,0.6,0.7 → 1.9 — MaxSim rewards per-term evidence coverage, not holistic similarity; this is exactly the "which of my query terms is provably present" signal a memory engine wants.
+
+Important nuance for Verbatim: MaxSim is **query-token-conditioned**. With n=32 and only ~5-8 real tokens in a memory question, the [MASK]-augmented slots act as soft global-match terms; published ColBERT keeps them. Keep `attend_to_mask_tokens=False` (repo default) and the augmentation on.
+
+## 2. Storage cost (assignment sub-q 2) — per doc and per 100k turns of ~80 tokens
+
+per-token bytes = dim × bytes_per_dim (+ codec overhead). dim=128.
+
+| Codec | B/token | B/doc (80 tok) | GiB per 100k turns | Source |
+|---|---|---|---|---|
+| fp32 | 512 | 40,960 | 3.81 | calculated |
+| fp16 (ColBERT v1 default encoding) | 256 | 20,480 | 1.91 | ColBERTv2 §3.3 ("256-byte vector encodings at 16-bit") |
+| int8 + fp32 scale/token | 132 | 10,560 | 0.98 | calculated |
+| int8 raw | 128 | 10,240 | 0.95 | calculated |
+| ColBERTv2 residual, nbits=2 | 36 (4B centroid id + 32B) | 2,880 | 0.27 | ColBERTv2 §3.3 verbatim |
+| ColBERTv2 residual, nbits=1 | 20 (4B + 16B) | 1,600 | 0.15 | same |
+| single-vector int8 (384d) for contrast | — | 388 | 0.036 | calculated |
+
+Plus for the residual option: a centroid codebook of size `num_partitions = 2^⌊log2(16·√E)⌋` (collection_indexer.py:106). At 100k turns, E = 8M token vectors → 2^15 = 32,768 centroids × 128 × 4B = **16.8 MB** resident (fp16 → 8.4 MB); at 10k turns, E = 0.8M → 2^13 = 8,192 centroids = 4.2 MB. Plus an inverted list only if you build the candidate lane (E × 4B doc-id ≈ 32 MB at 100k).
+
+Reality check vs the paper: on MS MARCO (8.8M passages, ~65 tokens avg) the v1 fp16 index was 154 GiB and v2 residual nbits=2 shrank it to 25 GiB including a 4.5 GiB inverted list (16 GiB at nbits=1) — i.e., ~14–20 bytes/token effective, matching the 36/20-byte formula above.
+
+## 3. PLAID / centroid pruning — how much cost it removes (sub-q 3)
+
+Vanilla ColBERTv2's own retrieval generates **10–40k candidate passages per query** on MS MARCO v1 (nprobe × 32 query vectors × inverted lists), then decompresses+scores them: 921.8 ms on 8 CPU threads, 3,485 ms single-thread (PLAID paper Table 3). PLAID replaces that with a 4-stage funnel (all measured latencies exclude query encoding):
+
+1. **Candidate generation**: per query token, nearest `ncells` centroids → postings of docs owning those cells.
+2. **Centroid pruning + interaction**: centroid_scores (32 × num_partitions, computed once per query — only ~1.05M MACs at 32,768 centroids) are max-pooled per doc's bag-of-centroids with a threshold (0.5/0.45/0.4 by k) → keep top `ndocs`.
+3. **Full centroid interaction** (unpruned) on survivors → keep top `ndocs // 4` (`index_storage.py:160-161`).
+4. **Residual decompression + full MaxSim** on those → top-k.
+
+Repo defaults (searcher.py:105-127): k≤10 → ncells=1, thresh=0.5, ndocs=256 (⇒ 64 docs get full MaxSim); k≤100 → 2, 0.45, 1024 (⇒ 256); k=1000 → 4, 0.4, max(4k,4096).
+
+**Cost removed**: end-to-end 8-thread CPU latency MS MARCO v1: 921.8 → 31.5 ms (k=10) / 52.9 ms (k=100) — **~17–29× faster at equal MRR (~39.7)**; up to 45× claimed for k=10 vs 1-thread; the expensive residual decompression is now applied to only 64–256 docs instead of tens of thousands (~99% of scoring work removed). Centroid-only retrieval already finds 99+% of vanilla's top-k (PLAID Fig. 3). On LoTTE: 1508 → 35.5–163.1 ms; on NQ/Wikipedia 21M docs: 5078 → 67–228 ms; MS MARCO v2 (138M passages, 9.4B tokens): ~20.8× CPU speedup. Their hardware note: CPU runs used **1 or 8 threads** on a 28-core Xeon — so the 8-thread column is the honest comparator for our 4-core reference.
+
+Scaled to Verbatim: brute-force full-corpus MaxSim = n·m·d·N MACs = 32×80×128×100,000 = 32.8 GMAC ≈ **383 ms measured on this 8-core box (≈500–700 ms on 4 cores)**. A PLAID-lite lane removes ~92–97% of that. Worked funnel at 100k turns (~80 tok each): E = 8M token vectors → num_partitions = 2^⌊log2(16·√8e6)⌋ = 2^15 = 32,768 centroids (16.8 MB table). Query time: (i) centroid_scores = 32 × 32,768 = 1.05M MACs ≈ 1–3 ms; (ii) probe ncells=2 cells/query-token → 64 cells → ~8M/32,768 ≈ 244 vectors/cell ≈ ~15.6k vector hits spanning up to ~10–13k docs → inverted-list gather ~32 MB structure, a few ms; (iii) centroid interaction + pruning → ndocs≈1024, then ndocs//4≈256; (iv) decompress + MaxSim on 256 ≈ 1–4 ms. Total ≈ 10–40 ms (estimate, not measured — the stage-2/3 data-movement overhead is what PLAID's 700 lines of C++ exist to minimize; a pure-Python version lands at the high end). At 10k turns: E=0.8M → 8,192 centroids; same funnel ≈ 5–15 ms. But at this corpus size you do not need the lane — reranking the fusion top-200 gets the same MaxSim applied where recall already exists.
+
+## 4. CPU latency from SQLite blobs (sub-q 4) — flops + measured
+
+FLOPs for MaxSim over C candidates: `C × n × m × d` MACs = 200×32×80×128 = **65,536,000 MACs ≈ 131 MFLOPs**; blob bytes read = C × m × B/token.
+
+Measured on this VM (8 cores, numpy 2.2.6/OpenBLAS fp32, SQLite 3.x, packed one-blob-per-doc rows):
+
+| Step | p50 | p95 |
+|---|---|---|
+| fp32 einsum MaxSim, C=200 | 0.72 ms | 0.76 ms |
+| int8 → dequant → GEMM MaxSim | 2.18 ms | 3.05 ms |
+| SQLite fetch + dequant, 200 packed blobs (2.35 MB db) | 3.78 ms | 4.37 ms |
+| end-to-end fetch+deq+MaxSim | 4.62 ms | ~10–17 ms |
+| residual codec path (centroid gather + resid add + MaxSim) | 4.82 ms | ~12 ms |
+| brute-force full-scan MaxSim, 10k docs (3.3 GMAC) | ~32 ms | — |
+| brute-force full-scan, 100k docs (32.8 GMAC) | ~383 ms | — |
+
+Naive int8 matmul in numpy is a trap — it bypasses BLAS (measured 23.9 ms); dequantize int8→fp32 first, then GEMM (2.2 ms). On a 4-core reference machine, roughly halve throughput: **rerank-200 ≈ 4–10 ms including SQLite I/O**. Query encoding is the dominant remaining cost and is NOT in these numbers (no torch on this VM — estimate): transformer forward FLOPs ≈ 2 × params × tokens → 33M-param encoder at 32 tokens ≈ 2.1 GFLOPs ⇒ ~10–40 ms on 4 cores depending on runtime (ONNX/int8 at the low end, naive fp32 at the high end); BERT-base-class 110M ≈ 7 GFLOPs ⇒ ~35–150 ms. So full query path ≈ 15–40 ms (small encoder) or 40–160 ms (BERT-base-class) — vs Verbatim's "tens of ms" default target and ≤150 ms quality budget. Write-path encode at ~80 tokens/turn ≈ ~3× query cost per turn — fits the background-job rule.
+
+## 5. Published gains, ColBERT-class vs MiniLM bi-encoder (sub-q 5)
+
+Sources split vendor vs independent. BEIR column below is the 13-dataset set used in the ColBERTv2 paper (my computed averages of the printed per-dataset numbers; Touché missing for older systems → averaged over 12).
+
+| Model | Type | MS MARCO MRR@10 | BEIR-13 avg nDCG@10 | LoTTE pooled S@5 | Source type |
+|---|---|---|---|---|---|
+| DPR-M | bi-encoder | 31.1 | 38.8 (12 ds) | — | ColBERTv2 paper (cites BEIR/DPR papers) |
+| ANCE | bi-encoder | 33.0 | 42.8 (12) | 66.4 | same |
+| TAS-B | bi-encoder (distilled) | 34.7 | 45.9 (12) | — | same |
+| all-MiniLM-L6-v2 | bi-encoder 22.7M | **30.6 dev (MTEB)** | **42.5 (MTEB)** | — | independent MTEB repro |
+| RocketQAv2 | bi-encoder | 38.8 | 43.6 | — | ColBERTv2 paper |
+| SPLADEv2 | learned-sparse | 36.8 | 49.8 | 68.9 | Formal et al. via paper |
+| ColBERT v1 | late interaction | 36.0–36.7 | 47.3 (12) | 67.3 | paper |
+| **ColBERTv2** | late interaction | **39.7 dev / 40.8 local** | **49.9** | **71.6** | paper |
+| answerai-colbert-small-v1 | late interaction **33M** | (MSMARCO nDCG 43.5) | 53.79 on 14-ds avg; 55.7 on same 13 | — | **vendor** card |
+
+Takeaways: vs a MiniLM-class single-vector encoder, late interaction is worth **+4 to +9 MRR@10 points in-domain** and **+5 to +7 nDCG@10 on BEIR-style OOD** — the gap is largest on fine-grained/entity tasks (NQ +12.4, T-COVID +6.1 for ColBERTv2-vs-v1) and smallest on near-duplicate/semantic tasks (Quora, SCIDOCS). The honest lower bound: a *well-distilled* bi-encoder (TAS-B 45.9, bge-base 53.25-vendor) closes much of it — late interaction's residual edge over the best bi-encoders is ~+2–4 pts. Open-domain: ColBERT-QA S@5 = 75.3 vs DPR 66.8 (+8.5) on NQ-open.
+
+## 6. Quantized ColBERTv2 (sub-q 6)
+
+Paper ablation on vanilla ColBERT + residual codec (MS MARCO dev): uncompressed 36.2 MRR@10 / 82.1 R@50 → **nbits=2: 36.2 / 82.3 (lossless)**; nbits=1: 35.5 / 81.6 (−0.7 MRR); naive BPR-style binarization without residual centroids: 34.8–35.7 / 80.5–81.8 — the centroid offset is what makes 1–2 bits work. All ColBERTv2 headline numbers used nbits=2 (nbits=1 on MS MARCO v2); repo default nbits=1. Verbatim-scale caveat: the codebook needs a one-shot k-means fit over a token sample — cheap offline (kmeans_niters=4, sampled embs), background-job compatible.
+
+## Verbatim stage mapping & candidates
+
+- **A. MaxSim rerank over post-fusion top-~200 (SQLite packed blobs, int8 or residual) — augments `rerank`**: compute ~4–10 ms on 4 cores; blobs 0.15–1 GiB/100k; needs a pinned multi-vector encoder artifact (~33M params ≈ 33–132 MB) and write-path per-token encode (~5–15 ms/turn, background). **Verdict: optional (quality/max profile)** — first candidate to ship; promotes to default only if A/B on LoCoMo shows >noise gain AND the ~33M artifact is accepted as the bundled pinned encoder. Confidence: high on latency (measured), medium on quality (extrapolated from BEIR/MS MARCO, conversational turns untested).
+- **B. PLAID-lite dense lane (centroid pruning + inverted lists in SQLite) — augments `lanes`**: removes ~92–97% of brute-force cost; est. 10–40 ms at 100k. **Verdict: optional (quality profile)** — real but the funnel (codebook, postings, two-stage centroid scoring) is ~10× the engineering of A, which gets the same MaxSim first. Revisit if the dense lane is recall-limited.
+- **C. Residual codec (4B code + n-bit residual) — write-path/storage**: 20–36 B/token, nbits=2 lossless per ablation. **Verdict: ship** wherever a multi-vector store exists. Confidence high (paper + repo).
+- **D. Per-token int8 scalar quantization — write-path/storage**: 132 B/token, ~0.98 GiB/100k, zero training step (no k-means). **Verdict: ship** as the simpler default codec; swap to C when/if the lane needs centroid ids anyway.
+- **E. fp16/fp32 multi-vector blobs**: 2–4 GiB/100k for no scoring benefit. **Verdict: reject.**
+- **F. MaxSim over hash-subword "embeddings"**: non-semantic vectors; MaxSim degenerates to weighted term overlap already covered by BM25/fuzzy lanes. **Verdict: reject.**
+- **G. Single-vector bi-encoder dense lane (e.g., 384d int8, ~38 MB/100k) — the alternative**: cheapest semantic lift (+8–12 pts over BM25 on open-domain per BEIR-class evidence), µs scoring. **Verdict: ship** regardless — it is the baseline lane; A adds the late-interaction edge on top.
+
+Bottom line for the question "can late interaction live in SQLite blobs with acceptable ms on 4 cores": **yes — MaxSim-200 from packed blobs is ~5–10 ms end-to-end; the blob store is not the blocker.** The real gate is the encoder artifact and its write-path/query-time cost, which is why it lands in the quality/max profile first rather than default. The single most important number: **65.5M MACs per rerank-200 query → measured ~0.7–5 ms** — late interaction's runtime is a rounding error next to query encoding.

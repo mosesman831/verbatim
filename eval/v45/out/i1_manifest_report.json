@@ -1,0 +1,1051 @@
+{
+  "experiment": "i1_counterevidence_first",
+  "spec": {
+    "requirements": [
+      "V45-03.01",
+      "V45-03.02",
+      "V45-03.03",
+      "V45-03.04"
+    ],
+    "acceptance": [
+      "D01",
+      "D02"
+    ],
+    "manifest_revision": "i1_manifest_r1"
+  },
+  "sample_size": {
+    "topics": 8,
+    "arms": 2,
+    "runs": 16,
+    "note": "registered stale-state slice; n is the realized topic count actually executed"
+  },
+  "matched_bound": {
+    "max_items": 2,
+    "note": "identical RecallRequestV3 budgets on both arms \u2014 the matched serialized-token bound (V45-03.04); realized token totals reported per arm"
+  },
+  "definitions": {
+    "false_current": "a delivered item asserts the topic's state marker AND no contrary-side claim is delivered AND no contrary-specific signal rides the result (manifest contrary ref or contrary_* label). Generic omission warnings are recorded but never count as disclosure \u2014 they name no counterevidence.",
+    "contrary_disclosed": "a conflict-side claim delivered, or a manifest contrary ref included, or a contrary_* label present"
+  },
+  "topics": [
+    {
+      "topic": "alpha0",
+      "query": "service alpha0 mode status svc/alpha0.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum1"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew0",
+            "clOld0"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew0",
+            "clOld0"
+          ],
+          "contrary_included_refs": [
+            "clNew0",
+            "clOld0"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha0.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha1",
+      "query": "service alpha1 mode status svc/alpha1.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum1"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew1",
+            "clOld1"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew1",
+            "clOld1"
+          ],
+          "contrary_included_refs": [
+            "clNew1",
+            "clOld1"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha1.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha2",
+      "query": "service alpha2 mode status svc/alpha2.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum2"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew2",
+            "clOld2"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew2",
+            "clOld2"
+          ],
+          "contrary_included_refs": [
+            "clNew2",
+            "clOld2"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha2.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha3",
+      "query": "service alpha3 mode status svc/alpha3.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum3"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew3",
+            "clOld3"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew3",
+            "clOld3"
+          ],
+          "contrary_included_refs": [
+            "clNew3",
+            "clOld3"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha3.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha4",
+      "query": "service alpha4 mode status svc/alpha4.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum4"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew4",
+            "clOld4"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew4",
+            "clOld4"
+          ],
+          "contrary_included_refs": [
+            "clNew4",
+            "clOld4"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha4.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha5",
+      "query": "service alpha5 mode status svc/alpha5.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum5"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew5",
+            "clOld5"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew5",
+            "clOld5"
+          ],
+          "contrary_included_refs": [
+            "clNew5",
+            "clOld5"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha5.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha6",
+      "query": "service alpha6 mode status svc/alpha6.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum6"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew6",
+            "clOld6"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew6",
+            "clOld6"
+          ],
+          "contrary_included_refs": [
+            "clNew6",
+            "clOld6"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew7",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld7",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha6.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    },
+    {
+      "topic": "alpha7",
+      "query": "service alpha7 mode status svc/alpha7.cfg",
+      "arms": {
+        "topk": {
+          "delivered_ids": [
+            "clSum0",
+            "clSum7"
+          ],
+          "asserted": true,
+          "contrary_delivered": [],
+          "contrary_included_refs": [],
+          "contrary_omitted_refs": [],
+          "contrary_labels": [],
+          "contrary_disclosed": false,
+          "false_current": true,
+          "identifier_hit": true,
+          "tokens": 310,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        },
+        "manifest": {
+          "delivered_ids": [
+            "clNew7",
+            "clOld7"
+          ],
+          "asserted": false,
+          "contrary_delivered": [
+            "clNew7",
+            "clOld7"
+          ],
+          "contrary_included_refs": [
+            "clNew7",
+            "clOld7"
+          ],
+          "contrary_omitted_refs": [
+            {
+              "object_id": "clNew0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clNew6",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld0",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld1",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld2",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld3",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld4",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld5",
+              "reason": "filtered_or_below_rank"
+            },
+            {
+              "object_id": "clOld6",
+              "reason": "filtered_or_below_rank"
+            }
+          ],
+          "contrary_labels": [],
+          "contrary_disclosed": true,
+          "false_current": false,
+          "identifier_hit": true,
+          "tokens": 308,
+          "abstained": false,
+          "warnings": [
+            "budget_omitted_group",
+            "dense:encoder_or_rows_unavailable"
+          ]
+        }
+      },
+      "manifest_producer": "deterministic_pack",
+      "manifest_labels": [],
+      "manifest_coverage": {
+        "verdict": "supported",
+        "reason_codes": [],
+        "hard_identifiers": [
+          "svc/alpha7.cfg"
+        ],
+        "missing_identifiers": [],
+        "groups": {
+          "supported": 7,
+          "partial": 0,
+          "insufficient": 0
+        }
+      }
+    }
+  ],
+  "totals": {
+    "topk_false_current": 8,
+    "manifest_false_current": 0,
+    "manifest_contrary_included": 8,
+    "manifest_contrary_labeled": 0,
+    "identifier_hits": {
+      "topk": 8,
+      "manifest": 8
+    },
+    "tokens": {
+      "topk": 2480,
+      "manifest": 2464
+    }
+  },
+  "d01": {
+    "measured": "every manifest delivery carries the inspectable manifest: supporting/contrary refs, as_of, coverage, producer_kind, obligations, insufficiency labels",
+    "topics_with_manifest": 8,
+    "topics_contrary_accounted": 8
+  },
+  "d02": {
+    "false_current_fell": true,
+    "topk_false_current": 8,
+    "manifest_false_current": 0,
+    "exact_identifier_hits_kept": true,
+    "measured": "top-k false-current 8/8 vs manifest 0/8 on the seeded stale-state slice"
+  },
+  "met": true
+}

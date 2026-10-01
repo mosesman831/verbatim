@@ -1,0 +1,135 @@
+# c2-coreference — coreference resolution for Verbatim dialogue memory
+
+Scope: deterministic sieves vs small CPU models for resolving anaphora in chat turns; how far back pronouns reach; an abstaining design; where links plug into the pipeline. All numbers below are from primary sources (papers/repos) or measured on this box; extrapolations are labelled.
+
+---
+
+## 1. Hobbs' algorithm and agreement sieves — classic numbers
+
+**Hobbs' naive algorithm (1977/1978, Lingua 42).** Traverses surface parse trees: start at the NP node dominating the pronoun, climb to the first NP-or-S node X, scan X's daughters left-to-right/breadth-first for an NP with an NP-or-S between it and X (this encodes Binding-Theory constraints); if none found and X is not the highest S, keep climbing; if X is the sentence root, move to the previous sentence's tree, scan right-to-left. Gender/number agreement is enforced throughout. Hobbs evaluated on **300 third-person pronoun examples from published text: 88.3% correct** (as reported by the original paper and re-cited by e.g. Webster et al. W18-2808). Requires a constituent parser — that is the cost that matters for Verbatim, not the algorithm itself.
+
+**Follow-up baselines (the honest floor):**
+- Tetrault (ACL 1999) implemented Hobbs, S-list (Strube 1998), BFP centering, and his own LRC on **2,026 Penn Treebank pronouns**: Hobbs and LRC tied for best; a naive "most recent NP matching agreement" baseline got **28.6%**. >71% of pronouns in that corpus had intra-sentential antecedents.
+- Lappin & Leass (1994, CL 20(4)) "RAP" salience+agreement algorithm: **86% on a 360-pronoun blind test** over computer manuals; Hobbs reimplemented in their framework scored 82% on the same set (4 pts lower). Adding statistically-modelled semantic constraints gained only +2%. Split: **84% of pronouns were intra-sentential (403/471 resolved = 86%) vs 16% inter-sentential (72/89 = 81%)**.
+
+**Deterministic multi-sieve systems (the direct ancestor of what Verbatim wants):**
+Stanford's system (Raghunathan et al. EMNLP 2010; Lee et al. CoNLL-2011, winner of the shared task at 57.8 closed / 58.3 open CoNLL on predicted mentions; Lee et al. 2013 CL 39(4) journal version) applies 10 sieves in descending precision order: **1 Speaker Identification, 2 Exact String Match, 3 Relaxed String Match, 4 Precise Constructs, 5-7 Strict Head Match A–C, 8 Proper Head Noun, 9 Relaxed Head Match, 10 Pronoun Resolution.**
+
+Constants pulled verbatim from Lee et al. 2013 (J13-4004):
+- **Pronoun-antecedent distance cap: "sentence distance between a pronoun and its antecedent cannot be larger than 3."** — the single most useful constant for this assignment.
+- Pronoun sieve constraints: **number, gender, person, animacy, NER label, distance ≤3 sentences**; unknown attribute = wildcard match. Attributes from pronoun lists, NER labels, POS tags, Bergsma & Lin (2006) gender/number lexicon, Ji & Lin (2009) animacy dictionary.
+- Reported sieve precisions: Precise Constructs ≈ **90% B3 precision**; Strict Head Match **>86% B3**; the pronoun sieve is last (lowest precision) but adds **+9.5 CoNLL F1** and lifts MUC recall 36.7→59.6 — pronouns are where the recall is.
+- Feature ablation on the pronoun sieve: **number alone worth 2.6 CoNLL F1** (most important single feature), animacy +1.0, gender+person smaller.
+- **A 3-sieve subset (string match + strict head + pronoun) achieves 97% of the full 10-sieve CoNLL score** — direct evidence that a mini-sieve is the right scope for Verbatim.
+- Error analysis: the dominant pronoun-sieve failure is "another compatible antecedent closer in the discourse" — i.e., **ambiguity among agreement-compatible candidates**, which is exactly what an abstain rule suppresses.
+
+**On dialogue specifically (the numbers that bound Verbatim):**
+- Byron & Stent 1998 / Byron 2000: **30–40% accuracy for third-person pronouns in task-oriented dialogue** using syntax+number+gender only (as cited by Tetreault & Allen 2004).
+- Tetreault & Allen (DAARC 2004), Monroe human-human task dialogues, 175 third-person pronouns: LRC baseline **59.4–66.9%** (66.9% with hand-built semantic filters; semantic features alone +6.4%). Dialogue-act discourse segmentation added ~0–3% — **flat recency windows are already near-optimal for dialogue**.
+- Eckert & Strube (DAARC 2000), Switchboard spontaneous dialogue: only **45.1% of pronouns+demonstratives have NP antecedents at all** (22.6% discourse-deictic "that/it"→clause, 13.2% vague, 19.1% generic "they"). Their resolver on NP-antecedent cases: **P=66.2%, R=68.2%**.
+- Counterpoint — genre is not all bad news: Pradhan et al. (2013, cited in Lapshinova-Koltunski et al. 2020) found their sieve-style system scored **64% on telephone conversations vs 56% newswire / 59% broadcast news** — speaker information makes dialogue *easier* for systems that exploit it. The OntoGUM genre analysis (Zeldes et al. CRAC 2021) likewise found e2e neural systems score higher on >50%-pronoun genres with gold speaker labels (conversation, interview, fiction).
+
+**Read for Verbatim:** deterministic pronoun resolution ceiling on raw dialogue ≈ 60–67% P/R at full coverage without semantics; the error mass is ambiguity, not distance. Precision-first abstaining is the right shape for a byte-pinned memory engine.
+
+## 2. How far back do pronouns resolve in chat?
+
+Sentence-space evidence (all text types): Hobbs observed **98% of pronoun antecedents in the same or previous sentence**; Ariel (1990) corpus study: **>80% within 1 sentence**; Lappin & Leass blind test: 84% intra-/16% inter-sentential.
+
+Measured on spoken/Twitter conversation by Lapshinova-Koltunski, Lin & Chrappa (COLING 2020) for **anaphoric third-person pronouns** (means; harmonized annotations across OntoNotes genres + Switchboard + Twitter conversations):
+
+| genre | tokens (TBD) | clauses (CBD) | intervening NPs (NBD) |
+|---|---|---|---|
+| Twitter conv. (tw) | 16.10 | 2.85 | 3.23 |
+| Switchboard (swbd) | 13.23 | 3.23 | 3.98 |
+| OntoNotes telephone conv. (tc) | 18.44 | **3.35** | 4.39 |
+| OntoNotes broadcast conv. (bc) | 16.90 | 2.97 | 4.25 |
+| newswire (nw) | 13.01 | 1.66 | 3.34 |
+| weblog (wb) | 14.07 | 1.45 | 3.33 |
+
+So spoken-dialogue pronouns reach back ~3 clauses / ~18 tokens on average — *farther* than in written text (clause distance 2x larger), because dialogue packs many clauses per turn and per speaker-exchange. A chat turn is typically 1–3 clauses, so **a lookback of N=3 turns (plus the current turn's prefix) covers the CBD≈3.3 mean with headroom**, and matches Stanford's ≤3-sentence cap almost exactly (turn ≈ sentence analogue here).
+
+Person mix (per 40k tokens, COLING 2020 Table 2) — why speaker rules dominate dialogue:
+- telephone conv.: 1st 2,130 / 2nd 1,077 / 3rd 2,002 → **62% of pronouns are deictic (1st/2nd person)**, only 38% third-person.
+- newswire, for contrast: 17% / 5% / 78% — 3rd-person dominated.
+
+MuDoCo (Martin, Poddar & Upasani, LREC 2020 — 8,429 authored user↔assistant dialogs, avg 5.36 turns, CC BY-NC — used papers-only per rules): **55.27% of all references are simple pronouns**; **55.3% of turns contain at least one pronoun**; 94% of dialogs have >1 person entity. Their mention-pair baseline model (features: turn-difference binned 0/1/2–5/>5, intervening mentions, person/animacy/plurality, speaker-parity) hit **83.8 pairwise F1** on the core subset — showing even a tiny feature model over turn structure is strong in this domain.
+
+**Answer to (2):** yes — mostly 1–3 turns back. Mean clause distance ≈3.3 for spoken dialogue; the ≤3-sentence/≤3-turn window captures the bulk; the long tail exists (token means are inflated by task switches) but those are precisely the cases to abstain on.
+
+## 3. Small local coref models on CPU
+
+| model | encoder | params | weight file | OntoNotes avg F1 | GAP F1 | GPU speed (V100) | license |
+|---|---|---|---|---|---|---|---|
+| **F-coref** (fastcoref) | DistilRoBERTa, 6L×768d | **91M** | **362 MB** fp32 (measured, HF `x-linked-size`) | **78.5** | **85.7** (masc 87.8 / fem 83.5) | 25 s / 2,802 docs ≈ 9 ms/doc; ~3 ms/text compiled | MIT |
+| **LingMess** (fastcoref, "accurate" mode) | Longformer-large, 24L×1024d, win 512, ctx 4096 | ~470M | **2.36 GB** (measured) | **81.4** | 89.6 | 6 min / 2,802 docs ≈ 130 ms/doc | MIT |
+| AllenNLP e2e (Joshi'20, SpanBERT-large) | SpanBERT-large | ~450M | ~1.7 GB | 79.6 | — | 12 min / 27.4 GiB | Apache-2.0 |
+| wl-coref (Dobrovolskii'21) | Longformer-large | ~460M | ~1.8 GB | 81.0 | — | 3:49 min | MIT |
+| s2e (Kirstain'21) | Longformer-large | 494M | ~2 GB | 80.3 | — | 4:37 min | MIT |
+| **Maverick-mes** (ACL'24) | DeBERTa-large | ~500M | ~1.9 GB | **83.6** | — | ~1 ms/doc claim GPU | **CC BY-NC-SA 4.0** weights |
+| coreferee (spaCy) | rules + small NN | — | **20–30 GB per language pack** | ~81–83% "anaphors correct" on ParCor/LitBank (non-CoNLL metric) | — | CPU-ok | MIT(ish) |
+
+F-coref config constants (HF `biu-nlp/f-coref` config.json): `max_segment_len=512`, `max_span_length=30`, `top_lambda=0.25` (mention pruning), `ffnn_size=1024`, RoBERTa 6L/768d/12h. LingMess: `max_doc_len=4096`, `top_lambda=0.4`, `ffnn_size=2048`. F-coref internals (paper §4): distillation swapped Longformer→DistilRoBERTa (≈8× faster encoder), scorer params cut 6×, 494M→91M total, 26→8 sequential layers; hard (silver-label) distillation on 123K Multi-News docs; λ=0.4→0.25 pruning.
+
+**Derived CPU cost (no public CPU benchmark exists — show the arithmetic):**
+Encoder FLOPs/token ≈ 2·L·(4d² + 2·d·d_ff) = 2·6·(4·768² + 2·768·3072) ≈ **85 MFLOP/token**, +attention ~9M → ≈0.1 GFLOP/token for F-coref. Local numpy fp32 GEMM measured **0.8–1.2 TFLOPS on this 8-core box** → 4-core reference ≈ 400–600 GFLOPS peak; transformer fwd at batch-1 reaches ~25–50% of GEMM peak → **~100–300 GFLOPS effective**. Per-query cost (sieve runs on *context turns*, not the store — corpus size independent):
+- single turn ~60 tok ≈ 6 GFLOP → **~20–60 ms** CPU
+- 3–4-turn window ~200 tok ≈ 20 GFLOP → **~65–200 ms**
+- 512-token segment ≈ 49 GFLOP → **~160–500 ms**
+
+That eats the entire "≤150 ms with a small cross-encoder" budget by itself at query time; at write-time it is free (background job). LingMess ≈5–6× that → ~0.4–3 s per window → reject for default.
+
+## 4. The abstaining sieve — what fraction does it recover?
+
+Worked example from my /tmp/coref/sieve.py prototype (pure-Python, ~120 lines, no parser — POS/NER approximated by pronoun lexicon + plural regex + ~30-entry gender list + animacy noun list):
+
+```
+t0: "Ravi" sent you the quarterly report.        → mentions: Ravi(ne,m), report(nom,inanim), I
+t1: Maya already reviewed it. She flagged 3 errors. → she→Maya (unique fem in window) ✓
+    it→"the quarterly report" (unique inanimate) ✓
+t2: He disagreed with the report.                → he→Ravi (unique male, distance 2 turns) ✓
+t3: Priya sent the contract. She needs it. They both... 
+    → "she" ABSTAINS (2 compatible: Maya, Priya); "they" ABSTAINS (0 compatible)
+```
+
+Measured cost: **~10 µs per turn-window** (lookback-3) on this box pure-Python — i.e., ≈0.02–0.05 ms on the 4-core reference machine. The sieve is O(window mentions × compatible candidates), independent of store size: **~0.1 ms/query at both 10k and 100k memories** (dominated by regex tokenization).
+
+**Recovery-rate derivation (each step sourced):**
+- Step 1 — deictic: 62% of dialogue pronouns are 1st/2nd person (COLING-2020 tc counts). A turn-ownership sieve (I/me/my/my-...→speaker of that turn; you→addressee) resolves them structurally at ≥95% precision → **~59% of all pronouns recovered**, near-free.
+- Step 2 — anaphoricity: only ~45% of spoken-dialogue pronouns have NP antecedents (Eckert–Strube; the rest are discourse-deictic/vague/generic — leave unresolved, that's the *point* of abstain). Third-person pronouns ≈38% of all pronouns → NP-anaphoric 3rd-person ≈ **17% of all pronouns**.
+- Step 3 — unique-compatible coverage: Lee et al.'s error analysis shows ambiguity (closer compatible candidates) is the dominant sieve error; with number+gender+animacy filters the candidate set usually collapses to 0 or 1. Estimated unique-candidate coverage ≈ **50–65% of NP-anaphoric cases** (labelled estimate: consistent with sieve precisions ≥86% on strict rules and ~66% full-coverage dialogue accuracy — abstaining on the ambiguous third plausibly lifts precision to ~85–95%).
+- Net: agreement sieve resolves ≈ 0.17×0.55 ≈ **9–11% of all pronouns** (≈55–60% of genuinely NP-anaphoric 3rd-person pronouns) at ~85–90%+ precision.
+- **Total recovered ≈ 65–70% of all pronoun mentions get a correct high-precision link** (mostly speaker links); at turn level, ~50%+ of pronoun-bearing turns gain ≥1 link, and ~10–17% of pronouns get a *content-entity* link they wouldn't otherwise have. Expected "recovered-event" rate on LoCoMo-like dialogue ≈ **8–15% of turns gain a non-deictic entity edge**; ANSWER FOR THE ASSIGNMENT: expect roughly **half of NP-anaphoric mentions** recovered under abstain, and ~2/3 of all pronouns linked overall.
+
+## 5. Where it plugs in + recommendation
+
+**Write-time entity links (primary, ship):** on `Memory.add`, extract mentions in the new turn + last N=3 turns (regex pronoun table + entity/NER mentions already extracted by the entity lane), run speaker sieve → agreement sieve with unique-antecedent abstain, store `mention_span(turn_id, byte_start, byte_end) → entity_id` edges tagged with sieve id + distance. Feeds the **entity lane** and **typed-facts** lane; byte-pin rule is honored because edges only store byte ranges of source spans, never generated text.
+
+**Query-time expansion (secondary, ship):** in query analysis, if the query or its conversational context contains pronouns, run the same sieve over the session's recent turns (already in working memory); emit the antecedent's byte-exact surface form as extra lexical terms + an entity-lane hint. ~0.1 ms. Do **not** generate paraphrases — expansions must substring-match retained turn bytes.
+
+**Recommendation: lookback-N=3 with abstain**, NOT previous-turn-only. Prev-turn-only misses (a) same-turn antecedents (84% of pronouns are intra-sentential in Lappin–Leass; in dialogue the same-turn share is still the mode), and (b) the 2–3-turn tail that CBD≈3.3 implies — roughly a third of NP-anaphora. N=3 matches Stanford's ≤3-sentence bound (~1.5 clauses/turn) and costs nothing. Go to N=5 only if evals show turn-switch re-mentions matter (MuDoCo's "task re-initiation" pattern).
+
+**Profiles:** deterministic sieves = default profile (free, no model). F-coref = optional "quality" profile, write-path batch only (362 MB hash-pinned artifact, ~0.1–0.5 s/turn-window CPU; recovers the ~30% vague/deictic tail at ~78 F1 — but those are exactly the classes rules deliberately abstain on, and ~1/4 of its links will be wrong — keep abstain gating *after* the model too). LingMess, Maverick, coreferee, AllenNLP-e2e: reject for default (size × speed × license; see table).
+
+**Eligibility note:** coref edges are write-time annotations on stored turns; they index into the *already-eligible* set — no eligibility impact, no new lanes needed in fusion.
+
+## 6. Index/resident size
+
+Per edge (packed row): turn_id u32 + byte_start u32 + byte_end u32 + entity_id u32 + sieve u8 + distance u8 + flags u8 + pad ≈ **24–64 B**. Typical yield ~2–4 edges/pronoun-bearing turn ≈ **~150–250 B/memory** → **~15–25 MB per 100k memories**. Static lexicons (pronoun table + gendered-name list + plural/animacy rules): ~2–6 KB. No new index structures — reuses the entity table and FTS index. Query-time: O(lookback-window mentions²) ≈ microseconds; corpus-size independent.
+
+## 7. Verdicts
+
+| candidate | verdict | reason |
+|---|---|---|
+| Speaker sieve (turn-ownership ⟨I⟩/⟨you⟩) | **ship (default)** | resolves ~60% of dialogue pronouns at ≥95% P, zero cost — the #1-precision sieve in Stanford ordering too |
+| Agreement sieve + unique-antecedent abstain, lookback N=3 | **ship (default)** | recovers ~half of NP-anaphoric mentions at ~85–90% P; ≤3-sentence bound is the published constant; ~0.1 ms/query |
+| Write-time entity-link edges (byte-pinned spans) | **ship (default)** | ~150–250 B/memory; feeds entity+typed-facts lanes; honors byte pin |
+| Query-time pronoun expansion (byte-exact surface forms only) | **ship (default)** | <1 ms, reuses same code path; never generates text |
+| F-coref (91M, MIT) | **optional (quality/max), write-path only** | ~65–500 ms/window on 4-core CPU — too slow for default search path; use as background job with abstain gate still applied |
+| LingMess (~470M) | reject (default) / borderline-optional | 2.36 GB + ~0.5–3 s/doc CPU for +2.9 F1 over F-coref — poor trade on 4 cores |
+| Maverick (~500M) | reject | +5 F1 over F-coref but CC BY-NC-SA weights conflict with general-consumer installs; ~500M params on 4-core CPU is multi-second |
+| coreferee | reject | 20–30 GB per-language data packs — incompatible with local-first footprint; accuracy below sieves+F-coref |
+| Full Stanford 10-sieve pipeline | reject | needs constituent parser + NER + WordNet; the 3-sieve subset already reaches 97% of its score |
+| Hobbs tree-search proper | reject for default | requires a parser Verbatim doesn't have; keep its insight (recency-ordered, agreement-filtered search) inside the agreement sieve |
+| Cross-encoder rerank of candidate pairs | reject | ~300 pair-scores/query for a task where the sieve already abstains — no headroom to justify a slower profile |
+
+**Confidence / what would change this:** medium-high on the deterministic ships (constants are primary-source, prototype measured). Medium on the 50–65% unique-candidate coverage estimate — it is an extrapolation; a MuDoCo/LoCoMo-style replay of the sieve on real session logs would pin it (needs only regex + lexicons, ~1 day of work). F-coref CPU band is derived, not benchmarked — if measured latency comes in <50 ms per 3-turn window on the reference box, promoting it to an optional *query-time* pass becomes defensible.

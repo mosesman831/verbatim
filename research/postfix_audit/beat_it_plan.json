@@ -1,0 +1,289 @@
+{
+ "goal": "close verbatim 0.195 -> >=0.587 item any@10 gap vs flat_bm25 on LoCoMo dev (990q, 2877 items) within 150ms quality budget",
+ "baseline": {
+  "verbatim": {
+   "any10_item": 0.195,
+   "any10_session": 0.512,
+   "prop10": 0.17,
+   "ndcg10": 0.113,
+   "p50_ms": 382
+  },
+  "flat_bm25": {
+   "any10_item": 0.587,
+   "any10_session": 0.884,
+   "prop10": 0.54,
+   "ndcg10": 0.418,
+   "p50_ms": 3.1
+  },
+  "fts5": {
+   "any10_item": 0.578,
+   "any10_session": 0.876,
+   "prop10": 0.53,
+   "ndcg10": 0.408,
+   "p50_ms": 5.0
+  }
+ },
+ "attribution": {
+  "lane_miss": 444,
+  "delivered": 222,
+  "rank_shift": 100,
+  "unsupported": 213,
+  "packed_out": 11,
+  "lane_miss_decomposition": {
+   "deadline_arena": "~62%",
+   "true_recall_paraphrase": "~38%",
+   "unit_dup": "2877 byte-identical session+turn pairs"
+  }
+ },
+ "fixes": [
+  {
+   "id": "F1.5",
+   "priority": 1,
+   "name": "fence universe to kind=turn",
+   "change": "units WHERE scope_id=? AND kind IN ('turn','sentence_window')",
+   "size_loc": 1,
+   "reindex": false,
+   "evidence": {
+    "source": "r5",
+    "gold_in_pool": {
+     "cap200_t8000": "116->134",
+     "cap200_t90": "102->126",
+     "cap800_t90": "130->149"
+    },
+    "lane_latency": "-18% median / -27% p90",
+    "non_turn_share_of_scored": 0.59
+   },
+   "expected": "+8-15 pts evidence recall combined w/ dedup source fix"
+  },
+  {
+   "id": "F2.occ",
+   "priority": 2,
+   "name": "populate occurred from metadata.when",
+   "change": "when->occurred_at alias + 'H:MM am/pm on D Month, YYYY' parser in _norm_occurred",
+   "size_loc": "20-40",
+   "reindex": true,
+   "evidence": {
+    "source": "r8",
+    "occurred_null_share": 1.0,
+    "when_field": "identical '2026-09-23 ... wednesday' on all 7020 rows (df=7020)",
+    "events_occurred_null": "1248/1248",
+    "junk_valid_2026": 212,
+    "recorded_fallback_scan_rows": 4096
+   },
+   "expected": "+9-14 cat-2 tasks; un-breaks when-FTS/window-scan/events/claim-valid/recorded_fallback at once"
+  },
+  {
+   "id": "F1.0",
+   "priority": 3,
+   "name": "eligibility N+1 dedup",
+   "change": "share resolved unit-row/verdict store across facets+lanes (request-scoped); batch filter_keys per call; materialize eligible set once per request",
+   "size_loc": "10-20",
+   "reindex": false,
+   "evidence": {
+    "source": "3 verifications (cProfile + patch + r2)",
+    "p50_ms": "2332->577 (patched)",
+    "selects_per_query": "~3600 -> ~1",
+    "total_sql_per_query_p50": 8932
+   },
+   "expected": "dominant latency lever; enables 2s-budget quality profile"
+  },
+  {
+   "id": "F0.2+F0.3",
+   "priority": 4,
+   "name": "timeout 500ms->~2s + LANE_COSTS recalibration + cheap-lanes-first",
+   "change": "VerbatimArm search timeout_ms=2000; recalibrate LANE_COSTS_V1 to measured; stage dense/graph behind union coverage",
+   "size_loc": "config+~30",
+   "reindex": false,
+   "evidence": {
+    "source": "factorial + r2",
+    "cap200_t8000_gold_in_top64": "72/120",
+    "cap800_t500": "10/120",
+    "staged_estimate": "p50 60-100ms / p95 150-200ms @7k"
+   },
+   "expected": "deadline is dominant recall knob; lane_miss -~60%"
+  },
+  {
+   "id": "F1.4",
+   "priority": 5,
+   "name": "pre-fetch df gating on postings",
+   "change": "gate _collect_postings MATCH on maintained lex_df (absolute cut ~df>1400, entity-channel exempt)",
+   "size_loc": "small",
+   "reindex": false,
+   "evidence": {
+    "source": "code trace + r2+r8",
+    "never_surfaced_fts_reachable": "60/61",
+    "junk_df": {
+     "wednesday": 7020,
+     "2026-09-23": 7020,
+     "on": 6524
+    }
+   },
+   "expected": "removes dominant slice burner"
+  },
+  {
+   "id": "F2.orph",
+   "priority": 6,
+   "name": "wire orphan write-path producers",
+   "change": "build_edges at tail of project_units_v7 (~10 LoC); consolidate_scope_v7 post-projection (~20 LoC); require_review=False flag",
+   "size_loc": "~35",
+   "reindex": true,
+   "evidence": {
+    "source": "r4",
+    "orphan_tables": [
+     "graph_edges",
+     "observations_v7",
+     "t2_facts",
+     "facts_fts",
+     "entities"
+    ],
+    "live_repro": "direct call wrote 52 edges cleanly"
+   },
+   "expected": "lights 4 dead lanes (graph/obs/facts/typed)"
+  },
+  {
+   "id": "F2.ctx",
+   "priority": 7,
+   "name": "+/-1-turn same-session context propagation w=0.7",
+   "change": "score-propagation via neighbor_window into candidate scoring; then potion-base-8M int8 dense lane score-fused a~1.2",
+   "size_loc": "medium",
+   "reindex": "dense table only",
+   "evidence": {
+    "source": "r3",
+    "ctx_lift_any10": "+0.115 (0.589->0.705 proxy)",
+    "score_prop_free": "+0.079",
+    "dense_marginal": "+0.040 -> 0.800 proxy"
+   },
+   "rejected": [
+    "RM3/PRF (0/123)",
+    "char n-gram",
+    "WordNet",
+    "potion-32M (0.439<0.564)"
+   ],
+   "expected": "dominant paraphrase lever"
+  },
+  {
+   "id": "F3.ent",
+   "priority": 8,
+   "name": "entity-joint lane",
+   "change": "em self-join GROUP BY unit_id HAVING COUNT(DISTINCT canon)>=2; joint-units-first + signals['joint']; fix _cap_spans ':'-merge (add ':' to _SENT_BOUNDARY)",
+   "size_loc": "medium",
+   "reindex": false,
+   "evidence": {
+    "source": "r6",
+    "union_to_intersection": "290->78 units @ ~0.15-0.24ms",
+    "fts_and_variant": "0.072ms",
+    "capability": "neither Zep nor Hindsight has conjunctive entity retrieval"
+   },
+   "expected": "cat-4 'both X and Y' precision + joint-evidence surfacing"
+  },
+  {
+   "id": "F3.cat5",
+   "priority": 9,
+   "name": "cat-5 premise mode",
+   "change": "emit premise_mismatch=speaker negative_evidence -> INSUFFICIENT while still delivering premise items",
+   "size_loc": "small",
+   "reindex": false,
+   "evidence": {
+    "source": "r7",
+    "detectability": "75% (334/446) via zero-SQL speaker-authored-0-units check, ~4% FPR",
+    "scoring": "harness double-scores correct_refusal AND any@k on premise delivery",
+    "expected_correct_refusal": "0.03-0.13 -> ~0.7-0.8",
+    "convention": "Mem0/Hindsight skip cat-5 entirely; cats 1-4 is de-facto headline"
+   },
+   "expected": "adversarial 0.465 -> ~0.9+ session-level refusal quality"
+  },
+  {
+   "id": "F3.alloc",
+   "priority": 10,
+   "name": "facet slot reservation + per-canon quota + POOLS rec",
+   "change": "reserve per-facet slots in facet merge (pipeline.py:894-906); entity per-canon quota; POOLS LOW(128,64,0) MID(1000,256,16) HIGH(3000,512,32) gated on deadline fix",
+   "size_loc": "small",
+   "reindex": false,
+   "evidence": {
+    "source": "r1+r6",
+    "facet_starvation": "verified candidates die in merged[:capv]",
+    "canon_flood": "one df~700-1078 canon floods own 200-cap postings to 19-49% coverage"
+   },
+   "expected": "rank_shift 100q + joint-evidence slot waste"
+  }
+ ],
+ "forecast": {
+  "retrieval_parity": "kind-fence+occurred+df-gating+timeout -> ~0.55-0.65 item any@10 on cats 1-4 (r8+r5 sums, pre-interaction)",
+  "residual": "+/-1-turn ctx + dense + entity-joint + cat-5 mode -> parity+ on residual categories; r3 proxy path reached 0.800 any@10"
+ },
+ "experiments_next": [
+  "re-run track_r with timeout_ms=2000 (arm change) -> quantify lane_miss drop",
+  "re-run with pre-fetch df gating armed -> lane latency delta + gold",
+  "kind=turn fence + re-run -> gold-in-pool + latency",
+  "reindex with when->occurred parser -> when-FTS junk gone + window scan fires",
+  "static-encoder potion-8M dense lane -> paraphrase coverage delta on residual"
+ ],
+ "notes": {
+  "r1": "eval/v7/notes/r1-pool-arena.md",
+  "r2": "eval/v7/notes/r2-latency-profile.md",
+  "r3": "eval/v7/notes/r3-paraphrase-local.md",
+  "r4": "eval/v7/notes/r4-writepath.md",
+  "r5": "eval/v7/notes/r5-unit-grain.md",
+  "r6": "eval/v7/notes/r6-entity-joint.md",
+  "r7": "eval/v7/notes/r7-adversarial.md",
+  "r8": "eval/v7/notes/r8-temporal-cat2.md"
+ },
+ "postfix": {
+  "commit": "1c86f4f",
+  "verified": "2026-09-23, independent 3-arm track_r rerun + 4 audit agents on real LoCoMo dev",
+  "item_any10": {
+   "pre": 0.195,
+   "post": 0.546,
+   "bm25": 0.587
+  },
+  "session_any10": {
+   "pre": 0.512,
+   "post": 0.852,
+   "bm25": 0.884
+  },
+  "attribution_post": {
+   "delivered": 527,
+   "lane_miss": 104,
+   "rank_shift": 84,
+   "packed_out": 1,
+   "abstain": 61,
+   "unsupported": 213
+  },
+  "category_wins_vs_bm25": {
+   "cat2_temporal": "0.703/0.891 vs 0.640/0.880",
+   "cat1_multi_hop": "0.460/0.825 vs 0.413/0.786"
+  },
+  "deadline": {
+   "500ms": 0.547,
+   "2000ms": 0.546,
+   "verdict": "deadline decoupled \u2014 product default stays 500ms (p1)"
+  },
+  "sql_per_query": {
+   "pre": 8932,
+   "post": 4529
+  },
+  "correct_refusal": {
+   "pre": 0.042,
+   "post": 0.211,
+   "fpr_answerable": 0.175,
+   "note": "trigger d near-zero discrimination \u2014 fires ~21% on both pops; 62/136 answerable refusals had gold in pool"
+  },
+  "wave3_priorities": [
+   "graph-lane N+1 (486 stmts/q, partial 97/97)",
+   "premise-trigger precision (presupposition-vs-fact signal, NOT coverage floor)",
+   "write-time in-text temporal resolution anchored to occurred (~22/41 cat-2 residual)",
+   "recorded_fallback occurred-ordering",
+   "claims-path event_us threading (210 ingest-2026 rows)",
+   "events-first loosening (59.5% NULL subjects)",
+   "150ms needs structural: block repack/stem cache/elig cache/slim pool (~95-120ms projected)",
+   "facet path never fires (QueryViewV7.facets unpopulated)",
+   "session-ndcg normalization bug (>1.0)"
+  ],
+  "audit_notes": [
+   "eval/v7/notes/p1-arm500ms.md",
+   "eval/v7/notes/p2-cat2-audit.md",
+   "eval/v7/notes/p3-refusal-audit.md",
+   "eval/v7/notes/p4-latency-audit.md"
+  ]
+ }
+}

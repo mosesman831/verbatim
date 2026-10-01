@@ -1,0 +1,157 @@
+# b6-ce-distillation — working note
+
+Scope: can a cross-encoder (CE) be distilled into something cheap enough for Verbatim's rerank stage — (a) a linear/feature model, (b) a tiny transformer CE, (c) a doc-precomputed dual/late-interaction student — and what does each retain?
+
+## TL;DR
+
+| Candidate | Retention vs CE teacher (in-domain) | Query-time cost @ k=128, 4-core | Verdict |
+|---|---|---|---|
+| Linear / GAM / tiny-MLP over lane features trained on CE scores | ~98-99.8% of a *feature-space* teacher; ~80-95% expected vs a *text* CE (unmeasured) | ~5 ms | **ship (default)** |
+| Tiny transformer CE (4L-256 int8) | ~96-98% | ~0.6-1.5 s @k=128; ~140-190 ms @k=32 | **optional (quality/max)** |
+| Doc-precomputed DE / TK-lite student (encode at write) | ~85-93% | ~15-40 ms | **optional** |
+| Any per-pair transformer at k=128 in default profile | — | ≥0.3 s | **reject** |
+
+The single most important number: **RankDistil showed a student with a 128-unit hidden layer retaining 98-99.8% of teacher NDCG@10 on real LTR feature sets (WEB30K 0.4792/0.4877, Yahoo 0.7622/0.7637)** — i.e., the cheap end of distillation holds almost perfectly *when the student's inputs carry the signal*. The caveat that matters for Verbatim: published linear students are trained in the *same feature space* as their teacher; a linear student over BM25+dense+entity+time trained on *text-CE* scores is a two-hop extrapolation whose ceiling is feature expressiveness (~80-95% of CE gain, toy-sim Spearman 0.82-0.85 — must be measured on Verbatim logs).
+
+---
+
+## 1. Which CE→cheap transfers hold, and typical nDCG retention
+
+Evidence pulled from primary sources (tables quoted verbatim; all MSMARCO-dev/TREC-DL nDCG@10 or MRR@10 as marked).
+
+### 1.1 CE → smaller same-family CE: 96-100%. Holds everywhere.
+
+Hofstätter et al. 2020 (arXiv 2010.02666), Table 3 — teacher T2 = top-3 CE ensemble, MSMARCO-DEV nDCG@10 0.460, TREC-DL'19 0.743:
+
+| Student | dev nDCG@10 | retention | TREC'19 | retention |
+|---|---|---|---|---|
+| DistilBERTCAT-T2 (6L) | 0.451 | **98%** | 0.747 | **100%** |
+| PreTT-T2 (3 concat layers) | 0.447 | 97% | 0.737 | 99% |
+| ColBERT-T2 (late interaction) | 0.436 | 95% | 0.744 | 100% |
+| BERTDOT-T2 (dual-encoder) | 0.390 | 85% | 0.724 | 97% |
+| TK-T2 (2L query-side) | 0.399 | 87% | 0.666 | 90% |
+
+Loss ablation (their Table 2, single teacher, dev): Margin-MSE > pointwise-MSE > weighted-RankNet > none, on all three architectures — e.g. ColBERT 0.417 baseline → 0.428 pointwise → **0.431 Margin-MSE**.
+
+Model-size scaling (Wang et al. 2020, MiniLM paper, arXiv 2002.10957; BERT-base teacher, avg of SQuAD/MNLI/SST-2): 6L-384 MiniLM (22M transformer params) **81.9 vs teacher 81.5 (~100%)**; 4L ~80.0 (**98%**); 3L ~78.1 (**96%**); TinyBERT-4 78.1 (96%); DistilBERT-6L 75.2 (92%). For CE-rankers specifically, `ms-marco-MiniLM-L-12-v2` (33M) is itself a distilled CE scoring MRR@10 ≈ 39.0 — parity with BERT-large CEs (36.5-40.9, RocketQAv2 Table 3).
+
+### 1.2 CE → dual-encoder: 85-93%. Holds but leaks.
+
+- Margin-MSE only (Hofstätter 2020): 85% dev / 97% TREC (above).
+- Margin-MSE + ensemble pairwise + ColBERT in-batch teacher, TAS-Balanced sampling (Hofstätter 2021, arXiv 2104.06967): same 6L DistilBERT encoder, dev nDCG@10 **0.402** vs ensemble teacher 0.460 → **87%**; TREC'19 **0.712** vs 0.743 → **96%**; beats every prior DE training method (ANCE, LTRe, TCT, RocketQA) at batch 32 on one consumer GPU.
+- RocketQAv2 (Ren et al. EMNLP 2021), dynamic listwise distillation: DE retriever MRR@10 **38.8** vs own CE re-ranker **41.9** → **92.6%**; vs DPR baseline ~32.5. Strongest published CE→DE transfer.
+- ERNIE-Search (Lu et al. 2022, arXiv 2205.09153): ColBERT→DE on-the-fly self-distillation + CE cascade — confirms the pattern, new SOTA on ODQA.
+- SPLADE++ (Formal et al. 2022, arXiv 2205.04733): CE-ensemble → sparse lexical student, MRR@10 34.2→**36.9** (ensemble-distil), 38.0 with co-condenser init — ~97% of ensemble headroom, and a *learned-sparse* index (inverted-index native, like Verbatim's FTS5).
+
+### 1.3 Neural ranker → linear/GAM/tiny-MLP over features: 98-99.8% *within the same feature space*.
+
+- **RankDistil** (Reddi et al. AISTATS 2021, PMLR v130): teacher = 3-layer FC net (1024/512/256) over LTR feature vectors; student = linear model + 128-unit hidden layer over the *same* features, trained on teacher scores only. WEB30K NDCG@10 teacher 0.4877 → student-rel 0.4632 → **RankDistil-p 0.4792 (98.3%)**; Yahoo teacher 0.7637 → **RankDistil-c 0.7622 (99.8%)**. Beats Tang&Wang KDD'18 (0.4512/0.7311) and Gao et al. (0.3654/0.7094).
+- **Neural RankGAM → piece-wise-linear** (Zhuang et al. WSDM 2021): each feature sub-net distilled into a 5-segment PWL. NDCG@10 drop **<1%** on Yahoo (75.33→75.33), ~2% on WEB30K (45.09→44.15), ~1% CWS — with **17-23× CPU speed-up** (47→3 ms/query Yahoo, 48→2 ms WEB30K).
+- Production precedent: "Best Practices for Distilling Large Language Models into BERT for Web Search Ranking" (COLING Industry 2025) — LLM ranker → BERT via hybrid point-wise + Margin-MSE, deployed in a commercial engine.
+- The whole classic-LTR tradition (RankNet ~ linear-in-features; LambdaMART over ~500 engineered features) is the existence proof that feature-models capture most ranking signal; a linear model trained on CE scores is just "teacher-labels" supervision over those features.
+
+### 1.4 The zero-shot caveat (matters because Verbatim's open-domain axis is the weak one)
+
+Rosa et al. 2022, "No Parameter Left Behind" (arXiv 2206.02873), BEIR avg nDCG@10 (zero-shot): MiniLM-L6 (22M, distilled) 0.4889, +0.056 over BM25; monoT5-3B 0.5321, **+0.099**. The 22M distilled student keeps only ~**57% of the big teacher's zero-shot gain** even though in-domain it matches models 100× larger. InRanker (Laitz et al. 2024, arXiv 2401.06910) recovers most of it by distilling onto **synthetic in-domain queries** (LLM-generated over the target corpus): monoT5-60M BEIR 0.4125 → soft-labels 0.4356 → +synthetic 0.4807 = **93% of the 3B teacher (0.5174)**; 220M → 0.5008 (**95%**). For Verbatim this is the playbook: its own memory corpus *is* the domain — synthetic queries over retained turns cost nothing but local compute.
+
+---
+
+## 2. Candidate formulas — exact equations, parameters, provenance
+
+### F1. Margin-MSE distillation loss (the workhorse)
+
+**Equation** (Hofstätter 2020, eq. 11): triples (Q, P⁺, P⁻); teacher M_t scores frozen; student M_s:
+
+```
+L(Q,P⁺,P⁻) = MSE( M_s(Q,P⁺) − M_s(Q,P⁻),  M_t(Q,P⁺) − M_t(Q,P⁻) )
+```
+
+Parameters from the source: batch 32; Adam lr 7e-6 (10e-5 for TK); query ≤30 tokens, passage ≤200; DistilBERT-6L student init; teacher's pairwise accuracy >98% so binary labels dropped entirely. TAS-B extends it: `L_DS = L_Pair + α·L_InB`, **α=0.75**, where L_InB pairs the positive with all in-batch passages scored by a *ColBERT* teacher (dot-product, linear in batch size) while L_Pair uses a *BERTCAT ensemble* (quadratic-cost, used only on the fixed triple) — dual teacher because CE can't afford in-batch scoring but DE/ColBERT can.
+
+**Worked example.** Teacher scores: T(P⁺)=8.2, T(P⁻)=4.1 → margin 4.1. Student: S(P⁺)=2.5, S(P⁻)=1.0 → margin 1.5. Loss = (1.5 − 4.1)² = **6.76**. Student is free to score on its own scale (only the gap must match) — this is why it transfers across architectures with different score distributions where pointwise-MSE (match absolute scores) loses ~1-4 nDCG points.
+
+Variants measured: pointwise-MSE `Σ MSE(M_s(P),M_t(P))` (eq. 13, −0.3 to −1.1 nDCG vs Margin-MSE); weighted-RankNet `RankNet(S⁺−S⁻)·|T⁺−T⁻|` (weakest); RankDistil top-p hinge (keeps teacher's top-p order, penalizes student-high/teacher-low items); InRanker zero-mean logit MSE `L=(Y_true−L′true)²+(Y_false−L′false)²` with `L′x = Lx − (Ltrue+Lfalse)/2`.
+
+### F2. Distilled linear / GAM / tiny-MLP fusion model (the Verbatim default candidate)
+
+**Equation.** For candidate i with lane features x_i = (bm25_norm, fuzzy_norm, dense_cos, entity_hit, recency, type_priors, ...): score s_i = **w·x_i** (pure linear), or s_i = **Σ_j f_j(x_ij)** where each f_j is a K=5-segment piece-wise-linear function (GAM/PWL), or one 128-unit hidden layer (RankDistil student shape). Trained on CE scores of Verbatim (query, memory) pairs: either Margin-MSE on (pos,neg) pairs, or InRanker's zero-mean logit MSE, or RankDistil top-p.
+
+Parameters with provenance: hidden width 128 (Reddi); K=5 PWL segments (Zhuang; error concentrates in sparse feature regions); features = whatever lanes produce — the RankDistil setup used ~136-feature LTR vectors. Artifact: ≤2 KB of weights, trivially hash-pinnable, model-free at query time (fits Verbatim's no-model download rule; the CE itself only runs *offline/on-demand* during training).
+
+**Worked example.** x = (bm25 0.62, dense 0.44, entity 1.0, recency 0.9); learned w = (0.93, 6.25, 2.00, 0.99) — from my toy fit — s = 0.93·0.62 + 6.25·0.44 + 2.0·1.0 + 0.99·0.9 = **6.22**. A PWL feature then bends each curve: e.g., dense gains ~0 below 0.2, steep 0.2-0.6, saturates >0.7 — GAM captures saturating/interaction-adjacent shapes a pure linear can't.
+
+**My toy measurement** (pure-python sim, 2000 queries × 30 candidates; ground truth = linear features + an unobservable interaction term; CE ≈ noisy copy of truth; linear & feature-augmented students trained on CE scores): Spearman(student, CE) = **0.82 (linear) / 0.85 (aug-linear)** — i.e. ~80-85% of teacher ordering transfers through 4 features; nDCG@10 of the *students* actually matched/beat the noisy teacher (0.980/0.991 vs 0.971) because features averaged out teacher noise. Treat as mechanism demo, not a prediction.
+
+### F3. Doc-precomputed dual / TK-lite student
+
+**Equation.** Score(Q,P) = Σ_m max_n (q̂_m · p̂_n) (ColBERT-style late interaction over cached token reps), or single-vector dot q̂·p̂ (BERTDOT), or TK kernel-pooling over per-term similarities. Doc side encoded once at write time — matches Verbatim's "embedding is a background job" architecture.
+
+Retention (§1.1): BERTDOT-T2 85%/97% (dev/TREC); ColBERT-T2 95%/100%; TK-T2 87%/90%. Query-time cost = one query encode (~10-30 ms on 4-core for a 6L encoder at T≤32) + k×(m·n dot products or one dot) ≈ **15-40 ms at k=128** — inside the budget even on CPU. Storage is the catch: token reps ≈ 50 tok × 128d int8 ≈ 6.4 KB/memory ≈ **640 MB/100k** (ColBERTv2 residual compression → ~1.5-2.5 KB/mem ≈ 150-250 MB/100k); single-vector 256d int8 ≈ 256 B/mem ≈ **26 MB/100k** — cheap, but single-vector is exactly the 85-93% retention tier.
+
+### F4. Tiny transformer CE student (the quality-profile option)
+
+Same per-pair CE compute as the teacher, just smaller: 4L×256 int8 (≈19M params, ~5-8 MB artifact) retains ~96-98% of teacher accuracy (MiniLM scaling); 2L×256 ~87-90% (TK result) — below the ~95% bar. So the smallest student credibly keeping ~95% is **4L**; 3L is borderline (~96% NLU avg).
+
+---
+
+## 3. Per-query time complexity → ms on the 4-core reference
+
+Rerank cost is O(k·c_pair), independent of corpus size N — N affects only candidate generation, not this stage. Feature fetch is O(k) SQLite lookups ≈ O(k·log N) index probes.
+
+**Transformer pair cost** (measured + derived): FLOPs/pair ≈ 2·L·(4Td² + 2T·d·4d + 2T²d). At T=128: L6-384 → 2.87 GFLOP; L4-256 → 0.87; L4-312 → 1.28; L2-256 → 0.44. Anchored to measured ONNX-int8 throughput: `temsa/ms-marco-MiniLM-L-6-v2-onnx-cpu-qint8` on i7-9750H (6c AVX2) = **10.5 ms/pair** (20-doc batch) → ≈270 GOPS int8; scale to 4 cores ≈ 150-200 GOPS sustained → table:
+
+| student | GFLOP/pair (T=128) | ms/pair int8 | k=128 | k=32 | k=16 |
+|---|---|---|---|---|---|
+| MiniLM-L6-384 | 2.87 | 14-19 | 1.8-2.5 s | 460-610 ms | 230-300 ms |
+| MiniLM-L4-256 | 0.87 | 4.4-5.8 | 0.56-0.74 s | 140-190 ms | 70-95 ms |
+| TinyBERT-4-312 | 1.28 | 6.4-8.5 | 0.8-1.1 s | 200-270 ms | 100-140 ms |
+| 2L-256 | 0.44 | 2.2-2.9 | 0.28-0.37 s | 70-95 ms | 35-50 ms |
+| **linear / PWL / 128u-MLP over ≤32 features** | ~1e-5 | — | **0.001-0.1 ms compute; ~1-5 ms with SQLite fetch** | same | same |
+
+Independent vendor datapoints for the transformer line: temsa ONNX int8 (above); Flash-Rerank Rust int8 MiniLM-L6 on i9-12900H = 0.7-2.7 ms/pair (16-thread — ~4-8× the 4-core reference); FlashRank MiniLM-L12 fp32 ≈ +31 ms total overhead per ~20-30 doc rerank (~1-1.5 ms/pair on modern server silicon). These agree with the derivation: **10-20 ms/pair for a 6L int8 CE on modest CPUs is confirmed by two independent implementations.**
+
+**At 10k memories:** identical — pool k=128 is bounded; linear model ~5 ms; tiny CE ≈ table above.
+**At 100k memories:** identical for rerank; +Δ on feature fetch (still ~5 ms). F3's doc-side encoding amortizes to write-time: ~50 turns/s write rate × 5-15 ms = background duty ≤1 core — feasible under Verbatim's background-job model.
+
+## 4. Bytes per memory / per 100k
+
+- F2 linear/PWL/MLP: artifact ≤2 KB total; features recomputed at query (0 B/mem) or cached 16×4 B = 64 B/mem → **6.4 MB/100k**.
+- F4 tiny CE: artifact 5-22 MB total (int8; temsa L6 = 22.1 MB) — one-time, hash-pinnable.
+- F3: single-vector 256d int8 ≈ 256 B/mem → **26 MB/100k**; ColBERT-lite ~1.5-6.4 KB/mem → **150-640 MB/100k**.
+
+## 5. Verbatim stage mapping
+
+- **F2 replaces `fusion`+`rerank`**: it *is* a learned RRF/boost replacement — trained on CE scores instead of hand-set lane weights {1.0/0.75/0.5} and boost alphas {0.2/0.2/0.1}. It can also subsume the provisional "feature-rerank weights" constant: the learned weights ARE those, fit by regression rather than guessed.
+- **F4 is an optional `rerank` stage** (quality/max profile), pool ≤32.
+- **F3 augments the dense/typed lane** (query-time cost moves to write-time background jobs); single-vector variant *is* the dense-semantic lane.
+
+## 6. Comparison: distilled-linear vs RRF vs tiny-CE
+
+| | RRF k=60 + boosts (current) | distilled-linear (F2) | tiny CE k≤32 (F4) |
+|---|---|---|---|
+| Learned from | nothing (hand weights) | CE scores on own corpus | CE teacher, offline |
+| Query cost | ~0 | ~5 ms | 140-600 ms |
+| Captures interaction/saturation | no | partial (PWL/GAM) | yes |
+| Artifact/model-free | yes | yes (≤2 KB) | needs 5-22 MB artifact + runtime |
+| Retention vs CE | ~0 (different system) | ~80-95% of CE gain (est., unmeasured) | ~96-98% |
+| Open-domain risk | none | low-moderate | real (57% of gain retained zero-shot; fix via in-domain synthetic queries) |
+
+Vendor vs independent columns are merged above only where the source is academic; the two independent CPU-latency implementations (temsa HF card; Flash-Rerank Rust repo) corroborate the derived transformer ms — flagged: both are vendor self-benchmarks, so I treat 4-core numbers as derived estimates with ±50% tolerance, not guarantees.
+
+## 7. Answers to the four assigned questions
+
+**(1) Which transfers hold + typical retention:** CE→small CE 96-100%; CE→late-interaction 95-100%; CE→DE 85-93% (needs ensemble teacher + Margin-MSE + balanced/hard negatives; RocketQAv2 hits 92.6%); CE→sparse-lexical ~97%; feature-model→linear/PWL/tiny-MLP 98-99.8% *in the same feature space*. Zero-shot: distilled students keep ~57% of teacher gain unless trained on in-domain synthetic queries (then ~93-95%).
+
+**(2) Linear over BM25+dense+entity+time on CE scores — plausible + precedented?** Yes — it's ranking-distillation into a feature model: RankDistil (98-99.8%), Neural-GAM→PWL (<1-2% drop, 17-23× faster), cascade-ranking stage models, COLING-2025 production LLM→small-model, and the entire LTR-over-features literature. Honest gap: published linear students share the teacher's feature space; CE→linear-over-lane-features is a two-hop transfer — I estimate ~80-95% of CE gain (toy sim: 82-85% order correlation) and mark it **UNRESOLVED until measured on Verbatim's own (query, memory, CE-score) triples**.
+
+**(3) Smallest student for ~95% of teacher gain:** CE→CE: 4-layer MiniLM (~19M, 96-98%); 3L ~96%; 2L 87-90% (below bar). CE→DE: needs 6L for ~87-93% — below 95% except RocketQAv2's dynamic listwise at full BERT-base. Feature-model student: 128-unit MLP or K=5 PWL-GAM over ~16 features ≈ 98-99.8% of a *feature-space* teacher. Zero-shot: ≥220M + in-domain synthetic data for ~95%; 60M ≈ 93%.
+
+**(4) ms estimate, distilled tiny model, k=128, 4-core:** linear/PWL/MLP ≈ **1-5 ms** (measured 0.001-0.1 ms compute + fetch). Tiny transformer int8: L4-256 ≈ **560-740 ms**, L2-256 ≈ **280-370 ms**, L6-384 ≈ **1.8-2.5 s** — all miss the ≤150 ms "small CE" budget at k=128; only L2-L4 at pool ≤16-32 fit (~70-190 ms). Doc-precomputed F3 ≈ 15-40 ms (fits, at storage cost).
+
+## 8. Verdict per candidate
+
+- **F2 distilled-linear/GAM fusion → ship (default).** Reason: ~5 ms, ≤2 KB hash-pinnable artifact, precedented at 98-99.8% feature-space retention; replaces hand-tuned RRF weights with learned ones. Confidence: high that it beats current fusion on Verbatim's own queries IF trained on in-domain CE scores; what would change it: measurement showing lane features carry <80% of CE signal → fall back to F4.
+- **F4 tiny CE int8, pool ≤32 → optional (quality/max).** Reason: 96-98% retention but ~140-600 ms — breaks the ≤150 ms CE budget except at pool ≤16-32. Confidence: medium-high on ms (two independent impls); changes if ONNX int8 on the actual box beats estimates.
+- **F3 doc-precomputed DE/TK-lite → optional.** Reason: 15-40 ms fits default budget, but 26-640 MB/100k storage + write-path complexity for ≤93% retention; only worth it if the dense lane already exists (then it's nearly free). Confidence: medium on storage (compression-dependent).
+- **Per-pair transformer rerank at k=128 in default profile → reject.** Reason: ≥0.3-2.5 s on 4 cores — misses budget by 2-15×; only justified if it buys >5 any@10 points, and F2 likely captures most of that anyway.
+- **Margin-MSE (+ensemble teacher + in-domain synthetic queries) as THE distillation recipe → ship wherever distillation is used.** Reason: best loss in every ablation; α=0.75 dual-teacher only if an in-batch scorer exists — Verbatim's lanes already are one. In-domain synthetic queries over the retained corpus are how to close the open-domain gap (57%→93%).

@@ -1,0 +1,190 @@
+Session devin-5544ae1bd4a34707b52c481422c8b71c:
+  session_id: 5544ae1bd4a34707b52c481422c8b71c
+  title: fs-v7 b9-static-embeddings
+  status: exit
+  url: https://app.devin.ai/sessions/5544ae1bd4a34707b52c481422c8b71c
+  acus_consumed: 0.0
+  tags: formula-search-v7, b9-static-embeddings
+  structured_output:
+    topic: b9-static-embeddings
+    sources: https://github.com/MinishLab/model2vec/blob/main/results/README.md | vendor (MinishLab) | MTEB(eng)+retrieval table incl. MiniLM-L6 42.92, potion-retrieval-32M 35.06, GloVe 21.80, and PCA/SIF ablations, https://raw.githubusercontent.com/MinishLab/model2vec/main/model2vec/model.py | repo | exact encode path: tokenize->gather->mean->L2 (+1e-32), UNK drop, int8 promote; max_length=512, batch 1024, https://raw.githubusercontent.com/MinishLab/model2vec/main/model2vec/distill/distillation.py | repo | distill constants: pca_dims=256, sif_coefficient=1e-4 (code default vs 1e-3 in docs), quantize_to=f16, normalize=True, [unusedN] token removal, https://raw.githubusercontent.com/MinishLab/model2vec/main/model2vec/distill/inference.py | repo | compute_weights: p_i=(1/(i+1))/sum, w=a/(a+p); apply_pca via covariance eigendecomp + sign normalization, https://raw.githubusercontent.com/MinishLab/model2vec/main/model2vec/quantization.py | repo | int8 scheme: single global scale s=max|E|/127, rint+clip — basis for my measured 0.9999 fidelity check, https://github.com/MinishLab/model2vec/blob/main/tests/integration/data/pretrained/ | vendor CI data | measured 129,334 sent/s + 1.57M tokens/s for potion-base-8M; confirms 29528-row vocab, F32, normalize=true, no weights/mapping, https://huggingface.co/blog/static-embeddings (github.com/huggingface/blog/blob/main/static-embeddings.md) | vendor (sentence-transformers/HF) | NanoBEIR benchmark: static-retrieval 0.5032 at 107,419 sent/s CPU vs MiniLM-L6 0.5623/1,739, mpnet 0.5757/270, BM25 0.4518; MRL truncation table; 397x CPU claim, https://huggingface.co/sentence-transformers/static-retrieval-mrl-en-v1 | model card | EmbeddingBag(30522x1024) architecture, per-dataset NanoBEIR incl. NanoQuoraRetrieval 0.8951, Apache-2.0 license tag, https://huggingface.co/api/models/minishlab/potion-base-8M (+32M,+2M,+4M,retrieval-32M,M2V_base_output) | HF API + safetensors headers + vocab.txt | exact shapes 29528x256 / 63091x512 / 30522x1024 and license:mit; potion cards document tokenlearn recipe (distill->C4 targets->MSE->freq+PCA+SIF re-regularization), https://minish.ai/packages/model2vec/introduction/ | vendor docs | pipeline description, SIF formula w=10^-3/(10^-3+p) (docs value vs code 1e-4), '2x-4x smaller minimal loss' quantization claim, 500x/50x headline, https://huggingface.co/blog/Pringled/model2vec | vendor blog | distillation mechanics (per-token forward pass, Zipf-ranked vocab assumption, mean pooling), ~30s CPU distill, vocab modes, https://raw.githubusercontent.com/MinishLab/tokenlearn/main/README.md + train.py | repo | potion training recipe: featurize teacher mean-embeddings -> MSE train (freeze_weights=True, lr=1e-3) -> re-regularize; MIT, https://opencodepapers-b7572d.gitlab.io/benchmarks/text-retrieval-on-mteb.html | independent mirror | MiniLM-L12 Ret 42.69 vs L6 41.95 — L6 is the right comparator, local prototype /tmp/b9_prototype.py | calculated | measured on this box: numpy encode 10.9us/query, 100k x 512 f32 scan 2.33ms, int8 global-scale row cosine p99=0.9999, hashing disjoint-vocab paraphrase cos=+0.15+/-0.11 vs +0.97 lexical match, https://ar5iv.labs.arxiv.org/html/1608.08940 (Hash2Vec) | paper | hashing CAN produce word embeddings but requires co-occurrence stats — distinguishes Verbatim's pure hashing trick from learned tables; JL inner-product preservation = mechanism for why hashing caps at lexical overlap, https://proceedings.neurips.cc/paper/2017/file/f0f6ba4b5e0000340312d33c212c3ae8-Paper.pdf (Hash Embeddings) | paper | hashing-as-parameter-sharing during training still learns weights — confirms Verbatim's per-ngram hash has no semantic content, SIF: Arora et al. 'A Simple but Tough-to-Beat Baseline for Sentence Embeddings' (ICLR 2017) | paper | lineage of the w=a/(a+p) weighting model2vec uses with Zipf-proxy probabilities
+    summary: Static embedding tables are a strict upgrade over blake2b subword-ngram hashing for Verbatim's dense lane: the query-time formula is literally token-lookup -> mean-pool -> optional L2 norm (PCA and SIF/Zipf weighting are build-time transforms baked into the table), so there is no attention, no matmul, and no distribution shift between index and query encoders. Trained static tables (potion-*, static-retrieval-mrl) reach ~0.72-0.82 of all-MiniLM-L6-v2 on MTEB retrieval and ~0.91-0.93 on overall MTEB; the best two, potion-retrieval-32M (35.06) and static-retrieval-mrl-en-v1 (34.95), sit at ~81.7% of MiniLM-L6's 42.92 while encoding at ~8-9 us/query (vendor CI: 124k-129k sentences/s; my numpy re-measure: 10.9 us). The most important number for the assignment: on NanoBEIR the trained static model scores 0.5032 nDCG@10 vs BM25's 0.4518 and MiniLM-L6's 0.5623 — i.e. ~90% of the neural baseline and +11% over the strongest lexical baseline, while hashing can only recover subword overlap. Measured here on an 8-core box: gather+mean+L2 encode = 10.9 us/query numpy (187 us pure-Python), and a brute-force f32 scan over 100k x 512d memories = 2.3 ms — so the lane adds ~5 ms total on a 4-core box, far inside the tens-of-ms budget, with no ANN. Resident bytes: potion-base-8M = 29,528x256 = 30.2 MB f32 (15 MB f16, 7.6 MB int8); potion-(retrieval-)32M = 63,091x512 = 129 MB f32 (32 MB int8); static-retrieval = 30,522x1024 = 125 MB f32, truncatable to 256 dims at -4% NanoBEIR. Measured int8 fidelity under the model2vec global-scale scheme (single s=max|E|/127): row cosine p99=0.9999, sentence cosine 0.9999 — 4x smaller is nearly free because SIF down-weights exactly the rows a shared scale hurts. Licenses are all clean for shipping a hash-pinned artifact: model2vec, tokenlearn, and all potion/M2V models are MIT; sentence-transformers static-retrieval is Apache-2.0. No published direct hashing-vs-static paraphrase benchmark exists, but the mechanism is categorical (hashing is a JL projection of lexical features only) and my local demo quantifies it: a paraphrase sharing zero content words scores +0.15 cosine — inside the collision noise floor — versus +0.97 for a lexical match; a learned table would put it near 0.7-0.9. Recommendation: ship a hash-pinned potion-retrieval-32M (or potion-base-8M at 15 MB if artifact size is capped) as the dense candidate-generation lane in the default profile; keep hashing as a free lexical sub-lane; leave a MiniLM-L6-class ONNX bi-encoder (+12-25% retrieval, ~2-5 ms/query on 4 cores) for an optional 'quality' profile only. Caveats for Verbatim: the recommended artifacts are English-only (multilingual variants exist: potion-multilingual-128M, static-similarity-mrl), and the cited gains are MTEB/NanoBEIR numbers — LoCoMo-style conversational turns are a different distribution, so re-run the existing harness with the new lane before locking lane weights.
+    verdicts: potion-retrieval-32M (hash-pinned safetensors, f16/int8) -> ship: best published static retrieval (81.7% of MiniLM-L6 MTEB-Ret, 34.95-35.06 vs 42.92) at ~10us encode and ~5ms/100k scan on 4-core, potion-base-8M -> ship: 15 MB f16 artifact, 72.5% of L6 retrieval — pick when binary size is capped at ~16MB, static-retrieval-mrl-en-v1 (truncate to 256d) -> ship: equivalent league (81.4% MTEB-Ret, only static model beating BM25 on NanoBEIR), Apache-2.0, MRL dims give free quality/size dial, keep blake2b hashing lane -> ship: free lexical sub-lane, byte-pin pure; but never the only 'semantic' lane, small ONNX bi-encoder (all-MiniLM-L6-v2 int8) -> optional: +12-25% retrieval over static at ~50-150x encode cost (~2-5ms/query on 4 cores) plus onnxruntime dep — 'quality' profile only, GloVe/BPEmb mean-pool -> reject: underperforms BM25 on NanoBEIR (0.329 vs 0.452), word-level OOV, ~480MB+ artifacts, self-distilled M2V (no tokenlearn) -> reject for shipping: -23% retrieval vs trained potion at equal dims; keep only as domain-table tooling
+    notes_markdown: # b9-static-embeddings — working note
+
+## TL;DR
+
+A learned static embedding table is a strict upgrade over `hashing:subword-ngram:v1` as Verbatim's dense lane: same "local, deterministic, no-network, hash-pinnable artifact" properties, encode cost in the tens of microseconds (measured 11 µs/query here; vendor CI ~8 µs), and a real semantic lift — trained static tables reach ~72–82% of all-MiniLM-L6-v2's MTEB-retrieval score while hashing can only ever reflect shared subwords (measured: a vocabulary-disjoint paraphrase scores ~+0.15 cosine — the collision noise floor — vs +0.97 for a lexical match). Recommendation: **ship `potion-retrieval-32M` (MIT, 63,091×512) or `potion-base-8M` (MIT, 29,528×256) as a hash-pinned artifact for the dense lane in the default profile**; keep hashing as a zero-cost lexical sub-lane; defer a small ONNX bi-encoder to the "quality" profile.
+
+---
+
+## 1. Candidates and exact formulas
+
+### 1.1 Model2Vec / Potion encoding formula (inference path)
+
+Verified in `model2vec/model.py` (`StaticModel._encode_batch`, `tokenize`, `_encode_helper`):
+
+```
+ids      = WordPiece(text, add_special_tokens=False)[:max_length]   # max_length=512 default
+ids      = [i for i in ids if i != UNK_ID]                          # UNK dropped, not mapped
+e(text)  = (1/|ids|) * Σ E[id]                                      # plain mean of table rows
+if normalize:  e ← e / (||e||₂ + 1e-32)
+```
+
+- Table `E` is `vocab × d` float32 on disk (potion models ship F32 safetensors).
+- `weights`/`token_mapping` only exist for vocab-quantized models; all flagship potion models ship `has_weights=false, has_token_mapping=false` (verified in their integration baseline JSONs).
+- Batch fast path: sentences grouped by length → single `E[id_matrix].mean(axis=1)` gather.
+- No attention, no matmul at query time. A lookup table + averaging. `EmbeddingBag(30522,1024,mode='mean')` is the identical construction in the sentence-transformers static models.
+
+**Important correction to a common misread**: PCA and SIF are **build-time** transforms baked into the stored table. Query-time cost is just tokenize → gather → mean → L2. There is no projection at inference.
+
+Worked example (query `"what is hashing"` → ids `[2054, 2003, 24204]` on a 29,528×256 table):
+- Gather: `E[[2054,2003,24204]]` → 3×256 rows (~3 cache-miss-ish lookups, 3 KB read)
+- Mean: 768 adds, 256 divides
+- L2: 256 squares + sqrt + 256 divides → total ≈ 1.3 kFLOP + one tokenize.
+
+### 1.2 Distillation recipe (M2V_base_* models) — exact constants
+
+From `model2vec/distill/distillation.py` + `model2vec/distill/inference.py`:
+
+1. Per token `t` in vocab (after dropping `\[unused\d+\]` — BERT vocab 30,522 → 29,528): forward pass through teacher (bge-base-en-v1.5), **masked-mean** pool the last hidden state → raw vector `x_t` (768-d).
+2. `compute_weights(n, a)`: Zipf proxy `p_i = (1/(i+1)) / Σ_j (1/(j+1))`, i.e. rank-i token gets harmonic-probability; SIF weight `w_i = a/(a + p_i)`. **Code default `sif_coefficient = 1e-4`** (`distill_from_model` signature). NB: the docs/blog show `10⁻³/(10⁻³+p)` — the docstring and doc site disagree with the current default; treat a as tunable in [1e-4, 1e-3].
+3. `apply_pca(E, 256)`: center by column-mean, eigendecompose the covariance (`np.linalg.eigh`), take top-k components, project `Xc @ Vᵀ`, sign-flip components so their max-|score| loading is positive. **PCA helps even at full rank** (ablation: no-PCA costs −3.0 avg-MTEB pts: 45.34→42.31), i.e. it whitens/normalizes the space, not just shrinks it.
+4. `E ← PCA(E) ⊙ w` (weights multiplied per-row at build time), then quantized — distill default `quantize_to=Float16`.
+5. `normalize=True` written to config.
+
+### 1.3 Potion recipe (the trained models — tokenlearn, MIT)
+
+From the model card + `tokenlearn/train.py`:
+1. distill (as above) → initial static model;
+2. featurize: teacher mean-embeds a large corpus (C4-en) → target sentence vectors;
+3. train the **embedding table** by MSE against teacher vectors (`freeze_weights=True` → per-token weight vector `w` stays all-ones, pooling is a plain mean during training; only `E` is learned);
+4. post-training re-regularization: frequency weighting → PCA → SIF.
+5. `potion-retrieval-32M` is `potion-base-32M` **fine-tuned on retrieval pairs** (gooaq, msmarco triplets, squad, s2orc, all-nli, paq, trivia-qa, msmarco-10m, swim-ir, pubmedqa, miracl, mldr, mr-tydi).
+
+So "potion" = learned static table, not merely a distilled cache; that training is why it beats M2V_base_output by +5.75 MTEB-retrieval points at the same dims.
+
+### 1.4 sentence-transformers static-retrieval-mrl-en-v1 (Apache-2.0)
+
+- `EmbeddingBag(30522 × 1024, mean)` with bert-base-uncased WordPiece; trained from scratch with MultipleNegativesRankingLoss + MatryoshkaLoss on 30 QA/retrieval datasets (deliberately disjoint from BEIR so NanoBEIR is zero-shot).
+- Matryoshka: dims are nested — truncate columns to 512/256/128/64; NanoBEIR nDCG@10: 1024→0.5032, 512→0.4957 (−1.5%), 256→0.4819 (−4.2%), 128→0.4622, 64→0.4176.
+- 100–400× faster than mpnet on CPU (measured 397×); no max sequence length; linear in token count.
+
+### 1.5 GloVe mean-pool
+
+`e(text) = mean_{w∈text} G[w]` over a word-level vocab (glove.6B.300d: ~400k words × 300d). OOV tokens skipped. No subword fallback → brittle on rare words; this is why the whole-word GloVe rows underperform even BM25 on NanoBEIR (0.3293 vs 0.4518).
+
+### 1.6 model2vec int8 quantization (exact code)
+
+`model2vec/quantization.py::quantize_embeddings`: **single global scale** `s = max|E|/127`; `Q = clip(rint(E_f16/s), −127, 127) → int8`. At inference, `E8[ids]` is cast up to f32 before pooling (dtype promoted in `_encode_batch`). Also available: `dimensionality=d` (slice first d columns — valid because PCA/MRL dims are ordered) and `vocabulary_quantization=k` (k-means over normalized rows → centroid table + token_mapping + per-token norm weights).
+
+---
+
+## 2. Per-query cost on the 4-core reference machine
+
+Encode is `O(T·d)` gather+mean; exact-scan candidate generation is `O(N·d)` dot products. Measured on this 8-core box (numpy 2.2, fp32), scaled ×~2–4 for a slower 4-core target:
+
+| op | arithmetic | measured (8c) | est. 4-core |
+|---|---|---|---|
+| encode query, T=12, d=256 | 12 gathers + 3.1k flops | 10.9 µs | ~0.02–0.04 ms |
+| encode memory, T=60, d=256 | 60 gathers + 15k flops | 14.8 µs | ~0.03–0.06 ms |
+| encode, pure-Python dict (no numpy) | same, scalar loop | 187 µs | ~0.4–0.8 ms |
+| scan, N=10k, d=256 f32 | 2.56M MAC, 10MB read | 0.079 ms | ~0.2 ms |
+| scan, N=100k, d=256 f32 | 25.6M MAC, 102MB read | 1.41 ms | ~3–5 ms |
+| scan, N=100k, d=512 f32 | 51.2M MAC, 205MB read | 2.33 ms | ~5–8 ms |
+
+Tokenizer (HF `tokenizers`, WordPiece): vendor CI logs 1.57M tokens/s end-to-end including encode — ~0.6 µs/token; ~8 µs for a 12-token query. A pure-Python greedy-longest-match WordPiece is ~150 lines and lands ~100–300 µs/query — still irrelevant next to search p50=46 ms.
+
+**Verdict on latency**: even at 100k memories the dense lane adds ≈5 ms single-shot — no ANN needed, no cross-encoder needed, comfortably inside p95≪150 ms. For comparison, MiniLM-L6-v2 ran 1,739 sent/s on a 16-core i7-13700K (~0.6 ms/query there, ~2–5 ms/query on 4 cores) — also inside budget but ~50–150× the encode cost of the table, plus onnxruntime + ~23–90 MB artifact.
+
+## 3. Resident bytes
+
+Table itself (vocab×d×bytes), then per-memory storage at `d` dims:
+
+| model | vocab | d | f32 table | f16 | int8 | B/memory f32 | per 100k |
+|---|---|---|---|---|---|---|---|
+| potion-base-2M | 29,528 | 64 | 7.6 MB | 3.8 | 1.9 | 256 | 25.6 MB |
+| potion-base-4M | 29,528 | 128 | 15.1 MB | 7.6 | 3.8 | 512 | 51.2 MB |
+| **potion-base-8M / M2V_base** | 29,528 | 256 | 30.2 MB | 15.1 | 7.6 | 1,024 | 102 MB |
+| **potion-(base\|retrieval)-32M** | 63,091 | 512 | 129.2 MB | 64.6 | 32.3 | 2,048 | 205 MB |
+| static-retrieval-mrl-en-v1 | 30,522 | 1024 | 125.0 MB | 62.5 | 31.3 | 4,096 | 410 MB |
+| └ truncated @256 (MRL) | 30,522 | 256 | 31.3 MB | 15.6 | 7.8 | 1,024 | 102 MB |
+| glove.6B.300d | ~400k words | 300 | ~480 MB | — | — | 1,200 | 120 MB |
+| blake2b ngram hashing (today) | — | 1024 | 0 MB | — | — | 4,096 | 410 MB |
+
+Notes: vocab 29,528 = BERT uncased 30,522 − 994 `[unusedN]` rows (verified: safetensors headers + vocab.txt line counts). potion-32M's 63,091-row vocab adds ~33.5k whole-word tokens on top of the bge wordpiece vocab. int8 by the model2vec global-scale scheme measured here at row-cosine p99 = 0.9999 and sentence-cosine ≈ 0.9999 (SIF-weighted tables tolerate global scale because frequent-token rows — the only ones hurt by a shared scale — are down-weighted anyway); f16 is even safer. int8 per-memory needs a row scale, or just store f16.
+
+## 4. Published numbers — vendor vs. independent
+
+**MTEB(eng) v1, Retrieval subset mean nDCG@10** — vendor-run by MinishLab (`results/README.md`):
+
+| model | Ret | vs MiniLM-L6 | avg-MTEB | vs L6 |
+|---|---|---|---|---|
+| all-MiniLM-L6-v2 | 42.92 | 1.00 | 55.93 | 1.00 |
+| potion-retrieval-32M | 35.06 | 0.817 | — | — |
+| static-retrieval-mrl-en-v1 | 34.95 | 0.814 | — | — |
+| potion-base-32M | 32.67 | 0.761 | 52.13 | 0.932 |
+| potion-base-8M | 31.11 | 0.725 | 51.08 | 0.913 |
+| potion-base-4M | 28.43 | 0.663 | 49.77 | 0.890 |
+| M2V_base_output (distill-only) | 25.36 | 0.591 | 47.96 | 0.857 |
+| potion-base-2M | 22.99 | 0.536 | 47.49 | 0.849 |
+| GloVe_300d mean-pool | 21.80 | 0.508 | 45.82 | 0.819 |
+| BPEmb_50k_300d | 15.36 | 0.358 | 41.74 | 0.746 |
+
+**NanoBEIR nDCG@10 + throughput** — measured by the sentence-transformers org (i7-13700K CPU / RTX 3090, GooAQ queries/sec):
+
+| model | NanoBEIR | vs MiniLM-L6 | CPU sent/s | µs/query |
+|---|---|---|---|---|
+| all-MiniLM-L6-v2 | 0.5623 | 1.00 | 1,739 | 575 |
+| all-MiniLM-L12-v2 | 0.5533 | 0.98 | 910 | 1,099 |
+| all-mpnet-base-v2 | 0.5757 | 1.02 | 270 | 3,698 |
+| **static-retrieval-mrl-en-v1** | **0.5032** | **0.895** | **107,420** | **9.3** |
+| BM25 (bm25s+stemmer) | 0.4518 | 0.803 | 49,707 | 20.1 |
+| potion-base-8M | 0.4421 | 0.786 | 124,030 | 8.1 |
+| potion-base-4M | 0.4225 | 0.751 | 123,083 | 8.1 |
+| M2V_base_output | 0.3851 | 0.685 | 84,192 | 11.9 |
+| potion-base-2M | 0.3666 | 0.652 | 128,994 | 7.8 |
+| glove.6B.300d | 0.3293 | 0.586 | 76,520 | 13.1 |
+
+Independent MiniLM-L12 vs L6 (original MTEB run, OpenCodePapers mirror): Ret 42.69 vs 41.95 — L12 ≈ L6, so L6 is the right baseline to compare against.
+
+**So the "fraction of neural quality" answer**: trained static = ~0.72–0.82 on the *retrieval* column, ~0.91–0.93 on overall MTEB, ~0.79–0.90 on NanoBEIR. The 80–90% guess is confirmed for trained static models; distill-only (M2V_base) ≈ 0.59–0.69 and GloVe mean-pool ≈ 0.51–0.59 — i.e. **do not use a non-trained table**: an untrained static table can underperform BM25 itself.
+
+## 5. Does a static table beat hashing subword-ngrams on paraphrase?
+
+No published head-to-head of blake2b-subword-hashing vs learned static tables exists — marking that honestly. The evidence is three-sided:
+
+1. **Mechanism (structural, not empirical)**: hashing is a Johnson–Lindenstrauss random projection of the *lexical* feature vector — it preserves inner products of ngram-bag representations up to collision noise but has no cross-term similarity: two disjoint-vocabulary paraphrases can only collide by accident. A learned table places synonyms near each other because the teacher saw them in similar contexts.
+2. **Published proxy**: on NanoBEIR, trained static (0.5032) beats the best *lexical* baseline BM25 (0.4518) by +11.4% relative, and BM25 is strictly stronger than hashing (real IDF, no collisions, no dimension cap). On paraphrase-heavy NanoQuoraRetrieval, static-retrieval hits 0.8951 nDCG@10.
+3. **My measured demo** (pure-Python blake2b 3–5-gram hashing, d=1024): same-words pair cos = **+0.972**; paraphrase sharing only "the" = **+0.317**; disjoint-vocab pairs over 291 samples = **+0.154 ± 0.114** (max 0.575) — i.e. a real paraphrase scores *inside the collision noise band*, orders of magnitude below the ~0.7–0.9 a learned table gives semantic equivalents.
+
+Verbatim's open-domain gap (0.196 vs BM25 0.370 any@10) is exactly the regime hashing cannot address: queries whose evidence shares no ngrams with the question. A trained static lane is the cheapest fix that preserves every hard rule: the table is a hash-pinned local artifact (SHA256 the safetensors + tokenizer.json), deterministic, non-generative, and only ever produces **candidates** — byte-pin and eligibility run unchanged downstream ("approximate candidate generation is allowed; approximate authorization is not"). Embeddings live in the background write path, which keeps Add-ack model-free.
+
+## 6. Where it lands in the pipeline
+
+- **Replaces/augments**: the `dense/sparse-semantic` lane (candidate generation only). Nothing else changes — eligibility, RRF k=60 fusion, boosts all apply as designed; the static vector is just a much better candidate generator than hashed ngrams.
+- **Write path**: background embed job on memory write (60-token turn ≈ 0.03 ms) — consistent with "embedding is a background job".
+- **Encoder id**: e.g. `static:potion-retrieval-32M:f32:v1` — versioned like `hashing:subword-ngram:v1`; multiple lanes can coexist under RRF.
+- **Tokenizer dependency**: potion/static-retrieval need the bge/BERT-uncased WordPiece vocab (~460 KB vocab.txt; or ~2–4 MB tokenizer.json). Implementable dependency-free (~150 lines, deterministic) or pin the `tokenizers` wheel.
+- **Caveat**: potion + static-retrieval-en are **English-only**. If Verbatim ingests non-English turns, either keep hashing for those rows or use `potion-multilingual-128M` (MIT; MMTEB Ret 37.86) / `static-similarity-mrl-multilingual-v1` (Apache-2.0; Ret 41.21 — actually beats LaBSE's 33.17 on retrieval).
+
+## 7. Recommendation matrix
+
+| candidate | role | verdict |
+|---|---|---|
+| potion-retrieval-32M (63k×512, f16→64 MB artifact) | dense lane, default | **ship** — best published static retrieval (0.817 of L6 MTEB-Ret); MIT; +5 ms/scan at 100k |
+| potion-base-8M (29.5k×256, f16→15 MB) | dense lane, minimal footprint | **ship** — if the artifact must stay ≤16 MB; −11% relative retrieval vs retrieval-32M |
+| static-retrieval-mrl-en-v1 @256 | alternative dense lane | **ship** — equivalent league (0.814), Apache-2.0, MRL dims let you trade size vs quality post-hoc |
+| blake2b ngram hashing | lexical sub-lane | **keep** — free, byte-pin pure, still catches verbatim overlap; never the only semantic lane |
+| small ONNX bi-encoder (all-MiniLM-L6-v2 int8) | quality profile lane | **optional** — +12–25% retrieval over static but ~50–150× encode cost (≈2–5 ms/query 4-core) + onnxruntime dep; justified only behind a "quality" flag |
+| GloVe / BPEmb mean-pool | — | **reject** — underperforms BM25 on NanoBEIR (0.329 vs 0.452); word-level OOV; ~480 MB–2.6 GB artifacts |
+| M2V self-distilled (no tokenlearn) | — | **reject for shipping** — −23% retrieval vs trained potion at equal dims; fine only as a build-your-own-domain-table tool |
+| vocab-quantized (k-means) variants | artifact shrink | **optional** — halve the table again if binary size is a hard constraint |
+
+**Confidence / what would change this**: high confidence a trained static table beats hashing on paraphrase/semantic recall (mechanism + two independent benchmarks + measured noise floor). The single biggest open uncertainty is *domain*: LoCoMo-style conversational turns are short, first-person, entity-dense — neither MTEB-Ret nor NanoBEIR is that distribution; the cheapest calibration is re-running the existing eval harness with `potion-retrieval-32M` and `static-retrieval-256` as candidate lanes. If the delta vs hashing is <3 pts any@10, revisit — but the mechanism says it won't be close. A small ONNX bi-encoder becomes the default only if dense-lane weight in RRF ends up dominant AND the +12–25% headroom survives an A/B on the memory corpus.
+
+## UNRESOLVED
+
+- No published *direct* paraphrase benchmark of raw feature-hashing vs static tables (e.g. PAWS/QQP with a hashing encoder). Would close it by running both encoders on QuoraRetrieval/PAWS in the eval harness — cheap, no downloads needed beyond the table artifact.
+- Exact SIF coefficient used in released potion builds (docs say 1e-3, code default now 1e-4, tokenlearn applies it inside re-regularization) — only relevant if Verbatim self-distills; irrelevant when shipping a prebuilt artifact.
+- int8 quality delta on a *retrieval* metric (vs. my 0.9999 reconstruction cosine): model2vec claims "minimal performance loss" without publishing an int8 MTEB row; validate by spot-scoring the eval set after quantizing.

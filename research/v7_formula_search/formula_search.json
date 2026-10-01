@@ -1,0 +1,245 @@
+{
+  "generated": "2026-09-22",
+  "profile": "default (no API key, no network, no model download beyond pinned artifacts)",
+  "target": {
+    "hardware": "4-core CPU",
+    "corpus": "10k-100k memories",
+    "p95_ms_default": 50,
+    "p95_ms_quality": 150
+  },
+  "retrieval_policy": {
+    "order": [
+      "eligibility_bitset",
+      "scope_restriction",
+      "fts5_candidate_gen",
+      "bm25f_rescore_eligible",
+      "semantic_lane",
+      "fuse",
+      "expand_2hop",
+      "bounded_boosts",
+      "pack"
+    ],
+    "eligibility": "int-bitset AND of scopes; stats recomputed on eligible set only",
+    "term_cap": "MATCH restricted to <=16 lowest-df query terms; drop terms with df > 0.25*N_E",
+    "scope": "resolve named speaker/entity (name or alias) -> candidate restriction when resolvable"
+  },
+  "bm25f": {
+    "candidate_lane": "sqlite FTS5 bm25(tbl, per-column weights) \u2014 candidate generation only (global idf, no columnsize on <=3.44)",
+    "rescore": {
+      "formula": "sum_f w_f * sum_w idf_E(w) * f_wi*(k1+1) / (f_wi + k1*(1 - b_f + b_f*dl_f/avgdl_f))",
+      "idf": "ln(1 + (N_E - df_E + 0.5) / (df_E + 0.5))",
+      "k1": 1.2,
+      "b": 0.6,
+      "grid": {
+        "k1": [
+          0.6,
+          2.0
+        ],
+        "b": [
+          0.3,
+          0.8
+        ]
+      },
+      "fields": {
+        "text": 1.0,
+        "speaker": 1.5,
+        "entities": 2.5,
+        "facts": 1.8,
+        "tlabel": 0.4
+      },
+      "b_lever": "k1 near-inert at tf=1 on short turns; b is the live lever \u2014 tune b first (d4/ranx)"
+    },
+    "eligible_df": "lazy int-bitset AND + popcount per term; 13.2ms cold / 0.02ms warm @100k",
+    "df_source": "fts5vocab(tbl,'col')"
+  },
+  "fusion": {
+    "default": "RRF k=60 FLAT (no lane weights) when <150 judged queries",
+    "preferred": "calibrated CombSUM: per-lane isotonic PAV (<=32 breakpoints) or Platt, weighted sum, unfired=0; ~10 labels/lane to fit",
+    "option": "wRRF with entropy weights w_g = (1/H_g)/sum(1/H) or tuned convex (TM2C2 alpha~0.8) behind held-out gate",
+    "reject": [
+      "weighted-RRF fixed {1,.75,.5}",
+      "CombMNZ",
+      "min-max without calibration",
+      "fully-parameterized RRF per-lane k+w"
+    ]
+  },
+  "semantic_tier": {
+    "default": {
+      "type": "static table (model2vec/potion-base-8M)",
+      "artifact": "~8.2MB int8 table + 0.68MB tokenizer, blake2b hash-pinned",
+      "vectors": "int8 256d, 25.6MB/100k, mmap-packed file layout (not SQLite blobs)",
+      "encode_us": 11,
+      "scan_ms_100k": 12,
+      "quality": "~0.72-0.82 of MiniLM-L6 MTEB retrieval; NanoBEIR 0.503 vs BM25 0.452"
+    },
+    "hashing_lane": "keep hashing:subword-ngram:v1 as free lexical lane; excluded from fusion (dilutes bm25f)",
+    "quality": {
+      "type": "ONNX MiniLM-L6-v2 int8",
+      "artifact_mb": 23,
+      "encode_ms": [
+        5,
+        15
+      ]
+    },
+    "ann": "none \u2014 exact scan 1.19ms@100k measured; HNSW rejected (build cost + thin-shell recall collapse + eligibility conflict)"
+  },
+  "cross_encoder": {
+    "default": "none",
+    "quality": {
+      "model": "ms-marco-MiniLM-L2-class ONNX int8",
+      "artifact_mb": 4,
+      "ms_per_pair": [
+        1,
+        3
+      ],
+      "pool_k": 16,
+      "p95_ms": [
+        104,
+        127
+      ]
+    },
+    "max": {
+      "model": "ms-marco-MiniLM-L-6-v2 int8",
+      "artifact_mb": 23,
+      "ms_per_pair": [
+        11,
+        16
+      ],
+      "pool_k": 32
+    },
+    "pool_cap_correction": "Hindsight's cap is 300 (DEFAULT_RERANKER_MAX_CANDIDATES), not 32; 32 was the predict batch \u2014 k=300 rejected (3.4s)",
+    "smallest_k_rule": "measure any@10 at k in {8,16,32}; ship first k within 0.005 of best"
+  },
+  "temporal": {
+    "schema": "said_at, valid_from, valid_until, rec_from, rec_until \u2014 i32 minutes, 2147483647 sentinel, B-tree on said_at (+valid_until)",
+    "write": "newest-wins truncation: same (entity,predicate) slot with different value closes prior valid_until=new.valid_from; append-only",
+    "resolver": "deterministic precision-first; anchor question ts > session start > wall-clock (live only); unambiguous-only, empty fallback",
+    "prefilter": "interval containment as per-candidate eligibility (0.055ms/40 cands), never a lane (37% selectivity on open-interval stores)",
+    "decay": "r = 0.5^(d/120) folded as score*(1+0.2*(r-0.5)) \u2014 bounded +-10%; alt: max(0.1, 1-d/365) linear",
+    "currently_fix": "slot-key supersession at structure level \u2014 recency multipliers measured NOT to fix latest-X (0.50->0.36 synth, conditioned variant identical)",
+    "pack": "date-range headers surfaced to reader (Zep's biggest measured temporal win)"
+  },
+  "graph": {
+    "structure": "edges(entity_id, claim_id, cnt, last_ts), w=cnt*exp(-ln(2)/60d*dt)",
+    "materialization": "edges_top = top-32 claims per entity (per-node caps can't be enforced in-query; +80B/claim)",
+    "expansion": "1-hop entity->claims join (0.05ms) + bounded 2-hop via edges_top (0.05-0.5ms); 2-step spreading activation scorer",
+    "ppr": "reject default \u2014 converged push 1.4-2.9ms only via edges_top; 2-step spread matches at 0.88 Jaccard; eligibility-leak risk",
+    "constants": {
+      "alpha": [
+        0.4,
+        0.5
+      ],
+      "eps": 0.0001
+    }
+  },
+  "alias": {
+    "canon": "lowercase, strip, explicit alias table + write-time canonicalization",
+    "merge": {
+      "model": "Fellegi-Sunter M = M0 + sum(w_i)",
+      "M0": -4.25,
+      "weights": {
+        "name_exact": 4.32,
+        "alias_nick": 5.13,
+        "cooc_strong": 4.79,
+        "cooc_contradict": -3.55,
+        "time_overlap_7d": 2.0
+      },
+      "partner_rarity": "w_p = max(0, 1 - df_p/(0.01*N)) \u2014 family hubs contribute ~0",
+      "thresholds": {
+        "merge": 4.25,
+        "reject": -2.0,
+        "abstain": "pending_alias re-checked on new co-occurrence"
+      }
+    },
+    "rejected_prior": "0.5*name+0.3*cooc+0.2*time >=0.6 \u2014 merges homonyms (0.84), fails Bob->Robert (0.586); cannot express veto"
+  },
+  "coref": {
+    "sieve": "pronoun-class: it/its->unique non-person in <=3-turn lookback; person pronouns->unique person; 'i' never inherits; abstain on 2+ same-class candidates",
+    "lookback_turns": 3,
+    "fixture_result": {
+      "resolved": 0.67,
+      "wrong": 0.0,
+      "compared_to_prev_all": "88% coverage w/ 47 noisy attaches on 60"
+    }
+  },
+  "consolidation": {
+    "unit": "observation = (entity, predicate) aggregate delivering pinned head-evidence bytes + proof_count + validity interval + superseded_by",
+    "merge_gate": "slot-keyed value equality required; J(word)>=0.8 only for near-verbatim repeats (measured: paraphrases 0.44 vs contradictions 0.60-0.67 \u2014 no separating threshold)",
+    "freshness": "watermark flag stale(o) iff max evidence ts > obs.as_of; always union obs with raw facts",
+    "candidate_gen": "LSH b=16 r=8"
+  },
+  "rejected": [
+    {
+      "item": "PPR on raw edge table",
+      "why": "37ms load + eligibility leak; 2-step spread equivalent"
+    },
+    {
+      "item": "weighted RRF fixed weights",
+      "why": "=flat noise on synth; poor OOD (Bruch)"
+    },
+    {
+      "item": "CombMNZ",
+      "why": "double-counts coverage; loses to sum"
+    },
+    {
+      "item": "unconditioned recency boost",
+      "why": "hurts latest-X (0.50->0.36 measured)"
+    },
+    {
+      "item": "hashing lane in fusion",
+      "why": "dilutes bm25f 0.41->0.30; non-semantic"
+    },
+    {
+      "item": "HNSW/ANN",
+      "why": "unnecessary at 100k (1.19ms exact); eligibility conflict; thin-shell collapse"
+    },
+    {
+      "item": "CE pool 300",
+      "why": "3.4-5.6s on 4-core"
+    },
+    {
+      "item": "ColBERT",
+      "why": "0.15-0.95GiB/100k + PLAID required; max-profile only"
+    },
+    {
+      "item": "SPLADE naver checkpoints",
+      "why": "CC BY-NC-SA; Apache doc-side variant = optional"
+    },
+    {
+      "item": "LLM query-time plan/verify/CoN",
+      "why": "model-free default violated; byte-pin broken"
+    },
+    {
+      "item": "LambdaMART/GBDT default",
+      "why": ">=500-1000 judged queries needed; 18-62ms pure-Python walk"
+    },
+    {
+      "item": "per-scope docfreq tables",
+      "why": "2.9-11.5MB; can't express dynamic purposes"
+    },
+    {
+      "item": "saturate-then-combine BM25F",
+      "why": "13.6 vs 3.99 score inflation (worked example)"
+    },
+    {
+      "item": "rtree_i32 4-dim time index",
+      "why": "25.3ms enumerate open set vs 0.1-0.4ms B-tree"
+    },
+    {
+      "item": "Jaccard-only merge threshold",
+      "why": "no separating band between paraphrase and contradiction"
+    },
+    {
+      "item": "prev-turn-all coref",
+      "why": "47 wrong attaches on 60-turn fixture"
+    },
+    {
+      "item": "node-distance reranker",
+      "why": "no caller-chosen centroid in Memory.search"
+    },
+    {
+      "item": "LLM observation/rewrite text",
+      "why": "violates byte-pin"
+    }
+  ]
+}

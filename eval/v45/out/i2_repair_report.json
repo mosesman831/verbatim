@@ -1,0 +1,151 @@
+{
+  "experiment": "i2_repair_locality",
+  "spec": {
+    "requirements": [
+      "V45-04.01",
+      "V45-04.02",
+      "V45-04.03",
+      "V45-04.04"
+    ],
+    "acceptance": [
+      "D03",
+      "D04"
+    ]
+  },
+  "sample_size": {
+    "slots": 16,
+    "claims": 16,
+    "views": 16,
+    "corrected_claims": 1,
+    "arms": 2,
+    "note": "identical seeded graph per arm in disposable stores; the rebuild arm receives the identical correction (same input, V45-04.04)"
+  },
+  "definitions": {
+    "objects_evaluated": "producer work units: consolidation slot-value candidates re-derived + scenes reconciled + views recomposed + profile entries scanned",
+    "objects_recomputed": "durable writes: observation writes/retirements + refreshed scenes + recomposed views + profile mutations",
+    "objects_scanned": "touched surface: slots touched + scenes/views dispatched + (full arm) every claim/observation row"
+  },
+  "arms": {
+    "repair": {
+      "plan_id": "rplan:95f07e403fa1431e9c189fa36804fadf",
+      "plan_complete": true,
+      "plan_targets": 2,
+      "held_marks_in_correction_tx": {
+        "views": 1,
+        "observations": 1,
+        "branches": 0
+      },
+      "objects_scanned": 2,
+      "objects_evaluated": 2,
+      "objects_recomputed": 3,
+      "marked_held": {
+        "views": 0,
+        "observations": 0,
+        "branches": 0
+      },
+      "consolidation": {
+        "observations_written": 1,
+        "edges_written": 1,
+        "retired": [
+          "obs_93562cd96f78bca1df16d536d8522d74"
+        ],
+        "slots_touched": 1,
+        "candidates_seen": 1,
+        "truncated": false,
+        "stopped": null,
+        "refinements": [
+          {
+            "observation_id": "obs_ed735a95a1a8f79875b5d6eb3c0dcd78",
+            "revision": 1,
+            "previous_revision": null,
+            "reactivated": false,
+            "added": [
+              [
+                "supports",
+                "claim",
+                "c0",
+                2
+              ]
+            ],
+            "removed": []
+          }
+        ]
+      },
+      "views": [
+        {
+          "view_id": "dview:3232de757222ecc46dc178cba1710e3e1d4e0a62",
+          "status": "recomputed_as",
+          "successor": "dview:96ccf971bddc013250b100e259f192c08028ced7",
+          "revision": 1
+        }
+      ],
+      "failures": []
+    },
+    "full_rebuild": {
+      "objects_scanned": 65,
+      "objects_evaluated": 32,
+      "objects_recomputed": 18,
+      "consolidation": {
+        "observations_written": 1,
+        "edges_written": 1,
+        "retired": [
+          "obs_93562cd96f78bca1df16d536d8522d74"
+        ],
+        "slots_touched": 16,
+        "candidates_seen": 16,
+        "truncated": false,
+        "stopped": null,
+        "refinements": [
+          {
+            "observation_id": "obs_ed735a95a1a8f79875b5d6eb3c0dcd78",
+            "revision": 1,
+            "previous_revision": null,
+            "reactivated": false,
+            "added": [
+              [
+                "supports",
+                "claim",
+                "c0",
+                2
+              ]
+            ],
+            "removed": []
+          }
+        ]
+      },
+      "views_recomposed": 16,
+      "failures": []
+    }
+  },
+  "totals": {
+    "reduction": {
+      "objects_scanned": 0.9692,
+      "objects_evaluated": 0.9375,
+      "objects_recomputed": 0.8333
+    }
+  },
+  "d03": {
+    "threshold": 0.5,
+    "evaluated_reduction": 0.9375,
+    "recomputed_reduction": 0.8333,
+    "post_state_equal": true,
+    "measured": "repair evaluated 2 vs full 32 (93.8% less); recomputed 3 vs 18 (83.3% less); corrected observation live on both arms",
+    "met": true
+  },
+  "d04": {
+    "incomplete_forecast": {
+      "complete": false,
+      "missing": 2,
+      "apply_refused": true,
+      "error_code": "CONTEXT_INCOMPLETE"
+    },
+    "grown_closure": {
+      "apply_refused": true,
+      "error_code": "CONTEXT_INCOMPLETE"
+    },
+    "late_view_disposition": "active",
+    "partial_writes": 0
+  },
+  "met": true,
+  "d04_met": true
+}

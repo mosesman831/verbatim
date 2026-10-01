@@ -1,0 +1,229 @@
+Session devin-8993751550354b168bb4ad368aaeb587:
+  session_id: 8993751550354b168bb4ad368aaeb587
+  title: Workflow verbatim-formula-search-v5: b5-cross-encoder
+  status: running
+  status_detail: waiting_for_user
+  url: https://app.devin.ai/sessions/8993751550354b168bb4ad368aaeb587
+  acus_consumed: 0.0
+  tags: workflow
+  structured_output:
+    topic: b5-cross-encoder
+    sources: https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 | vendor | MRR@10/nDCG@10/docs-sec table for all ms-marco v1/v2 CEs incl TinyBERT-L2 and L12; basis for dominated-model rejects, https://www.sbert.net/docs/cross_encoder/pretrained_models.html | vendor | same ms-marco table + sigmoid/max_length guidance, https://arxiv.org/abs/2206.02873 + https://ar5iv.labs.arxiv.org/html/2206.02873 | paper | INDEPENDENT BEIR table (BM25 0.4328 -> MiniLM 0.4889, monoT5-60M 0.4259, 220M 0.4780, 3B 0.5321, ColBERTv2 0.4580) and Table 2 latency + the key depth datapoint monoT5-3B @50=0.5152 vs @1000=0.5321, https://huggingface.co/temsa/ms-marco-MiniLM-L-6-v2-onnx-cpu-qint8 | repo | measured CPU: 95 pairs/s int8 (10.5 ms/pair), 68 pairs/s fp32 on i7-9750H AVX2 — anchors the GFLOPS->ms conversion, https://huggingface.co/temsa/ms-marco-MiniLM-L-12-v2-onnx-cpu-qint8 | repo | L12 CPU latency + QInt8 quality-neutral result (scidocs nDCG 0.746 vs 0.744), https://github.com/clouatre-labs/rag-reranking-benchmarks | repo | independent CPU measurement: MiniLM-L12 int8 reranking 16 candidates = +31.3 ms (~2 ms/pair) — optimistic-hardware bound, https://aclanthology.org/2020.findings-emnlp.63.pdf | paper | monoT5 MRR@10 table: BM25 0.184, T5-base 0.381, T5-3B 0.398 — plus rerank-top-1000 protocol, https://arxiv.org/abs/2401.06910 | paper | InRanker distillation table: monoT5-60M 0.4125 -> InRanker-60M 0.4807 BEIR avg, https://github.com/unicamp-dl/InRanker (license API) | repo | Apache-2.0 license for InRanker weights/code, https://huggingface.co/jinaai/jina-reranker-v1-turbo-en | vendor | params 37.8M/6L/384, Apache-2.0, official int8/q4 ONNX, vendor 17-BEIR 49.60 + LoCo 69.21 + the cross-model comparison table used as independent-ish column, https://huggingface.co/jinaai/jina-reranker-v2-base-multilingual | vendor | 278M, CC BY-NC 4.0 — license reject, https://huggingface.co/jinaai/jina-reranker-v3 + https://arxiv.org/html/2509.25085v3 | vendor+paper | 0.6B Qwen3 listwise, BEIR 61.94, CC BY-NC 4.0 — license+size reject, https://bge-model.com/tutorial/5_Reranking/5.1.html + /5.3.html | vendor | bge param counts (278M base/560M large, XLM-R), rerank_top_k=100 eval protocol, MIT license on cards, https://sdk.airefinery.accenture.com/distiller/model_catalog/Reranker/BAAI/bge-reranker-large/ | vendor-protocol repro | bge-large MRR 40.2, TREC 71.6, BEIR avg 59.3 — flags protocol-dependence vs jina's 47.89 for base, https://huggingface.co/BAAI/bge-reranker-base + /bge-reranker-large (API file list) | repo | MIT license + onnx/model.onnx shipped, https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2 + https://www.mixedbread.com/blog/mxbai-rerank-v2 | vendor | ProRank-0.5B Qwen2.5, Apache-2.0, BEIR 55.57 — too big for CPU, https://huggingface.co/Alibaba-NLP/gte-reranker-modernbert-base | vendor | 149M ModernBERT 22L, Apache-2.0, int8 ONNX, BEIR 56.19, LoCo 90.68 — best sub-200M quality, still CPU-reject, https://huggingface.co/castorini/monot5-small-msmarco-10k (config + card) | repo | T5-small arch (6L d512 i2048, enc-dec), no ONNX, no license tag, https://huggingface.co/zeroentropy/zerank-1-small | vendor | 1.7B Qwen3, Apache-2.0 — size reject despite good license, https://github.com/PrithivirajDamodaran/FlashRank | repo | int8 model sizes (~4MB TinyBERT, ~34MB L12), max_length=128 guidance — the truncation lever, huggingface.co/api/models/* file listings (curl) | repo | verified official ONNX/int8 presence per candidate; Apache/MIT/CC-BY-NC license fields, local FLOPs model + numpy BLAS calibration on this box | calculated | per-pair GFLOPs per model, quad-share T/(6d+T) -> linearity claim, effective 200-270 GFLOPS AVX2 anchor vs measured temsa numbers
+    summary: Cross-encoders are viable for Verbatim only as an optional rerank stage — they reorder an eligible fused pool, emit no text (so no byte-pin issue), store zero bytes per memory, and leave the default no-model install untouched. The governing number: per-pair CE cost ~= L(8d^2+4di)T + 4LdT^2 FLOPs, ~2.9 GF for MiniLM-L6 at seq-128, i.e. ~10-15 ms/pair on a generic 4-core AVX2 (measured 95 pairs/s int8 on an i7-9750H), so a pool-32 rerank costs ~350-500 ms — outside the 150 ms 'small CE' budget. Only cross-encoder/ms-marco-TinyBERT-L2-v2 (~4 MB int8, ~1-3 ms/pair, ~40-90 ms for pool-32) fits the stated quality budget; ms-marco-MiniLM-L6-v2 (~22 MB int8) is the max-profile pick, giving the best validated quality-per-FLOP (+5.6 BEIR nDCG@10 over BM25, independent measurement; MRR@10 39.01 on MS MARCO). MiniLM-L12-v2 is strictly dominated (2x cost, identical MRR). BGE-base/large (278/560M XLM-R), gte-modernbert-149M, mxbai-base-v1 and all >=150M models need ~110-400 ms/pair = 3.5-13 s at pool-32 -> reject for CPU. MonoT5-small is ~3-4x L6 cost with BEIR ~BM25-level (-0.7 pts), and its distilled successor InRanker-60M (BEIR 48.1, Apache-2.0) still pays the seq2seq overhead with no official ONNX. All Jina v2/v3 rerankers are CC BY-NC 4.0 -> license reject. Published depth ablation (monoT5-3B @50 vs @1000) shows ~97% of nDCG retained at 5% cost, so Verbatim's pool-32 is viable; latency is ~linear in pair token-length below T~256, making a 128-token cap the key lever. Expected any@10 gain over BM25-only, extrapolated from BEIR/TREC/MSMARCO deltas and haircut for out-of-domain conversational text: +3-7 pts for MiniLM-L6-class, +1.5-4 pts for TinyBERT-L2 at pool 32. Recommendation: 'quality' profile ships TinyBERT-L2-v2 int8 (pool 32, seq 128); 'max' profile ships MiniLM-L6-v2 int8 (optionally jina-reranker-v1-turbo-en pending a LoCoMo bake-off); default profile ships no CE.
+    verdicts: cross-encoder/ms-marco-TinyBERT-L2-v2 -> optional (quality profile): only CE inside <=150ms at pool-32 (~40-90ms), 4MB int8, Apache-2.0, cross-encoder/ms-marco-MiniLM-L6-v2 -> optional (max profile; quality only with pool <=8-12): best validated quality/FLOP (+5.6 BEIR indep, official int8 ONNX) but ~350-500ms at pool-32, jinaai/jina-reranker-v1-turbo-en -> optional (alternate to L6): +1 BEIR pt vendor-measured, Apache-2.0, official int8 ONNX, ms-marco-MiniLM-L2/L4-v2 -> reject: strictly worse MRR than L6 in same family, ms-marco-MiniLM-L12-v2 -> reject: 2x L6 cost, identical MRR (39.02 vs 39.01), monoT5-small-10k -> reject: ~3-4x L6 cost, BEIR avg -0.7 vs BM25, no official ONNX, InRanker-small (monoT5-60M) -> reject: fixes BEIR (0.4807) but seq2seq cost + no official ONNX, mxbai-rerank-xsmall/base-v1 -> reject: DeBERTa-v2 attention ~2-3x cost, BEIR ~MiniLM-L6, BAAI/bge-reranker-base + v2-m3 -> reject (CPU): ~110-400ms/pair -> 3.5-13s pool-32; best quality, GPU-only, BAAI/bge-reranker-large -> reject (CPU): ~400ms/pair, ~13s/query on 4 cores, Alibaba-NLP/gte-reranker-modernbert-base -> reject (CPU): BEIR 56.2 best sub-200M quality but ~150-200ms/pair; revisit for GPU/server profile, mxbai-rerank-base-v2 (0.5B), zerank-1-small (1.7B) -> reject: decoder-class size on CPU, jina-reranker-v2/v3 -> reject: CC BY-NC 4.0 non-commercial + 278M/0.6B, BERT-base 'RankBERT' (nboost pt-bert-base) -> reject: ~5x L6 cost, worse MRR, default profile -> ship no CE: current p95~85ms leaves <=65ms CE budget that only TinyBERT meets; keep engine model-free by default
+    notes_markdown: # b5-cross-encoder — Cross-encoder rerankers for a CPU-only local engine
+
+## 0. TL;DR
+
+A cross-encoder (CE) is the cheapest "semantic" signal Verbatim can buy without changing
+the default no-network, no-model-download install — *if* it is kept off the default path.
+On a generic 4-core client CPU, the only CE that plausibly fits inside the stated
+"≤150 ms total with a small one" budget at a useful pool depth is
+`cross-encoder/ms-marco-TinyBERT-L2-v2` (~4 MB int8, ~1–3 ms/pair at seq≤128 →
+~35–90 ms for a pool of 32). The best quality-per-watt pick is
+`cross-encoder/ms-marco-MiniLM-L6-v2` (~22 MB int8, ~10–15 ms/pair → ~350–500 ms
+at pool 32): it must live behind a `max` profile or a pool of ≤8–12 inside `quality`.
+Everything ≥150 M parameters (bge-base/large, gte-modernbert, mxbai-base, jina-v2/v3,
+zerank, Qwen-rerankers) is a CPU reject at 4 cores. Licenses rule out all Jina v2+
+rerankers (CC BY-NC 4.0). Expected any@10 gain over BM25-only is **extrapolated**
++3–7 pts for MiniLM-L6-class, +1.5–4 pts for TinyBERT-L2 at pool 32.
+
+**Single most important number established:** per-pair CE scoring cost on CPU is
+~`F = P_enc·2·T + 4·L·d·T²` FLOPs; at T=128, MiniLM-L6 ≈ 2.9 GF → **~10–15 ms/pair**
+(measured 95 pairs/s int8 on a 6-core AVX2 i7-9750H) — so a pool-32 rerank costs
+~0.4 s on the reference machine, which is *outside* the 150 ms quality budget and
+decides the whole verdict structure.
+
+---
+
+## 1. What a CE is and where it sits in Verbatim
+
+A cross-encoder scores `(query, memory)` pairs jointly: input `[CLS] q [SEP] m [SEP]`,
+one forward pass, one scalar logit. Pointwise (classification) CEs dominate the
+sub-300M range; MonoT5-style seq2seq models decode a "true" token; listwise models
+score a whole list in one context.
+
+**Verbatim stage:** this is the *optional rerank* stage in the stated pipeline
+(query analysis → lanes → eligibility → fusion → **rerank** → pack). It does not
+touch lanes, eligibility, byte-pins, or the pack — it only reorders an eligible,
+fused pool. That makes it fully compatible with the hard rules: eligibility stays
+exact (applied upstream), and the CE emits no text, so no byte-pin is needed.
+Recommendation: rerank pool `P = 32` from RRF fusion, final order by CE logit with
+the fused score as tiebreaker (or `score = α·z(fusion) + (1−α)·σ′(CE)`, α≈0.3–0.5);
+CE score may optionally feed back as a "proof" signal but that is a separate
+question (b-series fusion).
+
+**Key sizing fact for the index question:** a CE stores *zero bytes per memory*.
+It is a fixed resident artifact (model weights) of 4–560 MB — nothing is indexed
+per memory, nothing precomputed at write time. The write path is untouched.
+
+---
+
+## 2. Cost model (the formula + constants)
+
+For an encoder-only CE with hidden `d`, intermediate `i`, layers `L`, pair length `T`:
+
+```
+FLOPs/pair ≈ L·(8d² + 4·d·i)·T   +   L·4·d·T²
+            ── projections+FFN ──    ── attention QKᵀ/AV/softmax ──
+```
+
+Quadratic share = `T / (6d + T)`:
+d=384 → T=64: 2.7 %, T=128: 5.3 %, T=256: 10 %, T=512: 18 %.
+**⇒ latency is ~linear in pair token-length up to T≈256** (at T=512 ~20 %
+superlinear). Truncating pairs 256→128 almost exactly halves cost; this is the
+only meaningful latency lever — you cannot "hash" inputs into a CE (it needs raw
+token interaction, unlike the blake2b-ngram embedder).
+
+MonoT5-style: `F ≈ L_e·(8d²+4di)·T (enc) + L_d·(12d²+4di)·~2 tok (dec) + 2d·vocab (LM head)`
+→ encoder-dominated but pays an extra decode+head step (~10 % overhead).
+
+Effective CPU throughput used for conversion (calibrated, not invented):
+- **Conservative 4-core AVX2 (reference machine): ~200–270 GFLOPS int8** — anchored to
+  temsa's measured 95 pairs/s for MiniLM-L6 int8 on i7-9750H ⇒ 2.87 GF / 10.5 ms ≈ 273 GFLOPS.
+- **Optimistic 4-core AVX-512-VNNI: ~400–600 GFLOPS int8** (boxed CPUs since ~2021;
+  consistent with clouatre's ~2 ms/pair on MiniLM-L12).
+- My own box measures 640–780 GFLOPS fp32 BLAS (Xeon 8559C, 4 threads); real CEs run
+  ~30–50 % of GEMM peak (attention/LN/softmax/memory), consistent with the above.
+
+Tokenizer+overhead ≈ 0.3–1 ms/pair (wordpiece/BPE on CPU, one pair at a time).
+Batching pairs (batch 8–32) amortizes to ~0.7–0.9× the sequential per-pair cost.
+
+Worked example — MiniLM-L6 @T=128 (d=384, i=1536, L=6):
+`6·(8·384² + 4·384·1536)·128 = 6·(1.18M + 2.36M)·128 = 2.72 GF` linear
+`+ 6·4·384·128² = 0.15 GF` attention ⇒ **2.87 GF/pair**;
+@270 GFLOPS → **10.6 ms/pair**; pool 32 → **~340 ms** (batch-eff ~0.9 → ~310 ms).
+Matches temsa's measured 210 ms/20-pair request = 10.5 ms/pair within 5 %.
+
+---
+
+## 3. Candidate table (measured numbers, separated by source)
+
+nDCG/MRR columns: "vendor" = numbers reported by the model's own card/docs;
+"indep." = independent reproductions (jina's 17-BEIR eval, Rosa et al. BEIR@BM25-1000).
+
+| model | params (enc-nonemb) | license | official ONNX (int8) | MS MARCO MRR@10 | TREC DL19 nDCG@10 | BEIR nDCG@10 (protocol) | est. ms/pair CPU int8 @T=128 |
+|---|---|---|---|---|---|---|---|
+| ms-marco-TinyBERT-L2-v2 | 4.3 M (~0.4 M) | Apache-2.0 | yes (+qint8 vnni/avx2, OpenVINO) | 32.56 (vendor) | 69.84 (vendor) | — (unmeasured) | **0.5–3** |
+| ms-marco-MiniLM-L2-v2 | ~15 M (~3.5 M) | Apache-2.0 | yes (same variants) | 34.85 (vendor) | 71.01 (vendor) | — | ~3–5 |
+| ms-marco-MiniLM-L4-v2 | ~19 M (~7.1 M) | Apache-2.0 | yes | 37.70 (vendor) | 73.04 (vendor) | — | ~7–10 |
+| **ms-marco-MiniLM-L6-v2** | 22.7 M (~10.6 M) | Apache-2.0 | yes | 39.01 (vendor); 39.01 (indep: Rosa) | 74.30 (vendor) | **48.89 indep** (BM25@1000); 48.64 indep (jina, 17 ds) | **10–15** (meas. 10.5) |
+| ms-marco-MiniLM-L12-v2 | 33.4 M (~21 M) | Apache-2.0 | yes | 39.02 (vendor) | 74.31 (vendor) | ~same as L6 | 17–30 (meas. ~2–20) |
+| jina-reranker-v1-tiny-en | 33.0 M (~9.4 M) | Apache-2.0 | yes (int8/q4) | — | — | 48.54 (vendor, 17 ds) | ~8–12 |
+| jina-reranker-v1-turbo-en | 37.8 M (~14 M) | Apache-2.0 | yes (int8/q4) | — | — | 49.60 (vendor, 17 ds); LoCo 69.21 | ~14–25 |
+| jina-reranker-v2-base-multi | 278 M | **CC BY-NC 4.0** | yes | — | — | 53.17 (vendor, 17 ds) | ~100–150 |
+| jina-reranker-v3 (listwise) | 0.6 B | **CC BY-NC 4.0** | partial | — | — | 61.94 (vendor) | ≫500/ctx |
+| mxbai-rerank-xsmall-v1 | ~70 M (DeBERTa-v2 ~21 M) | Apache-2.0 | yes (quant) | — | — | 48.80 (vendor) | ~29–40 (+~30 % DeBERTa attn) |
+| mxbai-rerank-base-v1 | ~184 M (~85 M) | Apache-2.0 | yes (quant) | — | — | 49.19 (vendor) | ~110–150 |
+| mxbai-rerank-base-v2 (Qwen2.5) | ~0.5 B | Apache-2.0 | no (ST pipeline) | — | — | 55.57 (vendor) | ≥250 |
+| gte-reranker-modernbert-base | 149 M (~110 M) | Apache-2.0 | yes (int8) | — | — | 56.19 (vendor); LoCo 90.68 | ~150–200 |
+| **BAAI/bge-reranker-base** | 278 M (~85 M XLM-R) | MIT | yes (fp32 onnx) | ~40.x est | ~72 est | 47.89 (indep, jina); ~55 (vendor protocol) | ~110–150 |
+| **BAAI/bge-reranker-large** | 560 M (~303 M) | MIT | yes (fp32 onnx) | 40.2 (vendor-protocol) | 71.6 (vendor-protocol) | 57.2–59.3 (vendor/indep-protocol) | ~250–400 |
+| bge-reranker-v2-m3 | 568 M | Apache-2.0 | no official | — | — | 53.65–56.51 (vendor) | ~250–400 |
+| monoT5-small-10k | 60 M (~44 M enc+dec) | (Apache-2.0 by repo, card silent) | no official | 35.66 (indep: Rosa) | — | 42.59 (indep; **−0.7 vs BM25**) | ~25–40 |
+| InRanker-small (monoT5-60M distilled) | 60 M | Apache-2.0 (repo) | no | — | — | 48.07 (vendor, 18 ds) | ~25–40 |
+| BERT-base "RankBERT" (nboost pt-bert-base-uncased) | ~110 M (~85 M) | Apache-2.0 | third-party | 34.75 (vendor) | 70.94 (vendor) | — | ~110–150 |
+| zerank-1-small | 1.7 B | Apache-2.0 | third-party | — | — | vendor claims SOTA | ≥500 |
+
+### Quality deltas vs BM25 (nDCG@10, published)
+
+- MS MARCO (MRR@10): BM25 0.184–0.187 → TinyBERT-L2 0.326 (+14 pts abs) → MiniLM-L6 0.390 (+20 pts). Pool 1000. (sbert vendor table + Rosa et al. indep)
+- BEIR avg excl-MARCO (Rosa et al., BM25@1000 rerank, *independent*): BM25 0.4328 → MiniLM-L6 **+5.6** (0.4889); monoT5-60M **−0.7** (0.4259); monoT5-220M +4.5; monoT5-3B +9.9 (0.5321); ColBERTv2 +2.5.
+- jina 17-BEIR (vendor protocol): MiniLM-L6 48.64, jina-turbo 49.60, bge-base 47.89, mxbai-xsmall 48.80.
+- **Pool depth**: monoT5-3B @50 → 0.5152 vs @1000 → 0.5321 = **keeps ~97 % of nDCG and ~83 % of the BM25 delta at 5 % of the cost** (Rosa Table 2). Most published CE scores use pools 100–1000 (bge eval uses rerank_top_k=100; jina ~100); Verbatim's pool-32 is shallower → gains extrapolate slightly *below* published.
+- Quantization: temsa's QInt8 MiniLM-L12 on scidocs-reranking nDCG 0.746 vs fp32 0.744 (quality-neutral, +27 % faster); rank overlap caveated on synthetic data.
+
+### CPU latency (published/measured)
+
+- temsa (i7-9750H, AVX2, ORT 1.22): MiniLM-L6 int8 95 pairs/s (≈10.5 ms/pair, 20-pair req 210 ms); L12 int8 ~8–20 ms/pair.
+- clouatre (unknown modern CPU, FlashRank L12 int8): 16 candidates → +31.3 ms ⇒ **~2 ms/pair**.
+- Flash-Rerank-Rust (vendor): "72 ms / 100 docs" MiniLM-L6 int8 ⇒ ~0.7 ms/pair on high-end hw — optimistic bound, unverified machine.
+- sbert GPU table (V100-era): L6 1800 docs/s, L12 960, TinyBERT 9000 — *GPU only*, shows relative costs (L12 ≈ 0.5× L6 throughput, TinyBERT ≈ 5× L6), matching the FLOPs model (2.9×/8×).
+
+---
+
+## 4. Per-query time on the 4-core reference (arithmetic shown)
+
+CE cost per query = `P · t_pair(+tokenizer) / batch_eff`, **independent of N** —
+a CE has no per-memory index or precomputation, so 10k and 100k memories cost
+identically (only upstream candidate generation scales with N; BM25 sub-linear).
+
+`budget_CE ≈ P·t·0.85 (batch) + 0.5·P·0.3ms (tok)`.
+
+| model | t/pair @T=128 (AVX2 / VNNI) | pool-20 ms | pool-32 ms | pool-64 ms |
+|---|---|---|---|---|
+| TinyBERT-L2-v2 | ~1.5–3 / ~0.5–1 | ~25–50 | ~40–90 | ~80–170 |
+| MiniLM-L2-v2 | ~4–6 / ~2 | ~70–100 | ~110–165 | ~220–330 |
+| MiniLM-L4-v2 | ~8–12 / ~4 | ~140–200 | ~220–330 | — |
+| MiniLM-L6-v2 | ~11–15 / ~6–7 | ~190–260 | ~350–500 | ~700–950 |
+| jina-turbo-en | ~15–25 / ~7–10 | ~260–430 | ~410–680 | — |
+| monoT5-small | ~25–40 / ~15–20 | ~430–680 | ~680–1100 | — |
+| mxbai-xsmall-v1 | ~30–40 | ≥500 | ≥800 | — |
+| gte-modernbert / bge-base / bert-base | ~110–200 | ≥1900 | ≥3000 | — |
+| bge-large / v2-m3 | ~250–400 | ≥4300 | ≥6800 | — |
+
+Check: MiniLM-L6 pool-32 AVX2 = 32 × 12 ms × 0.9 (batch) + 32 × 0.3 ≈ **350 ms**.
+Same at 10k or 100k memories — N does not enter the equation.
+TinyBERT-L2 pool-32 = 32 × 2 × 0.9 + 10 ≈ **~68 ms** — the only candidate that keeps
+total search (existing ~85 ms p95) under ~150 ms.
+
+Resident size (int8): TinyBERT ~4 MB; MiniLM-L6 ~22 MB; L12 ~34 MB; jina-turbo ~40 MB;
+mxbai-xsmall ~70 MB; gte-modernbert ~150 MB; bge-base ~280 MB. **0 B/memory.**
+
+---
+
+## 5. Expected Verbatim gain (extrapolated — flagged)
+
+- Evidence recall headroom on the measured set: BM25 any@10 0.596 vs any@20 0.677
+  (+8 pts in the pool). A CE reorders *inside* the pool and adds paraphrase/
+  semantic discrimination the lexical fusion lacks.
+- Published over-BM25 deltas at pool 100–1000: +5.6 (MiniLM BEIR indep) to +9.9
+  (monoT5-3B) nDCG@10; MS MARCO MRR +14–20 pts. Pool-32 retains ~85–97 % of
+  pool-100 gains per the @50/1000 datapoint. Conversational, informal LoCoMo text
+  is *out-of-domain* for MS MARCO-trained CEs — Rosa et al. show in-domain
+  effectiveness overstates zero-shot, so haircut the delta.
+- **Extrapolated any@10 gain over BM25-only at pool 32: TinyBERT-L2 +1.5–4 pts;
+  MiniLM-L6 / jina-turbo +3–7 pts.** Confidence: medium-low — needs one LoCoMo
+  eval run to pin down (any CE eval on the existing harness closes this).
+
+---
+
+## 6. Verdicts (ship / optional / reject)
+
+| candidate | verdict | one-line reason |
+|---|---|---|
+| ms-marco-TinyBERT-L2-v2 | **optional (quality profile)** | only CE fitting ≤150 ms at pool 32 (~40–90 ms); Apache-2.0, official int8 ONNX — weakest model of the set but real gains at ~4 MB. Confidence: medium — BEIR zero-shot unmeasured; changes if LoCoMo eval shows <+1 pt |
+| ms-marco-MiniLM-L6-v2 | **optional (max profile, or quality w/ pool ≤8–12)** | best validated quality/FLOP: +5.6 BEIR indep, 0.39 MRR, official int8 ONNX — but ~350–500 ms at pool 32 breaks the 150 ms budget. Confidence: high on quality, medium on fit |
+| jina-reranker-v1-turbo-en | **optional (alternate to L6)** | +1 BEIR pt over L6 (vendor-measured only), official int8 ONNX, Apache-2.0 — similar cost; pick if its tokenizer/ALiBi ONNX path behaves on target CPU |
+| ms-marco-MiniLM-L2/L4-v2 | reject | dominated: same family, strictly worse MRR than L6; L4 ~L6-like cost anyway |
+| ms-marco-MiniLM-L12-v2 | reject | 2× L6 cost for +0.00 MRR (39.02 vs 39.01) |
+| monoT5-small / InRanker-small | reject | 3–4× L6 cost, BEIR ≈ BM25 (−0.7) for stock small; InRanker-60M fixes quality (48.07) but seq2seq overhead + no official ONNX |
+| mxbai-rerank-xsmall/base-v1 | reject | DeBERTa-v2 disentangled attn ≈ 2–3× L6 cost, BEIR ≈ L6 |
+| bge-reranker-base / v2-m3 | reject (CPU) | ~85–300 M enc → ~110–400 ms/pair → pool-32 = 3.5–13 s; GPU-only tier |
+| bge-reranker-large | reject (CPU) | ~400 ms/pair; best quality (BEIR ~57–59) but ~13 s/query on 4 cores |
+| gte-reranker-modernbert-base | reject (CPU) | best sub-200M quality (BEIR 56.2, LoCo 90.7) but ~150–200 ms/pair → ~5 s/query; revisit if a GPU/"server" profile exists |
+| mxbai-rerank-base-v2 (0.5B), zerank-1-small (1.7B) | reject | decoder-class, ≥0.5 B — minutes-per-query class on CPU |
+| jina-reranker-v2/v3 | reject | CC BY-NC 4.0 (non-commercial) + 278 M/0.6 B |
+| BERT-base "RankBERT"-class | reject | ~5× L6 cost, worse MRR (34.75 vs 39.01) — obsolete |
+| listwise/LLM rerankers (RankZephyr, Qwen-reranker) | reject | GB-scale, no local CPU path |
+
+**Recommendation:** `quality` profile = TinyBERT-L2-v2 int8, pool 32, max_length 128,
+batch 8–16 (~40–90 ms CE, ~+2–4 pts extrapolated). `max` profile = MiniLM-L6-v2 int8
+(same settings, ~350–500 ms, +3–7 pts extrapolated) — with jina-turbo-en as the
+swappable alternative pending a LoCoMo bake-off. Default profile: **no CE**.
+
+---
+
+## 7. Implementation notes for the synthesis engineer
+
+- ONNX artifacts are official for the ms-marco family (`onnx/model_qint8_avx512_vnni.onnx`,
+  `model_quint8_avx2.onnx`), jina-v1 (`onnx/model_int8.onnx`), mxbai-v1, gte-modernbert,
+  bge-v1 (fp32 only — quantize locally). MonoT5/InRanker need Optimum export.
+- Fix a pair token budget `T_cap = 128` (query + memory + specials; LoCoMo-class turns
+  are ~10–60 tokens) — cost is ~linear in T; padding to 512 wastes ~4×.
+- Score cache: `H(query_norm, memory_id) → logit` — queries repeat; CE result is
+  deterministic, cacheable like any derived signal (no byte-pin issue, it stores
+  a float, not text).
+- Do **not** let CE output create facts — reorder only; add-ack stays model-free.
+- Batch all pool pairs through one ORT call; pin `max_length` to T_cap to get the
+  batching discount.

@@ -1,0 +1,240 @@
+{
+  "version": "4.0.0-m0",
+  "schema_version": 4,
+  "spec": "SPEC_V4.md",
+  "generated_by": "v4 build session — milestone M0 work-in-progress manifest; every capability and gate status is declared, not claimed",
+  "honesty_contract": {
+    "note": "statuses distinguish specification targets from measured results (V4-02.02); deferred capabilities remain visible and never appear as completed checklist items; leadership claims are prohibited until the pinned-edition competitor harness runs (V4-01.08, C93)",
+    "capability_statuses": [
+      "declared",
+      "implemented",
+      "implemented_unverified",
+      "deferred",
+      "unavailable"
+    ],
+    "evidence_labels": [
+      "DOC",
+      "CODE",
+      "LOCAL",
+      "BENCH",
+      "INDEPENDENT"
+    ]
+  },
+  "milestone_status": {
+    "M0": {
+      "status": "in_qualification",
+      "scope": "registered Hermes provider; one Engine/store resolver; exact evidence; scoped lexical/identifier recall; inspect; operator correction; durable jobs/readiness; restart and deletion; Python/CLI + repaired compatibility surfaces",
+      "evidence": {
+        "requirements_ledger": "eval/v4/ledger.json + REQUIREMENTS_V4.md (762 requirements: 252 verified, 81 implemented_unverified, 429 unimplemented — the unimplemented set is M1–M5 scope not yet contracted into M0)",
+        "conformance_scenarios": "tests/v4/test_scenarios_{a,b,c,d}.py — C01–C93 scenario tests landed; M0-contracted set per V4-58.05 covered",
+        "surface_parity": "tests/v4/test_surface_parity.py — 10 tests; 9 unverified-payload bypasses repaired (export, evidence lane, screening, embed, FTS indexing, procedure compiler)",
+        "mutation_suite": "tools/run_mutation.py + eval/v4/mutations.yaml — 20/20 enforcement mutations killed",
+        "readiness": "verbatim/readiness.py + tests/readiness — per-receipt DAG, wait_ready, drain reports; 19 tests",
+        "envelopes": "eval/v4/envelope_s0_report.* + envelope_s1_report.* — REAL MEASURED RUNS, BOTH MISSED recall latency targets (see known_limitations L-P1)"
+      }
+    },
+    "M1": {
+      "status": "partial",
+      "scope": "local neural retrieval, scalable exact reference, semantic calibration, incremental indexes",
+      "note": "hashing encoder + semantic lane landed; neural encoder stays deferred; entity/graph lanes landed (X2)"
+    },
+    "M2": {
+      "status": "implemented",
+      "scope": "grounded synthesis, profiles, bounded hierarchy/graph, progressive context, semantic caches",
+      "note": "verbatim/synthesis + verbatim/profiles + experience hierarchy + disclosure tiers + recall cache all landed with tests"
+    },
+    "M3": {
+      "status": "implemented",
+      "scope": "episodes/procedures deepening, negative-transfer evaluation",
+      "note": "episodes/consolidation + procedures/transfer.py (failure-aware delivery, host-attested success) landed"
+    },
+    "M4": {
+      "status": "implemented",
+      "scope": "workbench, Markdown projections, ADK, HTTP/TypeScript, PostgreSQL, connectors",
+      "note": "service+workbench + projections/bundles + local/holographic connectors landed; PostgreSQL + remote providers stay deferred"
+    },
+    "M5": {
+      "status": "in_progress",
+      "scope": "SPEC_V4_5 innovations I1–I6, X1–X8, D01–D24, competitor runner, independent rerun",
+      "note": "I1–I6 mechanisms landed + harness-measured (see v45_evidence); X1–X8 surfaces landed; D01–D24 scenario tests pass; the published disposition table keeps I1–I6 at defer/unmeasured until §17 host-qualification, statistical-superiority, and independent-rerun bars are met; competitor bake-off harness exists (eval/v45/bakeoff.py) but no pinned comparator run has been executed — no leadership claim"
+    }
+  },
+  "v45_evidence": {
+    "i1_manifest": "D02: top-k false-current 8/8 vs manifest arm 0/8; contrary evidence 8/8; tokens matched (eval/v45/out/i1_* + tests/retrieval/v3/test_manifest.py)",
+    "i2_repair": "93.75% evaluated reduction, 83.3% recomputed reduction, D04 fences hold (eval/v45/out/i2_repair_report.json)",
+    "i3_sufficiency": "D05: 21.32% token reduction (≥20% target), utility non-inferior, identifiers/conditions preserved, D06 post-revocation expansion denied (eval/v45/i3_sufficiency.py)",
+    "i4_transfer": "D07: held-out negative transfer 6→0 with failure-aware reuse; D08: host-attested checker receipts required (eval/v45/out/i4_transfer_report.json)",
+    "i5_branches": "D09 moved-parent rebase, D10 suppressed+purged under closure, held_rebase, abandon_diff all verified (eval/v45/out/i5_branch_report.json)",
+    "i6_refresh": "D11: 82.6% fewer claims / 82.9% fewer bytes at matched freshness vs periodic full reflection; D12: owner-priority work under zero ordinary budget (eval/v45/out/i6_refresh_report.json)",
+    "scenarios": "tests/v45/test_scenarios_d1.py (14) + test_scenarios_d2.py (12) — D01–D24 all pass",
+    "dispositions": "eval/v45/dispositions.json — I1–I6 defer (runner ≠ acceptance), X8 research_only per §16 stop condition; no row is recommended without adopt disposition"
+  },
+  "capabilities": {
+    "embedded": {
+      "tier": "M0",
+      "status": "implemented_unverified",
+      "measured": true,
+      "note": "single SQLite authority (schema_version=4), one Engine + one store resolver, registered verbatim:register provider path, exact evidence with verified reads, scoped lexical/identifier recall, inspect, correction, deletion closure, durable jobs + per-receipt readiness. Conformance scenarios pass; S0/S1 recall-latency targets MISSED under measured load (L-P1).",
+      "requirements_evidence": "eval/v4/ledger.json"
+    },
+    "local_semantic": {
+      "tier": "M1",
+      "status": "deferred",
+      "note": "hashing encoder ships (stdlib subword, deterministic, no downloads) and works through the permitted path; the licensed pinned NEURAL encoder is an M1 deliverable — not installed, not measured. Remote encoders are fail-closed without broker permits (C14/C15 tested)."
+    },
+    "grounded_synthesis": {
+      "tier": "M2",
+      "status": "implemented",
+      "note": "verbatim/synthesis produces grounded derived views with revision-pinned support bindings through the kernel (tests/synthesis)"
+    },
+    "team_service": {
+      "tier": "M4",
+      "status": "implemented",
+      "note": "verbatim/service — authenticated loopback HTTP transport, fixed opaque denials, bounded bodies; TLS/remote stay unavailable"
+    },
+    "scaled_service": {
+      "tier": "M4",
+      "status": "deferred",
+      "note": "PostgreSQL/service deployment not built"
+    },
+    "workbench": {
+      "tier": "M4",
+      "status": "implemented",
+      "note": "verbatim/workbench — authenticated local loopback workbench, escaped HTML (tests/service, tests/workbench)"
+    },
+    "connectors": {
+      "tier": "M4",
+      "status": "implemented",
+      "note": "verbatim/connectors — local-files + holographic import with per-item provenance-loss reporting (X6/D18); remote providers deferred"
+    },
+    "telemetry_export": {
+      "tier": "n/a",
+      "status": "unavailable",
+      "note": "no telemetry-export surface exists (C16 pins the broker boundary that would govern it)"
+    }
+  },
+  "gates": {
+    "G4-00": {
+      "name": "authority repair",
+      "status": "evidenced",
+      "evidence": "Wave-A F4 fixes + tests/kernel (38t) + tests/privacy/test_broker.py + tests/governance/test_purpose_constraints.py + tests/retrieval/v3/test_f4_authorization.py + tests/v4/test_surface_parity.py + tests/mutation (20/20 killed)",
+      "note": "all 21 F4 findings repaired with durable regressions; zero deterministic disclosure/integrity/stale-worker violations observed in the suite"
+    },
+    "G4-01": {
+      "name": "contract conformance",
+      "status": "evidenced_pending_envelope",
+      "evidence": "tests/v4/* — 89 scenario tests + 10 parity; registered-path lifecycle C71/C81–C87 pass; runtime capability report is runtime-probed (facade.capabilities)",
+      "note": "M0-contracted C-scenarios all have landing tests; conformance harness reports per-scenario status honestly"
+    },
+    "G4-06": {
+      "name": "systems reliability",
+      "status": "failing_measured",
+      "evidence": "eval/v4/envelope_s0_report.json (met=false, QUIET-BOX recall p95 79.19ms vs 25ms, p99 97.32ms vs 75ms; capture ack p95 23.88ms PASSES) + envelope_s1_report.json (met=false, recall p95 713.30ms vs 25ms, capture ack p95 129.75ms vs 50/100ms; readiness lexical 883ms ≤2s and semantic 1052ms ≤10s PASS)",
+      "note": "post-batching quiet rerun still misses the recall bound; the residual is O(eligible authorized corpus) BM25 statistics mandated by F4-11/V4-28.03 — global statistics would leak authorization. S1's sustained concurrent write+read load keeps capture-ack over bound via WAL-writer contention on this 4-core box. Meeting recall targets needs ranked-iteration machinery or a spec-level contract change"
+    },
+    "G4-07": {
+      "name": "deletion closure",
+      "status": "evidenced",
+      "evidence": "privacy/closure.py resumable engine + purge.py delegation + tests/privacy/test_closure.py + C55–C59 scenario tests + MUT-15/16 kills",
+      "note": "suppression-first, resumable frontier, crash+retry covered; no lost continuation observed"
+    },
+    "G4-11": {
+      "name": "attack resistance",
+      "status": "evidenced",
+      "evidence": "tests/mutation 20/20 killed + tests/security + C76 poisoning scenarios",
+      "note": "mutation coverage spans kernel/storage/broker/governance/jobs/closure/retrieval/facade seams"
+    },
+    "G4-13": {
+      "name": "sensitive-data routing",
+      "status": "evidenced",
+      "evidence": "C06 (redact_view S2→vault ciphertext / S4→zero-retention; secrets absent from FTS/recall) + broker purpose-bound consent tests",
+      "note": "declared-sensitive input never reaches plaintext search; remote egress permit-gated"
+    },
+    "G4-02": {
+      "status": "unimplemented",
+      "binds": "M1"
+    },
+    "G4-03": {
+      "status": "unimplemented",
+      "binds": "M1"
+    },
+    "G4-04": {
+      "status": "unimplemented",
+      "binds": "M2"
+    },
+    "G4-05": {
+      "status": "unimplemented",
+      "binds": "M3"
+    },
+    "G4-08": {
+      "status": "unimplemented",
+      "binds": "M4"
+    },
+    "G4-09": {
+      "status": "unimplemented",
+      "binds": "M4"
+    },
+    "G4-10": {
+      "status": "unimplemented",
+      "binds": "M5"
+    },
+    "G4-12": {
+      "status": "unimplemented",
+      "binds": "M5 (competitor runner + independent rerun)"
+    },
+    "G4-14": {
+      "status": "unimplemented",
+      "binds": "M5"
+    }
+  },
+  "evidence": {
+    "ledger": "eval/v4/ledger.py + eval/v4/ledger.json + tools/gen_v4_ledger.py (--check enforces map freshness)",
+    "requirements_registry": "REQUIREMENTS_V4.md",
+    "conformance": "tests/v4/test_scenarios_{a,b,c,d}.py + tests/v4/test_surface_parity.py",
+    "mutations": "eval/v4/mutations.yaml + tools/run_mutation.py + tests/mutation/",
+    "envelopes": "eval/v4/envelopes.py + envelope_s0_report.* + envelope_s1_report.*",
+    "readiness": "verbatim/readiness.py + tests/readiness/",
+    "predecessor": "RELEASE_MANIFEST_V3.json (v3 program evidence remains valid)"
+  },
+  "known_limitations": [
+    {
+      "id": "L-P1",
+      "area": "recall latency",
+      "status": "failing_measured",
+      "detail": "Post-batch remediation (2026-09-20): sqlite executes per recall cut 42,990→4,320. QUIET-BOX envelope reruns: S0 recall p95 79.19ms / p99 97.32ms vs 25/75ms — MISS; S1 recall p95 713.30ms / p99 820.79ms vs 25/75ms — MISS. Residual is O(eligible authorized corpus) BM25 computation mandated by F4-11/V4-28.03 (global statistics would leak); meeting the target needs ranked-iteration machinery or a spec-level contract change. S0 capture ack p95 23.88ms PASSES; readiness targets pass (S1 lexical 883ms ≤2s, semantic 1052ms ≤10s)."
+    },
+    {
+      "id": "L-P2",
+      "area": "capture ack latency",
+      "status": "partial",
+      "detail": "S0 quiet-box: capture ack p95 23.88ms vs 50ms — PASS. S1 sustained-load envelope: 129.75ms vs 50/100ms — MISS under S1's concurrent capture+recall clients (WAL-writer contention on this 4-core box)."
+    },
+    {
+      "id": "L-R1",
+      "area": "readiness semantics",
+      "status": "declared",
+      "detail": "lexical_ready defers for captures that produce no claims (document envelopes); deferred obligations remain visible backlog by design (S1 ended with 11,670 deferred obligations — agent-note DAG rungs, no jobs by V3-13.11)."
+    },
+    {
+      "id": "L-E1",
+      "area": "environment-bound tests",
+      "status": "declared",
+      "detail": "tests/ops T1/T2 p95 guards are spec-mapped with 5x headroom but remain flaky under shared-box load; they pass on isolated runs and inside full-suite runs on quiet hardware."
+    },
+    {
+      "id": "L-C16",
+      "area": "telemetry",
+      "status": "unavailable",
+      "detail": "no telemetry-export API exists; C16 pins the broker boundary honestly (TODO-C16 in tests/v4/test_scenarios_a.py)."
+    },
+    {
+      "id": "L-M1plus",
+      "area": "M1–M5 scope",
+      "status": "unimplemented",
+      "detail": "licensed neural encoder, remote connector providers, PostgreSQL deployment, ADK/TypeScript surfaces, pinned competitor bake-off execution, entity merge/split invalidation, and learned-corpus-scale I4/I6 ground truth remain contracted-but-unimplemented; no leadership or quality claims are made anywhere."
+    }
+  ],
+  "applicability": {
+    "note": "V4-02.05: shared evidence/security invariants bind every shipped capability including compatibility adapters; later-milestone requirements remain visibly unimplemented; this manifest is consumed by eval/v4/ledger.py --check runs."
+  }
+}

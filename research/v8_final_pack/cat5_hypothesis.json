@@ -1,0 +1,7880 @@
+{
+ "n_cat5_total": 213,
+ "n_study": 48,
+ "premise_speaker_differs": 39,
+ "speaker_match_fired_on_displacers": 14,
+ "both_hold": 13,
+ "both_hold_rate": 0.2708333333333333,
+ "questions": [
+  {
+   "task_id": "conv-30/q086",
+   "query": "What kind of flooring is Gina looking for in her dance studio?",
+   "asked_speaker": "gina",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jon"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:8fd2371cbed482b672bbabd0",
+     "ref": "conv-30:D2:8",
+     "speaker_canon": "jon",
+     "scored_rank": 26,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 42,
+      "ent": 10,
+      "lex": 19,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:15e5712b2c519f174a7f4048",
+     "ref": "conv-30:D2:7",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 3,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:0ad46e7236db569335e99020",
+     "ref": "conv-30:D7:6",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 91,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:57d983436754eb3b08fb07dc",
+     "ref": "conv-30:D17:7",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 28,
+      "ent": 149,
+      "graph": 161,
+      "lex": 11
+     }
+    },
+    {
+     "unit_id": "u7:11fa29b5a158f58508b3db8f",
+     "ref": "conv-30:D5:2",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 24,
+      "graph": 40,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:25afaff238b14551b91830ae",
+     "ref": "conv-30:D4:10",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 13,
+      "ent": 113,
+      "lex": 10
+     }
+    },
+    {
+     "unit_id": "u7:6244e4a62bf867e6e3404c77",
+     "ref": "conv-30:D11:6",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 43,
+      "ent": 5,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:2a8146fe82191ce9b85d3737",
+     "ref": "conv-30:D9:2",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 66,
+      "ent": 120,
+      "graph": 105,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:7e41981dc1bded94ea8459d7",
+     "ref": "conv-30:D12:7",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 179,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:267f59b6832ffedae1980810",
+     "ref": "conv-30:D8:6",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 117,
+      "ent": 4,
+      "lex": 35
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-30/q087",
+   "query": "What did Jon find for his clothing store on 1 February, 2023?",
+   "asked_speaker": "jon",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "gina"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:e8f2f923c2759685612b5829",
+     "ref": "conv-30:D3:2",
+     "speaker_canon": "gina",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 9,
+   "displacers": [
+    {
+     "unit_id": "u7:3d26bfc61be4e3622bc8d647",
+     "ref": "conv-30:D3:7",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 19,
+      "lex": 4,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:e0e7491a9ac68330d50efd1e",
+     "ref": "conv-30:D3:3",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 39,
+      "lex": 8,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:3e5e21fc347c93345a8f17cf",
+     "ref": "conv-30:D3:5",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 28,
+      "ent": 20,
+      "graph": 146,
+      "lex": 19,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:0ec438aac2cf3d05849c746a",
+     "ref": "conv-30:D3:14",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 19,
+      "ent": 13,
+      "graph": 32,
+      "lex": 43,
+      "time": 13
+     }
+    },
+    {
+     "unit_id": "u7:eb002f039f234e4447cf230b",
+     "ref": "conv-30:D4:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 1,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:705502b79d98ce1ff546d5b9",
+     "ref": "conv-30:D3:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 26,
+      "lex": 30,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:25afaff238b14551b91830ae",
+     "ref": "conv-30:D4:10",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 32,
+      "ent": 16,
+      "graph": 90,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:d34a2e85d6e8deadfbe15eac",
+     "ref": "conv-30:D3:9",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 38,
+      "lex": 32,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:76b7c27e3481452f706f0ce3",
+     "ref": "conv-30:D3:11",
+     "speaker_canon": "jon",
+     "speaker_match": 1.0,
+     "score": 0.913333,
+     "lane_ranks": {
+      "dense": 47,
+      "ent": 27,
+      "lex": 7,
+      "time": 3,
+      "typed": 11
+     }
+    },
+    {
+     "unit_id": "u7:6bc551f249402bc5d2bb53cc",
+     "ref": "conv-30:D3:13",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 23,
+      "lex": 44,
+      "time": 14
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-30/q090",
+   "query": "What made Jon choose the furniture and decor for his store?",
+   "asked_speaker": "jon",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "gina"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:3fe233155ff85b57dd06ff48",
+     "ref": "conv-30:D3:6",
+     "speaker_canon": "gina",
+     "scored_rank": 18,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 5,
+   "displacers": [
+    {
+     "unit_id": "u7:3e5e21fc347c93345a8f17cf",
+     "ref": "conv-30:D3:5",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 111,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:eb002f039f234e4447cf230b",
+     "ref": "conv-30:D4:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 52,
+      "ent": 4,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:a912f574d7f07dac4c889a01",
+     "ref": "conv-30:D12:4",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 48,
+      "ent": 2,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:0ad46e7236db569335e99020",
+     "ref": "conv-30:D7:6",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 65,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:019fd049d435f50908d71a90",
+     "ref": "conv-30:D18:20",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 17,
+      "ent": 59,
+      "graph": 5,
+      "lex": 87
+     }
+    },
+    {
+     "unit_id": "u7:0dba1a379679d666c9be5343",
+     "ref": "conv-30:D12:12",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 70,
+      "graph": 32,
+      "lex": 50
+     }
+    },
+    {
+     "unit_id": "u7:2ab7521745d9329fc427b64c",
+     "ref": "conv-30:D18:2",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 101,
+      "graph": 74,
+      "lex": 21
+     }
+    },
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 11,
+      "lex": 51,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:09caf5d39e1f8483528ae148",
+     "ref": "conv-30:D5:10",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 83,
+      "ent": 64,
+      "graph": 23,
+      "lex": 31
+     }
+    },
+    {
+     "unit_id": "u7:288f7dbc6d840566e9910a08",
+     "ref": "conv-30:D6:7",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 98,
+      "lex": 4
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-30/q092",
+   "query": "What does Jon's tattoo symbolize?",
+   "asked_speaker": "jon",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "gina"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:240a742bf62e1d9551b8f71d",
+     "ref": "conv-30:D5:15",
+     "speaker_canon": "gina",
+     "scored_rank": 20,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:eb576638ff0b447c75280960",
+     "ref": "conv-30:D6:3",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 82,
+      "ent": 5,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:eb002f039f234e4447cf230b",
+     "ref": "conv-30:D4:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 4,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:b2f49d857bf8a7de81160fbc",
+     "ref": "conv-30:D1:8",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 10
+     }
+    },
+    {
+     "unit_id": "u7:a912f574d7f07dac4c889a01",
+     "ref": "conv-30:D12:4",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:048be2bbe50316317fa21862",
+     "ref": "conv-30:D14:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 18
+     }
+    },
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 10,
+      "lex": 26,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:05ab55be9e8725f3a1c57924",
+     "ref": "conv-30:D1:6",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 60,
+      "graph": 16,
+      "lex": 161,
+      "obs": 10
+     }
+    },
+    {
+     "unit_id": "u7:342ed5006cefe6bb54bd4919",
+     "ref": "conv-30:D1:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 17,
+      "graph": 100,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:06d71457f8e0146a0d21c74c",
+     "ref": "conv-30:D14:13",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 61,
+      "graph": 20,
+      "lex": 17
+     }
+    },
+    {
+     "unit_id": "u7:41755bda5b728fd051c6c0f9",
+     "ref": "conv-30:D16:4",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 48,
+      "ent": 113,
+      "lex": 4
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-30/q099",
+   "query": "What book is Gina currently reading?",
+   "asked_speaker": "gina",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jon"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:c661e2532a443c43984e27a5",
+     "ref": "conv-30:D12:6",
+     "speaker_canon": "jon",
+     "scored_rank": 31,
+     "speaker_match": 0.0,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    1.0,
+    0.5,
+    1.0,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:a912f574d7f07dac4c889a01",
+     "ref": "conv-30:D12:4",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 35,
+      "ent": 5,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:f5fc9c12e295ca0081f9c39c",
+     "ref": "conv-30:D8:16",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 33,
+      "ent": 6,
+      "lex": 32
+     }
+    },
+    {
+     "unit_id": "u7:03f7270e1f14e44fe244e891",
+     "ref": "conv-30:D14:12",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 37,
+      "ent": 59,
+      "graph": 13,
+      "lex": 65
+     }
+    },
+    {
+     "unit_id": "u7:0c5136629497299f2a9a4e41",
+     "ref": "conv-30:D12:11",
+     "speaker_canon": "gina",
+     "speaker_match": 1.0,
+     "score": 0.891818,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 1,
+      "lex": 1,
+      "typed": 141
+     }
+    },
+    {
+     "unit_id": "u7:37bede33cb9681513e0465da",
+     "ref": "conv-30:D18:21",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.890909,
+     "lane_ranks": {
+      "dense": 16,
+      "ent": 103,
+      "graph": 102,
+      "lex": 49
+     }
+    },
+    {
+     "unit_id": "u7:342ed5006cefe6bb54bd4919",
+     "ref": "conv-30:D1:1",
+     "speaker_canon": "gina",
+     "speaker_match": 1.0,
+     "score": 0.883636,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 4,
+      "lex": 31,
+      "typed": 173
+     }
+    },
+    {
+     "unit_id": "u7:119dd6367b1d0ac3d68072b3",
+     "ref": "conv-30:D6:6",
+     "speaker_canon": "gina",
+     "speaker_match": 1.0,
+     "score": 0.875455,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 67,
+      "lex": 4,
+      "typed": 95
+     }
+    },
+    {
+     "unit_id": "u7:42e8260a78451feec9b14b5b",
+     "ref": "conv-30:D6:14",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.872727,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 111,
+      "graph": 122,
+      "lex": 48
+     }
+    },
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 1.0,
+     "score": 0.867273,
+     "lane_ranks": {
+      "dense": 85,
+      "ent": 3,
+      "lex": 60,
+      "typed": 24
+     }
+    },
+    {
+     "unit_id": "u7:005d2625befae8852c201b77",
+     "ref": "conv-30:D14:18",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.863636,
+     "lane_ranks": {
+      "dense": 93,
+      "ent": 58,
+      "graph": 2,
+      "lex": 165
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-30/q101",
+   "query": "What did Jon take a trip to Barcelona for?",
+   "asked_speaker": "jon",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jon"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:651b1dc6e7d9675553de188a",
+     "ref": "conv-30:D15:1",
+     "speaker_canon": "jon",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 5,
+   "displacers": [
+    {
+     "unit_id": "u7:a912f574d7f07dac4c889a01",
+     "ref": "conv-30:D12:4",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 2,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:0c802aa2a542f7cf6ca207e6",
+     "ref": "conv-42:D4:14",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 14,
+      "graph": 30,
+      "lex": 9,
+      "obs": 7
+     }
+    },
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 71,
+      "ent": 63,
+      "graph": 38,
+      "lex": 13,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:4e43e280708a2e7dc39a1544",
+     "ref": "conv-30:D1:2",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 73,
+      "ent": 177,
+      "lex": 23
+     }
+    },
+    {
+     "unit_id": "u7:eb576638ff0b447c75280960",
+     "ref": "conv-30:D6:3",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 5,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:0dfb9ec1fda9fffc9fe5d470",
+     "ref": "conv-30:D6:19",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 123,
+      "graph": 37,
+      "lex": 19
+     }
+    },
+    {
+     "unit_id": "u7:19b6f29244adc79132758a30",
+     "ref": "conv-49:D8:18",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 48,
+      "lex": 152,
+      "obs": 13
+     }
+    },
+    {
+     "unit_id": "u7:220ed05687991f46f8e66ebc",
+     "ref": "conv-30:D14:5",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 50,
+      "ent": 142,
+      "graph": 104,
+      "lex": 18
+     }
+    },
+    {
+     "unit_id": "u7:048be2bbe50316317fa21862",
+     "ref": "conv-30:D14:1",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 53
+     }
+    },
+    {
+     "unit_id": "u7:09caf5d39e1f8483528ae148",
+     "ref": "conv-30:D5:10",
+     "speaker_canon": "jon",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 45,
+      "ent": 116,
+      "lex": 35
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q199",
+   "query": "What color did Joanna choose for her hair?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate",
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:5a16dd07c59f2ef28cd29ffb",
+     "ref": "conv-42:D7:3",
+     "speaker_canon": "nate",
+     "scored_rank": null,
+     "speaker_match": null,
+     "in_pack": false
+    },
+    {
+     "unit_id": "u7:ebfb6af39e4e67bcc4eb5a5c",
+     "ref": "conv-42:D7:1",
+     "speaker_canon": "nate",
+     "scored_rank": 89,
+     "speaker_match": 0.5,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:6785d173679f113d77872b37",
+     "ref": "conv-42:D23:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 80,
+      "ent": 3,
+      "lex": 42
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 60,
+      "graph": 7,
+      "lex": 176,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:cdde2c1d08a12a9123df3c23",
+     "ref": "conv-42:D24:2",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "ent": 4,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:1844cb06792ff79fedd31af9",
+     "ref": "conv-42:D26:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 138,
+      "ent": 1,
+      "lex": 52
+     }
+    },
+    {
+     "unit_id": "u7:1c71854bfbf2110fd15f3718",
+     "ref": "conv-42:D4:2",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 105,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:0d96d7a0f9edbb096e109182",
+     "ref": "conv-42:D12:10",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 187,
+      "ent": 77,
+      "lex": 27,
+      "obs": 12
+     }
+    },
+    {
+     "unit_id": "u7:b29e3a90e079ef130ccc40f1",
+     "ref": "conv-42:D7:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:48898fbbf6504dfaf624fd56",
+     "ref": "conv-42:D13:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 50,
+      "ent": 153,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:3b88c2584910f84a45c0aebb",
+     "ref": "conv-42:D21:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 54
+     }
+    },
+    {
+     "unit_id": "u7:58458cb630644d9faf6b26db",
+     "ref": "conv-42:D22:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 177,
+      "lex": 14
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q202",
+   "query": "What kind of lighting does Joanna's gaming room have?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:642936f2db417941dba4b7b2",
+     "ref": "conv-42:D10:2",
+     "speaker_canon": "nate",
+     "scored_rank": 36,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 7,
+   "displacers": [
+    {
+     "unit_id": "u7:8367bf4639c2d3f2ea6f6de5",
+     "ref": "conv-47:D5:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 22,
+      "ent": 2,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:0b6d3d638b00137f0dc0ddcc",
+     "ref": "conv-42:D15:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 32,
+      "ent": 179,
+      "graph": 33,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:f371fc27774f455fb58ac123",
+     "ref": "conv-42:D10:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:008ae1e90c3a1747bba8fec4",
+     "ref": "conv-47:D20:10",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 5,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 167,
+      "graph": 6,
+      "lex": 119,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:c1cf0c3b8181ea3c4e75986a",
+     "ref": "conv-42:D2:15",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 17,
+      "lex": 86
+     }
+    },
+    {
+     "unit_id": "u7:ec781820f35793201341fa72",
+     "ref": "conv-42:D9:2",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 188,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:81d172d6c67321269afdeb97",
+     "ref": "conv-47:D20:8",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 66,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:3a4a164c8b697fcb17c241ad",
+     "ref": "conv-47:D8:24",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 49,
+      "graph": 150,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:1edbce7f01a0dc0624c1bac2",
+     "ref": "conv-47:D26:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 97,
+      "lex": 7
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q203",
+   "query": "What game was the second tournament that Joanna won based on?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate",
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:7a52d360cbf3f891189f5d1d",
+     "ref": "conv-42:D10:4",
+     "speaker_canon": "nate",
+     "scored_rank": 27,
+     "speaker_match": 0.5,
+     "in_pack": true
+    },
+    {
+     "unit_id": "u7:f12669136195273e5ef0819d",
+     "ref": "conv-42:D10:6",
+     "speaker_canon": "nate",
+     "scored_rank": null,
+     "speaker_match": null,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 6,
+   "displacers": [
+    {
+     "unit_id": "u7:6785d173679f113d77872b37",
+     "ref": "conv-42:D23:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 5,
+      "lex": 18
+     }
+    },
+    {
+     "unit_id": "u7:10e909afbc9c062193159f04",
+     "ref": "conv-42:D1:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 198,
+      "graph": 56,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:a34734cb04c6394f7d495bf6",
+     "ref": "conv-42:D15:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 19,
+      "lex": 56
+     }
+    },
+    {
+     "unit_id": "u7:eb7b0174c618d17b7b43846d",
+     "ref": "conv-42:D27:24",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 23,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 57,
+      "ent": 176,
+      "graph": 6,
+      "lex": 60,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:697fe92ae625ada6bd87e350",
+     "ref": "conv-42:D16:2",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 15,
+      "graph": 199,
+      "lex": 28
+     }
+    },
+    {
+     "unit_id": "u7:7cded5ac892ead0d1f5ac958",
+     "ref": "conv-42:D1:3",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 17,
+      "ent": 114,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:32ad30a5ae5ecb0a5d10d633",
+     "ref": "conv-42:D22:17",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 43,
+      "ent": 12,
+      "lex": 131
+     }
+    },
+    {
+     "unit_id": "u7:acab0aea0e4c8df247e427ea",
+     "ref": "conv-47:D12:4",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 49,
+      "ent": 129,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:0769bd642f70e1ea38ba5960",
+     "ref": "conv-42:D27:1",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 7,
+      "lex": 6
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q205",
+   "query": "What type of movies does Nate hate watching the most?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:9908c478fc3e2e5097302b9c",
+     "ref": "conv-42:D1:13",
+     "speaker_canon": "nate",
+     "scored_rank": 28,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 7,
+   "displacers": [
+    {
+     "unit_id": "u7:b460943e32c3dffe6131e889",
+     "ref": "conv-42:D27:9",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 4,
+      "lex": 11
+     }
+    },
+    {
+     "unit_id": "u7:d41b4da5b7f21c52c13ba1e2",
+     "ref": "conv-42:D23:20",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 45,
+      "ent": 8,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:d85f33a89978f3476f7eeede",
+     "ref": "conv-42:D25:23",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 5,
+      "lex": 24
+     }
+    },
+    {
+     "unit_id": "u7:95b945a383d8d8ec48d51d5f",
+     "ref": "conv-42:D1:12",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 3,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:3f99a39c9df1eed781e63baa",
+     "ref": "conv-42:D16:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 74,
+      "ent": 2,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:4924e795928b7b04a7fefd97",
+     "ref": "conv-48:D10:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 4,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:03bbfd20f433c76c6d2a3137",
+     "ref": "conv-42:D28:29",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 79,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:2af5d33e3087a04af4d09920",
+     "ref": "conv-49:D8:19",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 23,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:127b911e5692f2c8d7e3ed7f",
+     "ref": "conv-42:D23:15",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 105,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:df0508ebbcc040adc40dacc2",
+     "ref": "conv-42:D29:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 40,
+      "ent": 15,
+      "lex": 35
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-42/q211",
+   "query": "What was Nate's audition for?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "joanna"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:19eb40041f34e7731e217e48",
+     "ref": "conv-42:D6:2",
+     "speaker_canon": "joanna",
+     "scored_rank": 14,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 60,
+      "graph": 6,
+      "lex": 175,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:16c2d56091302f97cda8b4ee",
+     "ref": "conv-42:D1:1",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 28
+     }
+    },
+    {
+     "unit_id": "u7:60d8ff86a0a964ef78d8623e",
+     "ref": "conv-42:D2:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "ent": 5,
+      "lex": 24
+     }
+    },
+    {
+     "unit_id": "u7:792219e2a9caa53e5e46f615",
+     "ref": "conv-42:D2:2",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 6,
+      "lex": 29
+     }
+    },
+    {
+     "unit_id": "u7:461f476d347842f716d70b01",
+     "ref": "conv-42:D28:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 60,
+      "ent": 1,
+      "graph": 135,
+      "lex": 22
+     }
+    },
+    {
+     "unit_id": "u7:bbd9ca831b7724b24c6d3168",
+     "ref": "conv-42:D4:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 7,
+      "lex": 32
+     }
+    },
+    {
+     "unit_id": "u7:3b88c2584910f84a45c0aebb",
+     "ref": "conv-42:D21:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 50
+     }
+    },
+    {
+     "unit_id": "u7:df0508ebbcc040adc40dacc2",
+     "ref": "conv-42:D29:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 38
+     }
+    },
+    {
+     "unit_id": "u7:87878790fbec05f0713ee92e",
+     "ref": "conv-42:D25:5",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 8,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:4d8995f15781c5b645a8b802",
+     "ref": "conv-42:D21:10",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "ent": 4,
+      "lex": 67
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q214",
+   "query": "What is Nate's project called in the writers group?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "joanna"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:52d577440c342a3e0cff332a",
+     "ref": "conv-42:D9:3",
+     "speaker_canon": "joanna",
+     "scored_rank": 78,
+     "speaker_match": 0.5,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:bbd9ca831b7724b24c6d3168",
+     "ref": "conv-42:D4:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 126,
+      "ent": 7,
+      "lex": 18
+     }
+    },
+    {
+     "unit_id": "u7:3b88c2584910f84a45c0aebb",
+     "ref": "conv-42:D21:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 116,
+      "ent": 3,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:257b79c822849aede7b7b24b",
+     "ref": "conv-42:D22:18",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 127,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:4d8995f15781c5b645a8b802",
+     "ref": "conv-42:D21:10",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 167,
+      "ent": 4,
+      "lex": 39
+     }
+    },
+    {
+     "unit_id": "u7:28e299c3d8287ceda018f46b",
+     "ref": "conv-42:D9:6",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 129,
+      "lex": 44,
+      "obs": 15
+     }
+    },
+    {
+     "unit_id": "u7:08f1b179308d15006e0ce474",
+     "ref": "conv-42:D20:5",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 39,
+      "ent": 74,
+      "graph": 36,
+      "lex": 34
+     }
+    },
+    {
+     "unit_id": "u7:1844cb06792ff79fedd31af9",
+     "ref": "conv-42:D26:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 14,
+      "graph": 81,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:0769bd642f70e1ea38ba5960",
+     "ref": "conv-42:D27:1",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 70,
+      "graph": 32,
+      "lex": 85
+     }
+    },
+    {
+     "unit_id": "u7:df0508ebbcc040adc40dacc2",
+     "ref": "conv-42:D29:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 67
+     }
+    },
+    {
+     "unit_id": "u7:0a3cc3988519fd2a189f44e5",
+     "ref": "conv-42:D29:6",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "ent": 78,
+      "graph": 39,
+      "lex": 94
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q220",
+   "query": "Which superhero toy figure does Joanna share a photo of?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:0e51e3a9fd6ea67c3b5cd255",
+     "ref": "conv-42:D15:4",
+     "speaker_canon": "nate",
+     "scored_rank": 21,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "ent": 15,
+      "graph": 3,
+      "lex": 89,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:01ae040ebb9b7d3df3eda470",
+     "ref": "conv-42:D19:8",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 137,
+      "ent": 16,
+      "graph": 4,
+      "lex": 45
+     }
+    },
+    {
+     "unit_id": "u7:00565499b1c968659ee40d44",
+     "ref": "conv-42:D20:2",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 67,
+      "ent": 12,
+      "lex": 38
+     }
+    },
+    {
+     "unit_id": "u7:321210b6a2f759e991e3e6f7",
+     "ref": "conv-42:D3:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 88,
+      "lex": 36
+     }
+    },
+    {
+     "unit_id": "u7:18fc95258995e3f2c5f89a98",
+     "ref": "conv-42:D10:9",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 16,
+      "ent": 51,
+      "lex": 55
+     }
+    },
+    {
+     "unit_id": "u7:24721f55dbc1375c24bd7da8",
+     "ref": "conv-42:D28:20",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 75,
+      "lex": 66
+     }
+    },
+    {
+     "unit_id": "u7:04f5cbe1662b71e30b6f36ae",
+     "ref": "conv-42:D1:18",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 98,
+      "ent": 19,
+      "lex": 49
+     }
+    },
+    {
+     "unit_id": "u7:18135f94e944b65f178e970d",
+     "ref": "conv-42:D24:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 38,
+      "ent": 48,
+      "lex": 53
+     }
+    },
+    {
+     "unit_id": "u7:5b69de6dbff4b9a366ad3cb4",
+     "ref": "conv-42:D25:18",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 57,
+      "ent": 139,
+      "lex": 19
+     }
+    },
+    {
+     "unit_id": "u7:7b4b991d9108e173b192ab51",
+     "ref": "conv-42:D15:1",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 184,
+      "lex": 74
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q222",
+   "query": "How many people attended the gaming party hosted by Joanna in June 2022?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:97cddce94f14b791e0d75dde",
+     "ref": "conv-42:D16:6",
+     "speaker_canon": "nate",
+     "scored_rank": 30,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    0.5,
+    1.0,
+    0.5,
+    0.5,
+    1.0
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:98db974138c3112778cac3ac",
+     "ref": "conv-42:D14:9",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 38,
+      "lex": 5,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:697fe92ae625ada6bd87e350",
+     "ref": "conv-42:D16:2",
+     "speaker_canon": "nate",
+     "speaker_match": 0.0,
+     "score": 0.969318,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 32,
+      "lex": 1,
+      "time": 1,
+      "typed": 76
+     }
+    },
+    {
+     "unit_id": "u7:cba43cb9959f7c14adf47992",
+     "ref": "conv-42:D16:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 1.0,
+     "score": 0.960343,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 46,
+      "lex": 107,
+      "time": 21,
+      "typed": 9
+     }
+    },
+    {
+     "unit_id": "u7:c01de65432e7c774cf93d4db",
+     "ref": "conv-42:D16:1",
+     "speaker_canon": "joanna",
+     "speaker_match": 1.0,
+     "score": 0.951368,
+     "lane_ranks": {
+      "dense": 58,
+      "ent": 44,
+      "lex": 21,
+      "time": 7,
+      "typed": 158
+     }
+    },
+    {
+     "unit_id": "u7:e4e0150ada78333b99c103be",
+     "ref": "conv-42:D14:23",
+     "speaker_canon": "joanna",
+     "speaker_match": 1.0,
+     "score": 0.936519,
+     "lane_ranks": {
+      "dense": 13,
+      "ent": 50,
+      "lex": 2,
+      "time": 2,
+      "typed": 133
+     }
+    },
+    {
+     "unit_id": "u7:23ce1b576182e4939fdae7dd",
+     "ref": "conv-42:D16:12",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 45,
+      "ent": 23,
+      "graph": 108,
+      "lex": 26,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:a34734cb04c6394f7d495bf6",
+     "ref": "conv-42:D15:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 1.0,
+     "score": 0.91753,
+     "lane_ranks": {
+      "dense": 26,
+      "ent": 39,
+      "lex": 62,
+      "time": 22,
+      "typed": 25
+     }
+    },
+    {
+     "unit_id": "u7:1fa89760badcb6e6ca82e12a",
+     "ref": "conv-42:D14:13",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 22,
+      "graph": 93,
+      "lex": 47,
+      "time": 19
+     }
+    },
+    {
+     "unit_id": "u7:4ae08a249ee361f7cfe08111",
+     "ref": "conv-42:D16:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 16,
+      "ent": 25,
+      "lex": 40,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:0b6d3d638b00137f0dc0ddcc",
+     "ref": "conv-42:D15:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 1.0,
+     "score": 0.891315,
+     "lane_ranks": {
+      "dense": 102,
+      "ent": 18,
+      "graph": 41,
+      "lex": 129,
+      "time": 52,
+      "typed": 104
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-42/q228",
+   "query": "What did Nate share with his writers group in August 2022?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "joanna"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:ec23568fcd20c5212388c5c0",
+     "ref": "conv-42:D19:6",
+     "speaker_canon": "joanna",
+     "scored_rank": 15,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    1.0,
+    1.0,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:1e54e78d2bc1d6c3d1b37abb",
+     "ref": "conv-42:D18:10",
+     "speaker_canon": "nate",
+     "speaker_match": 1.0,
+     "score": 1.077527,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 23,
+      "graph": 95,
+      "lex": 22,
+      "time": 2,
+      "typed": 17
+     }
+    },
+    {
+     "unit_id": "u7:b329e9c7886b8a1b13e274f0",
+     "ref": "conv-42:D18:8",
+     "speaker_canon": "nate",
+     "speaker_match": 1.0,
+     "score": 1.067731,
+     "lane_ranks": {
+      "dense": 79,
+      "ent": 34,
+      "lex": 33,
+      "time": 11,
+      "typed": 43
+     }
+    },
+    {
+     "unit_id": "u7:03869f44597ccb73ba026827",
+     "ref": "conv-42:D19:15",
+     "speaker_canon": "nate",
+     "speaker_match": 1.0,
+     "score": 1.004543,
+     "lane_ranks": {
+      "dense": 116,
+      "ent": 20,
+      "graph": 12,
+      "lex": 80,
+      "time": 19,
+      "typed": 138
+     }
+    },
+    {
+     "unit_id": "u7:b1331823e51449eabc6811a3",
+     "ref": "conv-42:D19:7",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 30,
+      "ent": 33,
+      "lex": 3,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:1ec94e8d5af39bfa043636b0",
+     "ref": "conv-42:D18:12",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 24,
+      "lex": 12,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:ae610c25280c400ec213aa94",
+     "ref": "conv-42:D19:3",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 40,
+      "ent": 32,
+      "lex": 18,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:3bfe42514c18e777e6836d1d",
+     "ref": "conv-47:D19:11",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 11,
+      "lex": 34,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:3e1d4e25cdf0511cf3a4f0f6",
+     "ref": "conv-42:D19:9",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 33,
+      "ent": 26,
+      "graph": 154,
+      "lex": 35,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:2caae1711e492348d25eb066",
+     "ref": "conv-42:D19:21",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 25,
+      "graph": 128,
+      "lex": 148,
+      "time": 14
+     }
+    },
+    {
+     "unit_id": "u7:19bdbb4bd6061d1cce173e61",
+     "ref": "conv-42:D18:16",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 29,
+      "ent": 22,
+      "graph": 76,
+      "lex": 129,
+      "time": 9
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q236",
+   "query": "What movie did Joanna recently watch and enjoy on October 6, 2022?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:e1af46fba116fc5adc2531f5",
+     "ref": "conv-42:D22:8",
+     "speaker_canon": "nate",
+     "scored_rank": 54,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 9,
+   "displacers": [
+    {
+     "unit_id": "u7:6785d173679f113d77872b37",
+     "ref": "conv-42:D23:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 1,
+      "lex": 2,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:4193c7c93b672b5eb5fcca3d",
+     "ref": "conv-42:D22:7",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 38,
+      "lex": 1,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:af5e8f3b94a208e13ef5a095",
+     "ref": "conv-42:D25:12",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 54,
+      "lex": 3,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:58458cb630644d9faf6b26db",
+     "ref": "conv-42:D22:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 43,
+      "lex": 12,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:cdde2c1d08a12a9123df3c23",
+     "ref": "conv-42:D24:2",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 73,
+      "ent": 2,
+      "lex": 27,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:19724100d645a94d76c9c59c",
+     "ref": "conv-42:D22:23",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 28,
+      "graph": 52,
+      "lex": 33,
+      "time": 15
+     }
+    },
+    {
+     "unit_id": "u7:b729d1faf40a5c5f1f687a75",
+     "ref": "conv-42:D22:15",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 58,
+      "lex": 15,
+      "time": 10
+     }
+    },
+    {
+     "unit_id": "u7:49641a90f7573a60492493c1",
+     "ref": "conv-42:D22:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 38,
+      "ent": 40,
+      "lex": 17,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:429db6ee1e5b26f65141b0a0",
+     "ref": "conv-42:D23:24",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 39,
+      "lex": 7,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:d41b4da5b7f21c52c13ba1e2",
+     "ref": "conv-42:D23:20",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 30,
+      "ent": 65,
+      "lex": 8,
+      "time": 27
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q244",
+   "query": "What does Joanna rely on for cheer and joy?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:508e3a730bf763510da8eb44",
+     "ref": "conv-42:D24:3",
+     "speaker_canon": "nate",
+     "scored_rank": null,
+     "speaker_match": null,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 10,
+   "displacers": [
+    {
+     "unit_id": "u7:0d96d7a0f9edbb096e109182",
+     "ref": "conv-42:D12:10",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 40,
+      "ent": 77,
+      "lex": 17,
+      "obs": 12
+     }
+    },
+    {
+     "unit_id": "u7:cdde2c1d08a12a9123df3c23",
+     "ref": "conv-42:D24:2",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 4,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:6785d173679f113d77872b37",
+     "ref": "conv-42:D23:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 191,
+      "ent": 3,
+      "lex": 38
+     }
+    },
+    {
+     "unit_id": "u7:4bc413823395045ccc4513cf",
+     "ref": "conv-42:D5:7",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 183,
+      "ent": 159,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:020ce1a792a9aa625745487f",
+     "ref": "conv-42:D3:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 154,
+      "ent": 62,
+      "graph": 12,
+      "lex": 69
+     }
+    },
+    {
+     "unit_id": "u7:3b88c2584910f84a45c0aebb",
+     "ref": "conv-42:D21:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 60
+     }
+    },
+    {
+     "unit_id": "u7:1844cb06792ff79fedd31af9",
+     "ref": "conv-42:D26:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 64
+     }
+    },
+    {
+     "unit_id": "u7:1e99578804d4997a0f08ae1e",
+     "ref": "conv-42:D2:19",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 108,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:999319e9e6f222c7b862bf2a",
+     "ref": "conv-48:D14:5",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 36,
+      "lex": 18,
+      "obs": 22
+     }
+    },
+    {
+     "unit_id": "u7:4646353f8edf40eb1e27cb30",
+     "ref": "conv-42:D9:9",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 151,
+      "lex": 37
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q249",
+   "query": "What game is Joanna currently playing and recommends to others on November 7, 2022?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:70b218a1e52ca899f17fdf8e",
+     "ref": "conv-42:D27:23",
+     "speaker_canon": "nate",
+     "scored_rank": 22,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 4,
+   "displacers": [
+    {
+     "unit_id": "u7:0d5fcdc4e3d1d61eca07b979",
+     "ref": "conv-42:D28:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 18,
+      "lex": 7,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:eb7b0174c618d17b7b43846d",
+     "ref": "conv-42:D27:24",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 69,
+      "lex": 2,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:784a816ff35c8eaaa7a6e4db",
+     "ref": "conv-42:D27:22",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 43,
+      "lex": 5,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 200,
+      "ent": 16,
+      "graph": 5,
+      "lex": 10,
+      "time": 187
+     }
+    },
+    {
+     "unit_id": "u7:b460943e32c3dffe6131e889",
+     "ref": "conv-42:D27:9",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 22,
+      "ent": 55,
+      "lex": 8,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:1f91fe8fcbffa4c070bc3192",
+     "ref": "conv-42:D27:38",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 62,
+      "ent": 23,
+      "graph": 86,
+      "lex": 27,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:9e183fab2fe22b41c2ef12aa",
+     "ref": "conv-42:D27:20",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 51,
+      "lex": 20,
+      "time": 16
+     }
+    },
+    {
+     "unit_id": "u7:2aed379371a2ed846701d57b",
+     "ref": "conv-42:D28:14",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 26,
+      "lex": 15,
+      "time": 13
+     }
+    },
+    {
+     "unit_id": "u7:1188afa2e6984fef050cfafd",
+     "ref": "conv-42:D29:9",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 20,
+      "graph": 40,
+      "lex": 114,
+      "time": 40
+     }
+    },
+    {
+     "unit_id": "u7:05e50c43d65b2e922887cabe",
+     "ref": "conv-42:D27:17",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.890909,
+     "lane_ranks": {
+      "dense": 85,
+      "ent": 124,
+      "graph": 17,
+      "lex": 4,
+      "time": 25
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q250",
+   "query": "What did Nate receive from his brother that brought back childhood memories?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:8a5ac0fae42f23a5813a4516",
+     "ref": "conv-42:D27:29",
+     "speaker_canon": "nate",
+     "scored_rank": 25,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 7,
+   "displacers": [
+    {
+     "unit_id": "u7:eb97efdb1e5303121dc2bfc8",
+     "ref": "conv-42:D24:15",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 34,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:461f476d347842f716d70b01",
+     "ref": "conv-42:D28:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 1,
+      "graph": 183,
+      "lex": 53
+     }
+    },
+    {
+     "unit_id": "u7:40247d89feaa3218e3970c50",
+     "ref": "conv-48:D20:2",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 10,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:0cc8ca792719a566cc77d5bd",
+     "ref": "conv-42:D11:10",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 183,
+      "ent": 15,
+      "graph": 32,
+      "lex": 35
+     }
+    },
+    {
+     "unit_id": "u7:b3bf7e5fd16db5f47cd1707b",
+     "ref": "conv-42:D27:31",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:bbd9ca831b7724b24c6d3168",
+     "ref": "conv-42:D4:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 45,
+      "ent": 10,
+      "lex": 43
+     }
+    },
+    {
+     "unit_id": "u7:8107bd108f9ddc2b57ff5339",
+     "ref": "conv-42:D26:6",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 27,
+      "lex": 57
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 179,
+      "graph": 1,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:0e51e3a9fd6ea67c3b5cd255",
+     "ref": "conv-42:D15:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 126,
+      "ent": 16,
+      "lex": 23
+     }
+    },
+    {
+     "unit_id": "u7:c2d9c87c1d9e8bc29cd4a945",
+     "ref": "conv-42:D15:10",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 29,
+      "lex": 65
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-42/q251",
+   "query": "What is the type of game \"Xenoblade Chronicles\" that Joanna is playing?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:70b218a1e52ca899f17fdf8e",
+     "ref": "conv-42:D27:23",
+     "speaker_canon": "nate",
+     "scored_rank": 20,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 5,
+   "displacers": [
+    {
+     "unit_id": "u7:6785d173679f113d77872b37",
+     "ref": "conv-42:D23:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 20,
+      "ent": 7,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:012ba0c46b1ee5495b941d30",
+     "ref": "conv-42:D26:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 192,
+      "graph": 8,
+      "lex": 25,
+      "obs": 2
+     }
+    },
+    {
+     "unit_id": "u7:eb7b0174c618d17b7b43846d",
+     "ref": "conv-42:D27:24",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 25,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:32ad30a5ae5ecb0a5d10d633",
+     "ref": "conv-42:D22:17",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 14,
+      "graph": 145,
+      "lex": 79
+     }
+    },
+    {
+     "unit_id": "u7:a34734cb04c6394f7d495bf6",
+     "ref": "conv-42:D15:5",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 83,
+      "ent": 21,
+      "lex": 17
+     }
+    },
+    {
+     "unit_id": "u7:29d497aa27099259bca6006c",
+     "ref": "conv-47:D25:11",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 6,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:697fe92ae625ada6bd87e350",
+     "ref": "conv-42:D16:2",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 17,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:0e51e3a9fd6ea67c3b5cd255",
+     "ref": "conv-42:D15:4",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 11,
+      "graph": 44,
+      "lex": 101
+     }
+    },
+    {
+     "unit_id": "u7:3a4a164c8b697fcb17c241ad",
+     "ref": "conv-47:D8:24",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 39,
+      "ent": 53,
+      "graph": 166,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:fe1f4cce871ebb511382d70c",
+     "ref": "conv-42:D19:16",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 27,
+      "lex": 90
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q252",
+   "query": "What project is Nate working on in his notebook on November 9, 2022?",
+   "asked_speaker": "nate",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "joanna"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:c1d0d9a24118345087b0f4a8",
+     "ref": "conv-42:D28:12",
+     "speaker_canon": "joanna",
+     "scored_rank": 11,
+     "speaker_match": 0.0,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:461f476d347842f716d70b01",
+     "ref": "conv-42:D28:11",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 1,
+      "lex": 1,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:03bbfd20f433c76c6d2a3137",
+     "ref": "conv-42:D28:29",
+     "speaker_canon": "nate",
+     "speaker_match": 1.0,
+     "score": 0.992561,
+     "lane_ranks": {
+      "dense": 138,
+      "ent": 16,
+      "graph": 11,
+      "lex": 81,
+      "time": 16,
+      "typed": 58
+     }
+    },
+    {
+     "unit_id": "u7:1844cb06792ff79fedd31af9",
+     "ref": "conv-42:D26:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 3,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:2d38d5f9fb50d25a998a6c54",
+     "ref": "conv-42:D28:25",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 36,
+      "ent": 34,
+      "graph": 133,
+      "lex": 17,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:207b9b7769eff5aaea8372ad",
+     "ref": "conv-42:D28:33",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 28,
+      "graph": 92,
+      "lex": 35,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:4ed58e3dfa79a88dfafb363d",
+     "ref": "conv-42:D28:15",
+     "speaker_canon": "nate",
+     "speaker_match": 1.0,
+     "score": 0.94703,
+     "lane_ranks": {
+      "dense": 173,
+      "ent": 40,
+      "graph": 180,
+      "lex": 97,
+      "time": 22,
+      "typed": 45
+     }
+    },
+    {
+     "unit_id": "u7:2b73b6276d96729ebb5dff87",
+     "ref": "conv-42:D28:10",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 47,
+      "ent": 33,
+      "lex": 7,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:711765fdcf1f405e1f378b55",
+     "ref": "conv-42:D28:21",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 49,
+      "lex": 11,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:ac3ff63d4c2d23ea6ac2f8a1",
+     "ref": "conv-42:D28:7",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 29,
+      "ent": 61,
+      "lex": 22,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:06087b01c50d06b93371007a",
+     "ref": "conv-42:D27:7",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 111,
+      "ent": 18,
+      "graph": 17,
+      "lex": 90
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-42/q257",
+   "query": "Why did Joanna get a third turtle?",
+   "asked_speaker": "joanna",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "nate"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:2d38d5f9fb50d25a998a6c54",
+     "ref": "conv-42:D28:25",
+     "speaker_canon": "nate",
+     "scored_rank": 37,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 6,
+   "displacers": [
+    {
+     "unit_id": "u7:3a7685ce484ce487f65f60b5",
+     "ref": "conv-42:D5:11",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 82,
+      "ent": 89,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:48898fbbf6504dfaf624fd56",
+     "ref": "conv-42:D13:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 100,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:dd177c67b02f633d8a0e04d8",
+     "ref": "conv-42:D28:26",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:0d96d7a0f9edbb096e109182",
+     "ref": "conv-42:D12:10",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 22,
+      "graph": 15,
+      "lex": 44,
+      "obs": 12
+     }
+    },
+    {
+     "unit_id": "u7:a5cdee47fd1d5f6694598ff5",
+     "ref": "conv-42:D28:24",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:15c11e0297dc5a0bc6a78ee1",
+     "ref": "conv-42:D12:4",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 144,
+      "ent": 32,
+      "graph": 26,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:17b45739ac123ef72c0dd3a7",
+     "ref": "conv-42:D1:8",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 16,
+      "ent": 37,
+      "graph": 33,
+      "lex": 111
+     }
+    },
+    {
+     "unit_id": "u7:4ae08a249ee361f7cfe08111",
+     "ref": "conv-42:D16:3",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 105,
+      "lex": 24
+     }
+    },
+    {
+     "unit_id": "u7:245bdbbd0506e89861e4d5bc",
+     "ref": "conv-42:D23:26",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 169,
+      "ent": 64,
+      "lex": 69
+     }
+    },
+    {
+     "unit_id": "u7:750319b4a747393c366e5eee",
+     "ref": "conv-42:D28:18",
+     "speaker_canon": "joanna",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 92,
+      "ent": 166,
+      "lex": 53
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q164",
+   "query": "When did John plan to return from his trip to Toronto and Vancouver?",
+   "asked_speaker": "john",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:83d178148095c9d3b061aba6",
+     "ref": "conv-47:D16:13",
+     "speaker_canon": "james",
+     "scored_rank": 40,
+     "speaker_match": 0.0,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    1.0,
+    0.5,
+    0.0,
+    1.0
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:93eb8f8233e48c7666147062",
+     "ref": "conv-47:D16:10",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 1,
+      "lex": 3,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:f2822eead92983409d0d3dfb",
+     "ref": "conv-47:D16:9",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 8,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:0cae34f2a0ea432ef2dbaca4",
+     "ref": "conv-47:D24:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 22,
+      "ent": 24,
+      "graph": 21,
+      "lex": 51,
+      "time": 37
+     }
+    },
+    {
+     "unit_id": "u7:28f1fa43a7602ec9756846a0",
+     "ref": "conv-47:D18:9",
+     "speaker_canon": "john",
+     "speaker_match": 1.0,
+     "score": 0.92,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 62,
+      "graph": 61,
+      "lex": 33,
+      "time": 16,
+      "typed": 2
+     }
+    },
+    {
+     "unit_id": "u7:46cc35e4c286a32241398bd3",
+     "ref": "conv-47:D8:28",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 8,
+      "ent": 109,
+      "graph": 114,
+      "lex": 13,
+      "time": 39
+     }
+    },
+    {
+     "unit_id": "u7:bdea79303e01508f548e0c0e",
+     "ref": "conv-47:D20:15",
+     "speaker_canon": "john",
+     "speaker_match": 1.0,
+     "score": 0.911636,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 5,
+      "time": 3,
+      "typed": 6
+     }
+    },
+    {
+     "unit_id": "u7:72ad0e4e0de0b970e4610471",
+     "ref": "conv-47:D10:10",
+     "speaker_canon": "john",
+     "speaker_match": 1.0,
+     "score": 0.903273,
+     "lane_ranks": {
+      "dense": 33,
+      "ent": 175,
+      "lex": 6,
+      "time": 7,
+      "typed": 12
+     }
+    },
+    {
+     "unit_id": "u7:6f509fbf91846b1ebdffd94f",
+     "ref": "conv-47:D4:5",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.881818,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 167,
+      "lex": 27,
+      "time": 18
+     }
+    },
+    {
+     "unit_id": "u7:6a15e8fa1549e1175e0fc180",
+     "ref": "conv-47:D16:11",
+     "speaker_canon": "james",
+     "speaker_match": 0.0,
+     "score": 0.878182,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 1,
+      "time": 1,
+      "typed": 102
+     }
+    },
+    {
+     "unit_id": "u7:61e9fc5dbe9a8e5e684ab740",
+     "ref": "conv-47:D17:1",
+     "speaker_canon": "john",
+     "speaker_match": 1.0,
+     "score": 0.869818,
+     "lane_ranks": {
+      "ent": 155,
+      "graph": 148,
+      "lex": 35,
+      "time": 4,
+      "typed": 31
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-47/q169",
+   "query": "What is John planning to do after receiving Samantha's phone number?",
+   "asked_speaker": "john",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:7f1d72aaa8b01011ebfbcc59",
+     "ref": "conv-47:D19:14",
+     "speaker_canon": "james",
+     "scored_rank": 51,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:0e2fcafced0255929d2a7584",
+     "ref": "conv-47:D24:3",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 132,
+      "ent": 88,
+      "graph": 40,
+      "lex": 18
+     }
+    },
+    {
+     "unit_id": "u7:b010e70faf404a5b37066bef",
+     "ref": "conv-47:D23:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 12,
+      "obs": 18
+     }
+    },
+    {
+     "unit_id": "u7:59963b16ef6796db933df079",
+     "ref": "conv-47:D23:12",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 65,
+      "ent": 1,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:28293106a0475217b5fcaca0",
+     "ref": "conv-47:D31:10",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 119,
+      "lex": 23
+     }
+    },
+    {
+     "unit_id": "u7:31a82eeff520d419b30dc63f",
+     "ref": "conv-47:D14:30",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 136,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:baf0f856ce8ba3e3614685d8",
+     "ref": "conv-47:D23:1",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 114,
+      "ent": 12,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:3538918d9be1311c36509dc7",
+     "ref": "conv-47:D5:10",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 143,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:0be75414177bb60f4dd7c8cc",
+     "ref": "conv-47:D20:7",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 96,
+      "ent": 82,
+      "graph": 30,
+      "lex": 53
+     }
+    },
+    {
+     "unit_id": "u7:f3955fdd874eef745025b5a0",
+     "ref": "conv-47:D23:5",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 14,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:28f1fa43a7602ec9756846a0",
+     "ref": "conv-47:D18:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 121,
+      "lex": 40
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-47/q171",
+   "query": "How much does James pay per dance class?",
+   "asked_speaker": "james",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:b99e2a979e6c928fc1aeb3fe",
+     "ref": "conv-47:D23:15",
+     "speaker_canon": "james",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:b44f8e1a99662345df926b2f",
+     "ref": "conv-47:D8:5",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 32,
+      "ent": 3,
+      "lex": 4,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:2c830e3c071a74807b0f6777",
+     "ref": "conv-47:D26:6",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 35,
+      "ent": 95,
+      "lex": 6,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:793bc4df9af34dc089595e90",
+     "ref": "conv-47:D9:14",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 39,
+      "ent": 198,
+      "lex": 7,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:674d1dfe362500710f488893",
+     "ref": "conv-47:D15:11",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 49,
+      "ent": 176,
+      "lex": 16,
+      "time": 15
+     }
+    },
+    {
+     "unit_id": "u7:7215d4e935942f7e3d89ac0b",
+     "ref": "conv-47:D16:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 191,
+      "lex": 3,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:48307127975264fe1023dfea",
+     "ref": "conv-47:D16:7",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 54,
+      "ent": 129,
+      "lex": 10,
+      "time": 11
+     }
+    },
+    {
+     "unit_id": "u7:0ae78e03fc9e5ab0897f8707",
+     "ref": "conv-47:D7:19",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 28,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:238f54b0c675c2e4ff1a9920",
+     "ref": "conv-47:D10:1",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 63,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:294399dc451f7e887467d21a",
+     "ref": "conv-47:D28:1",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 89,
+      "lex": 21,
+      "time": 19
+     }
+    },
+    {
+     "unit_id": "u7:4fc92a1c680f2c92a1f3f00c",
+     "ref": "conv-47:D1:6",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 139,
+      "lex": 19,
+      "time": 13
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-47/q173",
+   "query": "Why did James sign up for a ballet class?",
+   "asked_speaker": "james",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:b08938076b75c81d0fa53502",
+     "ref": "conv-47:D23:13",
+     "speaker_canon": "james",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 4,
+   "displacers": [
+    {
+     "unit_id": "u7:1c441d176765bed34975f1ff",
+     "ref": "conv-47:D17:16",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 37,
+      "ent": 36,
+      "graph": 54,
+      "lex": 14,
+      "obs": 21
+     }
+    },
+    {
+     "unit_id": "u7:515364752bd346f26d5d4af3",
+     "ref": "conv-47:D5:5",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 108,
+      "lex": 19
+     }
+    },
+    {
+     "unit_id": "u7:20a3fbf3477be7a972698a51",
+     "ref": "conv-47:D8:29",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 42,
+      "lex": 77
+     }
+    },
+    {
+     "unit_id": "u7:7001cafb9d254bf47e156fa6",
+     "ref": "conv-47:D6:18",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 155,
+      "lex": 74
+     }
+    },
+    {
+     "unit_id": "u7:22dc8eeda4f153fa833de8ba",
+     "ref": "conv-47:D3:10",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 66,
+      "ent": 46,
+      "graph": 64,
+      "lex": 76
+     }
+    },
+    {
+     "unit_id": "u7:276aa3ed666addf0267b5278",
+     "ref": "conv-47:D30:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 8,
+      "ent": 54,
+      "graph": 75,
+      "lex": 26
+     }
+    },
+    {
+     "unit_id": "u7:0ae78e03fc9e5ab0897f8707",
+     "ref": "conv-47:D7:19",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 143,
+      "ent": 17,
+      "lex": 84
+     }
+    },
+    {
+     "unit_id": "u7:197d66e4bfc2d5835ba6eaf7",
+     "ref": "conv-47:D11:8",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 192,
+      "ent": 31,
+      "graph": 47,
+      "lex": 37
+     }
+    },
+    {
+     "unit_id": "u7:008ae1e90c3a1747bba8fec4",
+     "ref": "conv-47:D20:10",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 82
+     }
+    },
+    {
+     "unit_id": "u7:02c5608784bd01337882a406",
+     "ref": "conv-47:D9:22",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 5,
+      "lex": 177
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q176",
+   "query": "Where does John get his ideas from?",
+   "asked_speaker": "john",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:ad8950e374fefe2db4453814",
+     "ref": "conv-47:D24:4",
+     "speaker_canon": "james",
+     "scored_rank": 12,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 4,
+   "displacers": [
+    {
+     "unit_id": "u7:8763c845c415405790c428e0",
+     "ref": "conv-47:D23:2",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 2,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:971d45eacb78eb222d2db908",
+     "ref": "conv-47:D14:26",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 24,
+      "ent": 3,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:0e2fcafced0255929d2a7584",
+     "ref": "conv-47:D24:3",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 51,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:217ff596ab35d204f97994c9",
+     "ref": "conv-47:D29:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 62,
+      "ent": 1,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:0d6e35b6814cb2e463b55d1e",
+     "ref": "conv-47:D14:16",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 49,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:0cae34f2a0ea432ef2dbaca4",
+     "ref": "conv-47:D24:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 46,
+      "graph": 29,
+      "lex": 49
+     }
+    },
+    {
+     "unit_id": "u7:11420166e397b8e834c30f05",
+     "ref": "conv-47:D24:7",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 19,
+      "ent": 53,
+      "graph": 37,
+      "lex": 39
+     }
+    },
+    {
+     "unit_id": "u7:72ad0e4e0de0b970e4610471",
+     "ref": "conv-47:D10:10",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 196,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:c3c2591132b590c9db3f9e05",
+     "ref": "conv-42:D25:9",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 125,
+      "ent": 24,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:c9bc3cbd7e3d3db2e79605bf",
+     "ref": "conv-49:D24:16",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 197,
+      "ent": 25,
+      "lex": 4
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q182",
+   "query": "What games were played at the gaming tournament organized by James on 31 October, 2022?",
+   "asked_speaker": "james",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "john",
+    "john"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:2e2b63584cb0cac8e93800fd",
+     "ref": "conv-47:D29:1",
+     "speaker_canon": "john",
+     "scored_rank": 27,
+     "speaker_match": 0.0,
+     "in_pack": true
+    },
+    {
+     "unit_id": "u7:aacb9882f0a59aef37d23ff0",
+     "ref": "conv-47:D29:3",
+     "speaker_canon": "john",
+     "scored_rank": 31,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:cd6d63c16279763f80b5b25b",
+     "ref": "conv-47:D29:2",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 60,
+      "lex": 1,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:9f6aced065b12fe5f10d3650",
+     "ref": "conv-47:D29:4",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 50,
+      "lex": 3,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:66cbab8a9f6a2a48324f345a",
+     "ref": "conv-47:D29:6",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 40,
+      "lex": 48,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:6a3511437f3d6d76d838c7dd",
+     "ref": "conv-47:D28:29",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 41,
+      "lex": 11
+     }
+    },
+    {
+     "unit_id": "u7:46760acd9f3fa436d14652f0",
+     "ref": "conv-47:D29:5",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 178,
+      "lex": 2,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:8367bf4639c2d3f2ea6f6de5",
+     "ref": "conv-47:D5:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 4,
+      "lex": 19
+     }
+    },
+    {
+     "unit_id": "u7:a16b92bff5e4c83823501286",
+     "ref": "conv-47:D29:7",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 82,
+      "time": 13
+     }
+    },
+    {
+     "unit_id": "u7:fafd0fb3170ced8d5503f6b4",
+     "ref": "conv-47:D28:21",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 131,
+      "ent": 67,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:84e1e71f690729fc1a191bb5",
+     "ref": "conv-47:D29:14",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 136,
+      "ent": 44,
+      "lex": 75,
+      "time": 10
+     }
+    },
+    {
+     "unit_id": "u7:aeb9b00214ef8dac713de2d1",
+     "ref": "conv-47:D28:27",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 164,
+      "ent": 53,
+      "lex": 6
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q183",
+   "query": "What was the purpose of the gaming tournament organized by James on 31 October, 2022?",
+   "asked_speaker": "james",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "john",
+    "john"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:2e2b63584cb0cac8e93800fd",
+     "ref": "conv-47:D29:1",
+     "speaker_canon": "john",
+     "scored_rank": 17,
+     "speaker_match": 0.5,
+     "in_pack": true
+    },
+    {
+     "unit_id": "u7:aacb9882f0a59aef37d23ff0",
+     "ref": "conv-47:D29:3",
+     "speaker_canon": "john",
+     "scored_rank": 29,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 6,
+   "displacers": [
+    {
+     "unit_id": "u7:d12512aed2d7425a28889fec",
+     "ref": "conv-47:D29:10",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 47,
+      "ent": 2,
+      "lex": 7,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:cd6d63c16279763f80b5b25b",
+     "ref": "conv-47:D29:2",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 68,
+      "lex": 1,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:9f6aced065b12fe5f10d3650",
+     "ref": "conv-47:D29:4",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 58,
+      "lex": 2,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:a16b92bff5e4c83823501286",
+     "ref": "conv-47:D29:7",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 14,
+      "lex": 11,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:66cbab8a9f6a2a48324f345a",
+     "ref": "conv-47:D29:6",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 48,
+      "lex": 25,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:46760acd9f3fa436d14652f0",
+     "ref": "conv-47:D29:5",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 184,
+      "graph": 182,
+      "lex": 3,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:6a3511437f3d6d76d838c7dd",
+     "ref": "conv-47:D28:29",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 49,
+      "lex": 16
+     }
+    },
+    {
+     "unit_id": "u7:46cd35e2fd797a0568af8f19",
+     "ref": "conv-47:D27:2",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 89,
+      "ent": 42,
+      "graph": 184,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:ec8ee325dce43130a2bb20af",
+     "ref": "conv-47:D29:12",
+     "speaker_canon": "james",
+     "speaker_match": 1.0,
+     "score": 0.910278,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 71,
+      "lex": 4,
+      "time": 4,
+      "typed": 38
+     }
+    },
+    {
+     "unit_id": "u7:93222301ab57c9804705facb",
+     "ref": "conv-47:D29:16",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 177,
+      "ent": 54,
+      "lex": 30,
+      "time": 11
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q184",
+   "query": "What decision did John and Samantha make on 31 October, 2022?",
+   "asked_speaker": "john",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james",
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:cc27a8e72561111bdb085f63",
+     "ref": "conv-47:D29:8",
+     "speaker_canon": "james",
+     "scored_rank": 17,
+     "speaker_match": 0.0,
+     "in_pack": true
+    },
+    {
+     "unit_id": "u7:d12512aed2d7425a28889fec",
+     "ref": "conv-47:D29:10",
+     "speaker_canon": "james",
+     "scored_rank": 19,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:a16b92bff5e4c83823501286",
+     "ref": "conv-47:D29:7",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 48,
+      "ent": 2,
+      "lex": 5,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:217ff596ab35d204f97994c9",
+     "ref": "conv-47:D29:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 8,
+      "ent": 22,
+      "lex": 2,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:2394c253988818f8ce93941d",
+     "ref": "conv-47:D29:15",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 23,
+      "lex": 11,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:dcc5e03e4591e232f218fed0",
+     "ref": "conv-47:D29:13",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 58,
+      "lex": 12,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:46760acd9f3fa436d14652f0",
+     "ref": "conv-47:D29:5",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 50,
+      "ent": 30,
+      "graph": 157,
+      "lex": 18,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:7cb755368d21c574a94a7dc8",
+     "ref": "conv-47:D29:11",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 13,
+      "ent": 40,
+      "lex": 13,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:4046d6be45c7c1da2adc8a2c",
+     "ref": "conv-47:D28:2",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 1,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:2e2b63584cb0cac8e93800fd",
+     "ref": "conv-47:D29:1",
+     "speaker_canon": "john",
+     "speaker_match": 1.0,
+     "score": 0.910278,
+     "lane_ranks": {
+      "dense": 80,
+      "ent": 24,
+      "graph": 105,
+      "lex": 20,
+      "time": 9,
+      "typed": 3
+     }
+    },
+    {
+     "unit_id": "u7:c52fb081696aa6b5bbd1fb8d",
+     "ref": "conv-47:D28:9",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 53,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:5ada39593b3d5084fb21f538",
+     "ref": "conv-47:D27:13",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 35,
+      "graph": 198,
+      "lex": 23
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-47/q186",
+   "query": "Why did John and Samantha choose an apartment near McGee's bar?",
+   "asked_speaker": "john",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "james"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:ec8ee325dce43130a2bb20af",
+     "ref": "conv-47:D29:12",
+     "speaker_canon": "james",
+     "scored_rank": null,
+     "speaker_match": null,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 5,
+   "displacers": [
+    {
+     "unit_id": "u7:b010e70faf404a5b37066bef",
+     "ref": "conv-47:D23:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 1,
+      "lex": 2,
+      "obs": 12
+     }
+    },
+    {
+     "unit_id": "u7:59963b16ef6796db933df079",
+     "ref": "conv-47:D23:12",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 3,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:d12512aed2d7425a28889fec",
+     "ref": "conv-47:D29:10",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 5,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:f3955fdd874eef745025b5a0",
+     "ref": "conv-47:D23:5",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 60,
+      "ent": 9,
+      "lex": 10
+     }
+    },
+    {
+     "unit_id": "u7:29243eef931d0654fd899dfb",
+     "ref": "conv-47:D13:9",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 25,
+      "ent": 69,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:1b6894ba6be59cea210fce9d",
+     "ref": "conv-47:D19:3",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 56,
+      "ent": 46,
+      "graph": 46,
+      "lex": 190,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:baf0f856ce8ba3e3614685d8",
+     "ref": "conv-47:D23:1",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 53,
+      "ent": 7,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:cc27a8e72561111bdb085f63",
+     "ref": "conv-47:D29:8",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:ac64f5c4716944c1bf0a75d7",
+     "ref": "conv-47:D21:18",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 156,
+      "ent": 2,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:69baed21497fab3095b88b9f",
+     "ref": "conv-47:D11:3",
+     "speaker_canon": "john",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 166,
+      "graph": 179,
+      "lex": 54
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-47/q187",
+   "query": "What game is James hooked on playing on 5 November, 2022?",
+   "asked_speaker": "james",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "john"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:f62e1568bf87c6e2b5e9cc82",
+     "ref": "conv-47:D30:14",
+     "speaker_canon": "john",
+     "scored_rank": 12,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:c6203301023b5c465e6b217d",
+     "ref": "conv-47:D30:13",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 35,
+      "lex": 2,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:276aa3ed666addf0267b5278",
+     "ref": "conv-47:D30:3",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 22,
+      "lex": 5,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:30f90ba107dbe191faac6e80",
+     "ref": "conv-47:D30:7",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 23,
+      "lex": 6,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:1bf2909c7465a877d8768a52",
+     "ref": "conv-47:D30:17",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 21,
+      "graph": 71,
+      "lex": 22,
+      "time": 7
+     }
+    },
+    {
+     "unit_id": "u7:055cc4abf29aa389a010946c",
+     "ref": "conv-47:D30:9",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 37,
+      "ent": 18,
+      "lex": 8,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:c54dde1e7800b94cba21e67a",
+     "ref": "conv-47:D30:1",
+     "speaker_canon": "james",
+     "speaker_match": 1.0,
+     "score": 0.95596,
+     "lane_ranks": {
+      "dense": 159,
+      "ent": 34,
+      "lex": 49,
+      "time": 12,
+      "typed": 57
+     }
+    },
+    {
+     "unit_id": "u7:1a887e3ef504d83e2f1c24e7",
+     "ref": "conv-47:D31:21",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 2,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:f14e2b8ed072c8d31db95ddc",
+     "ref": "conv-47:D30:19",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 11,
+      "ent": 37,
+      "lex": 19,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:1b8394bc8b6ea461b75e5063",
+     "ref": "conv-47:D30:11",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 79,
+      "ent": 20,
+      "graph": 69,
+      "lex": 28,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:869343f8a09a3276b4af285b",
+     "ref": "conv-47:D30:15",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 42,
+      "ent": 27,
+      "lex": 13,
+      "time": 10
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q194",
+   "query": "How old are Jolene's cats?",
+   "asked_speaker": "jolene",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "deborah",
+    "deborah"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:90919297d010a45180feedc8",
+     "ref": "conv-48:D22:27",
+     "speaker_canon": "deborah",
+     "scored_rank": 85,
+     "speaker_match": 0.5,
+     "in_pack": false
+    },
+    {
+     "unit_id": "u7:9813f59cb8d18ffafb8d2411",
+     "ref": "conv-48:D22:29",
+     "speaker_canon": "deborah",
+     "scored_rank": null,
+     "speaker_match": null,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:6ef068759829c5d20fef1078",
+     "ref": "conv-48:D22:28",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 177,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:d4602793f98c2a1e4419b3e2",
+     "ref": "conv-48:D9:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 35,
+      "ent": 2,
+      "lex": 24
+     }
+    },
+    {
+     "unit_id": "u7:22a7d54a4311c9ce92a8f005",
+     "ref": "conv-48:D6:3",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 68,
+      "graph": 120,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:2a9c05e9593cd78bb45a9e7b",
+     "ref": "conv-48:D6:5",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 80,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:2dd49490fe6fe27c6b685e7a",
+     "ref": "conv-48:D24:4",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 86,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:7ddb66fe14dccde3c6d00bca",
+     "ref": "conv-48:D26:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 198,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:0a98074d4d75119826c295c8",
+     "ref": "conv-48:D4:31",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 35,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:3b9c2fc43a6118b87c774f78",
+     "ref": "conv-48:D25:6",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 23
+     }
+    },
+    {
+     "unit_id": "u7:51186dda1edd0cd9946574a7",
+     "ref": "conv-48:D15:14",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 141,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:363883d8d5faccafcec87765",
+     "ref": "conv-48:D23:17",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 100,
+      "lex": 5
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-48/q195",
+   "query": "When did Deborah's parents give her first console?",
+   "asked_speaker": "deborah",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:4e23fd12973c8c4f62e4e445",
+     "ref": "conv-48:D24:6",
+     "speaker_canon": "jolene",
+     "scored_rank": 72,
+     "speaker_match": 0.5,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:5077928d381ae2b259ab17ec",
+     "ref": "conv-48:D26:11",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 54,
+      "ent": 109,
+      "lex": 4,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:066b4fe1a291e7929bd1298d",
+     "ref": "conv-48:D3:2",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 2,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:80eaf170b22ccf3d2bba6010",
+     "ref": "conv-48:D18:14",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 66,
+      "ent": 1,
+      "lex": 37,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:6e3ffb9a862cbf0f75d716eb",
+     "ref": "conv-48:D2:15",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 9,
+      "ent": 146,
+      "graph": 200,
+      "lex": 8,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:868f09d6e44422f66225b735",
+     "ref": "conv-48:D4:6",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 38,
+      "ent": 175,
+      "lex": 9,
+      "time": 10
+     }
+    },
+    {
+     "unit_id": "u7:1231b1a6745ca5485fba1270",
+     "ref": "conv-48:D12:3",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 0.92,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 31,
+      "graph": 43,
+      "lex": 18,
+      "time": 15,
+      "typed": 26
+     }
+    },
+    {
+     "unit_id": "u7:0b1b2a741fb4a6ac73cfd8db",
+     "ref": "conv-48:D8:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.890909,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 22,
+      "graph": 28,
+      "lex": 41,
+      "time": 29
+     }
+    },
+    {
+     "unit_id": "u7:80ce15cf42a103b58d3ecab7",
+     "ref": "conv-48:D2:3",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 0.886545,
+     "lane_ranks": {
+      "dense": 113,
+      "ent": 168,
+      "lex": 5,
+      "time": 4,
+      "typed": 199
+     }
+    },
+    {
+     "unit_id": "u7:510573d3b0f861831209e861",
+     "ref": "conv-48:D18:6",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 0.878182,
+     "lane_ranks": {
+      "dense": 33,
+      "ent": 112,
+      "graph": 169,
+      "lex": 57,
+      "time": 55,
+      "typed": 12
+     }
+    },
+    {
+     "unit_id": "u7:6cc1aa7874612cb68201f6ef",
+     "ref": "conv-48:D12:5",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 0.869818,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 142,
+      "graph": 195,
+      "lex": 17,
+      "time": 61,
+      "typed": 187
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q198",
+   "query": "What is Deborah's favorite book which she mentioned on 4 February, 2023?",
+   "asked_speaker": "deborah",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:fb2469b3188ba2ad6c995b49",
+     "ref": "conv-48:D4:21",
+     "speaker_canon": "jolene",
+     "scored_rank": 58,
+     "speaker_match": 0.0,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    1.0,
+    1.0,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 10,
+   "displacers": [
+    {
+     "unit_id": "u7:8ea77cae345f50b51ee0ef36",
+     "ref": "conv-48:D4:32",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.063333,
+     "lane_ranks": {
+      "dense": 70,
+      "ent": 52,
+      "lex": 4,
+      "time": 3,
+      "typed": 8
+     }
+    },
+    {
+     "unit_id": "u7:e963f0c9ec91e09978e552b8",
+     "ref": "conv-48:D4:42",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.034333,
+     "lane_ranks": {
+      "ent": 72,
+      "lex": 77,
+      "time": 20,
+      "typed": 16
+     }
+    },
+    {
+     "unit_id": "u7:923132f61eb7b05e69eb0dae",
+     "ref": "conv-48:D4:34",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.024667,
+     "lane_ranks": {
+      "ent": 54,
+      "lex": 99,
+      "time": 27,
+      "typed": 10
+     }
+    },
+    {
+     "unit_id": "u7:07dc6b9a1f465ba1d4fc79a3",
+     "ref": "conv-48:D4:8",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 21,
+      "lex": 7,
+      "time": 5
+     }
+    },
+    {
+     "unit_id": "u7:ca3c841dd57e6531321c258e",
+     "ref": "conv-48:D4:20",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 66,
+      "lex": 1,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:0abc4d30ba886ffae5aa5c44",
+     "ref": "conv-48:D4:16",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 42,
+      "ent": 23,
+      "graph": 25,
+      "lex": 37,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:e98a17fe9c02289faa954e0d",
+     "ref": "conv-48:D4:14",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 22,
+      "ent": 73,
+      "lex": 6,
+      "time": 4
+     }
+    },
+    {
+     "unit_id": "u7:9bf283ba7d2fbe860a1cb452",
+     "ref": "conv-48:D4:22",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 23,
+      "ent": 55,
+      "lex": 16,
+      "time": 6
+     }
+    },
+    {
+     "unit_id": "u7:0875f813602c22336d58e27e",
+     "ref": "conv-48:D4:12",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 22,
+      "graph": 18,
+      "lex": 44,
+      "time": 18
+     }
+    },
+    {
+     "unit_id": "u7:d693c57efbbc5563ab3d426b",
+     "ref": "conv-48:D4:44",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 69,
+      "lex": 28,
+      "time": 8
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q200",
+   "query": "How does Deborah plan to involve local engineers in her idea of teaching STEM to underprivileged kids?",
+   "asked_speaker": "deborah",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:cdf7fcba9a71e74b8211f4b4",
+     "ref": "conv-48:D5:9",
+     "speaker_canon": "jolene",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:48ec71425af3750c70e1aa46",
+     "ref": "conv-48:D5:7",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 7,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:1562cbb9de6c8571c81d7605",
+     "ref": "conv-48:D22:9",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 3,
+      "ent": 68,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:29169b8dac48aa19b8e2e61b",
+     "ref": "conv-48:D4:40",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 62,
+      "ent": 95,
+      "graph": 119,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:bc0641d1ad3cade361ecc302",
+     "ref": "conv-48:D14:1",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 87,
+      "ent": 6,
+      "lex": 34
+     }
+    },
+    {
+     "unit_id": "u7:04542c3ce5bac1e5f45996d2",
+     "ref": "conv-48:D9:9",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 43,
+      "ent": 1,
+      "lex": 27
+     }
+    },
+    {
+     "unit_id": "u7:0875f813602c22336d58e27e",
+     "ref": "conv-48:D4:12",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 48,
+      "graph": 28,
+      "lex": 28
+     }
+    },
+    {
+     "unit_id": "u7:03810a203e7d3d9abaf70c0e",
+     "ref": "conv-48:D18:4",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 38,
+      "graph": 9,
+      "obs": 5
+     }
+    },
+    {
+     "unit_id": "u7:af77099552070117147b6ab7",
+     "ref": "conv-48:D19:1",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 112,
+      "ent": 5,
+      "lex": 105
+     }
+    },
+    {
+     "unit_id": "u7:b68b59ac003eeb90b3f4db65",
+     "ref": "conv-48:D22:6",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 9,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:6d3d06d95ea953731a98c200",
+     "ref": "conv-48:D2:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 124,
+      "ent": 174,
+      "lex": 11
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q202",
+   "query": "Why did Jolene spend time in the garden?",
+   "asked_speaker": "jolene",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "deborah"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:0e6c0dc3b1763599f424a985",
+     "ref": "conv-48:D6:4",
+     "speaker_canon": "deborah",
+     "scored_rank": 18,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:21cce25a914a20ec6f84d02c",
+     "ref": "conv-48:D8:4",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 29,
+      "ent": 43,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:1d857011684026b401dd615d",
+     "ref": "conv-48:D20:9",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 37,
+      "graph": 56,
+      "lex": 46
+     }
+    },
+    {
+     "unit_id": "u7:280688819e054c762df96d5b",
+     "ref": "conv-48:D8:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 54,
+      "lex": 28
+     }
+    },
+    {
+     "unit_id": "u7:0f6feccb9dfa2991f9980713",
+     "ref": "conv-48:D16:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 78,
+      "ent": 18,
+      "lex": 71
+     }
+    },
+    {
+     "unit_id": "u7:100f91df8b2548c1acb1309f",
+     "ref": "conv-48:D28:18",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 61,
+      "ent": 20,
+      "lex": 105
+     }
+    },
+    {
+     "unit_id": "u7:8eee1e3fe998b704e2bcf5a8",
+     "ref": "conv-48:D19:18",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 13,
+      "ent": 197,
+      "lex": 65
+     }
+    },
+    {
+     "unit_id": "u7:183c4545d44a2fc1e4bf0ea5",
+     "ref": "conv-48:D3:7",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 124,
+      "ent": 31,
+      "lex": 57,
+      "obs": 1
+     }
+    },
+    {
+     "unit_id": "u7:078b32c32903f36d788aa218",
+     "ref": "conv-48:D13:2",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 6,
+      "lex": 74
+     }
+    },
+    {
+     "unit_id": "u7:509bb8fd318a0887df66c64f",
+     "ref": "conv-48:D12:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 117,
+      "graph": 134,
+      "lex": 41
+     }
+    },
+    {
+     "unit_id": "u7:5e74a30c87740f454b1ee627",
+     "ref": "conv-48:D22:22",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 133,
+      "lex": 30
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q210",
+   "query": "How does Deborah describe the time spent with her snakes and partner?",
+   "asked_speaker": "deborah",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:e73b9f839a5e16dc18f35d18",
+     "ref": "conv-48:D12:6",
+     "speaker_canon": "jolene",
+     "scored_rank": 73,
+     "speaker_match": 0.5,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:21a2bb398e93a62a1505edea",
+     "ref": "conv-48:D21:15",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 8,
+      "ent": 72,
+      "lex": 42,
+      "obs": 15
+     }
+    },
+    {
+     "unit_id": "u7:49bbf72d1531aff726a203ad",
+     "ref": "conv-48:D26:3",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 178,
+      "ent": 3,
+      "lex": 24
+     }
+    },
+    {
+     "unit_id": "u7:05fc5752b83cedf36436249d",
+     "ref": "conv-48:D7:18",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 171,
+      "ent": 28,
+      "graph": 22,
+      "lex": 22
+     }
+    },
+    {
+     "unit_id": "u7:653c8a067656a1254b19fba4",
+     "ref": "conv-48:D30:1",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 154,
+      "lex": 12
+     }
+    },
+    {
+     "unit_id": "u7:3b9c2fc43a6118b87c774f78",
+     "ref": "conv-48:D25:6",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 52,
+      "ent": 2,
+      "lex": 57
+     }
+    },
+    {
+     "unit_id": "u7:af77099552070117147b6ab7",
+     "ref": "conv-48:D19:1",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 105,
+      "ent": 4,
+      "lex": 79
+     }
+    },
+    {
+     "unit_id": "u7:8c6ddaae063f35b80c74884a",
+     "ref": "conv-48:D19:21",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 2,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:bc0641d1ad3cade361ecc302",
+     "ref": "conv-48:D14:1",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 186,
+      "ent": 5,
+      "lex": 72
+     }
+    },
+    {
+     "unit_id": "u7:0e2f96bff7a1920063bd17c4",
+     "ref": "conv-30:D18:1",
+     "speaker_canon": "gina",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 7,
+      "lex": 75,
+      "obs": 8
+     }
+    },
+    {
+     "unit_id": "u7:0e6c0dc3b1763599f424a985",
+     "ref": "conv-48:D6:4",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 160,
+      "ent": 46,
+      "graph": 60,
+      "lex": 61
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q218",
+   "query": "What game did Jolene recommend to Deborah for being thrilling and intense?",
+   "asked_speaker": null,
+   "n_query_speakers": 2,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:5f7ba6467d1c4a7a17f8a9c8",
+     "ref": "conv-48:D19:8",
+     "speaker_canon": "jolene",
+     "scored_rank": 18,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 10,
+   "displacers": [
+    {
+     "unit_id": "u7:066b4fe1a291e7929bd1298d",
+     "ref": "conv-48:D3:2",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 17,
+      "ent": 104,
+      "graph": 12,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:7304f618a3a1a944cd94645f",
+     "ref": "conv-48:D2:7",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 32,
+      "ent": 3,
+      "lex": 23
+     }
+    },
+    {
+     "unit_id": "u7:163b699a5990b8b896bd73b8",
+     "ref": "conv-48:D16:3",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 106,
+      "ent": 38,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:923132f61eb7b05e69eb0dae",
+     "ref": "conv-48:D4:34",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 32
+     }
+    },
+    {
+     "unit_id": "u7:aeecc91cd7d47288c6b27b32",
+     "ref": "conv-48:D19:7",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 12,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:5bf260507127e65c186f0afa",
+     "ref": "conv-48:D22:13",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 43,
+      "graph": 200,
+      "lex": 35
+     }
+    },
+    {
+     "unit_id": "u7:078b32c32903f36d788aa218",
+     "ref": "conv-48:D13:2",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 48,
+      "ent": 34,
+      "graph": 18,
+      "lex": 172
+     }
+    },
+    {
+     "unit_id": "u7:1dd9d543bfe130a128acc361",
+     "ref": "conv-48:D15:15",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 56,
+      "ent": 135,
+      "graph": 69,
+      "lex": 17
+     }
+    },
+    {
+     "unit_id": "u7:0c6cff0fd8be0c9b94989189",
+     "ref": "conv-48:D19:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "ent": 15,
+      "graph": 31,
+      "lex": 113
+     }
+    },
+    {
+     "unit_id": "u7:5077928d381ae2b259ab17ec",
+     "ref": "conv-48:D26:11",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 198,
+      "ent": 42,
+      "lex": 9
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q220",
+   "query": "What is special about the bench at the park near Jolene's house?",
+   "asked_speaker": "jolene",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:8eee1e3fe998b704e2bcf5a8",
+     "ref": "conv-48:D19:18",
+     "speaker_canon": "jolene",
+     "scored_rank": 11,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:495aedfe060461a22ba9b595",
+     "ref": "conv-48:D19:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 4,
+      "lex": 1,
+      "obs": 22
+     }
+    },
+    {
+     "unit_id": "u7:d128b9adc6a46ee44256f3cb",
+     "ref": "conv-48:D10:10",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 7,
+      "lex": 26
+     }
+    },
+    {
+     "unit_id": "u7:52c62d922747b5f5f14bda7b",
+     "ref": "conv-48:D22:20",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 3,
+      "lex": 57
+     }
+    },
+    {
+     "unit_id": "u7:aa6afae082539ba027732c8c",
+     "ref": "conv-48:D20:1",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 176,
+      "ent": 6,
+      "lex": 29
+     }
+    },
+    {
+     "unit_id": "u7:1ccaa91c5184e28d5ce8ea00",
+     "ref": "conv-48:D29:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 3,
+      "graph": 70,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:8427d7de9c8b1501e0ec5d70",
+     "ref": "conv-48:D1:6",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 9,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:e04044eead6b652327c83e8f",
+     "ref": "conv-48:D14:16",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 28,
+      "ent": 8,
+      "lex": 51
+     }
+    },
+    {
+     "unit_id": "u7:0c6cff0fd8be0c9b94989189",
+     "ref": "conv-48:D19:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 128,
+      "ent": 2,
+      "lex": 59
+     }
+    },
+    {
+     "unit_id": "u7:3201aaee408a9252b5874e14",
+     "ref": "conv-48:D22:2",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 38,
+      "ent": 124,
+      "graph": 116,
+      "lex": 28
+     }
+    },
+    {
+     "unit_id": "u7:70a7dd5fda62027bae93e4c6",
+     "ref": "conv-48:D19:12",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 72,
+      "ent": 4,
+      "lex": 117
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q232",
+   "query": "Where did Deborah and her partner travel for a few weeks in September 2023?",
+   "asked_speaker": "deborah",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "jolene"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:ebdf9cc06860c65da56e2b4c",
+     "ref": "conv-48:D27:1",
+     "speaker_canon": "jolene",
+     "scored_rank": 25,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:104f76d92af04b70fd96c7c6",
+     "ref": "conv-48:D29:5",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.079222,
+     "lane_ranks": {
+      "dense": 57,
+      "ent": 11,
+      "graph": 31,
+      "lex": 8,
+      "time": 6,
+      "typed": 23
+     }
+    },
+    {
+     "unit_id": "u7:8ab4088abac5007589951d94",
+     "ref": "conv-48:D27:12",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.045024,
+     "lane_ranks": {
+      "dense": 192,
+      "ent": 52,
+      "lex": 31,
+      "time": 20,
+      "typed": 5
+     }
+    },
+    {
+     "unit_id": "u7:3c1d220a2fa06253903c9b51",
+     "ref": "conv-48:D29:9",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.039978,
+     "lane_ranks": {
+      "dense": 105,
+      "ent": 25,
+      "lex": 106,
+      "time": 41,
+      "typed": 11
+     }
+    },
+    {
+     "unit_id": "u7:97511cf5154280a5f7c7f698",
+     "ref": "conv-48:D29:15",
+     "speaker_canon": "deborah",
+     "speaker_match": 1.0,
+     "score": 1.030167,
+     "lane_ranks": {
+      "dense": 56,
+      "ent": 58,
+      "lex": 152,
+      "time": 45,
+      "typed": 6
+     }
+    },
+    {
+     "unit_id": "u7:7d5206c2902a35047a54b509",
+     "ref": "conv-48:D30:3",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 24,
+      "ent": 1,
+      "lex": 3,
+      "time": 2
+     }
+    },
+    {
+     "unit_id": "u7:8c537d1be1df37ed9799dbf2",
+     "ref": "conv-48:D28:21",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 32,
+      "ent": 2,
+      "lex": 5,
+      "time": 1
+     }
+    },
+    {
+     "unit_id": "u7:5077928d381ae2b259ab17ec",
+     "ref": "conv-48:D26:11",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 32,
+      "graph": 140,
+      "lex": 10,
+      "time": 10
+     }
+    },
+    {
+     "unit_id": "u7:5b2510e0a6c728eb465428ea",
+     "ref": "conv-48:D28:5",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 41,
+      "ent": 38,
+      "lex": 6,
+      "time": 3
+     }
+    },
+    {
+     "unit_id": "u7:a1d3cb8970edf2ad7d8bed6b",
+     "ref": "conv-48:D29:7",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 48,
+      "ent": 60,
+      "lex": 9,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:39c9c0d73c7b8df239d7b4ee",
+     "ref": "conv-48:D28:7",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 21,
+      "ent": 23,
+      "graph": 104,
+      "lex": 12,
+      "time": 7
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q234",
+   "query": "Where did Jolene get married?",
+   "asked_speaker": "jolene",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "deborah"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:8e32456b3c7a7bfcd3aa7e48",
+     "ref": "conv-48:D28:11",
+     "speaker_canon": "deborah",
+     "scored_rank": 97,
+     "speaker_match": 0.5,
+     "in_pack": false
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 6,
+   "displacers": [
+    {
+     "unit_id": "u7:0a98074d4d75119826c295c8",
+     "ref": "conv-48:D4:31",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 1,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:75337797daef789cd716943c",
+     "ref": "conv-48:D2:12",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 4,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:49bf46b997b2896c277b4351",
+     "ref": "conv-48:D2:10",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 3,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:39ab95909409d0406e69b303",
+     "ref": "conv-48:D6:9",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 5,
+      "ent": 2,
+      "lex": 10
+     }
+    },
+    {
+     "unit_id": "u7:5e74a30c87740f454b1ee627",
+     "ref": "conv-48:D22:22",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 7,
+      "ent": 155,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:183c4545d44a2fc1e4bf0ea5",
+     "ref": "conv-48:D3:7",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "ent": 55,
+      "graph": 58,
+      "lex": 26,
+      "obs": 3
+     }
+    },
+    {
+     "unit_id": "u7:1df5d1fe47cbb737bb067d27",
+     "ref": "conv-48:D22:24",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 25,
+      "ent": 62,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:12afe685c79ae9582bba5c7f",
+     "ref": "conv-48:D10:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 48,
+      "lex": 13
+     }
+    },
+    {
+     "unit_id": "u7:7fd5df6ca2638f208b099bb7",
+     "ref": "conv-48:D9:4",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 15,
+      "ent": 200,
+      "lex": 17
+     }
+    },
+    {
+     "unit_id": "u7:280688819e054c762df96d5b",
+     "ref": "conv-48:D8:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 22,
+      "ent": 78,
+      "lex": 33
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-48/q235",
+   "query": "What new activity did Jolene and her neighbor organize for the community on 16 September, 2023?",
+   "asked_speaker": "jolene",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "deborah"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:dc9df5e8a3468acb86ceb326",
+     "ref": "conv-48:D29:1",
+     "speaker_canon": "deborah",
+     "scored_rank": 44,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    1.0,
+    0.5
+   ],
+   "both_hold": true,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:7bfe79b3cffba0c4c1c6a78f",
+     "ref": "conv-48:D29:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 149,
+      "ent": 1,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:126da6bcf44856de31ed274d",
+     "ref": "conv-48:D26:20",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 12,
+      "ent": 20,
+      "graph": 50,
+      "lex": 71
+     }
+    },
+    {
+     "unit_id": "u7:3ccf92c2a0e0be2132e8b81d",
+     "ref": "conv-48:D28:6",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 34,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:18584feb0a77394a60de9849",
+     "ref": "conv-48:D26:6",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 14,
+      "ent": 21,
+      "lex": 16
+     }
+    },
+    {
+     "unit_id": "u7:104f76d92af04b70fd96c7c6",
+     "ref": "conv-48:D29:5",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 19,
+      "graph": 44,
+      "lex": 6
+     }
+    },
+    {
+     "unit_id": "u7:21abb5c55b83b5ea5851e0ae",
+     "ref": "conv-48:D29:24",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 27,
+      "ent": 22,
+      "graph": 90,
+      "lex": 45
+     }
+    },
+    {
+     "unit_id": "u7:4c2539faf3394dc15aeba252",
+     "ref": "conv-48:D27:9",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 18,
+      "ent": 40,
+      "graph": 195,
+      "lex": 21
+     }
+    },
+    {
+     "unit_id": "u7:9d6cb822e6d5dcd5a23fdd42",
+     "ref": "conv-48:D28:26",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 19,
+      "ent": 65,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:100f91df8b2548c1acb1309f",
+     "ref": "conv-48:D28:18",
+     "speaker_canon": "jolene",
+     "speaker_match": 1.0,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 147,
+      "ent": 18,
+      "graph": 43,
+      "lex": 125,
+      "typed": 4
+     }
+    },
+    {
+     "unit_id": "u7:054c9a752f1db57eb3995683",
+     "ref": "conv-48:D24:8",
+     "speaker_canon": "jolene",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 199,
+      "ent": 15,
+      "graph": 11,
+      "lex": 128
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-49/q163",
+   "query": "What novel is Sam reading that he finds gripping?",
+   "asked_speaker": "sam",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "evan"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:75357ea4c74c25546d50dce2",
+     "ref": "conv-49:D4:10",
+     "speaker_canon": "evan",
+     "scored_rank": 50,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:713568db45522601659dc785",
+     "ref": "conv-49:D24:4",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 4,
+      "ent": 5,
+      "lex": 16
+     }
+    },
+    {
+     "unit_id": "u7:41120a808fd6695e29689323",
+     "ref": "conv-49:D19:6",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 182,
+      "ent": 1,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:4cd65d1c24a81860507510e0",
+     "ref": "conv-49:D6:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "ent": 4,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:80eb4b04cea876418f605d5e",
+     "ref": "conv-49:D21:15",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 46,
+      "ent": 22,
+      "lex": 17
+     }
+    },
+    {
+     "unit_id": "u7:534209e23e216959698458a6",
+     "ref": "conv-49:D16:6",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 148,
+      "ent": 16,
+      "graph": 175,
+      "lex": 49
+     }
+    },
+    {
+     "unit_id": "u7:7e0408c5614faf6c53fe2f05",
+     "ref": "conv-49:D21:7",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 163,
+      "ent": 21,
+      "lex": 14
+     }
+    },
+    {
+     "unit_id": "u7:0684d23e01a4726913029423",
+     "ref": "conv-49:D5:16",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 82,
+      "ent": 182,
+      "graph": 20,
+      "lex": 21
+     }
+    },
+    {
+     "unit_id": "u7:57283995005799f2f8b4f9ed",
+     "ref": "conv-49:D23:9",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 59,
+      "ent": 17,
+      "lex": 65
+     }
+    },
+    {
+     "unit_id": "u7:aac30f7ed770b4296f001c7f",
+     "ref": "conv-49:D5:14",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 6,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:ff91875b2024e24d8cc853c1",
+     "ref": "conv-49:D17:7",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 88,
+      "ent": 31,
+      "lex": 43
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-49/q173",
+   "query": "What sports activity has Sam been doing to stay active while dealing with the knee injury?",
+   "asked_speaker": "sam",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "evan"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:6f08ea52f77c820b2899b909",
+     "ref": "conv-49:D9:6",
+     "speaker_canon": "evan",
+     "scored_rank": 20,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 2,
+   "displacers": [
+    {
+     "unit_id": "u7:32334f108e6907b332aaa76a",
+     "ref": "conv-49:D25:1",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 139,
+      "graph": 114,
+      "lex": 35
+     }
+    },
+    {
+     "unit_id": "u7:4cd65d1c24a81860507510e0",
+     "ref": "conv-49:D6:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 123,
+      "ent": 11,
+      "graph": 164,
+      "lex": 42
+     }
+    },
+    {
+     "unit_id": "u7:c366cce06427cb6c25fbf254",
+     "ref": "conv-49:D6:3",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 45,
+      "ent": 21,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:92ae01f12fe218cb7e594ef4",
+     "ref": "conv-49:D18:2",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "dense": 113,
+      "ent": 1,
+      "lex": 33
+     }
+    },
+    {
+     "unit_id": "u7:97108c56618900d9b7bd36b4",
+     "ref": "conv-49:D5:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "dense": 94,
+      "ent": 20,
+      "lex": 15
+     }
+    },
+    {
+     "unit_id": "u7:d85b91ebd09a96724c8c56f9",
+     "ref": "conv-49:D11:2",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 18,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:e86dcde6f2413995a2b86a95",
+     "ref": "conv-49:D5:4",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 2,
+      "lex": 25
+     }
+    },
+    {
+     "unit_id": "u7:2b3770fc2f3177c9613e4a56",
+     "ref": "conv-49:D5:3",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "graph": 91,
+      "lex": 26,
+      "obs": 9
+     }
+    },
+    {
+     "unit_id": "u7:8fc674cee1029f96f2218da2",
+     "ref": "conv-49:D24:10",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 26,
+      "lex": 7
+     }
+    },
+    {
+     "unit_id": "u7:413590ed19b350cfa6f07b5e",
+     "ref": "conv-49:D11:3",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 187,
+      "ent": 160,
+      "lex": 1
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-49/q185",
+   "query": "What is the motto of Sam's family?",
+   "asked_speaker": "sam",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "evan"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:1d934b32855dc46029f2a992",
+     "ref": "conv-49:D19:7",
+     "speaker_canon": "evan",
+     "scored_rank": 13,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": true,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 1,
+   "displacers": [
+    {
+     "unit_id": "u7:9920e0dbb6eb10be84c81656",
+     "ref": "conv-49:D23:8",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 19,
+      "ent": 2,
+      "lex": 2
+     }
+    },
+    {
+     "unit_id": "u7:41120a808fd6695e29689323",
+     "ref": "conv-49:D19:6",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 6,
+      "ent": 5,
+      "lex": 3
+     }
+    },
+    {
+     "unit_id": "u7:26f94ede794505a475269657",
+     "ref": "conv-47:D20:16",
+     "speaker_canon": "james",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 179,
+      "ent": 13,
+      "graph": 87,
+      "lex": 9
+     }
+    },
+    {
+     "unit_id": "u7:c6a27c96aff89ce20bdac9d6",
+     "ref": "conv-49:D2:11",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 78
+     }
+    },
+    {
+     "unit_id": "u7:4cd65d1c24a81860507510e0",
+     "ref": "conv-49:D6:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 6,
+      "lex": 34
+     }
+    },
+    {
+     "unit_id": "u7:57283995005799f2f8b4f9ed",
+     "ref": "conv-49:D23:9",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 2,
+      "ent": 164,
+      "graph": 177,
+      "lex": 20
+     }
+    },
+    {
+     "unit_id": "u7:f0a4d3af44689a9f7fe94c47",
+     "ref": "conv-49:D20:14",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 26,
+      "lex": 4
+     }
+    },
+    {
+     "unit_id": "u7:aac30f7ed770b4296f001c7f",
+     "ref": "conv-49:D5:14",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 1,
+      "lex": 10
+     }
+    },
+    {
+     "unit_id": "u7:38f1dcc6f5f5611ec8f6e47a",
+     "ref": "conv-49:D23:7",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 111,
+      "ent": 14,
+      "lex": 5
+     }
+    },
+    {
+     "unit_id": "u7:e088eca4bbf1b65332d727c7",
+     "ref": "conv-42:D15:12",
+     "speaker_canon": "nate",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 17,
+      "ent": 16,
+      "lex": 28
+     }
+    }
+   ],
+   "verdict": "ready"
+  },
+  {
+   "task_id": "conv-49/q191",
+   "query": "What dance activity did Evan and his partner try in a recent weekend?",
+   "asked_speaker": "evan",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "evan"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:b6573814b29f1bf373e1b415",
+     "ref": "conv-49:D24:9",
+     "speaker_canon": "evan",
+     "scored_rank": 14,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": true,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    0.5,
+    1.0,
+    1.0
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 3,
+   "displacers": [
+    {
+     "unit_id": "u7:4d0e5ffe20a76776aac917b7",
+     "ref": "conv-48:D16:17",
+     "speaker_canon": "deborah",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "ent": 8,
+      "lex": 17,
+      "time": 11
+     }
+    },
+    {
+     "unit_id": "u7:3a10f08c6266f1155d4d0f23",
+     "ref": "conv-49:D4:8",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "dense": 133,
+      "ent": 1,
+      "lex": 75,
+      "time": 9
+     }
+    },
+    {
+     "unit_id": "u7:19c944fe97520dc22af664e0",
+     "ref": "conv-49:D20:3",
+     "speaker_canon": "evan",
+     "speaker_match": 1.0,
+     "score": 0.92,
+     "lane_ranks": {
+      "dense": 98,
+      "ent": 84,
+      "lex": 45,
+      "time": 31,
+      "typed": 2
+     }
+    },
+    {
+     "unit_id": "u7:6987a98a7211c0a5b53abcfe",
+     "ref": "conv-49:D23:1",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 10,
+      "ent": 169,
+      "lex": 12,
+      "time": 17
+     }
+    },
+    {
+     "unit_id": "u7:dc89a8ee2a8cbdccb14498d9",
+     "ref": "conv-49:D8:20",
+     "speaker_canon": "evan",
+     "speaker_match": 1.0,
+     "score": 0.911636,
+     "lane_ranks": {
+      "dense": 17,
+      "lex": 31,
+      "time": 13,
+      "typed": 25
+     }
+    },
+    {
+     "unit_id": "u7:d32bc3e084def221f86ea8bc",
+     "ref": "conv-49:D18:7",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.909091,
+     "lane_ranks": {
+      "dense": 122,
+      "ent": 5,
+      "lex": 33,
+      "time": 23
+     }
+    },
+    {
+     "unit_id": "u7:7d03bf5bd2cbf9351dc6b60d",
+     "ref": "conv-49:D12:2",
+     "speaker_canon": "evan",
+     "speaker_match": 1.0,
+     "score": 0.903273,
+     "lane_ranks": {
+      "dense": 79,
+      "ent": 193,
+      "lex": 63,
+      "time": 153,
+      "typed": 35
+     }
+    },
+    {
+     "unit_id": "u7:a59e8d30b00133e49cb98ed3",
+     "ref": "conv-49:D11:8",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.9,
+     "lane_ranks": {
+      "dense": 13,
+      "lex": 9,
+      "time": 8
+     }
+    },
+    {
+     "unit_id": "u7:c3a9a956aef70a62c1b8c9ed",
+     "ref": "conv-49:D18:5",
+     "speaker_canon": "evan",
+     "speaker_match": 1.0,
+     "score": 0.894909,
+     "lane_ranks": {
+      "dense": 23,
+      "lex": 5,
+      "time": 41,
+      "typed": 10
+     }
+    },
+    {
+     "unit_id": "u7:e093e0c376a77025429f9fe2",
+     "ref": "conv-49:D7:5",
+     "speaker_canon": "evan",
+     "speaker_match": 1.0,
+     "score": 0.886545,
+     "lane_ranks": {
+      "dense": 99,
+      "lex": 4,
+      "time": 4,
+      "typed": 11
+     }
+    }
+   ],
+   "verdict": "insufficient"
+  },
+  {
+   "task_id": "conv-49/q194",
+   "query": "What activity hindered Evan's stress and flexibility?",
+   "asked_speaker": "evan",
+   "n_query_speakers": 1,
+   "premise_speakers": [
+    "evan"
+   ],
+   "premise_units": [
+    {
+     "unit_id": "u7:f05474e3364aa609853dafae",
+     "ref": "conv-49:D24:19",
+     "speaker_canon": "evan",
+     "scored_rank": 15,
+     "speaker_match": 0.5,
+     "in_pack": true
+    }
+   ],
+   "premise_speaker_differs_from_asked": false,
+   "speaker_match_fired_on_displacers": false,
+   "displacer_speaker_match_values": [
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "both_hold": false,
+   "bm25_premise_rank": 10,
+   "displacers": [
+    {
+     "unit_id": "u7:d32bc3e084def221f86ea8bc",
+     "ref": "conv-49:D18:7",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 1.0,
+     "lane_ranks": {
+      "dense": 1,
+      "ent": 4,
+      "lex": 1
+     }
+    },
+    {
+     "unit_id": "u7:19b6f29244adc79132758a30",
+     "ref": "conv-49:D8:18",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.990909,
+     "lane_ranks": {
+      "dense": 168,
+      "ent": 72,
+      "lex": 5,
+      "obs": 13
+     }
+    },
+    {
+     "unit_id": "u7:41120a808fd6695e29689323",
+     "ref": "conv-49:D19:6",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.981818,
+     "lane_ranks": {
+      "dense": 93,
+      "ent": 2,
+      "lex": 43
+     }
+    },
+    {
+     "unit_id": "u7:0c7faee37bb8c303169cfaf5",
+     "ref": "conv-49:D23:15",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.972727,
+     "lane_ranks": {
+      "ent": 1,
+      "lex": 44
+     }
+    },
+    {
+     "unit_id": "u7:4cd65d1c24a81860507510e0",
+     "ref": "conv-49:D6:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.963636,
+     "lane_ranks": {
+      "ent": 3,
+      "lex": 46
+     }
+    },
+    {
+     "unit_id": "u7:2ea7db74d1f451de2d4eab5c",
+     "ref": "conv-49:D18:1",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.954545,
+     "lane_ranks": {
+      "dense": 171,
+      "ent": 99,
+      "lex": 50,
+      "obs": 15
+     }
+    },
+    {
+     "unit_id": "u7:20b636dc6501156ec67010d6",
+     "ref": "conv-49:D13:5",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.945455,
+     "lane_ranks": {
+      "dense": 125,
+      "ent": 81,
+      "lex": 8
+     }
+    },
+    {
+     "unit_id": "u7:2b3770fc2f3177c9613e4a56",
+     "ref": "conv-49:D5:3",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.936364,
+     "lane_ranks": {
+      "ent": 91,
+      "lex": 70,
+      "obs": 9
+     }
+    },
+    {
+     "unit_id": "u7:83d4e7096fb6099f81ad477c",
+     "ref": "conv-49:D10:14",
+     "speaker_canon": "sam",
+     "speaker_match": 0.5,
+     "score": 0.927273,
+     "lane_ranks": {
+      "dense": 46,
+      "ent": 194,
+      "lex": 11
+     }
+    },
+    {
+     "unit_id": "u7:6987a98a7211c0a5b53abcfe",
+     "ref": "conv-49:D23:1",
+     "speaker_canon": "evan",
+     "speaker_match": 0.5,
+     "score": 0.918182,
+     "lane_ranks": {
+      "dense": 26,
+      "ent": 159,
+      "graph": 173,
+      "lex": 68
+     }
+    }
+   ],
+   "verdict": "ready"
+  }
+ ]
+}

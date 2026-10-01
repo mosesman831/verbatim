@@ -1,0 +1,222 @@
+{
+ "conv-30/q036": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=44"
+ },
+ "conv-42/q002": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=30"
+ },
+ "conv-42/q008": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-42/q015": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=3"
+ },
+ "conv-42/q017": {
+  "attribution": "rank_shift",
+  "class": "windowed:mention-rescue",
+  "detail": "occ=1651492440 win=1651363200..1651449600 ment_hit=True n_ment=2"
+ },
+ "conv-42/q018": {
+  "attribution": "rank_shift",
+  "class": "windowed:misanchored",
+  "detail": "window anchored >=2026"
+ },
+ "conv-42/q022": {
+  "attribution": "rank_shift",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-42/q026": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-42/q054": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-42/q057": {
+  "attribution": "packed_out",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=26"
+ },
+ "conv-42/q072": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-47/q004": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-47/q011": {
+  "attribution": "lane_miss",
+  "class": "windowed:occ-out-no-mention",
+  "detail": "occ=1650490320 win=1649548800..1649635200 ment_hit=False n_ment=2"
+ },
+ "conv-47/q015": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-47/q021": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-47/q029": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-47/q031": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-47/q032": {
+  "attribution": "rank_shift",
+  "class": "windowed:mention-rescue",
+  "detail": "occ=1657386780 win=1657584000..1657670400 ment_hit=True n_ment=5"
+ },
+ "conv-47/q037": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=6"
+ },
+ "conv-47/q041": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-47/q053": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-47/q059": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-48/q002": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=19"
+ },
+ "conv-48/q010": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=2"
+ },
+ "conv-48/q012": {
+  "attribution": "lane_miss",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=53"
+ },
+ "conv-48/q026": {
+  "attribution": "rank_shift",
+  "class": "windowed:mention-rescue",
+  "detail": "occ=1675504080 win=1672531200..1675209600 ment_hit=True n_ment=2"
+ },
+ "conv-48/q034": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-48/q043": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-48/q045": {
+  "attribution": "rank_shift",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-48/q050": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-48/q052": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-48/q055": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-48/q065": {
+  "attribution": "rank_shift",
+  "class": "windowed:in-window-rank",
+  "detail": ""
+ },
+ "conv-48/q068": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-48/q078": {
+  "attribution": "lane_miss",
+  "class": "windowed:occ-out-no-mention",
+  "detail": "occ=1674812940 win=1693526400..1696118400 ment_hit=False n_ment=2"
+ },
+ "conv-48/q081": {
+  "attribution": "lane_miss",
+  "class": "no-window:not-pooled",
+  "detail": "pool_rank=None"
+ },
+ "conv-49/q024": {
+  "attribution": "lane_miss",
+  "class": "windowed:in-window-rank",
+  "detail": ""
+ },
+ "conv-49/q025": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-49/q041": {
+  "attribution": "rank_shift",
+  "class": "windowed:in-window-rank",
+  "detail": ""
+ },
+ "conv-49/q045": {
+  "attribution": "abstain",
+  "class": "abstain",
+  "detail": ""
+ },
+ "conv-49/q060": {
+  "attribution": "packed_out",
+  "class": "windowed:in-window-rank",
+  "detail": ""
+ },
+ "conv-49/q067": {
+  "attribution": "lane_miss",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=7"
+ },
+ "conv-49/q068": {
+  "attribution": "rank_shift",
+  "class": "windowed:mention-rescue",
+  "detail": "occ=1701807360 win=1701648000..1701734400 ment_hit=True n_ment=2"
+ },
+ "conv-49/q080": {
+  "attribution": "rank_shift",
+  "class": "no-window:fallback-buried",
+  "detail": "pool_rank=38"
+ }
+}

@@ -1,0 +1,185 @@
+Session devin-f4d077549fe04691bb5f6364521e4381:
+  session_id: f4d077549fe04691bb5f6364521e4381
+  title: Workflow verbatim-formula-search-v3: a3-zep-graphiti
+  status: suspended
+  status_detail: inactivity
+  url: https://app.devin.ai/sessions/f4d077549fe04691bb5f6364521e4381
+  acus_consumed: 0.0
+  tags: workflow
+  structured_output:
+    topic: a3-zep-graphiti
+    sources: https://arxiv.org/abs/2501.13956 | paper | Zep paper: bi-temporal model, DMR/LME/LoCoMo vendor numbers, temporal extraction appendix, https://arxiv.org/html/2501.13956 | paper | full text fetched to /workspace/research/zep_paper.txt for quote-level extraction, https://github.com/getzep/graphiti @16cdf70 (v0.30.2) | repo | primary code source for all constants: search_utils.py, search.py, search_config_recipes.py, edge_operations.py, community_operations.py, graphiti_core/search/search_utils.py | repo | RRF rank_const=1, MMR lambda default 0.5, node_distance 1/dist, episode_mentions count, edge_bfs depth<=3, sim_min_score 0.6, graphiti_core/search/search_config_recipes.py | repo | EDGE_HYBRID_SEARCH_RRF default, COMBINED_HYBRID_CROSS_ENCODER for search_(), MMR recipe lambda=1, graphiti_core/utils/maintenance/edge_operations.py | repo | resolve_edge_contradictions deterministic invalidation semantics, graphiti_core/utils/maintenance/community_operations.py | repo | deterministic label propagation + LLM map-reduce summaries, graphiti_core/nodes.py, edges.py | repo | EpisodicNode/EntityNode/EntityEdge field-level data model, graphiti_core/cross_encoder/bge_reranker_client.py | repo | BAAI/bge-reranker-v2-m3 CE, batched predict, https://github.com/getzep/graphiti/blob/main/LICENSE | repo | Apache-2.0, https://arxiv.org/abs/2504.19413 | paper | independent Mem0 paper: Zep LoCoMo 65.99±0.16, search p50 0.513s, ~600k graph tokens/conv, delayed-availability observation, https://github.com/getzep/zep-papers/issues/5 | repo | Zep's own correction of LoCoMo to 75.14±0.17 and the 58.44 re-run dispute context, https://github.com/getzep/graphiti/issues/909 | repo | third-party asking how to reproduce LME numbers — unanswered, calculated | calculated | per-query ms and index-bytes estimates derived from constants (see notes section 7)
+    summary: Graphiti (getzep/graphiti v0.30.2, Apache-2.0) stores a bi-temporal fact model with four edge timestamps (valid_at/invalid_at in event time, created_at/expired_at in ingest time) and a deterministic newest-wins invalidation that truncates the old fact's validity window at the new fact's valid_at — never deletes — which maps directly onto SQLite columns plus one UPDATE statement. Its retrieval is per-object-type hybrid: Lucene/RediSearch BM25 (OR-of-terms, corpus stats global, group_id inside the index) + cosine on 1024-d embeddings + an unranked breadth-first graph lane (RELATES_TO|MENTIONS *1..3) fused by RRF with rank_const=1 — winner-take-all-per-lane, not the textbook k=60 — then a typed reranker (RRF / episode-mention count / 1/shortest-path node-distance / one-shot MMR / bge-reranker-v2-m3 cross-encoder over a ~2*limit pool); results are returned as separate typed lists with no cross-type fusion. Edge-invalidated facts are NOT gated out of retrieval by default — SearchFilters are opt-in — and temporal awareness is surfaced to the reader as explicit '(Date range: from - to)' strings in the pack, which is where Zep's large LongMemEval temporal-reasoning gains (+38-48% relative) likely come from. For Verbatim the shipping takeaways are: bi-temporal columns + truncation invalidation (ship), date-range surfacing in the pack rather than hard gating (ship), a SQL recursive-CTE BFS lane seeded by recent-episode entities or lane-hit sources (ship, ~2-10ms at 100k), corroboration = count of source episodes (confirm existing proof-count boost), and entity canonicalization via a deterministic alias table at write time (ship). RRF k=60 is confirmed over graphiti's k=1 for noisy-lane consensus, with k in {1,10,30,60} flagged as a dev ablation; cross-encoder is optional-profile-only because a v2-m3-class model costs ~1-2.5s for a 32-pool on 4-core CPU (budget is 150ms — needs a MiniLM-class model); LLM community summaries are rejected for byte-pin violation though deterministic label-propagation clustering is admissible. Vendor numbers (LME 71.2%, LoCoMo 75.14) are reader-LLM-confounded and show no isolated retrieval-recall lift; independent Mem0 measurement puts Zep at 65.99 LoCoMo J with ~0.51s p50 search — none of it predicts Verbatim's any@10, which is a candidate-generation problem that the BFS lane and entity canonicalization address most directly.
+    verdicts: bi-temporal 4-timestamp edge model -> ship: deterministic newest-wins truncation (invalid_at=new.valid_at, expired_at=now) maps to one SQL UPDATE, ~80B/fact, no deletes, date-range surfacing in pack instead of gating -> ship: ~8-12 tokens/fact; invalidated facts stay retrievable — matches Zep's biggest measured win (temporal reasoning), validity-aware eligibility (current-only / as-of-T) -> ship as opt-in query flag, not default, RRF k=60 -> confirm over graphiti's k=1 for noisy lanes; flag {1,10,30,60} ablation in dev harness, BFS graph lane (recursive CTE, depth<=3, seeded by recent-episode entities or lane-hit source nodes) -> ship: ~2-10ms at 100k, ~48B/edge adjacency indexes, pure recall, episode-mentions / proof-count corroboration boost -> confirm existing bounded boost (alpha~0.1); graphiti uses raw episode-count sort as a full reranker, node-distance reranker 1/shortest-path -> reject for default: Memory.search has no caller-chosen centroid, one-shot MMR (lambda~0.5) -> optional (quality/max, embedding tier only); graphiti's own MMR recipe ships lambda=1 (degenerates to cosine), weak evidence, cross-encoder rerank, pool<=32 -> optional only with MiniLM-class model; bge-reranker-v2-m3 ~1-2.5s/32 pairs on 4-core exceeds 150ms budget, community detection: deterministic label propagation -> optional maintenance-time lane named by IDF-top member names, community LLM map-reduce summaries -> reject: generated text violates byte-pin; also bloats storage (~600k tokens per 26k-token conv measured by mem0), eligible-set BM25 stats -> keep Verbatim's stricter rule; graphiti's global stats only work because group_id scoping happens inside Lucene, entity alias rules -> confirm + ship deterministic write-time canonicalization with entity_aliases table (name normalization + explicit alias rows, no per-write LLM dedup), BM25F field weights -> confirm/keep: graphiti uses one Lucene field per doc-type, no weight tuning evidence either way, feature-rerank weights -> confirm: Zep uses no learned fusion beyond RRF at all, boost alphas 0.2/0.2/0.1 -> confirm bounded boosts; note recency boost has no Zep analog (they surface dates in pack instead), PPR hop/edge weights -> replace with unweighted BFS lane for expansion unless PPR has separate evidence — simpler and SQL-native
+    notes_markdown: # a3-zep-graphiti — Zep/Graphiti bi-temporal hybrid search → Verbatim mapping
+
+Repo snapshot analyzed: getzep/graphiti @ `16cdf70` (2026-09-21), `graphiti-core` v0.30.2, **Apache-2.0**.
+Paper analyzed: arXiv 2501.13956v3 ("Zep: A Temporal Knowledge Graph Architecture for Agent Memory").
+
+Important framing: almost every score Zep reports is **end-to-end answer accuracy under an LLM judge**, i.e. LLM-extraction quality, retrieval, pack formatting, and the reader LLM are confounded. Nothing in the paper isolates retrieval-only recall (no any@k over evidence items). Verbatim's measured problem (any@10 0.546 < BM25 0.596; 160/1536 zero-hit) is a **candidate-generation** failure — Zep evidence is mostly about pack utilization and temporal validity surfacing, not about fixing weak recall.
+
+---
+
+## 1. Bi-temporal model (paper §2.1, 2.2.3 + code)
+
+**Timelines.** `T` = event/valid time (when a fact held true in the world); `T'` = transaction/ingestion time (when Graphiti learned it). Four timestamps are stored **on every entity edge**:
+
+| Field | Timeline | Set by |
+|---|---|---|
+| `valid_at` | T | LLM `extract_timestamps` against `episode.valid_at` (= t_ref, the message send time). Present tense → t_ref. Relative phrases resolved against t_ref. Null allowed. |
+| `invalid_at` | T | Deterministic invalidation write (below). Null = still valid. |
+| `created_at` | T' | system clock at write |
+| `expired_at` | T' | `utc_now()` when invalidated (audit; never cleared) |
+
+Plus `EntityEdge.reference_time` = the producing episode's t_ref (redundant but stored).
+
+**Invalidation semantics — exact code semantics** (`utils/maintenance/edge_operations.py`):
+1. New edge e_new extracted → `EntityEdge.get_between_nodes(src,dst)` pulls *same-endpoint* edges (dedup candidates) + an unrestricted hybrid search on `e_new.fact` (BM25+cosine, RRF k=1) pulls *invalidation candidates* — note: code is **broader** than the paper's "same entity pair" claim.
+2. LLM (`dedupe_edges.resolve_edge`, small model) returns `duplicate_facts` + `contradicted_facts` index lists. Dedup key fast-path: exact normalized (src,dst,fact) match skips the LLM.
+3. Deterministic `resolve_edge_contradictions` applies the timestamp rule to each LLM-flagged contradiction c:
+   - skip if `c.invalid_at ≤ e_new.valid_at` OR `e_new.invalid_at ≤ c.valid_at` (windows disjoint)
+   - else if `c.valid_at < e_new.valid_at`: **`c.invalid_at = e_new.valid_at`; `c.expired_at = now()`**
+   - i.e. **newest wins; the old fact's validity window is truncated at the new fact's valid_from**. No deletes; history preserved.
+4. Crucially: **`expired_at`/`invalid_at` do NOT remove an edge from retrieval.** Default `search()` returns invalidated edges; `SearchFilters{valid_at, invalid_at, created_at, expired_at}` (OR-of-ANDs DateFilter trees) are opt-in. Temporal awareness is *surfaced to the reader*, not gated: the context constructor emits `FACT (Date range: from - to)`.
+
+**Entity resolution (write path)**: per episode, entity extraction runs with last `EPISODE_WINDOW_LEN = 3` episodes of context (paper says n=4, code now 3). Candidates from hybrid search on (name, summary) → LLM dedup → merged name+summary. Edge dedup hybrid search is restricted to `edge_uuids` between the same node pair.
+
+## 2. Data model (nodes.py / edges.py / graph_queries.py)
+
+- `EpisodicNode {content (raw bytes/text), source ∈ {message,text,json}, source_description, valid_at(t_ref), created_at, entity_edges[]}`; `MENTIONS` edges episode→entity; `NEXT_EPISODE` chain.
+- `EntityNode {name, name_embedding(1024d), summary (LLM "regional summary of surrounding edges"), labels, attributes}`.
+- `EntityEdge (RELATES_TO) {name (predicate), fact (LLM natural-language string), fact_embedding(1024d), episodes[] (uuid back-refs = the citation pin), valid_at, invalid_at, created_at, expired_at, reference_time, group_id, attributes}`.
+- `CommunityNode {name (LLM keyword-ish description), summary (LLM map-reduce), name_embedding}`; `HAS_MEMBER` community→entity edges.
+- `group_id` = tenant/scope partition carried on every row and filterable inside the FTS query itself.
+
+**Byte-pin mapping**: `edge.episodes[]` + `episode.entity_edges[]` are Graphiti's bidirectional citation index — Verbatim's equivalent must be fact→(episode_id, byte span). Graphiti facts are LLM paraphrases with **no byte-pin**; that is exactly the rule Verbatim is stricter on.
+
+## 3. Retrieval mechanics (search/search*.py) — all constants from code
+
+Per object type (edge/node/episode/community), lanes run in parallel (`semaphore_gather`, `SEMAPHORE_LIMIT=20`), each returning `2*limit` candidates (limit default 10 → 20/lane), then a per-type reranker produces a typed list. **No cross-type fusion**: edges, nodes, communities stay separate lists; the pack constructor formats sections.
+
+| Scope | Lanes | Fields searched | Rerankers available | Default recipe (`Graphiti.search()`) | `search_()` default |
+|---|---|---|---|---|---|
+| Edges | bm25, cosine, bfs | FTS idx `edge_name_and_fact` on (name, fact, group_id); cosine on fact_embedding | rrf, mmr, node_distance, episode_mentions, cross_encoder | bm25+cosine → **RRF k=1**, limit 10 | +bfs → cross_encoder |
+| Nodes | bm25, cosine, bfs | `node_name_and_summary` on (name, summary); cosine on name_embedding | same set | — | +bfs → CE |
+| Episodes | bm25 | `episode_content` on (content, source, source_description) | rrf, cross_encoder | — | CE |
+| Communities | bm25, cosine | `community_name` on (name); cosine on name_embedding | rrf, mmr, cross_encoder | — | CE |
+
+Fusion/reranker formulas (search_utils.py):
+- **RRF**: `score(u) = Σ_lanes 1/(rank_lane(u) + rank_const)`, **`rank_const = 1`** — i.e. k=1, NOT the textbook k=60. Weight: lane-top-1 = 1.0; lane-rank-20 ≈ 0.048 (~5%). Winner-take-all-per-lane, union bonus for appearing in >1 lane.
+- **MMR (one-shot, not greedy)**: `score(d) = λ·cos(q,d) + (λ−1)·max_{d'≠d} cos(d,d')`, `DEFAULT_MMR_LAMBDA=0.5`; **but the shipped MMR recipe sets λ=1 → degenerates to pure cosine sort**.
+- **node_distance**: score = 1/shortest-path-len(center,u); center forced to 0.1 → top; 1-hop = 1.0. Requires a caller-chosen centroid.
+- **episode_mentions**: nodes by `COUNT(MENTIONS edges)`; edges post-sorted by `len(edge.episodes)` (corroboration count).
+- **cross_encoder**: `BAAI/bge-reranker-v2-m3` via sentence-transformers, single batched `predict` over (query, text) pairs; pool = RRF top `2*limit` for edges (≈20), **all** candidates for nodes/communities (≈40–60), `limit` for episodes.
+- `sim_min_score = 0.6` cosine floor on similarity lanes; `reranker_min_score = 0`.
+- **BFS**: `MATCH (origin)-[:RELATES_TO|MENTIONS*1..3]->(:Entity)` (MAX_SEARCH_DEPTH=3), dedup edges, no ranking inside lane. If no origins passed, **a second BFS is seeded by the source nodes of first-pass hits** (hit→expand). Origins can also be recent episodes (recency-context expansion).
+- BM25 = Neo4j Lucene fulltext index (Okapi BM25, Lucene defaults k1=1.2, b=0.75) or FalkorDB RediSearch; query = sanitized **OR-of-terms** (no `~` fuzz in current code; stopwords stripped on FalkorDB only), `MAX_QUERY_LENGTH=128` words else query dropped.
+- Filters: `group_id` inside the FTS query; everything else post-score → **corpus stats are global, not eligible-set** (looser than Verbatim's rule; Zep gets away with it via group scoping inside Lucene).
+
+## 4. Communities (community_operations.py)
+
+- **Detection is deterministic**: label propagation over a `projection` dict {node: [(neighbor, edge_count)]}; each node joins the plurality-weighted community, ties → largest community; iterate to fixpoint. O(V+E) per round.
+- **Dynamic extension**: `determine_entity_community` = single step — join mode community among neighbors; then LLM re-summarizes. Only when caller sets `update_communities=True` (default False); periodic full rebuild via `build_communities()`.
+- **Summaries are LLM-derived**: pairwise map-reduce `summarize_pair` halving to one, `MAX_SUMMARY_CHARS` truncation, `generate_summary_description` for the searchable name. **Not byte-pinned** — pure generated text.
+
+## 5. Reported numbers — vendor vs independent (separate columns)
+
+| Metric | Zep-reported | Independent / third-party |
+|---|---|---|
+| DMR (500 convs, MemGPT's own bench) | Zep 94.8% (gpt-4-turbo), 98.2% (gpt-4o-mini) vs MemGPT 93.4%; own full-context baseline 94.4%/98.0% (paper concedes near-tie) | none found |
+| LongMemEval-S | 63.8% (4o-mini) / 71.2% (4o) vs full-context 55.4%/60.2%; "+15.2%/+18.5% relative"; latency 3.20s/2.58s vs 28.9–31.3s; ctx 1.6k vs 115k tokens | getzep/graphiti#909 — external dev asking how to reproduce (unanswered/open); nex-local-bench harness lists Graphiti adapter, runs pending |
+| LoCoMo (J, overall) | Zep corrected re-run **75.14±0.17** (10 runs, their protocol) after an 84% claim was publicly corrected | Mem0 paper: **65.99±0.16** (SH 61.70 / MH 41.35 / **OD 76.60 — Zep won** / T 49.31); Mem0's re-run of Zep's own artifacts with cat-5 excluded properly: **58.44±0.20** (protocol disputed by Zep — see zep-papers#5) |
+| Search latency | "sub-200ms at scale" = Zep Cloud **proprietary** engine (README); OSS graphiti "typically sub-second" | Mem0-measured hosted Zep: search p50 0.513s / p95 0.778s, total p50 1.292s (includes network) |
+| Storage footprint | ctx pack ~1.6k tokens/query | Mem0-measured graph ≈ **600k tokens per ~26k-token conversation** (~23× raw) — entity summaries + facts duplicate content; also observed hours of async-build delay before retrieval worked |
+
+Verdict on numbers: Zep's wins are real but confounded (LLM extraction + judge + reader all differ across rows; single-vendor dispute on LoCoMo). **No evidence the graph machinery itself lifts evidence-recall over BM25** — and Verbatim's own gap is recall-side.
+
+## 6. What maps to SQLite + SQL-only graph expansion
+
+Direct SQL equivalents:
+- `episodes(id, content BLOB, source, valid_at, created_at)` — raw bytes = pin corpus
+- `entities(id, name, summary?, embedding?)`, `mentions(episode_id, entity_id)` — join table = Graphiti's MENTIONS
+- `facts(id, src_id, dst_id, predicate, fact_text, embedding?, valid_at, invalid_at, created_at, expired_at)` + `fact_episodes(fact_id, episode_id, byte_off, byte_len)` — the pin
+- `communities(id, name, summary?)`, `community_members(community_id, entity_id)` if kept
+- BFS → `WITH RECURSIVE reach(node,depth)` over `facts` indexed on (src),(dst); node-distance → same CTE tracking min depth; episode-mentions → `COUNT(*)` on `mentions`/`fact_episodes`; label propagation → pull adjacency once, iterate in Python (Graphiti itself does exactly this), write back community_ids.
+- FTS5 external-content tables per scope replicate `edge_name_and_fact`/`node_name_and_summary`/`episode_content`. (Verbatim note: unicode61 tokenizer + trigram tokenizer for fuzzy lane.)
+
+## 7. Candidate-by-candidate formulas & verdicts
+
+Reference machine: 4-core CPU. N = memories. Estimates assume SQLite + numpy; scale linearly in noted terms.
+
+**C1. Bi-temporal columns + newest-wins truncation**
+- `valid_at, invalid_at ∈ T`; `created_at, expired_at ∈ T'`. On contradiction of same (subject,predicate): `UPDATE facts SET invalid_at = e_new.valid_at, expired_at = now WHERE id=c` when `c.valid_at < e_new.valid_at` and windows overlap.
+- Write cost: O(log N) + one row write. Read cost: `valid_at <= T AND (invalid_at IS NULL OR invalid_at > T)` → range index, O(log N + hits).
+- Index: ~32B timestamps/row + ~2×24B index entries ≈ **~80B/fact**.
+- Stage: **temporal + write-path + eligibility**.
+- Verdict: **ship** — deterministic part is LLM-free; adopt Graphiti's `invalid_at = new.valid_at` truncation verbatim; keep invalidated rows retrievable with dates surfaced (their choice) unless the query is explicitly time-scoped.
+
+**C2. "Date range" surfacing in pack (instead of gating)**
+- Constructor emits `FACT (from valid_at to invalid_at)`; reader reasons. LME gains were largest on temporal-reasoning (+38–48% relative) — attribution confounded but direction consistent.
+- Cost: ~8–12 tokens/fact in pack. Stage: **pack**.
+- Verdict: **ship** — near-free; do not hard-gate expired facts by default (Graphiti doesn't; past-tense questions need them).
+
+**C3. RRF `score(u)=Σ 1/(rank+k)` — which k?**
+- Graphiti: k=1 (top-of-lane dominance: rank20 ≈ 5% of rank1). Verbatim provisional: k=60 (flat consensus: rank20 keeps ~76% of rank1 weight). Cormack et al. 2009 recommend k=60; no Zep ablation.
+- Cost: O(C log C) on ~10²–10³ candidates → <1 ms at 10k/100k. Stage: **fusion**.
+- Verdict: **confirm k=60 for default** (consensus-robust for noisy lanes); flag k=1 (and midpoints 10–30) as a cheap dev-harness ablation — Graphiti is existence-proof that k=1 works when lanes are heterogeneous and lane-tops are trustworthy.
+
+**C4. BFS lane over entity/fact graph, depth ≤3, seeds = recent-episode entities or lane-hit sources**
+- Recursive CTE over `facts(src,dst)` + `mentions`; UNION dedup; frontier ≤ Σ deg^d; cap 2·limit output.
+- Cost: deg~10, seeds~20, d=3 → ≤~2k row visits + dedup → **~2–10 ms at 100k**; sub-ms at 10k. Index: two adjacency B-trees ≈ **~48B/edge**.
+- Stage: **graph lane (candidate generation)** — pure recall, unranked, feeds RRF.
+- Verdict: **ship** — this is Zep's only real "graph" contribution to recall and it is SQL-native; watch cap (their 40-deep sub-lane cap bug analog: bound total expansions ~5k).
+
+**C5. Episode-mentions / corroboration boost**
+- `boost(u) = min(1, β·log(1+count(mentions u)))` — Graphiti sorts edges by `len(episodes)` / nodes by COUNT(MENTIONS). Equivalent to Verbatim's existing proof-count boost.
+- Cost: one COUNT GROUP BY on candidates ≈ <1 ms. Index: mentions join ~48B/row. Stage: **post-fusion boost**.
+- Verdict: **confirm existing bounded boost** (α≈0.1 band) — Zep treats it as a full reranker; a bounded boost is the cheaper equivalent.
+
+**C6. Node-distance reranker `score = 1/dist(center,u)`**
+- Needs a caller-picked centroid (e.g., "the user" node). Memory.search has no natural centroid.
+- Verdict: **reject** for default; note as optional if a "personalized locality" query flag is ever added.
+
+**C7. MMR diversity `score = λ·cos(q,d) − (1−λ)·max cos(d,d')`, λ∈[0.5,0.7]**
+- Graphiti's one-shot variant over candidate embeddings; their shipped recipe uses λ=1 (= cosine sort — suggests they got little value from diversity).
+- Cost: C≤100, d=1024 → C² dots ≈ 10M MAC ≈ **~5–20 ms numpy** at any N (post-hoc on candidates). No extra index bytes (reuses embeddings).
+- Stage: **rerank (diversity)**, requires embedding tier enabled.
+- Verdict: **optional** (quality/max) — only with the neural embedding tier; do greedy MMR properly; near-zero evidence of need for default.
+
+**C8. Cross-encoder rerank, pool ≤32 (RRF-prefiltered)**
+- Graphiti: bge-reranker-v2-m3 (≈568M params), one batched predict over ≤2·limit edge candidates.
+- 4-core estimate: v2-m3-class ≈ 30–80 ms/pair → 32 pairs ≈ **1–2.5 s** — blows the 150 ms budget. A TinyBERT/MiniLM-class CE (~15–30M params, ~5–15 ms/pair) → 32 pairs ≈ **160–500 ms**, still >150 ms.
+- Stage: **optional rerank**.
+- Verdict: **optional only, with a small model and pool cap 32** (matches provisional); v2-m3-size models rejected for the stated budget. Extrapolation caveat: no published ablation of CE contribution for graphiti retrieval alone.
+
+**C9. Community tier**
+- Detection: label propagation (deterministic, cheap) — SQL-read + Python iterate. Names/summaries: LLM map-reduce → **violates byte-pin**.
+- Cost: maintenance-time O(V+E) rounds ~seconds at 100k (background job). ~100B/community.
+- Stage: **write-path (maintenance) + community lane**.
+- Verdict: **reject LLM summaries (byte-pin)**; **optional**: deterministic label-propagation clusters named by IDF-top member entity names (all byte-pinnable) as a coarse-grained lane in quality profile.
+
+**C10. Eligible-set BM25 stats (Verbatim rule vs Graphiti practice)**
+- Graphiti: Lucene stats global; group_id inside query; other filters post-score. Verbatim requires stats on eligible set.
+- Verdict: **keep Verbatim's stricter rule** (principled for authorization/quarantine correctness); Zep's looser scheme works only because group_id scoping happens inside Lucene — a hint that hoisting *cheap identity-level* predicates into the index query is fine, but stats-bearing lanes must still see the eligible set.
+
+**C11. Entity lane with canonicalization at write-time**
+- Graphiti resolves entities at ingest (hybrid candidates → LLM dedup → merged name/summary/aliases). Verbatim analog: normalized-name + alias table `entity_aliases(entity_id, alias)`; query-side exact/case-folded match joins aliases (fixes Verbatim's known possessive/case bug without fuzzy hacks).
+- Cost: alias lookup O(log N); index ~60B/alias. Stage: **entity lane + write-path**.
+- Verdict: **ship** — but keep it deterministic (name normalization + explicit alias rows); Verbatim cannot afford per-write LLM dedup.
+
+**C12. Validity-aware eligibility (as-of / current-only)**
+- `WHERE invalid_at IS NULL` (current facts) or as-of `valid_at<=T AND (invalid_at IS NULL OR invalid_at>T)`; add to the eligibility admission step before ranking.
+- Cost: index range ≈ <1 ms. Stage: **eligibility**.
+- Verdict: **ship as opt-in flag** (query-scoped), not default — default stays Graphiti-style "retrieve-with-dates".
+
+## 8. Provisional-constant review summary
+
+| Constant | Verdict | Evidence |
+|---|---|---|
+| RRF k=60 | **confirm** (ablate {1,10,30,60}) | Graphiti ships k=1; Cormack k=60 standard; cost identical |
+| BM25F field weights | **confirm/keep** | Graphiti per-type single-field-per-doc Lucene; no weight tuning evidence either way |
+| Feature-rerank weights | **confirm** | Zep uses no learned fusion at all — RRF suffices at their scale |
+| Boost alphas 0.2/0.2/0.1 | **confirm** bounded boosts; recency boost has NO Zep analog (they surface dates instead); proof-count corroborated by episode_mentions |
+| PPR hops/edge weights | **replace with BFS lane** if PPR is only for expansion — Zep's unweighted d≤3 BFS is cheaper and equivalent-ish for recall; PPR needs justification |
+| Entity alias rules | **confirm** + write-time canonicalization + alias table (C11) |
+| Cross-encoder pool ≤32 | **confirm** for optional profile; Graphiti uses 20-edge pool and still exceeds 150ms on CPU with a v2-m3-class model |
