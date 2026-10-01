@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: tests (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Run test suite
+        # Wall-clock assertions run in the serial job below: four workers
+        # sharing four cores make "not slower than" style checks flaky.
+        run: |
+          python -m pytest tests/ -q -n auto --ignore=tests/mutation \
+            --deselect tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_perf_not_slower_than_add \
+            --deselect tests/jobs/test_source_coalesce.py::test_ordinary_drain_coalesces_siblings \
+            --deselect tests/v5/test_scenarios_e.py::test_e86_per_class_calibration_honest_insufficient \
+            --durations=15
+
+  mutation:
+    name: mutation suite + timing assertions (serial)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      # These tests apply mutants to the real worktree and restore them, so a
+      # concurrent test run can observe a half-applied mutant. They run alone.
+      - name: Run mutation suite
+        run: python -m pytest tests/mutation -q -rf
+      # Wall-clock assertions, run with nothing else competing for the box.
+      - name: Run timing-sensitive tests
+        run: |
+          python -m pytest -q -rf \
+            tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_perf_not_slower_than_add \
+            tests/jobs/test_source_coalesce.py::test_ordinary_drain_coalesces_siblings \
+            tests/v5/test_scenarios_e.py::test_e86_per_class_calibration_honest_insufficient
+
+  package:
+    name: build + install smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build and check metadata
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+          python -m twine check dist/*
+      - name: Install the built wheel and smoke it
+        run: |
+          python -m venv /tmp/pkg
+          /tmp/pkg/bin/pip install dist/*.whl
+          cd /tmp
+          /tmp/pkg/bin/python -c "import verbatim; assert 'site-packages' in verbatim.__file__, verbatim.__file__"
+          /tmp/pkg/bin/verbatim --help > /dev/null
+          /tmp/pkg/bin/verbatim-service --help > /dev/null
+          /tmp/pkg/bin/python "$GITHUB_WORKSPACE/tools/ci_smoke.py"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error

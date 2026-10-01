@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,8 +8,32 @@ version = "1.0.0"
 description = "Evidence-first, zero-generation memory engine and Hermes memory provider"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{name = "Verbatim contributors"}]
+keywords = [
+    "agent-memory",
+    "ai-agents",
+    "evidence",
+    "llm",
+    "local-first",
+    "memory",
+    "provenance",
+    "retrieval",
+    "sqlite",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
 dependencies = [
     # V3 vault (SPEC_V3 §35): reviewed AEAD provider — no custom crypto,
     # no plaintext fallback. Required for V3.0, not an optional extra.
@@ -18,7 +42,13 @@ dependencies = [
 
 [project.optional-dependencies]
 semantic = ["numpy>=1.26,<3"]
-dev = ["pytest>=8,<9", "pyyaml>=6,<7"]
+dev = ["pytest>=8,<9", "pytest-xdist>=3,<4", "pyyaml>=6,<7"]
+
+[project.urls]
+Homepage = "https://github.com/mosesman831/verbatim"
+Repository = "https://github.com/mosesman831/verbatim"
+Issues = "https://github.com/mosesman831/verbatim/issues"
+Releases = "https://github.com/mosesman831/verbatim/releases"
 
 [project.entry-points."hermes_agent.memory_providers"]
 verbatim = "verbatim:register"
