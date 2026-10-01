@@ -1,0 +1,361 @@
+# Declared mutation set — SPEC_V7 §35 / V7-35.01 (V4-52.* discipline carried).
+#
+# Each entry under `mutations:` removes exactly one landed enforcement
+# check via exact-string replacement; the named pytest node ids fail
+# under the mutant (outcome=killed) or the seam is an enforcement gap.
+# Runner: tools/run_mutation.py — sequential, ≤60s per-test cap,
+# SHA-256 verified restore after every mutation.
+#
+# `pending:` carries the §35 targets whose owning enforcement has not
+# landed or cannot yet be killed by an existing test — each names the
+# blocking reason in `pending_reason`. The loader reads only
+# `doc["mutations"]` and ignores `pending:` entirely, so pending entries
+# are deliberately NOT runnable (a null anchor under `mutations:` would
+# crash apply_mutation).
+version: 1
+contract: 'SPEC_V7 §35 / V7-35.01 — mutation evidence: removing an enforcement check must fail a real test'
+runner: tools/run_mutation.py
+mutations:
+# --- analyzer `norm/v2` (§35 row: "skip clitic split; fold identifiers") ---
+- id: MUT-V7-01
+  target: analyzer/skip-clitic-split
+  check: "norm/v2: possessive/clitic split skipped — 's, 're, n't, 'll, 've, 'd stay glued to the base token, reopening D7-01/D7-03"
+  file: verbatim/text/norm_v2.py
+  anchor: '            if proj[i] in _APOSTROPHES:'
+  replacement: '            if False:'
+  killed_by:
+  - tests/text/test_norm_v2.py::TestClitics::test_clitic_table
+  - tests/text/test_norm_v2.py::TestClitics::test_no_stray_s_term
+  - tests/text/test_norm_v2.py::TestClitics::test_sentence
+  requirements:
+  - V7-35.01
+  - V7-05.10
+- id: MUT-V7-02
+  target: analyzer/fold-identifiers
+  check: 'norm/v2: identifier channel folded like ordinary terms — URLs, hashes, versions, code spans lose their untouched channel (V7-05.10)'
+  file: verbatim/text/norm_v2.py
+  anchor: '            masked[i] = True'
+  replacement: '            masked[i] = False'
+  killed_by:
+  - tests/text/test_norm_v2.py::TestIdentifiers::test_identifier_excluded_from_folding
+  - tests/text/test_norm_v2.py::TestIdentifiers::test_url_parts_not_terms
+  requirements:
+  - V7-35.01
+  - V7-05.10
+# --- lexical (§35 row: "universe stats instead of eligible; skip held subtraction") ---
+- id: MUT-V7-03
+  target: lexical/universe-stats
+  check: 'lexical: BM25F scored on universe statistics instead of the request-eligible corpus — silent V6-02.04 violation (V7-06.05/06.07)'
+  file: verbatim/retrieval/v7/lexical.py
+  anchor: '    if maintained and n_eligible == n_universe:'
+  replacement: '    if maintained:'
+  killed_by:
+  - tests/retrieval/v7/test_lexical.py::test_eligible_subset_corrects_stats
+  - tests/retrieval/v7/test_lexical.py::test_callable_eligibility
+  requirements:
+  - V7-35.01
+  - V7-06.05
+  - V7-06.07
+- id: MUT-V7-04
+  target: lexical/skip-held-subtraction
+  check: 'lexical/stats: ineligible (held) contributions not subtracted from the maintained aggregates, and no exact_recomputed fallback (V7-06.07)'
+  file: verbatim/storage/stats_v7.py
+  anchor: '    _apply(conn, scope_id, generation, unit_rows, stats_version, -1)'
+  replacement: '    _apply(conn, scope_id, generation, unit_rows, stats_version, 0)'
+  killed_by:
+  - tests/storage/test_schema_v7.py::test_stats_decrement_on_unit_removal
+  requirements:
+  - V7-35.01
+  - V7-06.06
+  - V7-06.07
+# --- fuzzy (§35 row: "respell identifiers") ---
+- id: MUT-V7-05
+  target: fuzzy/respell-identifiers
+  check: 'fuzzy: identifier-channel terms fed to the df=0 respelling path — identifiers match exactly or normalized, never respelled (V7-06.04, V7-05.10)'
+  file: verbatim/retrieval/v7/fuzzy.py
+  anchor: "        if ch == \"identifier\" or term in ident_surfaces:\n            ident_surfaces.add(term)\n            continue\n        if ch != \"text\" or not term or term in seen:\n            continue"
+  replacement: "        if ch not in (\"text\", \"identifier\") or not term or term in seen:\n            continue"
+  killed_by:
+  - tests/retrieval/v7/test_lexical.py::test_fuzzy_identifier_never_respelled
+  requirements:
+  - V7-35.01
+  - V7-06.04
+  - V7-05.10
+# --- dense (§35 row: "ANN without eligibility re-check") ---
+- id: MUT-V7-06
+  target: dense/ann-without-eligibility-recheck
+  check: 'dense: ANN accelerator returns rows without the exact eligibility/quarantine/HMAC re-check — ANN is an accelerator only (V7-07.07)'
+  file: verbatim/retrieval/v7/dense.py
+  anchor: '            eligible_keys=eligibility,'
+  replacement: '            eligible_keys=None,'
+  killed_by:
+  - tests/retrieval/v7/test_dense.py::test_lane_eligibility_set_and_callable
+  requirements:
+  - V7-35.01
+  - V7-07.07
+# --- entities / aliases (§35 row: "auto-apply candidate aliases") ---
+- id: MUT-V7-07
+  target: entities/auto-apply-candidate-aliases
+  check: 'entities: ambiguous alias_candidates auto-applied as merges instead of staying reviewable (V7-08.03 "never auto-applied")'
+  file: verbatim/enrichment/entities_v2.py
+  anchor: '        if len(by_alias[al]) > 1:'
+  replacement: '        if False:'
+  killed_by:
+  - tests/enrichment/test_entities_v2.py::TestAliasA1::test_conflict_is_candidate_never_active
+  - tests/enrichment/test_entities_v2.py::TestAliasA1::test_subset_chain_conflict
+  - tests/enrichment/test_entities_v2.py::TestAliasA5A6::test_cross_rule_conflict_candidate
+  requirements:
+  - V7-35.01
+  - V7-08.03
+# --- graph (§35 row: "traverse held units") ---
+- id: MUT-V7-08
+  target: graph/traverse-held-units
+  check: 'graph: bounded PPR expands through held/ineligible units — edges are restricted to eligible units (V7-08.08)'
+  file: verbatim/retrieval/v7/graph.py
+  anchor: '            if other in visited or other in seen_c or other not in elig_set:'
+  replacement: '            if other in visited or other in seen_c or False:  # held/purged units are never traversed'
+  killed_by:
+  - tests/retrieval/v7/test_graph.py::test_held_unit_breaks_paths
+  requirements:
+  - V7-35.01
+  - V7-08.08
+# --- temporal (§35 row: "drop precision; wrong anchor") ---
+- id: MUT-V7-09
+  target: temporal/drop-precision
+  check: 'temporal: resolved interval drops its precision grade — a month-precision event renders as a specific day (V7-09.01, V7-09.12)'
+  file: verbatim/enrichment/temporal_v2.py
+  anchor: '                precision=c.prec, source=c.src,'
+  replacement: '                precision=_P.DAY, source=c.src,'
+  killed_by:
+  - tests/enrichment/test_temporal_v2.py::test_invalid_dates_kept_unknown_never_dropped
+  - tests/enrichment/test_temporal_v2.py::test_never_drops_recognized_phrases
+  - tests/enrichment/test_temporal_v2.py::test_per_rule_exact_accuracy
+  requirements:
+  - V7-35.01
+  - V7-09.01
+  - V7-09.12
+- id: MUT-V7-10
+  target: temporal/wrong-anchor
+  check: 'temporal: relative phrases resolve against the wrong anchor — recorded_at used where message_at/session_started_at leads (V7-09.03, V7-09.05)'
+  file: verbatim/enrichment/temporal_v2.py
+  anchor: '    anchor_us = int(anchor_us)'
+  replacement: '    anchor_us = 0'
+  killed_by:
+  - tests/enrichment/test_temporal_v2.py::test_no_wallclock_anchor_override
+  - tests/enrichment/test_temporal_v2.py::test_anchor_and_rule_recorded
+  - tests/enrichment/test_temporal_v2.py::test_determinism_and_no_wallclock
+  requirements:
+  - V7-35.01
+  - V7-09.03
+  - V7-09.05
+# --- events (§35 row: "unpinned tuple delivered") ---
+- id: MUT-V7-11
+  target: events/unpinned-tuple-delivered
+  check: 'events: an event tuple delivered without verified byte pins — the zero-unpinned delivery rule (V7-09.08, V7-19.08)'
+  file: verbatim/enrichment/events.py
+  anchor: '                if not _pins_ok(pins, raw_len):'
+  replacement: '                if False:'
+  killed_by:
+  - tests/enrichment/test_events.py::TestPins::test_dropped_unpinned_counted
+  - tests/enrichment/test_events.py::TestPins::test_dropped_when_raw_text_empty
+  requirements:
+  - V7-35.01
+  - V7-09.08
+  - V7-19.08
+# --- fusion / rerank (§35 row: "constant-signal weight; unbounded boost") ---
+- id: MUT-V7-12
+  target: fusion/constant-signal-weight
+  check: 'fusion: constant signals (>= 90% same value) still contribute weight instead of exactly 0 (V7-10.03)'
+  file: verbatim/retrieval/v7/fusion.py
+  anchor: '        if max(bucket.values()) / total >= float(threshold):'
+  replacement: '        if False:'
+  killed_by:
+  - tests/retrieval/v7/test_fusion.py::TestConstantSignals::test_detects_modal_value_at_threshold
+  - tests/retrieval/v7/test_fusion.py::TestRrfFuse::test_stats_and_constant_signals_attached
+  requirements:
+  - V7-35.01
+  - V7-10.03
+- id: MUT-V7-13
+  target: fusion/unbounded-boost
+  check: 'boosts: combined multiplicative swing allowed outside [-25%, +30%] (V7-10.10)'
+  file: verbatim/retrieval/v7/boosts.py
+  anchor: 'ALPHA_PROOF = 0.1'
+  replacement: 'ALPHA_PROOF = 0.9'
+  killed_by:
+  - tests/retrieval/v7/test_fusion.py::TestBoosts::test_swing_bounds_at_extremes
+  requirements:
+  - V7-35.01
+  - V7-10.10
+# --- verdict (§35 row: "floor-based deletion reintroduced") ---
+- id: MUT-V7-14
+  target: verdict/floor-based-deletion
+  check: 'verdict: literal-coverage floor deletes ranked candidates again — D7-04 reintroduced; only triggers (a)-(d) may abstain (V7-11.01/11.02)'
+  file: verbatim/querying/verdict_v2.py
+  anchor: "    if not triggers:\n        report = VerdictReport(\n            ResultStatus.READY,"
+  replacement: "    if not triggers and all(\n        g.label == SupportLabel.SUPPORTED for g in group_list\n    ):\n        report = VerdictReport(\n            ResultStatus.READY,"
+  killed_by:
+  - tests/querying/test_verdict_v2.py::TestTriggers::test_no_trigger_no_abstain
+  - tests/querying/test_verdict_v2.py::TestTriggers::test_d_not_fired_without_negative_evidence
+  - tests/querying/test_verdict_v2.py::TestTriggers::test_a_corpus_existence_blocks_trigger
+  requirements:
+  - V7-35.01
+  - V7-11.01
+  - V7-11.02
+# --- packs (§35 row: "computed item with undelivered input") ---
+# (MUT-V7-15 stays under pending: — see pending_reason below.)
+# --- consolidation (§35 row: "stale observation delivered alone") ---
+- id: MUT-V7-16
+  target: consolidation/stale-observation-alone
+  check: 'consolidation: a stale observation delivered alone — without its newer supporting units or the stale label (V7-14.03); anchored in the V7 obs lane that flags stale candidates'
+  file: verbatim/retrieval/v7/obs.py
+  anchor: '        signals: dict[str, Any] = {"stale": cand.stale}'
+  replacement: '        signals: dict[str, Any] = {"stale": 0}'
+  killed_by:
+  - tests/retrieval/v7/test_obs.py::test_stale_flagged_and_ranked_below_fresh
+  requirements:
+  - V7-35.01
+  - V7-14.03
+# --- standing queries / rules (§35 row: "stale pack served after hold") ---
+# (MUT-V7-17 stays under pending: — see pending_reason below.)
+# --- T2 (§35 row: "accept unverified quote") ---
+- id: MUT-V7-18
+  target: t2/accept-unverified-quote
+  check: 't2: a grounded fact stored despite a quote span failing byte verification — verify-before-store and reject-and-count (V7-13.12)'
+  file: verbatim/extraction/t2.py
+  anchor: '                verified=not reasons,'
+  replacement: '                verified=True,'
+  killed_by:
+  - tests/extraction/test_t2.py::test_verify_tampered_quote_rejected
+  - tests/extraction/test_t2.py::test_verify_one_bad_quote_sinks_fact
+  - tests/extraction/test_t2.py::test_commit_rejected_verdict_not_inserted
+  requirements:
+  - V7-35.01
+  - V7-13.12
+# --- reflect (§35 row: "cite undelivered ref") ---
+# (MUT-V7-19 stays under pending: — see pending_reason below.)
+# --- trust (§35 row: "skip rescan; drop blocked item silently") ---
+# (MUT-V7-20 stays under pending: — see pending_reason below.)
+- id: MUT-V7-21
+  target: trust/drop-blocked-silently
+  check: 'trust: a blocked item in a batch dropped without a per-item AddResult report — never silently dropped (V7-19.02); anchored in the bulk_add result assembly that guarantees one report per item'
+  file: verbatim/memory/facade.py
+  anchor: "        return [\n            r\n            if r is not None\n            else _failed_add_result(\n                VerbatimError(ErrorCode.VALIDATION, \"item was not attempted\")\n            )\n            for r in results\n        ]"
+  replacement: '        return [r for r in results if r is not None and r.error is None]'
+  killed_by:
+  - tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_per_item_failure_is_honest
+  - tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_in_tx_failure_rolls_back_only_itself
+  requirements:
+  - V7-35.01
+  - V7-19.02
+# --- performance / eval (§35 rows "extra snapshot per search", "tripwire bypass") ---
+# (MUT-V7-22 and MUT-V7-23 stay under pending: — see pending_reason below.)
+pending:
+# --- packs (§35 row: "computed item with undelivered input") ---
+- id: MUT-V7-15
+  target: packs/computed-item-undelivered-input
+  check: 'packs: a computed item delivered while one of its pinned inputs was not delivered (V7-12.09 "every input is a delivered, pinned item")'
+  file: verbatim/retrieval/v7/computed.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-12.09
+  status: pending_anchor
+  pending_reason: >-
+    The enforcement is real — computed_items asserts set(ci.inputs) <=
+    delivered_refs (verbatim/retrieval/v7/computed.py) and pack.py feeds it
+    only delivered items — but the assert is a fail-loud net no builder can
+    trip (every builder draws inputs from the delivered pool), so removing
+    it fails no existing test; widening the pool at pack.py's call site also
+    survives because no current test omits a citable item. Needs a killer
+    test (e.g. a dated item budget-omitted yet cited by a timeline) before
+    promotion.
+# --- standing queries / rules (§35 row: "stale pack served after hold") ---
+- id: MUT-V7-17
+  target: standing/stale-pack-after-hold
+  check: 'standing: a stored standing-query pack served after a pin became ineligible instead of withheld until rebuilt (V7-14.07); enforcement lives in the V7 obs lane standing-seed eligibility check'
+  file: verbatim/retrieval/v7/obs.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-14.07
+  status: pending_anchor
+  pending_reason: >-
+    The enforcement exists — obs.py phase 3 re-checks every seeded pack
+    member through eligible_fn — but no existing test holds a standing-pack
+    member ineligible, so dropping the check survives. Needs a killer test
+    (standing pack seeded with a held unit must emit nothing for it).
+# --- reflect (§35 row: "cite undelivered ref") ---
+- id: MUT-V7-19
+  target: reflect/cite-undelivered-ref
+  check: 'reflect: an answer citation accepted for a ref never delivered in this loop — citations validate delivered refs + byte-matching quotes (V7-15.02); file hint provisional pending the reflect module'
+  file: verbatim/reflect/loop.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-15.02
+  status: pending_anchor
+  pending_reason: >-
+    verbatim/reflect/ is an empty marker package — the V7-15.02
+    citation-validating reflect loop is unlanded (verbatim/observations/
+    reflect.py is the V4 bounded pass with no delivered-ref citation check).
+    Nothing to anchor until the module lands.
+# --- trust (§35 row: "skip rescan; drop blocked item silently") ---
+- id: MUT-V7-20
+  target: trust/skip-rescan
+  check: 'trust: a rules_v2 upgrade does not enqueue the retroactive rescan job — sleeper payloads stay deliverable (V7-19.03); file hint provisional pending the rules-upgrade path'
+  file: verbatim/security/screening.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-19.03
+  status: pending_anchor
+  pending_reason: >-
+    No rules-upgrade path exists — screening.py pins RULES_REVISION
+    "rules_v1:2025-01" and nothing enqueues a retroactive rescan on a rules
+    bump (V7-19.03 unlanded). Nothing to anchor until the upgrade path
+    lands.
+# --- performance (§35 row: "extra snapshot per search") ---
+- id: MUT-V7-22
+  target: performance/extra-snapshot-per-search
+  check: 'performance: a stage opens its own read snapshot instead of reusing the single S2-S8 snapshot — the snapshot counter catches it (V7-17.12, budget V7-17.03)'
+  file: verbatim/retrieval/v7/pipeline.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-17.03
+  - V7-17.12
+  status: pending_anchor
+  pending_reason: >-
+    The enforcement is structural: run_search never opens a snapshot —
+    stages consume the caller-pinned conn via ctx.store (lanes wrap it in
+    reentrant Store.read()/nullcontext) and stage.fields["snapshots"]=0.0 is
+    honest reporting, not a check. There is no per-stage snapshot-acquire
+    call to remove and no snapshot-counting killer test; a promotion needs
+    either a counted instrumentation seam or a real acquire path to mutate.
+# --- eval (§35 row: "tripwire bypass") ---
+- id: MUT-V7-23
+  target: eval/tripwire-bypass
+  check: 'eval: the anti-gaming tripwire scan skipped — benchmark ids/gold strings could enter runtime code unchallenged (V7-22.18); file hint provisional pending the tripwire tool'
+  file: tools/tripwire.py
+  anchor: null
+  replacement: null
+  killed_by: []
+  requirements:
+  - V7-35.01
+  - V7-22.18
+  status: pending_anchor
+  pending_reason: >-
+    tools/tripwire.py does not exist — the V7-22.18 tripwire is implemented
+    as a CI-time test scan (tests/eval/test_v75_eval_infra.py::
+    TestOracleIsolation), not a mutable runtime enforcement path. Nothing
+    to anchor until the tripwire lands as a tool.

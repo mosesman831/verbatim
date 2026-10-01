@@ -1,0 +1,149 @@
+{
+  "artifact": "f_items_audit",
+  "generated": "2026-10-07",
+  "scope": "SPEC_V3 \u00a703 gap register \u2014 F13\u2013F27 per-item disposition",
+  "statuses": {
+    "evidenced": "behavior-level artifact exists and was exercised",
+    "fixed": "defect corrected; verification artifact cited",
+    "partially_evidenced": "real coverage exists but does not span the item",
+    "explicitly_deferred": "deliberately out of current scope; no claim made",
+    "not_applicable": "item does not apply to this build"
+  },
+  "items": {
+    "F13": {
+      "item": "per-requirement traceability",
+      "status": "evidenced",
+      "evidence": [
+        "eval/v3/suite_conformance.py (all 132 cases carry V3 requirement tags; 132/132 pass)",
+        "eval/v3/registry/ledger.json (per-section evidence; verdicts via compute_completion)"
+      ],
+      "notes": "Requirement ids travel on conformance records, not just markers."
+    },
+    "F14": {
+      "item": "real episode/procedure/replay producers",
+      "status": "evidenced",
+      "evidence": [
+        "verbatim/experience/{episodes,episodes_v3,procedures,prospective,anchors,handlers_v3}.py",
+        "tests/experience/{test_v2_experience,test_v3_transitions,test_v3_episodes}.py"
+      ],
+      "notes": "Deterministic producers exercised by dedicated tests."
+    },
+    "F15": {
+      "item": "scale measurements",
+      "status": "evidenced",
+      "evidence": [
+        "tests/ops/test_operational.py T1: 1K claims, recall p95 24.4ms (target <=25ms)",
+        "tests/ops/test_operational.py T2: 10K claims, recall p95 44.9ms (target <=60ms)"
+      ],
+      "notes": "T2 seeds claim volume only; episode/procedure mix is approximated \u2014 disclosed."
+    },
+    "F16": {
+      "item": "semantic retrieval measurement",
+      "status": "evidenced",
+      "evidence": [
+        "verbatim/embeddings/hashing.py (hashing:subword-ngram:v1, 384-dim, L2)",
+        "eval/v3/report_wave3.md: vector_rag + verbatim_v3 measured (recall 1.000, precision 0.936)"
+      ],
+      "notes": "Hashing encoder is the shipped pinned local encoder; neural backends remain unmeasured by design."
+    },
+    "F17": {
+      "item": "poisoning/injection suite",
+      "status": "evidenced",
+      "evidence": [
+        "eval/v3/suite_security.py + report_wave3.md (poison exposure 0.000, disclosures 0; quarantine at write)"
+      ],
+      "notes": "Measured on the shipped corpus; not a red-team-grade corpus."
+    },
+    "F18": {
+      "item": "full replay laboratory",
+      "status": "evidenced",
+      "evidence": [
+        "verbatim/replay/lab.py — replay_routing re-executes recorded routing_decisions in a sandbox under variant policy tables (state_json pins inputs; unpinned rows not_replayable)",
+        "ReplayLab.paired_execution — paired delivery-path arms (V3-43.05): same snapshot, isolated writes, identical replay authorization, real recall_v3 deliveries compared on delivered item sets",
+        "ReplayLab.paired_admission — write-side arms: identical payloads through real Ingester+run_pending drain (harvesting/screening/admission/relation discovery/consolidation); claims/edges/quarantine/review burden compared on content digests",
+        "variant surface: class_routes, class_lanes, tier_budgets, lane_weights, abstain term_floor_ratio, admission_context; packing now honors effective budgets (V3-26.13)",
+        "verbatim/evidence/replay.py::build_replay_manifest (trajectory manifests)",
+        "tests/replay/test_replay_lab.py — 18 tests covering determinism, divergence, isolation, live-dir refusal, persistence"
+      ],
+      "notes": "Every V3-43.02 stage executes somewhere via the real production paths inside sandbox stores — STAGES_DECLARED_NOT_EXECUTED is empty. model_calls=0 everywhere (V3-43.06); fresh inference remains a product boundary. G8's stated precondition (paired sandbox executions that actually deliver each policy's context) now exists."
+    },
+    "F19": {
+      "item": "encryption, restore, lost-key behavior",
+      "status": "evidenced",
+      "evidence": [
+        "tests/privacy/test_v3_vault.py (env/file/external key sources; missing key -> capability_unavailable; malformed key never leaks plaintext; seal/open exact-bytes)",
+        "tests/ops/test_operational.py (key rotation under concurrent hydration)"
+      ],
+      "notes": "Lost-key degrades to honest capability state rather than silent failure."
+    },
+    "F20": {
+      "item": "multilingual corpus + entity resolution",
+      "status": "explicitly_deferred",
+      "evidence": [],
+      "notes": "No multilingual corpus or entity-resolution benchmark exists; lexical+hashing lanes are language-agnostic by construction but unmeasured. No claim made."
+    },
+    "F21": {
+      "item": "structural debt: _has_table duplication, dead hrr.py, api.py god-file",
+      "status": "fixed",
+      "evidence": [
+        "verbatim/storage/repos.py::has_table (single shared helper; six copies removed)",
+        "verbatim/hrr.py -> research/hrr.py (research code out of shipped package)",
+        "verbatim/api.py facade (222 lines) + api_{ingest,recall,review,governance,privacy,experience}.py mixins (V3-06.01)",
+        "config: orphaned experimental.hrr flag removed"
+      ],
+      "notes": "Verification: full pytest suite green; conformance 132/132 through the decomposed facade."
+    },
+    "F22": {
+      "item": "duplicate scope insertion paths",
+      "status": "fixed",
+      "evidence": [
+        "verbatim/storage/repos.py::ensure_scope is canonical; api.py sites consolidated",
+        "envelopes.py retains the distinct 4-column v3 scope shape (legitimately different insert)"
+      ],
+      "notes": "Stable scope identity via scope_id_for == scope_key."
+    },
+    "F23": {
+      "item": "corpus realism and size",
+      "status": "partially_evidenced",
+      "evidence": [
+        "eval/v3/corpus.py: 52 tasks including 8 update-pair fixtures (4 true-positive forms + 4 false-positive twins)"
+      ],
+      "notes": "Still a bounded synthetic corpus; licensed competitor corpus (G7) remains pending \u2014 no superiority claim."
+    },
+    "F24": {
+      "item": "abstention calibration",
+      "status": "evidenced",
+      "evidence": [
+        "eval/v3/report_wave3.md: abstain precision/recall 1.000; po-008 benign-weak item exercises the coverage floor correctly"
+      ],
+      "notes": "Calibrated on the shipped corpus only."
+    },
+    "F25": {
+      "item": "automatic episode/procedure compilation",
+      "status": "evidenced",
+      "evidence": [
+        "verbatim/experience/episodes_v3.py (deterministic compilation from completed trajectories; episode_id_for pure function of trajectory_id)",
+        "verbatim/experience/procedures.py + tests/experience/"
+      ],
+      "notes": "Replaying a trajectory yields identical episode identity."
+    },
+    "F26": {
+      "item": "broader conflict/relation discovery",
+      "status": "evidenced",
+      "evidence": [
+        "verbatim/evidence/relations.py \u2014 propose_unstructured_relations: deterministic contradiction signals (negation asymmetry, numeric mismatch, correction markers) over same-scope entity neighborhoods, optional encoder corroboration (hashing encoder, cosine recorded as confidence), then conflicts_with edge + dispute review",
+        "wired into _do_admit for v3-origin claims alongside the supersession detector; v2 contract byte-identical",
+        "tests/evidence/test_relations.py \u2014 9 tests: flag/no-flag gates, structured skip, encoder provenance, dedup, no applied transitions"
+      ],
+      "notes": "V3-18.03 pipeline implemented verbatim: deterministic first, optional local discriminative judgment (encoder), then review. Generative models never label relations; detection never applies transitions. Same-scope only per spec \u2014 cross-scope discovery is out of scope by design."
+    },
+    "F27": {
+      "item": "rebuild-recall regression (historical recall delta)",
+      "status": "fixed",
+      "evidence": [
+        "eval/v3/f27_report.json: reproduced at saved-baseline scale \u2014 122/200=0.61 pre, 176/200=0.88 post (saved 0.58/0.89); 0 unattributed outcomes"
+      ],
+      "notes": "Mechanism is rank_shift/packed_out lexical candidates (54 rank shifts, packed_out 77->23), NOT generation stranding \u2014 all expected claims were indexed at the queried generation."
+    }
+  }
+}

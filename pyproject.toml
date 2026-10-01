@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "verbatim-memory"
+version = "1.0.0"
+description = "Evidence-first, zero-generation memory engine and Hermes memory provider"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Verbatim contributors"}]
+dependencies = [
+    # V3 vault (SPEC_V3 §35): reviewed AEAD provider — no custom crypto,
+    # no plaintext fallback. Required for V3.0, not an optional extra.
+    "cryptography>=42,<47",
+]
+
+[project.optional-dependencies]
+semantic = ["numpy>=1.26,<3"]
+dev = ["pytest>=8,<9", "pyyaml>=6,<7"]
+
+[project.entry-points."hermes_agent.memory_providers"]
+verbatim = "verbatim:register"
+
+[project.scripts]
+verbatim = "verbatim.cli:main"
+verbatim-service = "verbatim.service.__main__:main"
+verbatim-mcp = "verbatim.api_v3.mcp:main"
+
+[tool.setuptools.packages.find]
+include = ["verbatim*"]
+
+[tool.setuptools.package-data]
+verbatim = ["plugin.yaml", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

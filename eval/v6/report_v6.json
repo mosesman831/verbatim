@@ -1,0 +1,2952 @@
+{
+  "environment": {
+    "cpu_count_logical": 4,
+    "loadavg_1m": 4.30859375,
+    "machine": "aarch64",
+    "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+    "processor": "aarch64",
+    "python": "3.12.3",
+    "sqlite": "3.45.1"
+  },
+  "portfolio": "v6",
+  "qualification": "locally_measured",
+  "quick": true,
+  "seed": 42,
+  "suites": {
+    "add_ack_scaling": {
+      "checkpoints": [
+        {
+          "add_ack_ms": {
+            "max": 58.49535297602415,
+            "mean": 34.26823387781042,
+            "n": 16,
+            "p50": 29.253236018121243,
+            "p95": 50.71776395197958,
+            "p99": 58.49535297602415
+          },
+          "n": 512,
+          "stages_ms": {
+            "add_other": {
+              "max": 0.09257244164473377,
+              "mean": 0.09257244164473377,
+              "n": 1,
+              "p50": 0.09257244164473377,
+              "p95": 0.09257244164473377,
+              "p99": 0.09257244164473377
+            },
+            "authorize": {
+              "max": 0.46779902186244726,
+              "mean": 0.20266469073249027,
+              "n": 16,
+              "p50": 0.1662799622863531,
+              "p95": 0.2761990181170404,
+              "p99": 0.46779902186244726
+            },
+            "capture_tx.ingest": {
+              "max": 6.318230996839702,
+              "mean": 2.4870937486412004,
+              "n": 16,
+              "p50": 2.052516967523843,
+              "p95": 4.065554006956518,
+              "p99": 6.318230996839702
+            },
+            "commit_tx": {
+              "max": 58.04967298172414,
+              "mean": 33.142922940896824,
+              "n": 16,
+              "p50": 28.376277012284845,
+              "p95": 49.60568598471582,
+              "p99": 58.04967298172414
+            },
+            "obligations": {
+              "max": 1.4163179439492524,
+              "mean": 0.5153592392161954,
+              "n": 16,
+              "p50": 0.33271999564021826,
+              "p95": 1.0383590124547482,
+              "p99": 1.4163179439492524
+            },
+            "receipt_caps_post": {
+              "max": 2.1229570265859365,
+              "mean": 0.7078364978951868,
+              "n": 16,
+              "p50": 0.35727996146306396,
+              "p95": 1.728637027554214,
+              "p99": 2.1229570265859365
+            },
+            "session_compact": {
+              "max": 5.167672003153712,
+              "mean": 0.3249019973736722,
+              "n": 16,
+              "p50": 0.0021599698811769485,
+              "p95": 0.0026400084607303143,
+              "p99": 5.167672003153712
+            },
+            "session_receipt_tx": {
+              "max": 2.4498369893990457,
+              "mean": 1.0247559948766138,
+              "n": 16,
+              "p50": 0.7257590186782181,
+              "p95": 1.9411969697102904,
+              "p99": 2.4498369893990457
+            },
+            "source_jobs": {
+              "max": 4.409912973642349,
+              "mean": 2.4958737449196633,
+              "n": 16,
+              "p50": 2.2075159940868616,
+              "p95": 3.714113961905241,
+              "p99": 4.409912973642349
+            },
+            "source_state": {
+              "max": 3.5463550011627376,
+              "mean": 1.5726701931271236,
+              "n": 16,
+              "p50": 1.135038968641311,
+              "p95": 3.1858350266702473,
+              "p99": 3.5463550011627376
+            },
+            "update_prescan": {
+              "max": 26.828519999980927,
+              "mean": 14.692782933707349,
+              "n": 16,
+              "p50": 11.602261976804584,
+              "p95": 26.02716098772362,
+              "p99": 26.828519999980927
+            }
+          }
+        },
+        {
+          "add_ack_ms": {
+            "max": 58.731672004796565,
+            "mean": 32.33151924723643,
+            "n": 16,
+            "p50": 27.73551899008453,
+            "p95": 48.16280899103731,
+            "p99": 58.731672004796565
+          },
+          "n": 1024,
+          "stages_ms": {
+            "add_other": {
+              "max": 0.10229743202216923,
+              "mean": 0.10229743202216923,
+              "n": 1,
+              "p50": 0.10229743202216923,
+              "p95": 0.10229743202216923,
+              "p99": 0.10229743202216923
+            },
+            "authorize": {
+              "max": 0.6288790027610958,
+              "mean": 0.2135696922778152,
+              "n": 16,
+              "p50": 0.16307999612763524,
+              "p95": 0.5006790161132812,
+              "p99": 0.6288790027610958
+            },
+            "capture_tx.ingest": {
+              "max": 6.354590004775673,
+              "mean": 3.4629499932634644,
+              "n": 16,
+              "p50": 2.8007159708067775,
+              "p95": 6.083591026253998,
+              "p99": 6.354590004775673
+            },
+            "commit_tx": {
+              "max": 58.052833017427474,
+              "mean": 31.803224817849696,
+              "n": 16,
+              "p50": 26.896919996943325,
+              "p95": 47.765689028892666,
+              "p99": 58.052833017427474
+            },
+            "obligations": {
+              "max": 1.065398973878473,
+              "mean": 0.4866666240559425,
+              "n": 16,
+              "p50": 0.2960789715871215,
+              "p95": 0.918478996027261,
+              "p99": 1.065398973878473
+            },
+            "receipt_caps_post": {
+              "max": 0.9709990117698908,
+              "mean": 0.42380200829938985,
+              "n": 16,
+              "p50": 0.30787999276071787,
+              "p95": 0.8863190305419266,
+              "p99": 0.9709990117698908
+            },
+            "session_compact": {
+              "max": 0.0026400084607303143,
+              "mean": 0.0021949890651740134,
+              "n": 16,
+              "p50": 0.0021599698811769485,
+              "p95": 0.002639950253069401,
+              "p99": 0.0026400084607303143
+            },
+            "session_receipt_tx": {
+              "max": 3.4617549972608685,
+              "mean": 1.405145500029903,
+              "n": 16,
+              "p50": 1.1673980043269694,
+              "p95": 2.399596036411822,
+              "p99": 3.4617549972608685
+            },
+            "source_jobs": {
+              "max": 7.309028995223343,
+              "mean": 3.7904094424447976,
+              "n": 16,
+              "p50": 3.05655604461208,
+              "p95": 6.904308975208551,
+              "p99": 7.309028995223343
+            },
+            "source_state": {
+              "max": 4.602553031872958,
+              "mean": 2.0502218721958343,
+              "n": 16,
+              "p50": 1.5972380060702562,
+              "p95": 4.342913045547903,
+              "p99": 4.602553031872958
+            },
+            "update_prescan": {
+              "max": 25.494682020507753,
+              "mean": 11.175615945830941,
+              "n": 16,
+              "p50": 10.234784975182265,
+              "p95": 11.242463020607829,
+              "p99": 25.494682020507753
+            }
+          }
+        }
+      ],
+      "environment": {
+        "cpu_count_logical": 4,
+        "loadavg_1m": 4.04296875,
+        "machine": "aarch64",
+        "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+        "processor": "aarch64",
+        "python": "3.12.3",
+        "sqlite": "3.45.1"
+      },
+      "profile_adds": 16,
+      "qualification": "locally_measured",
+      "scale_disclosure": "checkpoints [512, 1024] vs spec n=1k/5k/20k \u2014 local probe, not A3 qualification",
+      "spec_reference": "V6-02.16",
+      "stage_scaling": {
+        "alphas": {
+          "add_other": 0.144,
+          "authorize": 0.076,
+          "capture_tx.ingest": 0.478,
+          "commit_tx": -0.06,
+          "obligations": -0.083,
+          "receipt_caps_post": -0.74,
+          "session_compact": -7.21,
+          "session_receipt_tx": 0.455,
+          "source_jobs": 0.603,
+          "source_state": 0.383,
+          "update_prescan": -0.395
+        },
+        "method": "per-stage alpha = ln(mean_last/mean_first)/ln(n_last/n_first) over the first\u2192last checkpoints of the profiled adds; a stage is a named defect when alpha > 1.0 AND its mean at the largest checkpoint is >= 0.5 ms (below the floor perf_counter noise dominates \u2014 alphas are still published for every stage)",
+        "superlinear_stages": []
+      },
+      "status": "executed",
+      "suite": "add_ack_scaling",
+      "superlinear_stages": []
+    },
+    "comparators": {
+      "comparisons": [
+        {
+          "a": "verbatim_memory",
+          "b": "verbatim_v2",
+          "delta": 0.148148,
+          "metric": "accuracy",
+          "reason": "measured",
+          "valid": true,
+          "value_a": 1.0,
+          "value_b": 0.8518518518518519,
+          "winner": "verbatim_memory"
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "naive_fts",
+          "delta": 0.111111,
+          "metric": "accuracy",
+          "reason": "measured",
+          "valid": true,
+          "value_a": 1.0,
+          "value_b": 0.8888888888888888,
+          "winner": "verbatim_memory"
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "vector_rag",
+          "delta": 0.222222,
+          "metric": "accuracy",
+          "reason": "measured",
+          "valid": true,
+          "value_a": 1.0,
+          "value_b": 0.7777777777777778,
+          "winner": "verbatim_memory"
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "no_memory",
+          "delta": 0.851852,
+          "metric": "accuracy",
+          "reason": "measured",
+          "valid": true,
+          "value_a": 1.0,
+          "value_b": 0.14814814814814814,
+          "winner": "verbatim_memory"
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "mem0_oss",
+          "metric": "accuracy",
+          "reason": "mem0_oss is unavailable: mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "valid": false,
+          "winner": null
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "mem0_oss_inferfalse",
+          "metric": "accuracy",
+          "reason": "mem0_oss_inferfalse is unavailable: mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "valid": false,
+          "winner": null
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "graphiti_oss",
+          "metric": "accuracy",
+          "reason": "graphiti_oss is unavailable: graphiti_core not installed: graphiti_core: ModuleNotFoundError: No module named 'graphiti_core'; neo4j: ModuleNotFoundError: No module named 'neo4j'",
+          "valid": false,
+          "winner": null
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "holographic",
+          "metric": "accuracy",
+          "reason": "holographic is unavailable: package 'holographic' not installed \u2014 the pinned local comparator cannot execute (ModuleNotFoundError: No module named 'holographic')",
+          "valid": false,
+          "winner": null
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "zep_hosted",
+          "metric": "accuracy",
+          "reason": "zep_hosted is out_of_scope: hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "valid": false,
+          "winner": null
+        },
+        {
+          "a": "verbatim_memory",
+          "b": "mem0_platform",
+          "metric": "accuracy",
+          "reason": "mem0_platform is out_of_scope: hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "valid": false,
+          "winner": null
+        }
+      ],
+      "corpus": {
+        "categories": {
+          "forget_distractor": 1,
+          "identifier": 14,
+          "lexical": 4,
+          "no_answer": 2,
+          "paraphrase": 1,
+          "temporal": 2,
+          "unicode": 2,
+          "update": 1
+        },
+        "digest": "fceba4d0133cdb00a1c205cc2dfd269b2b1b5b08e6161ce133c94f89c1dfa9bc",
+        "forget_items": 1,
+        "items": 48,
+        "name": "v5-consumer-48s42",
+        "seed": 42,
+        "superseded_items": 1,
+        "tasks": 27
+      },
+      "corpus_digest": "fceba4d0133cdb00a1c205cc2dfd269b2b1b5b08e6161ce133c94f89c1dfa9bc",
+      "environment": {
+        "cpu_count_logical": 4,
+        "loadavg_1m": 4.2607421875,
+        "machine": "aarch64",
+        "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+        "processor": "aarch64",
+        "python": "3.12.3",
+        "sqlite": "3.45.1"
+      },
+      "executed_arms": [
+        "verbatim_memory",
+        "verbatim_v2",
+        "naive_fts",
+        "vector_rag",
+        "no_memory"
+      ],
+      "notes": [
+        "paired run \u2014 one shared corpus/digest/k for every arm",
+        "arms receive only PublicItemView/PublicTaskView surfaces (gold ids unreachable from arm code)",
+        "cost accounting is partial \u2014 unmeasured categories are labeled per row (V6-06.05)"
+      ],
+      "qualification": "locally_measured",
+      "registry": [
+        "verbatim_memory",
+        "verbatim_v2",
+        "naive_fts",
+        "vector_rag",
+        "no_memory",
+        "mem0_oss",
+        "mem0_oss_inferfalse",
+        "graphiti_oss",
+        "holographic",
+        "zep_hosted",
+        "mem0_platform"
+      ],
+      "rows": [
+        {
+          "arm": "verbatim_memory",
+          "costs": {
+            "answer_reading": "unmeasured",
+            "consolidation": "unmeasured",
+            "embeddings": "unmeasured",
+            "extraction": "unmeasured",
+            "ingest": {
+              "unit": "ms_wall",
+              "value": 3997.7
+            },
+            "maintenance": "unmeasured",
+            "query_inference": {
+              "unit": "ms_wall",
+              "value": 221.652
+            },
+            "storage": {
+              "unit": "bytes",
+              "value": 2600960.0
+            },
+            "total": {
+              "complete": false,
+              "measured_total": 2605179.352,
+              "unmeasured": [
+                "extraction",
+                "embeddings",
+                "consolidation",
+                "answer_reading",
+                "maintenance"
+              ]
+            }
+          },
+          "executed": true,
+          "metrics": {
+            "abstain": {
+              "correct": 2,
+              "n": 2
+            },
+            "accuracy": 1.0,
+            "accuracy_ci95": [
+              0.8754449702581327,
+              0.9999999999999999
+            ],
+            "correct": 27,
+            "delivered_bytes_total": 42698,
+            "errors": 0,
+            "forbidden_hits": 0,
+            "latency_ms": {
+              "max": 17.721093026921153,
+              "mean": 8.20933430697079,
+              "n": 27,
+              "p50": 7.555708987638354,
+              "p95": 12.905901006888598,
+              "p99": 17.721093026921153
+            },
+            "precision_at_k": 1.0,
+            "recall_at_k": 1.0,
+            "task_success": 1.0,
+            "tasks": 27
+          },
+          "notes": [
+            "lifecycle applied: supersede core-meeting-v1->core-meeting-v2 (facade add replaces=); forget core-forgotten (facade forget)",
+            "cost accounting partial \u2014 unmeasured categories: extraction, embeddings, consolidation, answer_reading, maintenance"
+          ],
+          "pin": {
+            "deployment": "local_embedded",
+            "edition": "verbatim",
+            "embedder": "hashing:subword-ngram:v1",
+            "extractor": "memory_facade.add(infer=bool)",
+            "hardware": "aarch64",
+            "indexes": "fts5+hashing-encoder",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local, no priced services)",
+            "prompts": "none",
+            "reader": "consumer_search(SearchResult)",
+            "readiness_policy": "wait_ready+session_barrier+external_drain",
+            "revision": "0.1.0",
+            "settings": "profile=local_memory,worker=external"
+          },
+          "pins_missing": [],
+          "reason": "",
+          "status": "tested",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "verbatim_v2",
+          "costs": {
+            "answer_reading": "unmeasured",
+            "consolidation": "unmeasured",
+            "embeddings": "unmeasured",
+            "extraction": "unmeasured",
+            "ingest": {
+              "unit": "ms_wall",
+              "value": 2941.129
+            },
+            "maintenance": "unmeasured",
+            "query_inference": {
+              "unit": "ms_wall",
+              "value": 278.328
+            },
+            "storage": {
+              "unit": "bytes",
+              "value": 6471720.0
+            },
+            "total": {
+              "complete": false,
+              "measured_total": 6474939.457,
+              "unmeasured": [
+                "extraction",
+                "embeddings",
+                "consolidation",
+                "answer_reading",
+                "maintenance"
+              ]
+            }
+          },
+          "executed": true,
+          "metrics": {
+            "abstain": {
+              "correct": 0,
+              "n": 2
+            },
+            "accuracy": 0.8518518518518519,
+            "accuracy_ci95": [
+              0.6752131457218702,
+              0.9408407222375568
+            ],
+            "correct": 23,
+            "delivered_bytes_total": 293025,
+            "errors": 0,
+            "forbidden_hits": 0,
+            "latency_ms": {
+              "max": 13.163339986931533,
+              "mean": 10.308454216337177,
+              "n": 27,
+              "p50": 10.143864958081394,
+              "p95": 10.952224023640156,
+              "p99": 13.163339986931533
+            },
+            "precision_at_k": 0.125,
+            "recall_at_k": 1.0,
+            "task_success": 0.8518518518518519,
+            "tasks": 27
+          },
+          "notes": [
+            "lifecycle applied: supersede core-meeting-v1->core-meeting-v2; forget core-forgotten",
+            "cost accounting partial \u2014 unmeasured categories: extraction, embeddings, consolidation, answer_reading, maintenance"
+          ],
+          "pin": {
+            "deployment": "local_embedded",
+            "edition": "verbatim",
+            "embedder": "hashing:subword-ngram:v1",
+            "extractor": "v2 ingest: typed harvest -> screened claims -> operator admit",
+            "hardware": "aarch64",
+            "indexes": "fts5 claims + hashing-encoder embed jobs",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local, no priced services)",
+            "prompts": "none",
+            "reader": "v2 retrieval.search via Engine.recall (analyze->scope->candidates->RRF->evidence)",
+            "readiness_policy": "run_pending drain + operator admit + reindex (F27 repair disclosed)",
+            "revision": "0.1.0 (v2 contract)",
+            "settings": "mode=offline_rules; admission.require_review=true; embedding=hashing"
+          },
+          "pins_missing": [],
+          "reason": "",
+          "status": "tested",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "naive_fts",
+          "costs": {
+            "answer_reading": "unmeasured",
+            "consolidation": "unmeasured",
+            "embeddings": "unmeasured",
+            "extraction": "unmeasured",
+            "ingest": {
+              "unit": "ms_wall",
+              "value": 35.302
+            },
+            "maintenance": "unmeasured",
+            "query_inference": {
+              "unit": "ms_wall",
+              "value": 4.038
+            },
+            "storage": {
+              "unit": "bytes",
+              "value": 45056.0
+            },
+            "total": {
+              "complete": false,
+              "measured_total": 45095.34,
+              "unmeasured": [
+                "extraction",
+                "embeddings",
+                "consolidation",
+                "answer_reading",
+                "maintenance"
+              ]
+            }
+          },
+          "executed": true,
+          "metrics": {
+            "abstain": {
+              "correct": 0,
+              "n": 2
+            },
+            "accuracy": 0.8888888888888888,
+            "accuracy_ci95": [
+              0.7194219918172018,
+              0.9614796517169015
+            ],
+            "correct": 24,
+            "delivered_bytes_total": 9960,
+            "errors": 0,
+            "forbidden_hits": 0,
+            "latency_ms": {
+              "max": 0.506000011228025,
+              "mean": 0.14957311106155868,
+              "n": 27,
+              "p50": 0.11911999899893999,
+              "p95": 0.4237590474076569,
+              "p99": 0.506000011228025
+            },
+            "precision_at_k": 0.455642,
+            "recall_at_k": 1.0,
+            "task_success": 0.8888888888888888,
+            "tasks": 27
+          },
+          "notes": [
+            "lifecycle applied: supersede core-meeting-v1->core-meeting-v2; forget core-forgotten",
+            "cost accounting partial \u2014 unmeasured categories: extraction, embeddings, consolidation, answer_reading, maintenance"
+          ],
+          "pin": {
+            "deployment": "local_embedded",
+            "edition": "reference",
+            "embedder": "none",
+            "extractor": "none (raw item text indexed whole)",
+            "hardware": "aarch64",
+            "indexes": "fts5(item_id,text)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local, no priced services)",
+            "prompts": "none",
+            "reader": "sqlite FTS5 bm25, OR-match over quoted query terms",
+            "readiness_policy": "synchronous commit (no async pipeline)",
+            "revision": "v6-arm:1",
+            "settings": "k-bounded; unicode61 tokenizer"
+          },
+          "pins_missing": [],
+          "reason": "",
+          "status": "tested",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "vector_rag",
+          "costs": {
+            "answer_reading": "unmeasured",
+            "consolidation": "unmeasured",
+            "embeddings": "unmeasured",
+            "extraction": "unmeasured",
+            "ingest": {
+              "unit": "ms_wall",
+              "value": 52.31
+            },
+            "maintenance": "unmeasured",
+            "query_inference": {
+              "unit": "ms_wall",
+              "value": 91.848
+            },
+            "storage": {
+              "unit": "bytes",
+              "value": 110592.0
+            },
+            "total": {
+              "complete": false,
+              "measured_total": 110736.158,
+              "unmeasured": [
+                "extraction",
+                "embeddings",
+                "consolidation",
+                "answer_reading",
+                "maintenance"
+              ]
+            }
+          },
+          "executed": true,
+          "metrics": {
+            "abstain": {
+              "correct": 0,
+              "n": 2
+            },
+            "accuracy": 0.7777777777777778,
+            "accuracy_ci95": [
+              0.5924307113336742,
+              0.8939276054763996
+            ],
+            "correct": 21,
+            "delivered_bytes_total": 16470,
+            "errors": 0,
+            "forbidden_hits": 0,
+            "latency_ms": {
+              "max": 5.680150992702693,
+              "mean": 3.4017948869236365,
+              "n": 27,
+              "p50": 3.32323502516374,
+              "p95": 3.4013150143437088,
+              "p99": 5.680150992702693
+            },
+            "precision_at_k": 0.11413,
+            "recall_at_k": 0.913043,
+            "task_success": 0.7777777777777778,
+            "tasks": 27
+          },
+          "notes": [
+            "lifecycle applied: supersede core-meeting-v1->core-meeting-v2; forget core-forgotten",
+            "cost accounting partial \u2014 unmeasured categories: extraction, embeddings, consolidation, answer_reading, maintenance"
+          ],
+          "pin": {
+            "deployment": "local_embedded",
+            "edition": "reference",
+            "embedder": "hashing:subword-ngram:v1 (non-neural)",
+            "extractor": "none (raw item text embedded whole)",
+            "hardware": "aarch64",
+            "indexes": "sqlite vecs(item_id,blob) \u2014 full scan cosine",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local, no priced services)",
+            "prompts": "none",
+            "reader": "cosine top-k over float32 blobs",
+            "readiness_policy": "synchronous encode at seed (no async pipeline)",
+            "revision": "v6-arm:1",
+            "settings": "k-bounded; no abstention machinery"
+          },
+          "pins_missing": [],
+          "reason": "",
+          "status": "tested",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "no_memory",
+          "costs": {
+            "answer_reading": "unmeasured",
+            "consolidation": "unmeasured",
+            "embeddings": "unmeasured",
+            "extraction": "unmeasured",
+            "ingest": {
+              "unit": "ms_wall",
+              "value": 0.048
+            },
+            "maintenance": "unmeasured",
+            "query_inference": {
+              "unit": "ms_wall",
+              "value": 0.002
+            },
+            "storage": "unmeasured",
+            "total": {
+              "complete": false,
+              "measured_total": 0.05,
+              "unmeasured": [
+                "extraction",
+                "embeddings",
+                "consolidation",
+                "answer_reading",
+                "storage",
+                "maintenance"
+              ]
+            }
+          },
+          "executed": true,
+          "metrics": {
+            "abstain": {
+              "correct": 2,
+              "n": 2
+            },
+            "accuracy": 0.14814814814814814,
+            "accuracy_ci95": [
+              0.05915927776244326,
+              0.3247868542781298
+            ],
+            "correct": 4,
+            "delivered_bytes_total": 0,
+            "errors": 0,
+            "forbidden_hits": 0,
+            "latency_ms": {
+              "max": 0.0001600128598511219,
+              "mean": 7.999241697015586e-05,
+              "n": 27,
+              "p50": 7.997732609510422e-05,
+              "p95": 0.00015995465219020844,
+              "p99": 0.0001600128598511219
+            },
+            "precision_at_k": 0.0,
+            "recall_at_k": 0.0,
+            "task_success": 0.14814814814814814,
+            "tasks": 27
+          },
+          "notes": [
+            "lifecycle NOT applied: no replace path \u2014 supersede event skipped, predecessor core-meeting-v1 left as-is; no delete path \u2014 forget event skipped, core-forgotten left as-is",
+            "cost accounting partial \u2014 unmeasured categories: extraction, embeddings, consolidation, answer_reading, storage, maintenance"
+          ],
+          "pin": {
+            "deployment": "local_embedded",
+            "edition": "reference",
+            "embedder": "n/a (no store)",
+            "extractor": "n/a (no write path \u2014 control arm)",
+            "hardware": "aarch64",
+            "indexes": "n/a (no index)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local, no priced services)",
+            "prompts": "none",
+            "reader": "none \u2014 returns an empty result for every query",
+            "readiness_policy": "n/a (nothing to settle)",
+            "revision": "v6-arm:1",
+            "settings": "control arm; consumes no items"
+          },
+          "pins_missing": [],
+          "reason": "",
+          "status": "tested",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "mem0_oss",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [],
+          "pin": {
+            "deployment": "n/a (not deployed \u2014 local pin infeasible)",
+            "edition": "oss",
+            "embedder": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "extractor": "mem0 LLM extractor (infer=True) \u2014 requires a local LLM",
+            "hardware": "aarch64",
+            "indexes": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (OSS, no priced calls)",
+            "prompts": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "reader": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "readiness_policy": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "revision": "unversioned",
+            "settings": "n/a (adapter unconfigured \u2014 dependency probe failed)"
+          },
+          "pins_missing": [],
+          "reason": "mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "status": "unavailable",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "mem0_oss_inferfalse",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [
+            "disclosed infer=False arm (V6-06.02): raw storage, no LLM extraction \u2014 never reported as default Mem0"
+          ],
+          "pin": {
+            "deployment": "n/a (not deployed \u2014 local pin infeasible)",
+            "edition": "oss",
+            "embedder": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "extractor": "infer=False raw storage",
+            "hardware": "aarch64",
+            "indexes": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (OSS, no priced calls)",
+            "prompts": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "reader": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "readiness_policy": "n/a (adapter unconfigured \u2014 dependency probe failed)",
+            "revision": "unversioned",
+            "settings": "n/a (adapter unconfigured \u2014 dependency probe failed)"
+          },
+          "pins_missing": [],
+          "reason": "mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "status": "unavailable",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "graphiti_oss",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [],
+          "pin": {
+            "deployment": "n/a (requires a Neo4j/FalkorDB backend)",
+            "edition": "oss",
+            "embedder": "n/a (backend/package probe failed)",
+            "extractor": "n/a (backend/package probe failed)",
+            "hardware": "aarch64",
+            "indexes": "n/a (backend/package probe failed)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (OSS)",
+            "prompts": "n/a (backend/package probe failed)",
+            "reader": "graphiti search (temporal-knowledge graph)",
+            "readiness_policy": "n/a (backend/package probe failed)",
+            "revision": "n/a (package absent)",
+            "settings": "n/a (backend/package probe failed)"
+          },
+          "pins_missing": [],
+          "reason": "graphiti_core not installed: graphiti_core: ModuleNotFoundError: No module named 'graphiti_core'; neo4j: ModuleNotFoundError: No module named 'neo4j'",
+          "status": "unavailable",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "holographic",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [],
+          "pin": {
+            "deployment": "n/a (adapter never configured)",
+            "edition": "local",
+            "embedder": "n/a (package/adapter probe failed)",
+            "extractor": "n/a (package/adapter probe failed)",
+            "hardware": "aarch64",
+            "indexes": "n/a (package/adapter probe failed)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (local)",
+            "prompts": "n/a (package/adapter probe failed)",
+            "reader": "n/a (package/adapter probe failed)",
+            "readiness_policy": "n/a (package/adapter probe failed)",
+            "revision": "n/a (package absent)",
+            "settings": "n/a (package/adapter probe failed)"
+          },
+          "pins_missing": [],
+          "reason": "package 'holographic' not installed \u2014 the pinned local comparator cannot execute (ModuleNotFoundError: No module named 'holographic')",
+          "status": "unavailable",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "zep_hosted",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [],
+          "pin": {
+            "deployment": "hosted_saas",
+            "edition": "hosted",
+            "embedder": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "extractor": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "hardware": "aarch64",
+            "indexes": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (no paid endpoints benchmarked)",
+            "prompts": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "reader": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "readiness_policy": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "revision": "n/a (hosted service unpinned locally)",
+            "settings": "n/a (no local adapter \u2014 hosted endpoint required)"
+          },
+          "pins_missing": [],
+          "reason": "hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "status": "out_of_scope",
+          "track": "consumer_route",
+          "weakened": []
+        },
+        {
+          "arm": "mem0_platform",
+          "costs": null,
+          "executed": false,
+          "metrics": {},
+          "notes": [],
+          "pin": {
+            "deployment": "hosted_platform",
+            "edition": "platform",
+            "embedder": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "extractor": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "hardware": "aarch64",
+            "indexes": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "judge": "deterministic_gold_ids",
+            "pricing_date": "n/a (no paid endpoints benchmarked)",
+            "prompts": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "reader": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "readiness_policy": "n/a (no local adapter \u2014 hosted endpoint required)",
+            "revision": "n/a (hosted service unpinned locally)",
+            "settings": "n/a (no local adapter \u2014 hosted endpoint required)"
+          },
+          "pins_missing": [],
+          "reason": "hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "status": "out_of_scope",
+          "track": "consumer_route",
+          "weakened": []
+        }
+      ],
+      "scale": {
+        "k": 8,
+        "memories": 48,
+        "seed": 42,
+        "tasks": 27
+      },
+      "status": "executed",
+      "suite": "comparators",
+      "unexecuted_arms": [
+        {
+          "arm": "mem0_oss",
+          "reason": "mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "status": "unavailable"
+        },
+        {
+          "arm": "mem0_oss_inferfalse",
+          "reason": "mem0ai not installed: ModuleNotFoundError: No module named 'mem0ai'",
+          "status": "unavailable"
+        },
+        {
+          "arm": "graphiti_oss",
+          "reason": "graphiti_core not installed: graphiti_core: ModuleNotFoundError: No module named 'graphiti_core'; neo4j: ModuleNotFoundError: No module named 'neo4j'",
+          "status": "unavailable"
+        },
+        {
+          "arm": "holographic",
+          "reason": "package 'holographic' not installed \u2014 the pinned local comparator cannot execute (ModuleNotFoundError: No module named 'holographic')",
+          "status": "unavailable"
+        },
+        {
+          "arm": "zep_hosted",
+          "reason": "hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "status": "out_of_scope"
+        },
+        {
+          "arm": "mem0_platform",
+          "reason": "hosted service \u2014 no paid/hosted endpoints without explicit authorization (V4-54.11); hosted scores never attribute to the OSS edition (V45-10.03)",
+          "status": "out_of_scope"
+        }
+      ],
+      "verdict": "executed"
+    },
+    "envelopes": {
+      "envelopes": {
+        "a0": {
+          "add_ack_ms": {
+            "max": 139.8637910024263,
+            "mean": 19.260421696913,
+            "n": 512,
+            "p50": 17.005975008942187,
+            "p95": 32.18483203090727,
+            "p99": 59.463031007908285
+          },
+          "backlog": {},
+          "budgets": {
+            "add_ack_p95_ms": 50.0,
+            "memories": 1000,
+            "search_p95_ms": 25.0,
+            "search_p99_ms": 75.0,
+            "workload": "1 namespace, hashing, cache off, warm pages"
+          },
+          "environment": {
+            "cpu_count_logical": 4,
+            "loadavg_1m": 4.2607421875,
+            "machine": "aarch64",
+            "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+            "processor": "aarch64",
+            "python": "3.12.3",
+            "sqlite": "3.45.1"
+          },
+          "errors": [],
+          "measurements": {
+            "immediate_add_search_ms": {
+              "max": 254.45097999181598,
+              "mean": 247.9936102463398,
+              "n": 4,
+              "p50": 248.92862903652713,
+              "p95": 254.45097999181598,
+              "p99": 254.45097999181598,
+              "probes": 4,
+              "statuses": {
+                "pending": 4
+              }
+            },
+            "search_status": {
+              "insufficient": 4,
+              "ready": 56
+            }
+          },
+          "misses": [
+            "search p95 57.0ms > 25ms",
+            "search p99 78.7ms > 75ms"
+          ],
+          "name": "A0",
+          "qualification": "locally_measured",
+          "repetitions": 1,
+          "scale": {
+            "cache": "off",
+            "declared_queries_per_rep": 60,
+            "distinct_intents": 60,
+            "memories": 512,
+            "qualification_floor": {
+              "min_distinct_intents": 1000,
+              "min_queries": 10000,
+              "repetitions": 3
+            },
+            "spec_scale_memories": 1000
+          },
+          "search_ms": {
+            "max": 82.30275701498613,
+            "mean": 32.67954128192893,
+            "n": 60,
+            "p50": 27.490078995469958,
+            "p95": 57.0341149577871,
+            "p99": 78.73972301604226
+          },
+          "status": "measured",
+          "support": {
+            "add_errors": {},
+            "drain": {
+              "deferred": 0,
+              "failed": 0,
+              "processed": 1054,
+              "rounds": 3,
+              "still_pending": 0,
+              "succeeded": 1054
+            },
+            "qualification_gap": {
+              "declared_queries_per_rep": 60,
+              "distinct_intents": 60,
+              "distinct_intents_required": 1000,
+              "queries_measured": 60,
+              "queries_required": 10000,
+              "repetitions": 1,
+              "repetitions_required": 3
+            },
+            "repetition_rows": [
+              {
+                "errors": 0,
+                "max": 82.30275701498613,
+                "mean": 32.67954128192893,
+                "n": 60,
+                "p50": 27.490078995469958,
+                "p95": 57.0341149577871,
+                "p99": 78.73972301604226
+              }
+            ],
+            "settle": {
+              "drain": {
+                "deferred": 0,
+                "failed": 0,
+                "processed": 1054,
+                "rounds": 4,
+                "still_pending": 0,
+                "succeeded": 1054
+              },
+              "state": "ready",
+              "waited_s": 0.001
+            }
+          },
+          "verdict": "missed"
+        },
+        "a0_cache": {
+          "add_ack_ms": {
+            "max": 91.0581840435043,
+            "mean": 19.857807506468816,
+            "n": 512,
+            "p50": 17.280934029258788,
+            "p95": 38.51406299509108,
+            "p99": 59.80923102470115
+          },
+          "backlog": {},
+          "budgets": {
+            "memories": 1000,
+            "search_p95_ms": 8.0,
+            "workload": "same as A0, pack cache on, repeated intents"
+          },
+          "environment": {
+            "cpu_count_logical": 4,
+            "loadavg_1m": 4.37939453125,
+            "machine": "aarch64",
+            "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+            "processor": "aarch64",
+            "python": "3.12.3",
+            "sqlite": "3.45.1"
+          },
+          "errors": [],
+          "measurements": {
+            "cache": {
+              "capacity": 256,
+              "degraded_reason": null,
+              "enabled": true,
+              "entries": 36,
+              "evictions": 0,
+              "expired": 0,
+              "hit_rate": 0.428571,
+              "hits": 72,
+              "invalidations": 0,
+              "lookups": 168,
+              "misses": 96,
+              "ref_denied": 0,
+              "restamps": 72,
+              "result_hits": 72,
+              "result_lookups": 120,
+              "result_stores": 36,
+              "state": "healthy",
+              "stores": 36,
+              "update_alerts": 0
+            },
+            "cold_pass_ms": {
+              "errors": 0,
+              "max": 60.340789961628616,
+              "mean": 28.704146221571136,
+              "n": 40,
+              "p50": 31.825273006688803,
+              "p95": 33.90666999621317,
+              "p99": 60.340789961628616,
+              "pass": 0,
+              "role": "cold"
+            },
+            "search_status": {
+              "insufficient": 12,
+              "ready": 108
+            }
+          },
+          "misses": [
+            "search p95 17.0ms > 8ms"
+          ],
+          "name": "A0_CACHE",
+          "qualification": "locally_measured",
+          "repetitions": 1,
+          "scale": {
+            "cache": "on",
+            "distinct_intents": 40,
+            "memories": 512,
+            "passes": 3,
+            "queries_per_pass": 40,
+            "spec_scale_memories": 1000
+          },
+          "search_ms": {
+            "max": 18.19937297841534,
+            "mean": 6.787637386878487,
+            "n": 80,
+            "p50": 5.794551980216056,
+            "p95": 16.970894997939467,
+            "p99": 18.027293030172586
+          },
+          "status": "measured",
+          "support": {
+            "add_errors": {},
+            "pass_rows": [
+              {
+                "errors": 0,
+                "max": 60.340789961628616,
+                "mean": 28.704146221571136,
+                "n": 40,
+                "p50": 31.825273006688803,
+                "p95": 33.90666999621317,
+                "p99": 60.340789961628616,
+                "pass": 0,
+                "role": "cold"
+              },
+              {
+                "errors": 0,
+                "max": 18.19937297841534,
+                "mean": 6.9375636710901745,
+                "n": 40,
+                "p50": 5.878871015738696,
+                "p95": 16.83889504056424,
+                "p99": 18.19937297841534,
+                "pass": 1,
+                "role": "warm"
+              },
+              {
+                "errors": 0,
+                "max": 18.027293030172586,
+                "mean": 6.637711102666799,
+                "n": 40,
+                "p50": 5.508312024176121,
+                "p95": 16.970894997939467,
+                "p99": 18.027293030172586,
+                "pass": 2,
+                "role": "warm"
+              }
+            ],
+            "qualification_gap": {
+              "declared_queries_per_rep": 0,
+              "distinct_intents": 40,
+              "distinct_intents_required": 1000,
+              "queries_measured": 80,
+              "queries_required": 10000,
+              "repetitions": 1,
+              "repetitions_required": 3
+            },
+            "settle": {
+              "drain": {
+                "deferred": 0,
+                "failed": 0,
+                "processed": 1054,
+                "rounds": 4,
+                "still_pending": 0,
+                "succeeded": 1054
+              },
+              "state": "ready",
+              "waited_s": 0.001
+            }
+          },
+          "verdict": "missed"
+        },
+        "a0_neural": {
+          "add_ack_ms": {},
+          "backlog": {},
+          "budgets": {
+            "memories": 1000,
+            "search_p95_ms": 40.0,
+            "search_p99_ms": 120.0,
+            "workload": "same as A0, pinned local encoder"
+          },
+          "environment": {
+            "cpu_count_logical": 4,
+            "loadavg_1m": 4.21826171875,
+            "machine": "aarch64",
+            "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+            "processor": "aarch64",
+            "python": "3.12.3",
+            "sqlite": "3.45.1"
+          },
+          "errors": [
+            "artifact encoder constructed but available() is False \u2014 no verified pinned artifact loaded (V6-03.08)"
+          ],
+          "measurements": {},
+          "misses": [],
+          "name": "A0_NEURAL",
+          "qualification": "unavailable",
+          "repetitions": 1,
+          "scale": {
+            "declared_queries_per_rep": 40,
+            "encoder": "artifact",
+            "memories": 512,
+            "spec_scale_memories": 1000
+          },
+          "search_ms": {},
+          "status": "unavailable",
+          "support": {
+            "capability_probe": {
+              "artifact_builder": "present",
+              "artifact_encoder_importable": true,
+              "build_verify_available": true,
+              "encoder_available": false,
+              "encoder_id": "none",
+              "memory_kwargs": {
+                "encoder": "artifact"
+              },
+              "probe_encoder_id": "artifact:v6-probe:v1",
+              "warnings": [
+                "encoder_unavailable"
+              ]
+            },
+            "unavailable_reason": "artifact encoder constructed but available() is False \u2014 no verified pinned artifact loaded (V6-03.08)"
+          },
+          "verdict": "unavailable"
+        },
+        "a1": {
+          "add_ack_ms": {
+            "max": 67.52825900912285,
+            "mean": 30.909353812603513,
+            "n": 16,
+            "p50": 28.015797957777977,
+            "p95": 44.67117297463119,
+            "p99": 67.52825900912285
+          },
+          "backlog": {
+            "end": 313,
+            "peak": 525,
+            "samples": [
+              525,
+              525,
+              520,
+              519,
+              514,
+              510,
+              501,
+              497,
+              489,
+              490,
+              483,
+              482,
+              476,
+              475,
+              468,
+              467,
+              463,
+              455,
+              443,
+              438,
+              428,
+              419,
+              406,
+              401,
+              391,
+              382,
+              370,
+              365,
+              356,
+              347,
+              333,
+              328
+            ],
+            "start": 525,
+            "unbounded": false
+          },
+          "budgets": {
+            "add_ack_p95_ms": 50.0,
+            "memories": 5000,
+            "reader_queries_per_s": 10.0,
+            "same_session_visibility_min": 0.95,
+            "same_session_visibility_ms": 200.0,
+            "search_p95_ms": 40.0,
+            "unbounded_backlog": false,
+            "workload": "5,000 live memories, 2 writes/s + 10 queries/s, drain on",
+            "writer_ops_per_s": 2.0
+          },
+          "environment": {
+            "cpu_count_logical": 4,
+            "loadavg_1m": 4.20068359375,
+            "machine": "aarch64",
+            "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+            "processor": "aarch64",
+            "python": "3.12.3",
+            "sqlite": "3.45.1"
+          },
+          "errors": [],
+          "measurements": {
+            "same_session_visibility": {
+              "budget_ms": 200.0,
+              "honest_pending": 0,
+              "last_statuses": {
+                "ready": 6
+              },
+              "latency_ms": {
+                "max": 90.83,
+                "mean": 65.55499999999999,
+                "n": 6,
+                "p50": 60.19,
+                "p95": 90.83,
+                "p99": 90.83
+              },
+              "observed": 6,
+              "probes": 6,
+              "samples_ms": [
+                72.63,
+                48.52,
+                90.83,
+                60.19,
+                49.7,
+                71.46
+              ],
+              "satisfied": 6,
+              "satisfied_pct": 1.0,
+              "unobserved_ready": 0
+            },
+            "search_status": {
+              "insufficient": 4,
+              "ready": 36
+            }
+          },
+          "misses": [
+            "search p95 89.5ms > 40ms"
+          ],
+          "name": "A1",
+          "qualification": "locally_measured",
+          "repetitions": 1,
+          "scale": {
+            "memories": 512,
+            "rates": {
+              "reader_queries_per_s": 10.0,
+              "writer_ops_per_s": 2.0
+            },
+            "reader_queries": 40,
+            "spec_scale_memories": 5000,
+            "visibility_probes": 6,
+            "writer_ops": 16
+          },
+          "search_ms": {
+            "max": 122.45473696384579,
+            "mean": 44.85516405256931,
+            "n": 40,
+            "p50": 43.501336011104286,
+            "p95": 89.4783060066402,
+            "p99": 122.45473696384579
+          },
+          "status": "measured",
+          "support": {
+            "add_errors": {},
+            "non_settled_rows": {},
+            "qualification_gap": {
+              "declared_queries_per_rep": 40,
+              "distinct_intents": null,
+              "distinct_intents_required": 1000,
+              "queries_measured": 40,
+              "queries_required": 10000,
+              "repetitions": 1,
+              "repetitions_required": 3
+            },
+            "read_error_count": 0,
+            "read_errors": [],
+            "seed_add_ms": {
+              "max": 111.81755299912766,
+              "mean": 33.425859455633145,
+              "n": 512,
+              "p50": 28.42567698098719,
+              "p95": 73.26321100117639,
+              "p99": 92.36298297764733
+            },
+            "write_error_count": 0,
+            "write_errors": []
+          },
+          "verdict": "missed"
+        },
+        "a3": {
+          "add_ack_ms": {
+            "max": 84.05535499332473,
+            "mean": 41.707035241415724,
+            "n": 16,
+            "p50": 35.93722596997395,
+            "p95": 67.9028180311434,
+            "p99": 84.05535499332473
+          },
+          "backlog": {},
+          "budgets": {
+            "add_ack_p95_ms": 80.0,
+            "index_growth_alpha_max": 1.0,
+            "memories": 20000,
+            "peak_rss_mib": 1536.0,
+            "search_p95_ms": 150.0,
+            "source_tokens": 1000000,
+            "workload": "~20,000 records / ~1M source tokens, one namespace"
+          },
+          "environment": {
+            "cpu_count_logical": 4,
+            "loadavg_1m": 4.24560546875,
+            "machine": "aarch64",
+            "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+            "processor": "aarch64",
+            "python": "3.12.3",
+            "sqlite": "3.45.1"
+          },
+          "errors": [],
+          "measurements": {
+            "add_ack_profile": {
+              "checkpoints": [
+                {
+                  "add_ack_ms": {
+                    "max": 39.53130199806765,
+                    "mean": 23.357027686870424,
+                    "n": 16,
+                    "p50": 22.4585669930093,
+                    "p95": 23.90796400140971,
+                    "p99": 39.53130199806765
+                  },
+                  "n": 512,
+                  "search_errors": 0,
+                  "search_ms": {
+                    "max": 71.93181297043338,
+                    "mean": 30.11894884184585,
+                    "n": 32,
+                    "p50": 27.50643901526928,
+                    "p95": 29.513395973481238,
+                    "p99": 71.93181297043338
+                  },
+                  "search_status": {
+                    "ready": 32
+                  },
+                  "stages_ms": {
+                    "add_other": {
+                      "max": 0.088709744886728,
+                      "mean": 0.088709744886728,
+                      "n": 1,
+                      "p50": 0.088709744886728,
+                      "p95": 0.088709744886728,
+                      "p99": 0.088709744886728
+                    },
+                    "authorize": {
+                      "max": 0.21115998970344663,
+                      "mean": 0.17032736650435254,
+                      "n": 16,
+                      "p50": 0.16703997971490026,
+                      "p95": 0.19955995958298445,
+                      "p99": 0.21115998970344663
+                    },
+                    "capture_tx.ingest": {
+                      "max": 2.175917034037411,
+                      "mean": 1.8691223158384673,
+                      "n": 16,
+                      "p50": 1.8470770446583629,
+                      "p95": 2.032037009485066,
+                      "p99": 2.175917034037411
+                    },
+                    "commit_tx": {
+                      "max": 39.12426199531183,
+                      "mean": 22.609646308410447,
+                      "n": 16,
+                      "p50": 22.09784695878625,
+                      "p95": 23.221804993227124,
+                      "p99": 39.12426199531183
+                    },
+                    "obligations": {
+                      "max": 0.3392400103621185,
+                      "mean": 0.2878118793887552,
+                      "n": 16,
+                      "p50": 0.2846790011972189,
+                      "p95": 0.32183900475502014,
+                      "p99": 0.3392400103621185
+                    },
+                    "receipt_caps_post": {
+                      "max": 0.7941190269775689,
+                      "mean": 0.3825596322712954,
+                      "n": 16,
+                      "p50": 0.32096001086756587,
+                      "p95": 0.6788389873690903,
+                      "p99": 0.7941190269775689
+                    },
+                    "session_compact": {
+                      "max": 4.381233011372387,
+                      "mean": 0.27611200130195357,
+                      "n": 16,
+                      "p50": 0.0024399487301707268,
+                      "p95": 0.0032800016924738884,
+                      "p99": 4.381233011372387
+                    },
+                    "session_receipt_tx": {
+                      "max": 0.7207180024124682,
+                      "mean": 0.6529939346364699,
+                      "n": 16,
+                      "p50": 0.6554389838129282,
+                      "p95": 0.6913589895702899,
+                      "p99": 0.7207180024124682
+                    },
+                    "source_jobs": {
+                      "max": 2.0701970206573606,
+                      "mean": 1.6992950477288105,
+                      "n": 16,
+                      "p50": 1.661118003539741,
+                      "p95": 2.042796986643225,
+                      "p99": 2.0701970206573606
+                    },
+                    "source_state": {
+                      "max": 1.0667580063454807,
+                      "mean": 0.9726035568746738,
+                      "n": 16,
+                      "p50": 0.9712379542179406,
+                      "p95": 1.022798998747021,
+                      "p99": 1.0667580063454807
+                    },
+                    "update_prescan": {
+                      "max": 10.408144968096167,
+                      "mean": 9.793872930458747,
+                      "n": 16,
+                      "p50": 10.009464982431382,
+                      "p95": 10.392624011728913,
+                      "p99": 10.408144968096167
+                    }
+                  },
+                  "store_bytes": 19388368
+                },
+                {
+                  "add_ack_ms": {
+                    "max": 74.89684800384566,
+                    "mean": 35.93149137304863,
+                    "n": 16,
+                    "p50": 35.74302699416876,
+                    "p95": 40.71373899932951,
+                    "p99": 74.89684800384566
+                  },
+                  "n": 1024,
+                  "search_errors": 0,
+                  "search_ms": {
+                    "max": 368.32553101703525,
+                    "mean": 100.8780582833424,
+                    "n": 32,
+                    "p50": 85.47619299497455,
+                    "p95": 142.830707016401,
+                    "p99": 368.32553101703525
+                  },
+                  "search_status": {
+                    "ready": 32
+                  },
+                  "stages_ms": {
+                    "add_other": {
+                      "max": 0.09527485599392094,
+                      "mean": 0.09527485599392094,
+                      "n": 1,
+                      "p50": 0.09527485599392094,
+                      "p95": 0.09527485599392094,
+                      "p99": 0.09527485599392094
+                    },
+                    "authorize": {
+                      "max": 0.22907904349267483,
+                      "mean": 0.17703225239529274,
+                      "n": 16,
+                      "p50": 0.17071899492293596,
+                      "p95": 0.2181599847972393,
+                      "p99": 0.22907904349267483
+                    },
+                    "capture_tx.ingest": {
+                      "max": 3.3588350052013993,
+                      "mean": 2.839030810719123,
+                      "n": 16,
+                      "p50": 2.786636003293097,
+                      "p95": 3.221475053578615,
+                      "p99": 3.3588350052013993
+                    },
+                    "commit_tx": {
+                      "max": 74.41848900634795,
+                      "mean": 35.37310731189791,
+                      "n": 16,
+                      "p50": 34.460188006050885,
+                      "p95": 40.27257900452241,
+                      "p99": 74.41848900634795
+                    },
+                    "obligations": {
+                      "max": 0.5247590015642345,
+                      "mean": 0.3149993790430017,
+                      "n": 16,
+                      "p50": 0.2992790541611612,
+                      "p95": 0.3492799587547779,
+                      "p99": 0.5247590015642345
+                    },
+                    "receipt_caps_post": {
+                      "max": 1.473237993195653,
+                      "mean": 0.460594252217561,
+                      "n": 16,
+                      "p50": 0.3473599790595472,
+                      "p95": 0.7361989701166749,
+                      "p99": 1.473237993195653
+                    },
+                    "session_compact": {
+                      "max": 0.0030400115065276623,
+                      "mean": 0.0025149529392365366,
+                      "n": 16,
+                      "p50": 0.002520042471587658,
+                      "p95": 0.0028400099836289883,
+                      "p99": 0.0030400115065276623
+                    },
+                    "session_receipt_tx": {
+                      "max": 1.2953180121257901,
+                      "mean": 1.1382130614947528,
+                      "n": 16,
+                      "p50": 1.1207580100744963,
+                      "p95": 1.1995579698123038,
+                      "p99": 1.2953180121257901
+                    },
+                    "source_jobs": {
+                      "max": 3.7548739928752184,
+                      "mean": 2.7750933659262955,
+                      "n": 16,
+                      "p50": 2.9110359610058367,
+                      "p95": 3.302155004348606,
+                      "p99": 3.7548739928752184
+                    },
+                    "source_state": {
+                      "max": 1.7117179813794792,
+                      "mean": 1.5816225568414666,
+                      "n": 16,
+                      "p50": 1.5789970057085156,
+                      "p95": 1.6904380172491074,
+                      "p99": 1.7117179813794792
+                    },
+                    "update_prescan": {
+                      "max": 11.150022968649864,
+                      "mean": 9.61359568464104,
+                      "n": 16,
+                      "p50": 10.398905025795102,
+                      "p95": 11.014063959009945,
+                      "p99": 11.150022968649864
+                    }
+                  },
+                  "store_bytes": 32590064
+                },
+                {
+                  "add_ack_ms": {
+                    "max": 84.05535499332473,
+                    "mean": 41.707035241415724,
+                    "n": 16,
+                    "p50": 35.93722596997395,
+                    "p95": 67.9028180311434,
+                    "p99": 84.05535499332473
+                  },
+                  "n": 2048,
+                  "search_errors": 0,
+                  "search_ms": {
+                    "max": 482.94395895209163,
+                    "mean": 236.49364955781493,
+                    "n": 32,
+                    "p50": 166.9110310031101,
+                    "p95": 375.97495899535716,
+                    "p99": 482.94395895209163
+                  },
+                  "search_status": {
+                    "ready": 32
+                  },
+                  "stages_ms": {
+                    "add_other": {
+                      "max": 0.13512480290955864,
+                      "mean": 0.13512480290955864,
+                      "n": 1,
+                      "p50": 0.13512480290955864,
+                      "p95": 0.13512480290955864,
+                      "p99": 0.13512480290955864
+                    },
+                    "authorize": {
+                      "max": 0.9044790058396757,
+                      "mean": 0.2257473643112462,
+                      "n": 16,
+                      "p50": 0.1704400056041777,
+                      "p95": 0.21483999444171786,
+                      "p99": 0.9044790058396757
+                    },
+                    "capture_tx.ingest": {
+                      "max": 13.053380011115223,
+                      "mean": 5.619369065243518,
+                      "n": 16,
+                      "p50": 4.795312997885048,
+                      "p95": 7.949308026582003,
+                      "p99": 13.053380011115223
+                    },
+                    "commit_tx": {
+                      "max": 82.84135698340833,
+                      "mean": 40.97868643657421,
+                      "n": 16,
+                      "p50": 34.8245479981415,
+                      "p95": 66.53654103865847,
+                      "p99": 82.84135698340833
+                    },
+                    "obligations": {
+                      "max": 0.860558997374028,
+                      "mean": 0.3654393076431006,
+                      "n": 16,
+                      "p50": 0.33835897920653224,
+                      "p95": 0.3739189705811441,
+                      "p99": 0.860558997374028
+                    },
+                    "receipt_caps_post": {
+                      "max": 1.343277981504798,
+                      "mean": 0.5910114996368065,
+                      "n": 16,
+                      "p50": 0.3955590073019266,
+                      "p95": 1.0260380222462118,
+                      "p99": 1.343277981504798
+                    },
+                    "session_compact": {
+                      "max": 0.0029199873097240925,
+                      "mean": 0.002212502295151353,
+                      "n": 16,
+                      "p50": 0.0021599698811769485,
+                      "p95": 0.0028799986466765404,
+                      "p99": 0.0029199873097240925
+                    },
+                    "session_receipt_tx": {
+                      "max": 2.5266759912483394,
+                      "mean": 1.3417505033430643,
+                      "n": 16,
+                      "p50": 1.1632380192168057,
+                      "p95": 2.512515988200903,
+                      "p99": 2.5266759912483394
+                    },
+                    "source_jobs": {
+                      "max": 11.311623034998775,
+                      "mean": 5.5999642427195795,
+                      "n": 16,
+                      "p50": 5.412951984908432,
+                      "p95": 8.331988006830215,
+                      "p99": 11.311623034998775
+                    },
+                    "source_state": {
+                      "max": 13.55041901115328,
+                      "mean": 5.969353376713116,
+                      "n": 16,
+                      "p50": 5.103113013319671,
+                      "p95": 11.078943032771349,
+                      "p99": 13.55041901115328
+                    },
+                    "update_prescan": {
+                      "max": 29.722795996349305,
+                      "mean": 12.772348636644892,
+                      "n": 16,
+                      "p50": 11.262864049058408,
+                      "p95": 23.91820400953293,
+                      "p99": 29.722795996349305
+                    }
+                  },
+                  "store_bytes": 58386672
+                }
+              ],
+              "profile_adds": 16
+            },
+            "add_ack_scaling": {
+              "alpha": 0.418
+            },
+            "index_growth": {
+              "alpha": 0.795,
+              "bytes_by_n": [
+                {
+                  "n": 512,
+                  "store_bytes": 19388368
+                },
+                {
+                  "n": 1024,
+                  "store_bytes": 32590064
+                },
+                {
+                  "n": 2048,
+                  "store_bytes": 58386672
+                }
+              ],
+              "note": "store bytes (db+wal+shm) \u221d n^alpha \u2014 the spec's 'sublinear index growth' read as alpha < 1"
+            },
+            "peak_rss_mib": 251.34375,
+            "search_scaling": {
+              "alpha": 1.836,
+              "checkpoints": [
+                {
+                  "n": 512,
+                  "search_ms": {
+                    "max": 71.93181297043338,
+                    "mean": 30.11894884184585,
+                    "n": 32,
+                    "p50": 27.50643901526928,
+                    "p95": 29.513395973481238,
+                    "p99": 71.93181297043338
+                  }
+                },
+                {
+                  "n": 1024,
+                  "search_ms": {
+                    "max": 368.32553101703525,
+                    "mean": 100.8780582833424,
+                    "n": 32,
+                    "p50": 85.47619299497455,
+                    "p95": 142.830707016401,
+                    "p99": 368.32553101703525
+                  }
+                },
+                {
+                  "n": 2048,
+                  "search_ms": {
+                    "max": 482.94395895209163,
+                    "mean": 236.49364955781493,
+                    "n": 32,
+                    "p50": 166.9110310031101,
+                    "p95": 375.97495899535716,
+                    "p99": 482.94395895209163
+                  }
+                }
+              ],
+              "note": "search p95 \u221d n^alpha across measured checkpoints"
+            },
+            "search_status": {
+              "ready": 40
+            },
+            "seed": {
+              "added": 2048,
+              "drain_totals": {
+                "deferred": 0,
+                "failed": 0,
+                "processed": 4192,
+                "rounds": 71,
+                "still_pending": 0,
+                "succeeded": 4192
+              },
+              "seed_budget_s": null,
+              "truncated": false,
+              "wall_s": 225.177
+            },
+            "stage_scaling": {
+              "alphas": {
+                "add_other": 0.304,
+                "authorize": 0.203,
+                "capture_tx.ingest": 0.794,
+                "commit_tx": 0.429,
+                "obligations": 0.172,
+                "receipt_caps_post": 0.314,
+                "session_compact": -3.482,
+                "session_receipt_tx": 0.519,
+                "source_jobs": 0.86,
+                "source_state": 1.309,
+                "update_prescan": 0.192
+              },
+              "method": "per-stage alpha = ln(mean_last/mean_first)/ln(n_last/n_first) over the first\u2192last checkpoints of the profiled adds; a stage is a named defect when alpha > 1.0 AND its mean at the largest checkpoint is >= 0.5 ms (below the floor perf_counter noise dominates \u2014 alphas are still published for every stage)",
+              "superlinear_stages": [
+                {
+                  "alpha": 1.309,
+                  "mean_first_ms": 0.9726035568746738,
+                  "mean_last_ms": 5.969353376713116,
+                  "n_first": 512,
+                  "n_last": 2048,
+                  "stage": "source_state"
+                }
+              ]
+            },
+            "store_bytes": 58386672,
+            "superlinear_stages": [
+              {
+                "alpha": 1.309,
+                "mean_first_ms": 0.9726035568746738,
+                "mean_last_ms": 5.969353376713116,
+                "n_first": 512,
+                "n_last": 2048,
+                "stage": "source_state"
+              }
+            ]
+          },
+          "misses": [
+            "search p95 291.5ms > 150ms",
+            "add-ack stage 'source_state' grew superlinearly (alpha=1.309, mean 0.97ms \u2192 5.97ms over n=512\u21922048) \u2014 V6-02.16 named defect"
+          ],
+          "name": "A3",
+          "qualification": "locally_measured",
+          "repetitions": 1,
+          "scale": {
+            "checkpoints": [
+              512,
+              1024,
+              2048
+            ],
+            "memories": 2048,
+            "queries": 40,
+            "scale_disclosure": "local n=2048 vs spec ~20,000 records \u2014 a scaling probe, not A3 qualification",
+            "seeding": "harness bulk_seed (V6-02.15) \u2014 periodic drain; measured reads/adds through the public API",
+            "spec_scale": {
+              "records": 20000,
+              "source_tokens": 1000000
+            }
+          },
+          "search_ms": {
+            "max": 309.6472169854678,
+            "mean": 174.46212563227164,
+            "n": 40,
+            "p50": 163.38859603274614,
+            "p95": 291.54824395664036,
+            "p99": 309.6472169854678
+          },
+          "status": "measured",
+          "support": {
+            "qualification_gap": {
+              "declared_queries_per_rep": 40,
+              "distinct_intents": null,
+              "distinct_intents_required": 1000,
+              "queries_measured": 40,
+              "queries_required": 10000,
+              "repetitions": 1,
+              "repetitions_required": 3
+            },
+            "search_errors": 0,
+            "settle": {
+              "drain": {
+                "deferred": 0,
+                "failed": 0,
+                "processed": 4192,
+                "rounds": 71,
+                "still_pending": 0,
+                "succeeded": 4192
+              },
+              "state": "ready",
+              "waited_s": 0.002
+            }
+          },
+          "verdict": "missed"
+        }
+      },
+      "environment": {
+        "cpu_count_logical": 4,
+        "loadavg_1m": 4.2607421875,
+        "machine": "aarch64",
+        "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+        "processor": "aarch64",
+        "python": "3.12.3",
+        "sqlite": "3.45.1"
+      },
+      "qualification": "locally_measured",
+      "qualification_floor": {
+        "min_distinct_intents": 1000,
+        "min_queries": 10000,
+        "repetitions": 3
+      },
+      "scale": "quick",
+      "spec_budgets": {
+        "A0": {
+          "add_ack_p95_ms": 50.0,
+          "memories": 1000,
+          "search_p95_ms": 25.0,
+          "search_p99_ms": 75.0,
+          "workload": "1 namespace, hashing, cache off, warm pages"
+        },
+        "A0_CACHE": {
+          "memories": 1000,
+          "search_p95_ms": 8.0,
+          "workload": "same as A0, pack cache on, repeated intents"
+        },
+        "A0_NEURAL": {
+          "memories": 1000,
+          "search_p95_ms": 40.0,
+          "search_p99_ms": 120.0,
+          "workload": "same as A0, pinned local encoder"
+        },
+        "A1": {
+          "add_ack_p95_ms": 50.0,
+          "memories": 5000,
+          "reader_queries_per_s": 10.0,
+          "same_session_visibility_min": 0.95,
+          "same_session_visibility_ms": 200.0,
+          "search_p95_ms": 40.0,
+          "unbounded_backlog": false,
+          "workload": "5,000 live memories, 2 writes/s + 10 queries/s, drain on",
+          "writer_ops_per_s": 2.0
+        },
+        "A3": {
+          "add_ack_p95_ms": 80.0,
+          "index_growth_alpha_max": 1.0,
+          "memories": 20000,
+          "peak_rss_mib": 1536.0,
+          "search_p95_ms": 150.0,
+          "source_tokens": 1000000,
+          "workload": "~20,000 records / ~1M source tokens, one namespace"
+        }
+      },
+      "status": "executed",
+      "suite": "envelopes_v6",
+      "verdict": "missed"
+    },
+    "neural": {
+      "arms": {
+        "verbatim_memory-artifact": {
+          "abstain_correct": 2,
+          "abstain_n": 2,
+          "add_errors": {},
+          "drain": {
+            "deferred": 0,
+            "failed": 0,
+            "processed": 126,
+            "rounds": 3,
+            "still_pending": 0,
+            "succeeded": 126
+          },
+          "errors": 0,
+          "forbidden_hits": 0,
+          "notes": [],
+          "per_task": {
+            "t-forget-garage": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-id-order": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-order"
+              ]
+            },
+            "t-id-ticket": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-ticket"
+              ]
+            },
+            "t-lex-book": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-book"
+              ]
+            },
+            "t-lex-ins": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-car"
+              ]
+            },
+            "t-lex-vet": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-vet"
+              ]
+            },
+            "t-lex-wifi": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-wifi"
+              ]
+            },
+            "t-noans-1": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-noans-2": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-para-pet": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-probe-0000": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00012"
+              ]
+            },
+            "t-probe-0001": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00004"
+              ]
+            },
+            "t-probe-0002": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00001"
+              ]
+            },
+            "t-probe-0003": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00021"
+              ]
+            },
+            "t-probe-0004": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00007"
+              ]
+            },
+            "t-probe-0005": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00024"
+              ]
+            },
+            "t-probe-0006": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00009"
+              ]
+            },
+            "t-probe-0007": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00002"
+              ]
+            },
+            "t-probe-0008": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00028"
+              ]
+            },
+            "t-probe-0009": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00003"
+              ]
+            },
+            "t-probe-0010": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00032"
+              ]
+            },
+            "t-probe-0011": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00008"
+              ]
+            },
+            "t-temporal-bday": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-bday"
+              ]
+            },
+            "t-temporal-move": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-move"
+              ]
+            },
+            "t-unicode-cafe": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-cafe"
+              ]
+            },
+            "t-unicode-jp": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-jp"
+              ]
+            },
+            "t-update-sync": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-meeting-v2"
+              ]
+            }
+          },
+          "precision_at_k": 1.0,
+          "precision_n": 23,
+          "recall_at_k": 1.0,
+          "recall_n": 23,
+          "tasks": 27
+        },
+        "verbatim_memory-hashing": {
+          "abstain_correct": 2,
+          "abstain_n": 2,
+          "add_errors": {},
+          "drain": {
+            "deferred": 0,
+            "failed": 0,
+            "processed": 126,
+            "rounds": 3,
+            "still_pending": 0,
+            "succeeded": 126
+          },
+          "errors": 0,
+          "forbidden_hits": 0,
+          "notes": [],
+          "per_task": {
+            "t-forget-garage": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-id-order": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-order"
+              ]
+            },
+            "t-id-ticket": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-ticket"
+              ]
+            },
+            "t-lex-book": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-book"
+              ]
+            },
+            "t-lex-ins": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-car"
+              ]
+            },
+            "t-lex-vet": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-vet"
+              ]
+            },
+            "t-lex-wifi": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-wifi"
+              ]
+            },
+            "t-noans-1": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-noans-2": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-para-pet": {
+              "abstained": true,
+              "error": null,
+              "precision": null,
+              "recall": null,
+              "returned": []
+            },
+            "t-probe-0000": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00012"
+              ]
+            },
+            "t-probe-0001": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00004"
+              ]
+            },
+            "t-probe-0002": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00001"
+              ]
+            },
+            "t-probe-0003": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00021"
+              ]
+            },
+            "t-probe-0004": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00007"
+              ]
+            },
+            "t-probe-0005": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00024"
+              ]
+            },
+            "t-probe-0006": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00009"
+              ]
+            },
+            "t-probe-0007": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00002"
+              ]
+            },
+            "t-probe-0008": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00028"
+              ]
+            },
+            "t-probe-0009": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00003"
+              ]
+            },
+            "t-probe-0010": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00032"
+              ]
+            },
+            "t-probe-0011": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "fill-00008"
+              ]
+            },
+            "t-temporal-bday": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-bday"
+              ]
+            },
+            "t-temporal-move": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-move"
+              ]
+            },
+            "t-unicode-cafe": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-cafe"
+              ]
+            },
+            "t-unicode-jp": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-jp"
+              ]
+            },
+            "t-update-sync": {
+              "abstained": false,
+              "error": null,
+              "precision": 1.0,
+              "recall": 1.0,
+              "returned": [
+                "core-meeting-v2"
+              ]
+            }
+          },
+          "precision_at_k": 1.0,
+          "precision_n": 23,
+          "recall_at_k": 1.0,
+          "recall_n": 23,
+          "tasks": 27
+        }
+      },
+      "artifact": {
+        "available": true,
+        "dim": 384,
+        "encoder_id": "artifact:hash-distilled:v1",
+        "model": "hash-distilled",
+        "recipe": "distilled-hashing",
+        "revision": "v1",
+        "vocab_size": 244
+      },
+      "corpus": {
+        "digest": "fceba4d0133cdb00a1c205cc2dfd269b2b1b5b08e6161ce133c94f89c1dfa9bc",
+        "items": 48,
+        "name": "v5-consumer-48s42",
+        "seed": 42,
+        "tasks": 27
+      },
+      "delta": {
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "gate_reason": "recall@k artifact=1.0000 vs hashing=1.0000 (not strictly better); precision@k artifact=1.0000 vs hashing=1.0000 (non-inferior)",
+      "gate_verdict": {
+        "gate": "V6-03.10: recall@k strictly improves AND precision@k non-inferior, else the label stays unrecommended",
+        "neural_recommended": false,
+        "reason": "recall@k artifact=1.0000 vs hashing=1.0000 (not strictly better); precision@k artifact=1.0000 vs hashing=1.0000 (non-inferior)"
+      },
+      "k": 8,
+      "measured": true,
+      "neural_recommended": false,
+      "qualification": "locally_measured",
+      "status": "executed",
+      "suite": "v6-neural-paired",
+      "verdict": "executed"
+    },
+    "twins": {
+      "auto_applied": 5,
+      "bound_met": false,
+      "bound_target": 0.01,
+      "false_applied": 0,
+      "false_total": 13,
+      "pairs": [
+        {
+          "applied": true,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "true",
+          "name": "version_bump_anchored",
+          "ok": true,
+          "prior_disposition": "superseded",
+          "relations": [],
+          "should_apply": true,
+          "superseded_by": "cb86d04bfaa44f4a9e425c805c507955:1"
+        },
+        {
+          "applied": true,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "true",
+          "name": "toolchain_version",
+          "ok": true,
+          "prior_disposition": "superseded",
+          "relations": [],
+          "should_apply": true,
+          "superseded_by": "0bf1654dfe3f49149bddfc9c073e049a:1"
+        },
+        {
+          "applied": true,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "true",
+          "name": "anchored_refines",
+          "ok": true,
+          "prior_disposition": "superseded",
+          "relations": [],
+          "should_apply": true,
+          "superseded_by": "affe0a59cb564db5959278520364af39:1"
+        },
+        {
+          "applied": true,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "true",
+          "name": "date_move_anchored",
+          "ok": true,
+          "prior_disposition": "superseded",
+          "relations": [],
+          "should_apply": true,
+          "superseded_by": "fc452b73f1c14d27982644a4a15bbd7e:1"
+        },
+        {
+          "applied": true,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "true",
+          "name": "timeout_move",
+          "ok": true,
+          "prior_disposition": "superseded",
+          "relations": [],
+          "should_apply": true,
+          "superseded_by": "d14acf3c617e4dc0bbfb1cee43a63da1:1"
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "intent_modal",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "newer_value"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "confirm_that",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "hedged_maybe",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "no_anchor",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "newer_value"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "cross_entity",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "newer_value"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "contradicts_color",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "contradicts"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "negates_usage",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "negates"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "quoted_runbook",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "hypothetical",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "future_plan",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 1,
+          "kind": "false",
+          "name": "below_floor_refines",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [
+            "refines"
+          ],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "environment_difference",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        },
+        {
+          "applied": false,
+          "applied_detail": [],
+          "candidates": 0,
+          "kind": "false",
+          "name": "ambiguous_pronoun",
+          "ok": true,
+          "prior_disposition": "active",
+          "relations": [],
+          "should_apply": false,
+          "superseded_by": null
+        }
+      ],
+      "report_path": "/tmp/v6-twins-9r0ms3ra/twins_report.json",
+      "should_apply": 5,
+      "status": "executed",
+      "suite": "v6_auto_safe_twins/v1",
+      "suite_verdict": "pass",
+      "upper95_bound": 0.2281,
+      "verdict": "passed"
+    },
+    "v5_tail": {
+      "dispositions_path": "eval/v5/dispositions_v5.json",
+      "notes": [
+        "unresolved = qualification_status not in locally_measured/qualified/not_applicable/deferred (deferred = V6-04.02/04.03 disposition with owner+reason)"
+      ],
+      "requirements_total": 369,
+      "resolved_statuses": [
+        "deferred",
+        "locally_measured",
+        "not_applicable",
+        "qualified"
+      ],
+      "status": "executed",
+      "status_counts": {
+        "deferred": 20,
+        "locally_measured": 329,
+        "not_applicable": 20
+      },
+      "suite": "v5_tail",
+      "unresolved_count": 0,
+      "unresolved_ids": [],
+      "verdict": "executed"
+    }
+  },
+  "unmeasured": [
+    "operator_time cost category (no human-time meter in run)",
+    "hosted/priced comparator costs (no paid benchmarks run)",
+    "deployment cost beyond local embedded store",
+    "competitor editions absent from this environment (mem0ai, graphiti_core+neo4j, holographic, hosted rows)"
+  ],
+  "verdict": "inconclusive"
+}

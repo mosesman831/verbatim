@@ -1,0 +1,361 @@
+{
+  "experiment": "i6_utility_budgeted_refresh",
+  "spec": {
+    "requirements": [
+      "V45-08.01",
+      "V45-08.02",
+      "V45-08.03",
+      "V45-08.04"
+    ],
+    "acceptance": [
+      "D11",
+      "D12"
+    ],
+    "policy_id": "v45.refresh.v1"
+  },
+  "sample_size": {
+    "slots": 12,
+    "claims": 24,
+    "periods": 6,
+    "changes_per_period": 3,
+    "arms": 2,
+    "note": "identical seeded corpus per arm in disposable stores; every arm drains real consolidate jobs"
+  },
+  "matched_bound": {
+    "freshness_floor": "both arms end the window at zero live observations citing closed claim revisions; the budgeted arm holds that floor through every steady-state cycle (the D12 probe period's zero-budget transient is disclosed per-period)",
+    "regions_per_job": 3,
+    "steady_state_max_jobs": 1
+  },
+  "definitions": {
+    "spend": "RefreshPlan.spend summed over periods: consolidate/reflection jobs enqueued, claim inputs processed, value bytes processed. Periodic is charged a full input scan for consolidation plus a second full scan for bounded reflection \u2014 the same sets the handlers actually read.",
+    "stale_answers": "live (recorded_until NULL) observations whose current revision's evidence cites a closed claim revision \u2014 the stale-answer count a reader could be served"
+  },
+  "arms": {
+    "periodic": {
+      "spend": {
+        "jobs": 6,
+        "work_items": 6,
+        "priority_jobs": 0,
+        "consolidation_jobs": 0,
+        "reflection_jobs": 0,
+        "claims_processed": 288,
+        "bytes_processed": 1740,
+        "deferred": 0,
+        "deferred_claims": 0
+      },
+      "periods": [
+        {
+          "period": 0,
+          "changed_regions": 0,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 248,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 1,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 266,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 2,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 284,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 3,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 302,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 4,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 320,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 5,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 48,
+          "bytes_processed": 320,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        }
+      ],
+      "drained": {
+        "succeeded": 6,
+        "failed": 0
+      },
+      "consolidation_passes": 6,
+      "freshness_floor_zero_stale": true
+    },
+    "periodic_consolidate_only": {
+      "spend": {
+        "jobs": 6,
+        "work_items": 6,
+        "priority_jobs": 0,
+        "consolidation_jobs": 0,
+        "reflection_jobs": 0,
+        "claims_processed": 144,
+        "bytes_processed": 870,
+        "deferred": 0,
+        "deferred_claims": 0
+      },
+      "periods": [
+        {
+          "period": 0,
+          "changed_regions": 0,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 124,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 1,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 133,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 2,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 142,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 3,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 151,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 4,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 160,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        },
+        {
+          "period": 5,
+          "changed_regions": 3,
+          "jobs": 1,
+          "claims_processed": 24,
+          "bytes_processed": 160,
+          "stale_answers_after": 0,
+          "coverage": "unbounded",
+          "observations_written": 0
+        }
+      ],
+      "drained": {
+        "succeeded": 6,
+        "failed": 0
+      },
+      "consolidation_passes": 6,
+      "freshness_floor_zero_stale": true
+    },
+    "budgeted": {
+      "spend": {
+        "jobs": 9,
+        "work_items": 25,
+        "priority_jobs": 1,
+        "consolidation_jobs": 25,
+        "reflection_jobs": 0,
+        "claims_processed": 50,
+        "bytes_processed": 297,
+        "deferred": 3,
+        "deferred_claims": 6
+      },
+      "periods": [
+        {
+          "period": 0,
+          "phase": "baseline",
+          "changed_regions": 0,
+          "jobs": 4,
+          "priority_jobs": 0,
+          "claims_processed": 24,
+          "bytes_processed": 124,
+          "deferred": 0,
+          "stale_answers_after": 0,
+          "regions_covered": 12,
+          "watermark_after": 1
+        },
+        {
+          "period": 1,
+          "phase": "steady",
+          "changed_regions": 3,
+          "jobs": 1,
+          "priority_jobs": 0,
+          "claims_processed": 6,
+          "bytes_processed": 39,
+          "deferred": 0,
+          "stale_answers_after": 0,
+          "regions_covered": 3,
+          "watermark_after": 6
+        },
+        {
+          "period": 2,
+          "phase": "steady",
+          "changed_regions": 3,
+          "jobs": 1,
+          "priority_jobs": 0,
+          "claims_processed": 6,
+          "bytes_processed": 39,
+          "deferred": 0,
+          "stale_answers_after": 0,
+          "regions_covered": 3,
+          "watermark_after": 8
+        },
+        {
+          "period": 3,
+          "phase": "steady",
+          "changed_regions": 3,
+          "jobs": 1,
+          "priority_jobs": 0,
+          "claims_processed": 6,
+          "bytes_processed": 39,
+          "deferred": 0,
+          "stale_answers_after": 0,
+          "regions_covered": 3,
+          "watermark_after": 10
+        },
+        {
+          "period": 4,
+          "phase": "d12_probe",
+          "changed_regions": 3,
+          "jobs": 1,
+          "priority_jobs": 1,
+          "claims_processed": 2,
+          "bytes_processed": 13,
+          "deferred": 3,
+          "stale_answers_after": 3,
+          "regions_covered": 1,
+          "watermark_after": 11
+        },
+        {
+          "period": 5,
+          "phase": "catchup",
+          "changed_regions": 0,
+          "jobs": 1,
+          "priority_jobs": 0,
+          "claims_processed": 6,
+          "bytes_processed": 43,
+          "deferred": 0,
+          "stale_answers_after": 0,
+          "regions_covered": 3,
+          "watermark_after": 13
+        }
+      ],
+      "drained": {
+        "succeeded": 9,
+        "failed": 0
+      },
+      "owner_probe": {
+        "owner_scheduled": 1,
+        "owner_deferred": 0,
+        "priority_jobs": 1,
+        "deferred_non_owner": 3
+      },
+      "freshness_floor_zero_stale_final": true,
+      "steady_state_at_floor": true
+    }
+  },
+  "totals": {
+    "spend": {
+      "periodic": {
+        "jobs": 6,
+        "work_items": 6,
+        "priority_jobs": 0,
+        "consolidation_jobs": 0,
+        "reflection_jobs": 0,
+        "claims_processed": 288,
+        "bytes_processed": 1740,
+        "deferred": 0,
+        "deferred_claims": 0
+      },
+      "periodic_consolidate_only": {
+        "jobs": 6,
+        "work_items": 6,
+        "priority_jobs": 0,
+        "consolidation_jobs": 0,
+        "reflection_jobs": 0,
+        "claims_processed": 144,
+        "bytes_processed": 870,
+        "deferred": 0,
+        "deferred_claims": 0
+      },
+      "budgeted": {
+        "jobs": 9,
+        "work_items": 25,
+        "priority_jobs": 1,
+        "consolidation_jobs": 25,
+        "reflection_jobs": 0,
+        "claims_processed": 50,
+        "bytes_processed": 297,
+        "deferred": 3,
+        "deferred_claims": 6
+      }
+    },
+    "savings": {
+      "claims_processed": 0.8264,
+      "bytes_processed": 0.8293,
+      "jobs": -0.5,
+      "claims_processed_vs_consolidate_only": 0.6528
+    }
+  },
+  "d11": {
+    "matched_freshness": true,
+    "claims_savings": 0.8264,
+    "bytes_savings": 0.8293,
+    "jobs_savings": -0.5,
+    "threshold": 0.2,
+    "measured": "budgeted claims_processed 50 vs periodic 288 (82.6% less), jobs 9 vs 6"
+  },
+  "d12": {
+    "owner_scheduled": 1,
+    "owner_deferred": 0,
+    "priority_jobs_counted": 1,
+    "non_owner_deferred": 3,
+    "measured": "owner request under saturated budget scheduled 1 / deferred 0; counted in spend as 1 priority job(s)"
+  },
+  "met": true
+}

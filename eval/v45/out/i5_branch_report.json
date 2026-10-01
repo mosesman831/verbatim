@@ -1,0 +1,83 @@
+{
+  "experiment": "i5_branch_apply",
+  "spec": {
+    "requirements": [
+      "V45-07.01",
+      "V45-07.02",
+      "V45-07.03",
+      "V45-07.04",
+      "V45-12.03"
+    ],
+    "acceptance": [
+      "D09",
+      "D10"
+    ]
+  },
+  "sample_size": {
+    "scenarios": 6,
+    "note": "each scenario in its own disposable Store; every gate measured from the typed error the real path returns and from committed post-state"
+  },
+  "scenarios": {
+    "d09_isolation_reviewed_apply": {
+      "isolated_before_apply": true,
+      "review_gate_code": "INVALID_TRANSITION",
+      "review_opened": true,
+      "forecast_recorded": true,
+      "applied": true,
+      "head_state_after": "archived",
+      "recall_dropped_after_apply": true,
+      "idempotent_replay": true
+    },
+    "moved_parent_fencing": {
+      "moved_submit_code": "STALE_PROPOSAL",
+      "moved_apply_code": "STALE_PROPOSAL",
+      "rebase_repinned": true
+    },
+    "d10_suppressed_parent": {
+      "suppression_state": "suppressed",
+      "apply_code": "NOT_FOUND_OR_UNAUTHORIZED",
+      "branch_state_after": "live",
+      "no_restore": true
+    },
+    "d10_purged_parent": {
+      "apply_code": "INVALID_TRANSITION",
+      "apply_refused_typed": true,
+      "claim_revisions_states": [
+        "active",
+        "erased"
+      ],
+      "no_resurrect_text": true,
+      "no_apply_receipt": true,
+      "branch_disposition": "erased",
+      "tombstones_carry_no_text": true
+    },
+    "held_by_invalidation_then_rebase": {
+      "held_in_invalidation_tx": "held",
+      "marked": 1,
+      "held_durable": "held",
+      "submit_code": "INVALID_TRANSITION",
+      "apply_code": "INVALID_TRANSITION",
+      "rebase_state": "live"
+    },
+    "abandon_and_diff": {
+      "diff_initial_health": [
+        "ok"
+      ],
+      "diff_moved_health": "moved",
+      "abandon_state": "abandoned",
+      "apply_code": "INVALID_TRANSITION",
+      "audit_preserved": true,
+      "disposition": "archived",
+      "parent_untouched": true
+    }
+  },
+  "checks": {
+    "d09": true,
+    "moved_parent": true,
+    "d10_suppressed": true,
+    "d10_purged": true,
+    "held_rebase": true,
+    "abandon_diff": true
+  },
+  "met": true
+}

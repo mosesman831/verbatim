@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+*.db
+*.db-wal
+*.db-shm
+eval/results/
+eval/v8/results/
+dist/
+build/
+*.egg-info/
+
+
+# V8 prebuilt eval stores (large, local-only)
+.v8_build/stores/
+
+# Evidence stores and bulk dumps stay in the local harness, not the released repo
+eval/v4/work/
+eval/v5/stage_profile_v5.work/
+research/**/*.zip
+research/**/*.tar.gz

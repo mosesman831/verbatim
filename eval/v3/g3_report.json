@@ -1,0 +1,74 @@
+{
+ "artifact": "g3_deep_twin_corpus",
+ "seed": 42,
+ "detectors": [
+  "propose_retirement_supersessions",
+  "propose_unstructured_relations"
+ ],
+ "twins": {
+  "total": 460,
+  "false_positives": 0,
+  "by_category": {
+   "hedged_question": {
+    "cases": 51,
+    "flagged": 0
+   },
+   "hearsay": {
+    "cases": 51,
+    "flagged": 0
+   },
+   "negated": {
+    "cases": 34,
+    "flagged": 0
+   },
+   "future": {
+    "cases": 68,
+    "flagged": 0
+   },
+   "conditional": {
+    "cases": 48,
+    "flagged": 0
+   },
+   "noun_form": {
+    "cases": 48,
+    "flagged": 0
+   },
+   "reinstated": {
+    "cases": 32,
+    "flagged": 0
+   },
+   "imperative": {
+    "cases": 48,
+    "flagged": 0
+   },
+   "corroborating": {
+    "cases": 16,
+    "flagged": 0
+   },
+   "family_name": {
+    "cases": 16,
+    "flagged": 0
+   },
+   "other_retired": {
+    "cases": 16,
+    "flagged": 0
+   },
+   "imperative_neg": {
+    "cases": 32,
+    "flagged": 0
+   }
+  },
+  "flagged_cases": []
+ },
+ "true_pairs": {
+  "total": 30,
+  "detected": 30,
+  "missed": []
+ },
+ "bound": {
+  "rule_of_three_upper_95": 0.0065,
+  "wilson_upper_95": 0.0083,
+  "target": "<0.01 (G3)"
+ },
+ "notes": "Synthetic template-generated near-miss corpus over a 30-identifier pool; detector-level measurement through the real admission-time proposal path (real Store, real claims, real detector calls). Claims seeded as unstructured so both the retirement and the V3-18.03 unstructured detectors fire \u2014 the real worst case. Encoder corroboration not provisioned here (deterministic layer only); encoder path covered in tests/evidence."
+}

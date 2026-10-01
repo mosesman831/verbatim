@@ -1,0 +1,335 @@
+{
+  "config": {
+    "admission_require_review": false,
+    "capture_payload_bytes": 4096,
+    "captures_per_s": 2.0,
+    "claims": 100,
+    "drains": 1,
+    "embedding_backend": "none",
+    "episodes": 10,
+    "procedures": 0,
+    "recall_clients": 1,
+    "scopes": 1,
+    "spans": 500
+  },
+  "duration_s": 52.545360399992205,
+  "envelope": "s0",
+  "environment": {
+    "cpu_count": 4,
+    "db_bytes": 7274496,
+    "loadavg_end": [
+      4.377,
+      4.218,
+      4.541
+    ],
+    "loadavg_start": [
+      4.292,
+      4.158,
+      4.542
+    ],
+    "peak_rss_kb": 56528,
+    "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+    "python": "3.11.15",
+    "sqlite": "3.53.1",
+    "wal_bytes": 0
+  },
+  "generated_at": "2026-09-21T04:47:38Z",
+  "met": false,
+  "metrics": {
+    "backlog_end": {
+      "jobs_pending": 0,
+      "obligations_pending": 780,
+      "receipts_unsettled": 0
+    },
+    "capture": {
+      "ack": {
+        "max_ms": 33.807927,
+        "mean_ms": 14.49299539772727,
+        "n": 88,
+        "p50_ms": 12.850693,
+        "p95_ms": 23.878229,
+        "p99_ms": 33.807927
+      },
+      "captures": 88,
+      "declared_rate_s": 2.0,
+      "failure_examples": [],
+      "failures": 0,
+      "measured_rate_s": 2.0113044952483157
+    },
+    "drain": {
+      "deferred": 0,
+      "expired": 0,
+      "failed": 0,
+      "processed": 51,
+      "succeeded": 51
+    },
+    "readiness": {
+      "deadline_exceeded": 0,
+      "deadline_s": 30.0,
+      "lexical": {
+        "max_ms": 204.64272401295602,
+        "mean_ms": 113.39722665177439,
+        "n": 17,
+        "p50_ms": 104.59041700232774,
+        "p95_ms": 204.64272401295602,
+        "p99_ms": 204.64272401295602,
+        "settled": 17,
+        "states": {
+          "succeeded": 17
+        }
+      },
+      "lexical_p95_ms": 204.64272401295602,
+      "semantic": {
+        "max_ms": 210.78687102999538,
+        "mean_ms": 114.74754606195562,
+        "n": 17,
+        "p50_ms": 105.67181499209255,
+        "p95_ms": 210.78687102999538,
+        "p99_ms": 210.78687102999538,
+        "settled": 17,
+        "states": {
+          "deferred": 17
+        }
+      },
+      "semantic_p95_ms": 210.78687102999538,
+      "wait_definition": "ms from capture-tx commit to wait_ready() settle on the receipt's own obligation DAG (V4-56.06)"
+    },
+    "recall": {
+      "by_category": {
+        "0": {
+          "cross_scope": {
+            "max_ms": 76.221197,
+            "mean_ms": 36.775586171428564,
+            "n": 70,
+            "p50_ms": 35.813643,
+            "p95_ms": 67.283537,
+            "p99_ms": 76.221197
+          },
+          "exact": {
+            "max_ms": 113.457638,
+            "mean_ms": 36.81589315277778,
+            "n": 72,
+            "p50_ms": 32.90881,
+            "p95_ms": 65.85946,
+            "p99_ms": 113.457638
+          },
+          "multi_entity": {
+            "max_ms": 89.645969,
+            "mean_ms": 51.50993343055555,
+            "n": 72,
+            "p50_ms": 48.880496,
+            "p95_ms": 72.111366,
+            "p99_ms": 89.645969
+          },
+          "no_answer": {
+            "max_ms": 24.772107,
+            "mean_ms": 7.070475999999999,
+            "n": 72,
+            "p50_ms": 6.832145,
+            "p95_ms": 12.268933,
+            "p99_ms": 24.772107
+          },
+          "paraphrase": {
+            "max_ms": 163.058212,
+            "mean_ms": 51.30133066666668,
+            "n": 72,
+            "p50_ms": 54.722483,
+            "p95_ms": 76.535477,
+            "p99_ms": 163.058212
+          },
+          "procedural": {
+            "max_ms": 91.960524,
+            "mean_ms": 53.63674105714285,
+            "n": 70,
+            "p50_ms": 52.837567,
+            "p95_ms": 65.038901,
+            "p99_ms": 91.960524
+          },
+          "temporal": {
+            "max_ms": 127.239409,
+            "mean_ms": 42.48749883333334,
+            "n": 72,
+            "p50_ms": 35.304924,
+            "p95_ms": 92.788202,
+            "p99_ms": 127.239409
+          }
+        },
+        "1": {
+          "cross_scope": {
+            "max_ms": 98.159071,
+            "mean_ms": 45.59860164285715,
+            "n": 70,
+            "p50_ms": 44.203426,
+            "p95_ms": 79.270631,
+            "p99_ms": 98.159071
+          },
+          "exact": {
+            "max_ms": 94.384079,
+            "mean_ms": 44.55985220833333,
+            "n": 72,
+            "p50_ms": 42.980988,
+            "p95_ms": 75.756439,
+            "p99_ms": 94.384079
+          },
+          "multi_entity": {
+            "max_ms": 102.979301,
+            "mean_ms": 62.51635958333335,
+            "n": 72,
+            "p50_ms": 61.235029,
+            "p95_ms": 85.224178,
+            "p99_ms": 102.979301
+          },
+          "no_answer": {
+            "max_ms": 23.144271,
+            "mean_ms": 7.736336819444443,
+            "n": 72,
+            "p50_ms": 5.521428,
+            "p95_ms": 16.665084,
+            "p99_ms": 23.144271
+          },
+          "paraphrase": {
+            "max_ms": 97.809151,
+            "mean_ms": 59.26711531944446,
+            "n": 72,
+            "p50_ms": 65.158902,
+            "p95_ms": 91.602885,
+            "p99_ms": 97.809151
+          },
+          "procedural": {
+            "max_ms": 100.911545,
+            "mean_ms": 60.900818714285705,
+            "n": 70,
+            "p50_ms": 58.286196,
+            "p95_ms": 82.864424,
+            "p99_ms": 100.911545
+          },
+          "temporal": {
+            "max_ms": 120.183824,
+            "mean_ms": 49.63150922222221,
+            "n": 72,
+            "p50_ms": 42.744029,
+            "p95_ms": 92.958962,
+            "p99_ms": 120.183824
+          }
+        }
+      },
+      "clients": 1,
+      "failure_examples": [],
+      "failures": 0,
+      "max_ms": 163.058212,
+      "mean_ms": 43.512356308000015,
+      "measured": 1000,
+      "n": 1000,
+      "p50_ms": 43.654187,
+      "p95_ms": 79.192551,
+      "p99_ms": 97.319752
+    }
+  },
+  "mix": {
+    "historical_revisions_pct": 0.0,
+    "hold_pct": 0.0,
+    "query_mix_declared": {
+      "cross_scope": 0.1,
+      "exact": 0.3,
+      "multi_entity": 0.15,
+      "no_answer": 0.1,
+      "paraphrase": 0.2,
+      "procedural": 0.05,
+      "temporal": 0.1
+    },
+    "query_mix_realized": {
+      "cross_scope": 140,
+      "exact": 144,
+      "multi_entity": 144,
+      "no_answer": 144,
+      "paraphrase": 144,
+      "procedural": 140,
+      "temporal": 144
+    },
+    "scopes": 1
+  },
+  "notes": [
+    "measured captures: 20% claim-bearing user_messages (~128B, ~1 claim each, full pipeline, lexical readiness measured) + 80% agent_notes (4KiB, write-path ack load, no claim derivation \u2014 envelope volumes stay at spec); all acks are real accepted-input timings",
+    "M0 no-model envelope: rules recall only, embeddings unprovisioned."
+  ],
+  "observed_volumes": {
+    "claim_revisions": 100,
+    "claims_active": 100,
+    "claims_total": 100,
+    "embeddings": 0,
+    "episodes": 10,
+    "held_claims": 0,
+    "procedures": 0,
+    "seed_drain": {
+      "claims_pass": {
+        "deferred": 0,
+        "expired": 0,
+        "failed": 0,
+        "pending_obligations": 320,
+        "processed": 200,
+        "still_pending": 0,
+        "succeeded": 200
+      },
+      "filler_pass": {
+        "deferred": 0,
+        "expired": 0,
+        "failed": 0,
+        "pending_obligations": 320,
+        "processed": 0,
+        "still_pending": 0,
+        "succeeded": 0
+      }
+    },
+    "sources": 400,
+    "spans": 500,
+    "superseded_claims": 0
+  },
+  "samples": {
+    "measured_queries": 1000,
+    "per_repetition": [
+      {
+        "failures": 0,
+        "measured": 500,
+        "p50_ms": 39.604996,
+        "p95_ms": 68.654933,
+        "p99_ms": 92.788202,
+        "repetition": 0,
+        "wall_s": 20.007929492974654
+      },
+      {
+        "failures": 0,
+        "measured": 500,
+        "p50_ms": 48.519417,
+        "p95_ms": 83.964781,
+        "p99_ms": 97.809151,
+        "repetition": 1,
+        "wall_s": 23.722428307984956
+      }
+    ],
+    "restart_repetitions": 2,
+    "warmup_excluded": true,
+    "warmup_queries": 100
+  },
+  "seed": 42,
+  "spec": "SPEC_V4 \u00a756 (V4-56.01/56.02/56.05/56.06)",
+  "targets": [
+    {
+      "bound_ms": 25.0,
+      "measured_ms": 79.192551,
+      "met": false,
+      "target": "recall.p95_ms"
+    },
+    {
+      "bound_ms": 75.0,
+      "measured_ms": 97.319752,
+      "met": false,
+      "target": "recall.p99_ms"
+    },
+    {
+      "bound_ms": 50.0,
+      "measured_ms": 23.878229,
+      "met": true,
+      "target": "capture.ack_p95_ms"
+    }
+  ]
+}

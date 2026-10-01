@@ -1,0 +1,11 @@
+name: verbatim
+version: 0.1.0
+description: >-
+  Evidence-first memory: verbatim source spans, bitemporal claims,
+  conflict-safe lifecycle, optional calibrated decision backends.
+author: Verbatim contributors
+license: MIT
+hooks:
+  - on_session_end
+  - on_session_switch
+python_dependencies: []

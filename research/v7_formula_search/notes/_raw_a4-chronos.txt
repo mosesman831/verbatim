@@ -1,0 +1,122 @@
+Session devin-fa8ee22f447b445187ec66307423163f:
+  session_id: fa8ee22f447b445187ec66307423163f
+  title: Workflow verbatim-formula-search-v3: a4-chronos
+  status: suspended
+  status_detail: inactivity
+  url: https://app.devin.ai/sessions/fa8ee22f447b445187ec66307423163f
+  acus_consumed: 0.0
+  tags: workflow
+  structured_output:
+    topic: a4-chronos
+    sources: https://arxiv.org/abs/2603.16862 | paper | the assigned paper — resolves correctly; abstract/metadata, https://arxiv.org/html/2603.16862v1 | paper | full text: §3 architecture (extraction, dynamic prompting, retrieval, agent), Tables 1–3 ablations/results, §5 limitations, Appendix A, calculated | verified 34.5/58.6 = 58.9% consistency of abstract claim; per-category deltas; per-event index bytes (~170B row + ~22B idx, ~35–50B/memory @0.2 ev/mem); overlap-query and cross-encoder ms estimates for 4-core @10k/100k, https://arxiv.org/abs/2410.10813 | paper | LongMemEval benchmark — corpus context for the eval (500q, 6 categories, per-category counts 78/133/56/30/70/133), https://github.com (LongMemEval repo, via paper refs) | repo | only code cited is the benchmark, NOT Chronos — confirms vendor self-reported status, no reproduction artifacts
+    summary: arXiv 2603.16862 resolves: Chronos (PwC CTIO, Sen/Lumer/Gulati/Subbiah) is a dual-index memory system — an 'event calendar' of LLM-extracted subject-verb-object tuples carrying ISO-8601 datetime RANGES (multi-resolution normalization vs the conversation timestamp) plus a 'turn calendar' of raw turns. On LongMemEval_S (500q) it scores 92.60% (GPT-4o) / 95.60% (Opus 4.6), SOTA, but ALL numbers are vendor self-reported with no code release and no independent reproduction. The headline ablation (116-q subset): removing the events index drops the GPT-4o config from 93.1 to 58.6 (−34.5 pts; the '58.9% gain' is relative to that ablated baseline — verified arithmetic), but only −2.6 on Opus — the effect is partly compensated by a strong agent loop. Other ablations (Low): no initial retrieval −16.4, grep-only −15.5, no dynamic prompting −14.7, no date filter −14.7, vector-only −12.9, no rerank −12.1; High deltas are 0–11. Portable to Verbatim's SQLite valid-time/record-time model: an events table with (vt_start, vt_end, granularity) + interval-overlap predicate (vt_start<=q_hi AND vt_end>=q_lo) costs ~1–4ms at 100k events and ~35–50B/memory amortized — ship as a temporal lane + eligibility gate. Also ship: deterministic write-time normalization of relative phrases, query-time temporal gating before ranking, ±1 adjacency expansion, date-grouped pack headers. Optional (quality/max only): local cross-encoder rerank over the cap-32 pool (~30–100ms est., fits ≤150ms) and LLM-generated lexical aliases. Reject for the engine: per-query LLM dynamic prompting and the ReAct tool loop — both are reader/agent-side patterns; their signal is already covered by Verbatim's query-analysis stage and multi-lane fusion. Caveat: corpus/metric mismatch (LongMemEval LLM-judged end-task accuracy vs LoCoMo any@k) and no error bars — treat as mechanism evidence, not a magnitude prediction.
+    verdicts: C1 valid-time events table + overlap predicate -> ship: ~1–4ms @100k, ~35–50B/mem, largest ablation effect in the paper, C2 multi-resolution write-time datetime normalization (start,end,granularity vs t_conv) -> ship: deterministic, fixes unresolved-relative-time gap permanently, C3 query-time temporal gate in eligibility (overlap before ranking) -> ship: no-date-filter ablation −14.7 (Low); consistent with eligibility-first rule, C4 event lane into RRF at w=1.0 + graded tIoU boost (1+0.1·tIoU, bounded ±10%) -> ship: top-tier lane evidence; coverage grows with extractor, C5 lexical alias column (2–4 disjoint-vocab paraphrases) -> optional: needs extraction model; ship schema, populate under optional job, C6 ±1 same-session adjacency expansion at pack -> ship: O(1)/hit, mirrors Chronos context window; isolated effect unmeasurable, C7 date-grouped pack headers 'Session N (YYYY-MM-DD)' -> ship: ~0 cost framing metadata, no byte-pin conflict, C8 local cross-encoder rerank over cap-32 pool -> optional: ~30–100ms on 4-core fits ≤150ms quality profile; no-rerank −12.1 Low, C9 per-query LLM dynamic prompting -> reject: LLM call per query violates default install; deterministic analog already in query analysis; −0.0 on strong backbone, C10 ReAct tool-calling retrieval loop -> reject: consumer-side agent pattern; salvage = keep lexical+semantic lanes both strong (grep-only −15.5, vector-only −12.9), RRF k=60, BM25F weights, boost alphas -> unchanged: no contrary evidence; event lane enters at w=1.0, temporal boost graded inside ±10% envelope
+    notes_markdown: # a4-chronos — Chronos event-calendar ablation
+
+**Paper:** "Chronos: Temporal-Aware Conversational Agents with Structured Event Retrieval for Long-Term Memory" — Sen, Lumer, Gulati, Subbiah (PwC Commercial Technology & Innovation Office). arXiv:2603.16862 resolves correctly. Full text read (abs + HTML v1). **No code release** found; paper cites only the LongMemEval benchmark repo. All results are vendor self-reported; no independent reproduction exists.
+
+## 1. What the event-calendar structure is
+
+Chronos maintains **two indexes** over the same dialogue:
+
+- **Turn calendar**: raw conversation turns, embedded (text-embedding-3-large) into a vector index; also greppable as local text files.
+- **Event calendar**: an LLM extractor converts turns into `⟨subject, verb, object⟩` tuples, keeping only *temporally grounded state transitions and timestamped occurrences*. Each event carries `start_datetime` / `end_datetime` (ISO 8601 **ranges**, not points) — multi-resolution temporal normalization: explicit dates preserved exactly; relative references computed against the conversation timestamp `t_conv`; ambiguous phrases ("recently", "last month") resolved to windows of appropriate granularity. Plus **2–4 lexical aliases** per event written in deliberately disjoint vocabulary (synonyms/category descriptors, e.g. "bought Fitbit" → "picked up a fitness tracker"). Events are embedded into their own index.
+
+Extraction runs in batches of ≤25 turns with 5-turn overlap. Deliberately **no global entity graph, no comprehensive fact extraction** — the paper's thesis is "minimal sufficient abstraction": structure only what LLMs handle badly (temporal deltas, sequences, date math), leave the rest as natural-language turns.
+
+**Query side**: (a) *dynamic prompting* — a small model (Gemini 3 Flash) reads the question and emits 1–5 bullets of retrieval guidance injected into the agent's system prompt (once per question); (b) *initial retrieval* — dense search over turn calendar top-100 → Cohere Rerank v3 → top-15 → ±1 neighbor-turn expansion → session-grouped blocks with date headers "Session 1 (2024-02-15)"; (c) *Chronos agent* — ReAct loop with four tools (`search_turns`, `search_events`, `grep_turns`, `grep_events`); agent picks k, can constrain by datetime range; rerank always applies to the **original question**, not the agent's rewritten query.
+
+## 2. Every ablation (Table 3; stratified 116-question subset; vendor-reported; no error bars)
+
+Overall accuracy, deltas vs. the full config:
+
+| Ablation | Chronos Low (GPT-4o) | Δ | Chronos High (Opus 4.6) | Δ |
+|---|---|---|---|---|
+| Full | 93.1 | — | 94.8 | — |
+| **Turns only (no events)** | **58.6** | **−34.5** | 92.2 | −2.6 |
+| No initial retrieval | 76.7 | −16.4 | 91.4 | −3.4 |
+| Grep only (no vector) | 77.6 | −15.5 | 87.1 | −7.7 |
+| No dynamic prompting | 78.4 | −14.7 | 94.8 | −0.0 |
+| No date filter | 78.4 | −14.7 | 92.2 | −2.6 |
+| Vector only (no grep) | 80.2 | −12.9 | 83.6 | −11.2 |
+| No rerank | 81.0 | −12.1 | 92.2 | −2.6 |
+
+Per-category drops for **no-events** under Low: KU 94.4→55.6, MS 90.3→51.6, SSP 85.7→42.9, SSU 87.5→43.8, TR 96.8→61.3; SSA untouched (100→100). The abstract's "events calendar = 58.9% gain on the baseline" is arithmetic I verified: 34.5/58.6 = 58.9% relative over the turns-only ablation. "Other components yield 15.5–22.3%" are relative gains over each ablated variant (e.g. no-initial-retrieval: 16.4/76.7 = 21.4%).
+
+**Key interpretation (labeled extrapolation):** temporal structure dominates *only when the backbone is weak*. On Opus, removing events costs just 2.6 pts — a strong agent recovers via iterative search. The magnitude (34.5 pts) is therefore partly a property of the model + agent loop, not the index alone. For Verbatim (retrieval-only, no reader-LLM to compensate), the honest reading is: structured valid-time events are the single highest-leverage mechanism in the paper, but the −34.5 number does not transfer to any@k.
+
+## 3. Temporal query handling
+
+- **Write-time normalization** (the important half): every event gets a resolved `[start,end]` interval + implicit granularity, computed against `t_conv`. "The week after my vacation" stays unresolvable until the anchor event is identified — resolution happens at query time.
+- **Query-time filtering**: the agent constrains `search_events` by datetime range; removing this capability costs −14.7 (Low) / −2.6 (High). Temporal reasoning category examples: "What did I do the week after my vacation?", "How many times did I exercise in May?" → range-overlap filter + aggregate, not semantic similarity.
+- **Pack formatting**: retrieved turns grouped under date headers so temporal order is explicit in-context.
+- No time-aware *term expansion* beyond the alias mechanism; expansion is of query-side *constraints* (resolved ranges), not lexical expansion.
+
+## 4. Measured deltas vs. baselines (all vendor-reported)
+
+LongMemEval_S, 500 questions (KU 78 / MS 133 / SSA 56 / SSP 30 / SSU 70 / TR 133), LLM-judge accuracy:
+
+- Chronos Low (GPT-4o): **92.60** vs EmergenceMem Internal 86.00 (+7.67% rel), Honcho 90.40 (Claude Haiku 4.5 — not directly comparable), Mastra 84.80, Supermemory 81.60, Hindsight 83.60 (different judge), Zep 71.20, **full-context 60.20** (the plain no-retrieval baseline).
+- Chronos High (Opus 4.6): **95.60** (+3.02% rel over Mastra OM's 92.80, which used Gemini 3 Pro).
+- Temporal reasoning: 90.23 Low / 95.50 High vs 85.71 for EmergenceMem/Mastra; multi-session aggregation 91.73 vs 84.96 Honcho.
+- Their own critique of LoCoMo (our eval corpus): sessions fit modern context windows, no knowledge-update eval, benchmark errors — i.e., they consider LongMemEval a *harder* test of temporal structure than LoCoMo.
+
+## 5. Candidates ported to SQLite valid-time/record-time (Verbatim)
+
+Byte-pin interaction: events must store a pin to source payload (span/row id); generated S/V/O text is metadata, never delivered verbatim — same status as existing typed-facts lane.
+
+### C1 — Valid-time interval schema + overlap predicate — **ship**
+```sql
+CREATE TABLE events(event_id INTEGER PRIMARY KEY, mem_id INT, s TEXT, v TEXT, o TEXT,
+                    vt_start INT, vt_end INT, gran INT, src INT);
+CREATE INDEX ev_t ON events(vt_start, vt_end);  -- or R*Tree ev_rt(min_start,max_start,...)
+-- overlap: vt_start <= :q_hi AND vt_end >= :q_lo
+```
+- Params: `gran ∈ {instant,day,week,month,quarter,year,fuzzy}`; epoch-second ints.
+- Complexity: O(log N + k); ~1–4 ms at 100k events on 4-core (B-tree descent + integer scan; R*Tree native 2D similar).
+- Size: ~170 B/event row + ~22 B index entry; at ~0.2 events/memory ≈ **35–50 B/memory amortized** (calculated).
+- Stage: **temporal** — new lane + eligibility substrate. Keep `record_time` column too (existing recency boosts are record-time; valid-time is new).
+
+### C2 — Multi-resolution write-time normalization — **ship**
+- Map expression → interval: explicit date → unit bounds [unit_start, unit_end]; "last/ago" → window aligned to unit ending at `t_conv`; "in <month>" → month bounds; vague ("recently") → fuzzy window ending at `t_conv`, default 90 d (our constant — paper gives none). Store `gran`; overlap semantics respect granularity (point-in-month ≠ month-in-range).
+- Complexity: <0.1 ms/event write-side, deterministic (dateparser-style rules, no model).
+- Stage: write-path + temporal. This is the durable fix for the known "unresolved relative time" gap — phrases are resolved to ranges *once*, at write time.
+
+### C3 — Query-time temporal gating in eligibility — **ship**
+- When query analysis resolves a date phrase to `[lo,hi]`, add `overlap(vt, [lo,hi])` to **eligibility admission (before ranking)** — consistent with Verbatim's eligibility-first rule and directly motivated by the no-date-filter ablation (−14.7 Low). When the phrase is soft ("recently"), apply as bounded boost instead of hard gate.
+- Cost: parse <0.1 ms + indexed predicate ~1–3 ms @100k.
+
+### C4 — Event lane feeding RRF — **ship**
+- `score_e = BM25(q, s‖v‖o‖alias)` as its own lane, RRF weight **1.0** (strong lane) — the ablation makes events the top-tier signal. Optional within-lane graded boost for temporal overlap: `boost = 1 + 0.10·tIoU`, `tIoU = |I_e ∩ I_q| / |I_e ∪ I_q|` (bounded ±10%, consistent with the post-fusion boost policy; paper supplies no formula — this is ours).
+- Cost: FTS5 MATCH on the (small) events table ~1–2 ms.
+- Caveat: coverage depends on extraction; a model-free S/V/O extractor is partial — populate fully only when an extraction model is enabled (see C5). Ship the lane+schema; coverage grows with the extractor.
+
+### C5 — Lexical alias column — **optional**
+- `alias TEXT` in events FTS, 2–4 disjoint-vocabulary paraphrases, BM25F field weight ≈ event text. Zero query cost; +~60–100 B/event index. Generation needs a model → populate only under the optional extraction job; a small static synonym/abbrev table gives a thin model-free subset.
+
+### C6 — Adjacency expansion ±1 at pack — **ship**
+- For each packed item include same-`(session_id, pos±1)` neighbors under byte budget. O(1) indexed lookup/hit, <0.5 ms total. Mirrors Chronos's ±1 context expansion (its isolated effect isn't separable — bundled in "no initial retrieval" −16.4). Cheap and safe.
+
+### C7 — Date-grouped pack formatting — **ship**
+- "Session N (YYYY-MM-DD)" headers grouping packed items by conversation date; ~0 cost. Headers are framing metadata, not delivered memory sentences — no byte-pin conflict.
+
+### C8 — Cross-encoder rerank — **optional (quality/max)**
+- `score_ce = CE(q, d)` over pooled top-K. Chronos: k=100→15 with a hosted Cohere model (not default-portable). Verbatim equivalent: hash-pinned local MiniLM-class CE over the cap-32 pool → ~32 passes ≈ 30–100 ms est. on 4-core (1–3 ms/pass at ≤128 tok) — inside the ≤150 ms optional budget, outside the tens-of-ms default. Evidence: no-rerank −12.1 Low / −2.6 High.
+
+### C9 — Per-query LLM dynamic prompting — **reject** (as engine feature)
+- Requires an LLM call per query; violates the no-API-key default. Its deterministic analog — query analysis → temporal-constraint extraction + lane selection — is already the pipeline's first stage. Evidence for the LLM version is weak on strong backbones (−0.0 High).
+
+### C10 — Agentic ReAct loop w/ dual search tools — **reject** (for the engine)
+- It's a consumer/agent pattern, not a Memory.search property. Salvageable signal: grep-only −15.5 vs vector-only −12.9 (Low) confirms lexical and semantic lanes have disjoint failure modes → keep both; supports RRF lane weights that don't starve the lexical lane.
+
+## 6. Provisional constants — implications
+
+- **RRF k=60**: no evidence either way from this paper; keep. Event lane joins at w=1.0.
+- **Boost alphas 0.2/0.2/0.1**: compatible — temporal overlap implemented as *graded* tIoU boost bounded inside the same ±5–10% envelope, not a binary post-hoc filter (binary filtering belongs in eligibility, C3).
+- **Cross-encoder pool cap 32**: consistent — Chronos reranks 100→15 via API; 32 is the local-latency-compatible cap (C8).
+- **Entity alias rules**: paper validates *lexical* aliases (disjoint vocabulary) as recall insurance for grep-style matching — supports keeping an alias field, generated or static.
+- **BM25F field weights**: no paper evidence; event fields (s,v,o,alias) default to equal weight.
+
+## 7. Bottom line for Verbatim
+
+The mechanism that survives translation to a model-free engine: **a second index of temporally-grounded events carrying valid-time intervals, queried by range-overlap predicates and fed as a peer lane**. Chronos's own numbers say this is the largest single contributor (−34.5 pts Low) — though vendor-reported, agent-loop-confounded, and on a different corpus/metric (LongMemEval LLM-judge accuracy vs our LoCoMo any@k), so treat as directional evidence for mechanism, not a magnitude prediction. Expected effect for us is concentrated in temporal/multi-session queries and in some of the 84 zero-hit cases where BM25 still ranked evidence — extraction coverage will bound the gain.

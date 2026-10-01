@@ -1,0 +1,667 @@
+{
+  "experiment": "i3_minimal_sufficient_progressive",
+  "spec": {
+    "requirements": [
+      "V45-05.01",
+      "V45-05.02",
+      "V45-05.03",
+      "V45-05.04"
+    ],
+    "acceptance": [
+      "D05",
+      "D06"
+    ]
+  },
+  "sample_size": {
+    "topics": 6,
+    "arms": 2,
+    "runs": 12,
+    "depth_claims_per_topic": 5,
+    "note": "registered long-history slice; n is the realized topic count actually executed"
+  },
+  "coverage_rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+  "token_estimator": "approx_chars_per_token:4 (ContextPack.tokens \u2014 the packer's own estimate, not re-derived here)",
+  "matched_bound": {
+    "max_items": 16,
+    "note": "identical RecallRequestV3 budgets on both arms"
+  },
+  "definitions": {
+    "utility": "per-topic fraction of DECLARED expectation markers (fix, condition, safety) present in delivered bodies; depth text is deferred to expansion by design and measured separately",
+    "non_inferiority": "mean progressive utility \u2265 mean flat utility \u2212 0.01 (one percentage point, V45-05.04)"
+  },
+  "topics": [
+    {
+      "topic": "mod0",
+      "query": "loader crash fix src/v45_mod/0.py",
+      "identifier": "src/v45_mod/0.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 4,
+        "depth_text_shipped": 4,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 5,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/0.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/0.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    },
+    {
+      "topic": "mod1",
+      "query": "loader crash fix src/v45_mod/1.py",
+      "identifier": "src/v45_mod/1.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/1.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/1.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    },
+    {
+      "topic": "mod2",
+      "query": "loader crash fix src/v45_mod/2.py",
+      "identifier": "src/v45_mod/2.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/2.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/2.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    },
+    {
+      "topic": "mod3",
+      "query": "loader crash fix src/v45_mod/3.py",
+      "identifier": "src/v45_mod/3.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/3.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/3.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    },
+    {
+      "topic": "mod4",
+      "query": "loader crash fix src/v45_mod/4.py",
+      "identifier": "src/v45_mod/4.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/4.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/4.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    },
+    {
+      "topic": "mod5",
+      "query": "loader crash fix src/v45_mod/5.py",
+      "identifier": "src/v45_mod/5.py",
+      "flat": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1412,
+        "serialized_bytes": 5649,
+        "per_pack_tokens": {
+          "evidence_bundle": 1412
+        },
+        "items": 7,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": null,
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "progressive": {
+        "marker_hits": {
+          "fix": true,
+          "condition": true,
+          "safety": true
+        },
+        "utility": 1.0,
+        "tokens": 1111,
+        "serialized_bytes": 4445,
+        "per_pack_tokens": {
+          "evidence_bundle": 1111
+        },
+        "items": 8,
+        "depth_items": 0,
+        "depth_text_shipped": 0,
+        "abstained": false,
+        "coverage": {
+          "pack_mode": "sufficiency",
+          "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+          "required_identifiers": [
+            "src/v45_mod/5.py"
+          ],
+          "covered_identifiers": [
+            "src/v45_mod/5.py"
+          ],
+          "uncovered_identifiers": [],
+          "coverage_groups_admitted": 2,
+          "depth_groups_admitted": 5,
+          "coverage_tier": "l2",
+          "depth_tier": "l0"
+        },
+        "warnings": [
+          "budget_omitted_group",
+          "dense:encoder_or_rows_unavailable"
+        ]
+      },
+      "identifier_covered": {
+        "flat": true,
+        "progressive": true
+      },
+      "condition_text_shipped": {
+        "flat": true,
+        "progressive": true
+      }
+    }
+  ],
+  "tokens": {
+    "flat_total": 8472,
+    "progressive_total": 6666,
+    "reduction_ratio": 0.213173,
+    "reduction_pct": 21.32,
+    "per_topic": [
+      {
+        "topic": "mod0",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      },
+      {
+        "topic": "mod1",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      },
+      {
+        "topic": "mod2",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      },
+      {
+        "topic": "mod3",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      },
+      {
+        "topic": "mod4",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      },
+      {
+        "topic": "mod5",
+        "flat": 1412,
+        "progressive": 1111,
+        "flat_per_pack": {
+          "evidence_bundle": 1412
+        },
+        "progressive_per_pack": {
+          "evidence_bundle": 1111
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "required_identifiers": [
+      "src/v45_mod/0.py",
+      "src/v45_mod/1.py",
+      "src/v45_mod/2.py",
+      "src/v45_mod/3.py",
+      "src/v45_mod/4.py",
+      "src/v45_mod/5.py"
+    ],
+    "flat_covered": 6,
+    "progressive_covered": 6,
+    "condition_text_topics": {
+      "flat": 6,
+      "progressive": 6
+    },
+    "per_topic_sufficiency": [
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/0.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/0.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      },
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/1.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/1.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      },
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/2.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/2.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      },
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/3.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/3.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      },
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/4.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/4.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      },
+      {
+        "pack_mode": "sufficiency",
+        "rule": "coverage-first admission: groups carrying >=1 uncovered required identifier (hard identifiers from the query) or mandatory content (contradiction/required-context/safety/condition-bearing/volatile) admit at the requested detail tier before depth-ordered groups; remaining groups render their navigational (l0) projection \u2014 identity, locator, lifecycle, and a caller/scope/purpose/revision/expiry-bound expansion ref \u2014 instead of eager detail. Group atomicity, per-kind ceilings, and the shared byte/token budgets are unchanged; depth is available on expansion, not delivered flat",
+        "required_identifiers": [
+          "src/v45_mod/5.py"
+        ],
+        "covered_identifiers": [
+          "src/v45_mod/5.py"
+        ],
+        "uncovered_identifiers": [],
+        "coverage_groups_admitted": 2,
+        "depth_groups_admitted": 5,
+        "coverage_tier": "l2",
+        "depth_tier": "l0"
+      }
+    ]
+  },
+  "utility": {
+    "flat_mean": 1.0,
+    "progressive_mean": 1.0,
+    "delta": 0.0,
+    "margin": 0.01,
+    "non_inferior": true
+  },
+  "expansion": {
+    "roundtrips_measured": 6,
+    "d06": {
+      "probe": "expand_ref_post_revocation",
+      "anchor": "tests/retrieval/test_disclosure_tiers.py",
+      "ref_obtained": true,
+      "revocation_denied": true,
+      "denial_code": "ErrorCode.NOT_FOUND_OR_UNAUTHORIZED"
+    }
+  },
+  "d05": {
+    "token_reduction_met": true,
+    "non_inferior_met": true,
+    "identifiers_kept": true,
+    "conditions_kept": true,
+    "measured": "tokens flat=8472 progressive=6666 (\u221221.32%), utility 1.000\u21921.000"
+  },
+  "met": true
+}

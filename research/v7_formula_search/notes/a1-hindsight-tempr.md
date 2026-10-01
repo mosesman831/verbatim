@@ -1,0 +1,127 @@
+# a1-hindsight-tempr — Hindsight TEMPR retrieval analysis for Verbatim
+
+Sources read in full: arXiv 2512.12818 (paper, 11pp + appendix), ACL 2026 demo version (aclanthology.org/2026.acl-demo.27), and the vectorize-io/hindsight monorepo engine source (`hindsight-api-slim/hindsight_api/engine/{memory_engine,entity_resolver,query_analyzer}.py`, `search/{fusion,retrieval,link_expansion_retrieval,reranking,recall_boost,bm25_term_selection}.py`, `retain/link_utils.py`, `config.py`, `sql/postgresql.py`, `hindsight-docs/docs/developer/retrieval.md`).
+
+## 0. What TEMPR actually is
+
+TEMPR = retain pipeline (LLM fact extraction → embed → entity resolution → link construction) + recall pipeline (4 parallel retrieval arms → RRF → optional cross-encoder + multiplicative boosts → greedy token-budget pack). All retrieval is SQL inside PostgreSQL (pgvector HNSW + GIN FTS). There is no PPR/PageRank anywhere — the "graph" arm is a bounded 1-hop expansion with an additive 3-signal score; the paper's generic "spreading activation" formula survives in code only inside the temporal arm.
+
+## 1. TEMPR retrieval formula — exact pipeline (code-verified, not just paper)
+
+Per fact type F ∈ {world, experience, opinion} (observations are a 4th type, retrieved by the same arms):
+
+1. **Semantic arm** — `s = cos(q_emb, f_emb)`, pgvector HNSW, `LIMIT = recall_budget` (100/300/1000 for budget low/mid/high; mid is default), min similarity 0.3. Per fact type.
+2. **BM25 arm** — `LIMIT = recall_budget`, per fact type. Default backend is Postgres `ts_rank_cd` — **this is cover-density ranking, not true BM25**; real BM25 only via extensions (paradedb/vchord/pg_textsearch/pgroonga). Query capped to **16 terms**, selected by *lowest corpus DF* (from `pg_stats.most_common_elems`) — keep rare terms, drop common ones.
+3. **Graph arm (link expansion)** — seeds = top-20 semantic hits ≥0.3 per fact type, then **1 hop** only, three additive signals: `score = tanh(shared_entity_count·0.5) + max(semantic_link_weight) + max(causal_link_weight)` ∈ [0,3]; per-entity lateral cap 200 rows; whole arm on a 10s timeout.
+4. **Temporal arm** — only when the query has a parsed time reference. Window-overlap filter `[τs,τe] ∩ [τstart,τend] ≠ ∅` → entry points = ANN top-60 in window → coverage-pick 10 per fact type across 8 time buckets → BFS spread ≤5 iterations, batch 20, ≤10 neighbors/source over links weight ≥0.1 of types {temporal, causes, caused_by, enables, prevents}: `propagated = parent·weight·causal_boost·0.7` where causal_boost ∈ {2.0 causes/caused_by, 1.5 enables/prevents, 1.0 other}; `score = max(own_triangular, propagated)`; frontier when combined > 0.2. Triangular proximity: `1 − min(days_from_window_mid / (window_days/2), 1)`.
+5. **RRF fusion** — `RRF(f) = Σ_i 1/(60 + r_i(f))`, **unweighted**, over the arms' rank lists (3 normally, 4 when temporal active). Per-source pre-fusion cap exists but is **disabled by default** (0).
+6. **Rerank pre-filter** — if pool > 300, re-sort by boosted RRF and truncate to `reranker_max_candidates = 300`. (Strategy boosts can shift RRF ranks: levels low/mid/high = rank_divisor {2,4,8} + additive {0.05,0.2,0.5}, applied in *rank space* — `1/(k + rank/w)` — because score-space weighting caused a boosted arm to fill all 300 slots: measured recall@20 0.97 → 0.40.)
+7. **Cross-encoder** — `cross-encoder/ms-marco-MiniLM-L-6-v2` (local sentence-transformers default), batches of 32 pairs (128 for TEI HTTP), input `"[Date: Month D, YYYY (ISO)] {context}: {text}"`; logit → sigmoid. Providers: local/flashrank/tei/api/none. Without a CE, a *passthrough* seeds normalized scores from RRF rank: `1.0 − 0.9·rank/(n−1)` ∈ [0.1,1.0].
+8. **Combined scoring** — `final = CE_norm × recency_boost × temporal_boost × proof_boost`, `boost = 1 + α·(signal − 0.5)`, α = 0.2/0.2/0.1 → ranges ×0.9–1.1, ×0.9–1.1, ×0.95–1.05 (max ±27%/−23% combined).
+   - recency: `clamp(1 − days_ago/365, 0.1, 1.0)` — **linear to a 0.1 floor at 365d** (not to zero); effective date = occurred_start > mentioned_at > occurred_end; coarse calendar dates score from period END capped at 0.5; no date → 0.5. Alternatives: `exponential` = `0.5^(days/90)`; `none` = 0.5.
+   - temporal: triangular proximity above; non-temporal queries → 0.5 (neutral).
+   - proof: `clamp(0.5 + ln(proof_count)/10, 0, 1)` — 1→0.5, ~148→1.0.
+   - min-score floors exist but off by default.
+9. **Prefer-observations dedup + truncate to `recall_budget×2`**, then **greedy token-budget pack** in score order; an oversized item is skipped (next tried); if nothing fits, top-1 returned whole.
+
+## 2. Entity resolution — assignment's reported weights VERIFIED
+
+Per mention (write path, `retain_entity_resolution.py` + `entity_resolver.py`):
+
+- Candidate fetch: pg_trgm GIN `similarity ≥ 0.3` (`merge_min_similarity`), capped at `entity_resolution_max_candidates = 200`.
+- Gates: `_tokens_are_compatible` + trigram probe.
+- Score: `name` — identical trigram set → 1.0 short-circuit; else `SequenceMatcher(lower,lower).ratio() × 0.5` + `cooc` — Σ over co-occurring entities of `1/√(partner_degree) / |context_set| × 0.3` (hub-damped) + `temporal` — `max(0, 1 − days_diff/7) × 0.2` if last_seen within 7 days.
+- **Merge when `round(best,6) ≥ 0.6`**; highest-scored canonical absorbs the mention.
+- Intrabatch dedup at retain: prefix-filtered set-similarity join, trigram-Jaccard ≥ 0.5 merges two new mentions.
+- Label entities (`#task` etc.) = exact-match only.
+- Paper Eq 2 leaves α/β/γ symbolic — code is the only source: **0.5 / 0.3 / 0.2, threshold 0.6, 7-day recency window confirmed**.
+
+## 3. 365-day decay — exact shape
+
+`recency = max(0.1, min(1.0, 1.0 − days_ago/365.0))` — linear ramp, **floor 0.1 not 0**, hits floor at 365d. Fed through `boost = 1 + 0.2·(recency − 0.5)` → a 1-year-old fact gets ×0.92, today's gets ×1.10. So the effective score swing is only ±10% — the decay is a *nudge*, not a filter.
+
+## 4. Link expansion — hops, fan-out, weights
+
+- **Graph arm: strictly 1 hop** from ≤20 semantic seeds (≥0.3) per fact type. No multi-hop BFS in this arm (paper's Eq 12 spreading is aspirational for this arm; ACL demo's "2–3 hops" describes the temporal spreading). Fan-out: per-entity lateral join cap 200; total output = `recall_budget` rows.
+- Edge types + weights (built at retain): temporal `w = max(0.3, 1 − Δt_hours/24)` — links only when Δt ≤ 24h, ≤20/unit (**linear with 0.3 floor — contradicts paper Eq 4 `exp(−Δt/σt)`**); semantic top-20 ANN neighbors if cosine ≥ 0.7; entity = shared canonical entities (weight = count→tanh); causal = LLM-extracted, w=1.0, types {causes, caused_by, enables, prevents}, premium only inside temporal spreading (×2.0/×1.5) — in the graph merge causal contributes raw weight (the "weight+1.0" comment in `link_expansion_retrieval.py` header is stale).
+- Temporal-lane spreading: ≤5 iterations, batch 20, ≤10 neighbors/source, weight ≥ 0.1, decay δ=0.7, frontier cutoff 0.2.
+
+## 5. Reranker pool cap — the "~32" claim is WRONG
+
+- `DEFAULT_RERANKER_MAX_CANDIDATES = 300` — that is the pool cap (env `HINDSIGHT_API_RERANKER_MAX_CANDIDATES`), independent of budget.
+- **32 = `DEFAULT_RERANKER_LOCAL_BATCH_SIZE`** — pairs per local `predict()` call ("matches TEI" default; TEI batch = 128).
+- Model: `cross-encoder/ms-marco-MiniLM-L-6-v2` (22M params, ~90MB); alternatives in code: flashrank ONNX `ms-marco-MiniLM-L-12-v2` (~34MB) / TinyBERT-L-2-v2 (~4MB), TEI HTTP, API rerankers, passthrough.
+- ACL demo says production queries typically send "20–50 candidates" to the reranker — the 300 is a ceiling, not the norm.
+
+## 6. Ablation tables — NONE EXIST
+
+The paper contains zero ablation experiments: Table 1 = feature comparison, Table 2 = dataset stats, Tables 3–4 = benchmark results. ACL demo same. Closest thing is mechanism attribution from per-category deltas (paper §7.4 / demo §6.2–6.3): vs full-context OSS-20B, multi-session 21.1→79.7 and temporal-reasoning 31.6→79.7 are credited to temporal channel + entity graph; single-session categories gain little (81.4→95.7 already), implying the cross-encoder is "a precision step, not the main source of accuracy" (their words — no componentwise numbers). **No per-component contribution data exists; every portability verdict below is mechanism-level inference, not ablation-backed.**
+
+## 7. Vendor numbers (all VENDOR-reported unless noted)
+
+LongMemEval-S (500 q): **Hindsight 83.6 OSS-20B / 89.0 OSS-120B / 91.4 Gemini-3** vs Supermemory 81.6/84.6/85.2 (GPT-4o/GPT-5/Gemini-3), Zep 71.2 (GPT-4o), full-ctx 60.2/39.0. Per-category captured in summary above. LoCoMo: **Hindsight 83.18/85.67/89.61** vs Backboard 90.0 (third-party claim, unreproduced), Memobase 75.78, Zep 75.14, Mem0-Graph 68.44. LongMemEval baselines are transcribed from Supermemory's own report; LoCoMo baselines from Backboard's claims — paper §7.3 admits those "could not be independently reproduced." Repo README claims collaborator reproduction (Virginia Tech / WaPo — co-author orgs, quasi-independent). Token budgets printed as literal `<add>` placeholders — unfilled. Evaluation = LLM-judge (OSS-120B temp 0) end-to-end accuracy, **not retrieval-only metrics** — the 83.6 includes extraction+answer-gen quality.
+
+## 8. Candidate-by-candidate portability for Verbatim (SQLite + 4-core CPU)
+
+Latency estimates: FTS5 match on 100k rows ~5–15ms; junction-table joins ~1–10ms; Python SequenceMatcher ~50µs/candidate; MiniLM-L-6-v2 ONNX ≈ 8–15ms/pair batched on 4 threads; TinyBERT ~2–4ms/pair; dateparser ~10–50ms/call.
+
+### A. Four-arm parallel lanes + unweighted RRF(k=60) → **ship**
+Equation `RRF = Σ 1/(60+rank)`. Confirms k=60; recommends *unweighted* merge (Hindsight deliberately avoids arm weights — boosts live elsewhere). Replaces/augments: fusion. Cost <1ms; index 0B. For Verbatim: keep k=60; demote lane weights to the rank-space boost mechanism (item G) rather than score multiplication; a per-source pre-fusion cap (their opt-in knob) protects a swamped lane — ship as the fix for the 40-deep sub-lane cap bug.
+
+### B. Eligibility-first candidate gen (their bank/fact_type/tag/window WHERE-filters before rank LIMIT) → **ship**
+Already Verbatim's hard rule — confirmed compatible: every arm's SQL filters before ranking, so adopt their arm UNION structure: per-type lanes scored independently then unioned, instead of post-hoc gating. Cost: same index scans. Stage: lanes.
+
+### C. Entity-resolution scoring `0.5·SeqRatio + 0.3·(Σ1/√deg)/|ctx| + 0.2·(7d recency)`, gates trigram≥0.3 → merge≥0.6 → **ship** (write-path + entity lane)
+SQL-portable (junction tables entities/unit_entities + co-occurrence counts); trigram probe via a postings table (~200–400B/unit). Cost: retain-side only (~5–100ms/batch), 0ms query. Adds "who/what" lane evidence Verbatim lacks (speaker/entity bug fix). One caveat: replace `SequenceMatcher` with their trigram-Jaccard equivalent if python difflib cost matters (they calibrated identical behavior; `_IDENTICAL_TRIGRAMS=1.0` shortcut is free precision).
+
+### D. 1-hop link expansion `tanh(E·0.5) + sem + causal` → **ship partially**
+Entity + temporal edges need no embeddings: entity edge = shared canonical entities (pure SQL join, ~2–10ms); temporal edges `max(0.3, 1−Δh/24)` are free to compute at retain (~2KB/unit link table incl. index). Semantic edges (cosine ≥0.7 on dense embeddings) are meaningless on blake2b hash vectors — **either drop or gate behind the optional pinned-embedding tier**. Causal edges need an extractor — optional only if a quote-pinned rule/LLM extractor exists. Verbatim stage: graph lane. Replaces provisional "PPR hops/edge weights" — Hindsight never uses PPR; 1-hop expansion + temporal BFS is cheaper, deterministic, SQL-friendly.
+
+### E. Temporal arm (window overlap → triangular proximity → coverage-bucketed entry points → decayed BFS) → **ship**
+Verbatim stage: time lane. `1 − |Δmid|/(Δτ/2)` on eligible rows ~2–8ms. Their entry-point selection fix matters: rank by in-arm similarity (not "most recent N") else full scans; 8-bucket coverage pick prevents cluster-collapse. Needs a query-time date resolver: dateparser ~10–50ms is over budget — ship a light resolver (regex + dateutil, ~1–5ms); flan-t5-small fallback is optional-tier only (80M params ≈ 300MB, ~200ms+/query on CPU). Also fixes Verbatim's filed "unresolved relative time phrases" bug pattern (interval open/closed semantics are explicit in their datemath code).
+
+### F. Combined multiplicative boosts `1+α·(s−0.5)`, α=0.2/0.2/0.1 → **ship — confirms Verbatim's provisional alphas**
+Includes recency linear-365d-floor-0.1, triangular temporal, `0.5+ln(proof)/10` proof norm. <1ms. Stage: rerank/post-fusion scoring. Note their rationale: multiplicative (not additive) keeps boosts proportional to relevance — adopt same form on Verbatim's post-RRF score; with no CE, adopt their **RRF-rank passthrough** `1 − 0.9·rank/(n−1)` as the base score so boosts still modulate meaningfully.
+
+### G. Rank-space strategy boost `1/(k + rank/w)` + additive {0.05,0.2,0.5} → **ship (cheap mechanism for lane weighting)**
+Their measured warning: score-space arm weighting collapsed recall@20 0.97→0.40 by letting one arm fill all 300 rerank slots. If Verbatim keeps any lane weighting, do it in rank space, not score space. Stage: fusion.
+
+### H. Cross-encoder rerank, pool 300, ms-marco-MiniLM-L-6-v2, date-prefixed input → **optional (quality profile)**, corrected constants
+Pool=300 → ~2.5–5s on 4-core CPU — reject at that size. At Verbatim's ≤150ms budget: MiniLM-L-6-v2 over ~10–16 pairs (~80–240ms borderline) or flashrank TinyBERT-L-2 (~4MB, ~2–4ms/pair) over 32–50 pairs (~60–200ms). Ship as optional profile with pool cap ~32 — the provisional "cap 32" is the right *Verbatim* value even though it misread Hindsight's (their cap is 300; 32 is their batch). The `[Date: ...]` input prefix is free to adopt. Default profile: passthrough base + boosts only.
+
+### I. Greedy skip-over token pack + never-empty guarantee (top-1 whole) → **ship**
+Stage: pack. Same as Verbatim's budget pack but with the two semantics worth copying: skip-and-continue, and always return top-1 rather than empty.
+
+### J. BM25 selective term cap (16 lowest-DF query terms from stats table) → **ship**
+Stage: lane (lexical). Fixes OR-query fan-out blowups; SQLite equivalent = maintain term DF counts (cheap, or FTS5 `fts5vocab`). ~0ms extra. Keep rare terms — same direction as Verbatim's term-coverage fix.
+
+### K. LLM narrative fact extraction (2–5 facts/conv) + observations synthesis → **reject for default / optional**
+Violates byte-pin + model-free add-ack unless every emitted string byte-matches source. Portable version: generated text may exist only as a *non-deliverable index artifact* (canonical entity names, co-occurrence edges, query-side expansions) — never served. Observations lane → optional tier where extraction runs but delivery is restricted to pinned quotes it points to.
+
+### L. Dense embedding arm (bge-small 384d + HNSW) → **optional**
+Verbatim's hash embeddings are explicitly non-semantic; a pinned local embedding artifact (bge-small-e5-class, ~130MB, ~15–30ms/query on CPU, ~1.5KB/memory vector + sqlite-vec index ~100B overhead) is the quality-tier path. Default: keep hashing + lexical lanes.
+
+## 9. Constant dispositions (provisional review)
+
+- RRF k=60 → **confirm** (unweighted; per-source caps optional, off by default).
+- BM25F field weights → n/a upstream (Postgres ts_rank over text+signals only; context excluded). Keep Verbatim's.
+- Feature-rerank weights → Hindsight has none (CE is the reranker); boosts replace them.
+- Boost alphas 0.2/0.2/0.1 → **confirm verbatim** incl. `1+α(s−0.5)` multiplicative form.
+- "PPR hops/edge weights" → **replace**: 1-hop link expansion (tanh·0.5 additive triple) + temporal BFS δ=0.7, boosts 2.0/1.5, ≤5 iters, frontier 0.2.
+- Entity alias rules → **confirm**: no alias table; fuzzy-merge to canonical (0.5/0.3/0.2 ≥ 0.6), intrabatch 0.5, labels exact-match.
+- CE pool "cap 32" → **correct**: Hindsight cap=300, batch=32. For Verbatim CPU budgets, adopt ~32 as the *pool* cap in quality profile with a tiny ONNX CE.
+
+## 10. Estimated Verbatim query cost (4-core, SQLite, post-fix)
+
+| Stage | 10k | 100k |
+|---|---|---|
+| FTS5 BM25 lane top-300 | ~3–8ms | ~8–20ms |
+| Entity + graph 1-hop lane | ~2–5ms | ~4–12ms |
+| Temporal lane (when active) | ~2–6ms | ~4–15ms |
+| RRF + boosts + pack | <2ms | <3ms |
+| **Default total** | **~10–20ms** | **~20–50ms** |
+| + TinyBERT CE on 32 | +60–130ms | +60–130ms |
+| + MiniLM-L-6 on 32 | +80–240ms | +80–240ms |
+| + CE on 300 | +2.5–5s | +2.5–5s |
+
+Index bytes/memory: links ≤40 rows ≈ 1.6–2.4KB; entity junction ≈ 120–320B; FTS5 ≈ 0.7–1× text bytes; optional dense vec 1536B + ANN overhead. Hindsight claims recall <200ms at 10k units (server Postgres) — consistent with the above on the non-CE path.

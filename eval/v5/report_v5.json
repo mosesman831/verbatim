@@ -1,0 +1,148 @@
+{
+  "claims": [],
+  "environment": {
+    "cpu_count_logical": 4,
+    "loadavg_1m": 1.650390625,
+    "machine": "aarch64",
+    "platform": "Linux-6.17.0-1020-oracle-aarch64-with-glibc2.39",
+    "processor": "aarch64",
+    "python": "3.12.3",
+    "sqlite": "3.45.1"
+  },
+  "portfolio": "v5",
+  "qualification": "locally_measured",
+  "quick": true,
+  "seed": 42,
+  "suites": {
+    "consolidation": {
+      "admission": {
+        "admitted": 19,
+        "failed": [],
+        "pending_heads": 19
+      },
+      "attestation": {
+        "envelope_source_id": "bec739f8981649279317e0a1f106d128",
+        "job_ids": [
+          "4ae1a54b2b414d7d8f23a9acb8c506b1",
+          "a5d7b259ed9d41eb9f4bf31df0d99fba"
+        ],
+        "receipt_id": "cr_8a4616b8dc9fc85772f408dfd4c65a7a"
+      },
+      "corroboration": {
+        "corroborated_hits": 1,
+        "folded_hits": 1,
+        "group_members": 2,
+        "max_corroboration": 2,
+        "note": "verdict requires a folded hit.corroboration \u2265 2 (proof-bearing group); raw hit count is diagnostic only \u2014 multiple corr=1 hits prove nothing folded",
+        "verdict": "passed"
+      },
+      "delivered_grounding": {
+        "hits_checked": 25,
+        "verdict": "passed",
+        "violations": []
+      },
+      "jobs": {
+        "done": 1,
+        "enqueued": 1,
+        "failed": 0,
+        "total": 1
+      },
+      "observations": {
+        "evidence_refs": 10,
+        "fixture": {
+          "claims": 4,
+          "eligible_claims": 4,
+          "missing_observations": [],
+          "qualified_slots": 2
+        },
+        "held_or_erased_pins": 0,
+        "observations": 2,
+        "pins": [
+          {
+            "fixture_slot": true,
+            "observation": "obs_9e381e521854d1856a50130f2ffd0b94",
+            "pins": {
+              "byte_trace": 5,
+              "erased": 0,
+              "held": 0,
+              "resolvable": 5,
+              "superseded": 0,
+              "total": 5
+            },
+            "proof_count": 2,
+            "sole_trace": false
+          },
+          {
+            "fixture_slot": true,
+            "observation": "obs_e378e6281aaaa6c39bb2ccd5bca33ca7",
+            "pins": {
+              "byte_trace": 5,
+              "erased": 0,
+              "held": 0,
+              "resolvable": 5,
+              "superseded": 0,
+              "total": 5
+            },
+            "proof_count": 2,
+            "sole_trace": false
+          }
+        ],
+        "retired": 0,
+        "sole_trace_violations": 0,
+        "superseded_pins": 0,
+        "ungrounded": 0
+      },
+      "qualification": "locally_measured",
+      "scale": {
+        "corpus": "v5-consumer-40s42+cons",
+        "digest": "6cc768cd0d948ea17672e85edf8b4b9bf367799dae69c0c71fa696863843f20d",
+        "memories": 40
+      },
+      "status": "executed",
+      "suite": "consolidation",
+      "verdict": "passed",
+      "verdicts": {
+        "corroboration": "passed",
+        "grounding": "passed",
+        "jobs": "passed",
+        "observations": "passed"
+      }
+    },
+    "feedback": {
+      "checks": {
+        "exposure_rows_recorded": "passed",
+        "feedback_bounds": "inconclusive",
+        "kill_switch": "passed",
+        "shadow_logged_deterministic_applied": "passed"
+      },
+      "evidence": {
+        "consumer_searches_run": 8,
+        "feedback_bounds": {
+          "real_handle": "unavailable",
+          "unknown_error": "VerbatimError",
+          "unknown_refused": true
+        },
+        "influence_rows": 0,
+        "kill_switch": {
+          "code": "ErrorCode.CONFIG_INVALID",
+          "error": "v3.retrieval.controller=learned_active requires a validated policy artifact bound via v3.retrieval.controller_policy_artifact=<artifact_id>; use deterministic o",
+          "refused": true
+        },
+        "routing_decisions": 16,
+        "shadow_decisions": 8,
+        "shadow_total_decisions": 16,
+        "source_exposure_rows": 1
+      },
+      "qualification": "locally_measured",
+      "status": "executed",
+      "suite": "feedback",
+      "verdict": "inconclusive"
+    }
+  },
+  "unmeasured": [
+    "operator_time cost category (no human-time meter in run)",
+    "hosted/priced comparator costs (no paid benchmarks run)",
+    "deployment cost beyond local embedded store"
+  ],
+  "verdict": "inconclusive"
+}

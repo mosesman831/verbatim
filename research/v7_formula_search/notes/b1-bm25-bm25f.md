@@ -1,0 +1,164 @@
+# b1-bm25-bm25f — BM25 & BM25F for Verbatim's lexical lane
+
+Scope: exact formulas, constants and implementation mechanics for (a) Okapi BM25 on the eligible set, (b) BM25F over dialogue-turn fields, (c) subset df/idf computation, (d) what SQLite FTS5 already gives us, (e) recommended field list + weights. All timings measured on this 4-core reference VM with Python 3 / SQLite FTS5 over a synthetic 100k-memory store (~28 tokens/turn, vocabulary ≈30k terms, 60% eligible).
+
+---
+
+## 1. Candidate formulas — exact equations and provenance
+
+### 1.1 Okapi BM25 (the lane scorer)
+
+From Robertson & Zaragoza, *The Probabilistic Relevance Framework* (FnTIR 4(1-2), 2009), §3.4, and confirmed verbatim in Wikipedia and both implementations:
+
+```
+score(D,Q) = Σ_i  IDF(q_i) · [ f(q_i,D)·(k1+1) ] / [ f(q_i,D) + k1·(1 − b + b·|D|/avgdl) ]
+```
+
+- `f(q_i,D)` = term frequency of query term i in document D (FTS5 counts *phrase* frequencies; a single token is a length-1 phrase, so this coincides for term queries).
+- `|D|` = doc length in tokens; `avgdl` = mean doc length over the **scored collection** (see §3 — for us: the eligible set).
+- `k1` = tf saturation (0 → pure boolean presence; ∞ → linear tf). `b` = length normalization (0 → none, 1 → full).
+
+### 1.2 IDF formulations — three variants that differ exactly on the high-df edge
+
+| Form | Formula | Negative? | Used by |
+|---|---|---|---|
+| Classic Robertson | `idf = ln((N − n + 0.5) / (n + 0.5))` | **Yes** when n > N/2 | TREC tradition, SQLite fts5_aux.c, rank_bm25 |
+| Lucene +1 | `idf = ln(1 + (N − n + 0.5) / (n + 0.5))` | Never (min ln(1+0)=0 when n=N) | Lucene `BM25Similarity.idf()` line 101-104: `(float) Math.log(1 + (docCount - docFreq + 0.5D) / (docFreq + 0.5D))`; Anserini inherits it |
+| Floored classic | `idf = max(ε, ln((N−n+0.5)/(n+0.5)))` | Clamped | SQLite fts5_aux.c lines 673-674: `if( idf<=0.0 ) idf = 1e-6;` — ε=1e-6. rank_bm25: floor = `epsilon · average_idf`, ε=0.25 (rank_bm25.py lines 96-105) |
+
+**Measured edge case** (my 100k prototype): a term with df=60,323/100,000 → classic idf = **−0.419**, Lucene = +0.506, SQLite = 1e-6. Robertson's primer discusses this: a term in >50% of the corpus gets a negative weight, so ubiquitous terms *demote* documents — almost never intended. Lucene's +1 inside the log is smooth, always ≥0, and needs no arbitrary floor constant; it is strictly >0 and monotone-equivalent in ordering regions where both are positive. **Eligible-set scoring makes this worse, not better**: within a small eligible scope, terms that are globally rare can locally exceed df_E > N_E/2 (e.g. a purpose-scoped set where a domain term saturates). Ship the +1 form.
+
+### 1.3 k1/b defaults across engines (verified constants)
+
+| Engine | k1 | b | IDF form | Source |
+|---|---|---|---|---|
+| Lucene `BM25Similarity()` | 1.2 | 0.75 | ln(1+x) | BM25Similarity.java ctor line 97-98 `this(1.2f, 0.75f, true)` |
+| Anserini `SearchCollection -bm25` | 0.9 | 0.4 | ln(1+x) | docs/experiments-msmarco-doc.md: "the default BM25 parameters (k1=0.9, b=0.4)" |
+| SQLite FTS5 `bm25()` | 1.2 | 0.75 | classic, floor 1e-6 | fts5_aux.c lines ~700: `const double k1 = 1.2; const double b = 0.75;` — **hardcoded, not tunable** |
+| rank_bm25 `BM25Okapi` | 1.5 | 0.75 | classic + ε·avg floor | rank_bm25.py line 79 |
+| Anserini **tuned**, MS MARCO passage | 0.82 | 0.68 | — | docs/experiments-msmarco-passage.md `-bm25.k1 0.82 -bm25.b 0.68` |
+| Anserini **tuned**, MS MARCO doc | 3.8 | 0.87 | — | msmarco-doc.md tuning table: MRR@100 0.2784 vs 0.2301 at defaults |
+
+Take-away: tuned values straddle the defaults on both sides (passage tuning went *down* in k1, doc tuning went *up* to 3.8). Defaults are a reasonable prior; the corpus matters. For ~30-token dialogue turns (short, near-uniform length) start at **k1=1.2, b=0.6 for the text field** and grid-search k1∈[0.6..2.0], b∈[0.3..0.8] on the LoCoMo harness — Anserini's own numbers show default→tuned can move MRR by +0.05 on a real collection. `b` earns less when lengths are uniform; keep it ≥0.3 because memory text does vary (one-liner vs multi-sentence turn).
+
+### 1.4 BM25F — three candidate structures
+
+**Variant A — canonical combine-then-saturate (Robertson, Zaragoza & Taylor, CIKM'04 "Simple BM25 extension to multiple weighted fields").** Per the abstract: *"we highlight how [per-field scores] can lead to poor performance by breaking the carefully constructed non-linear saturation… we propose to weight term frequencies before the non-linear term frequency saturation function is applied. In this scheme, a structured document with a title weight of two is mapped to an unstructured document with the title content repeated twice."*
+
+```
+TF(t,D)  = Σ_f  w_f · tf(t, f, D)                     # raw weighted pseudo-frequency
+score    = Σ_t  idf(t) · TF·(k1+1) / (TF + k1·(1 − b + b·|D|/avgdl))
+```
+with |D|, avgdl over the *virtual concatenated* document (all fields summed).
+
+**Variant C — per-field length-normalized BM25F (Zaragoza et al., "Microsoft Cambridge at TREC 13", TREC 2004; identical to what Pérez-Iglesias et al. 2009 implemented for Lucene, LUCENE-2399 patch; Terrier's `PerFieldNormWeightingModel`/`BM25F` is the same shape).** The TREC-13 text explicitly motivates it: *"modified slightly this approach to take into account fields of extremely different field lengths… a different length normalising factor b for every field-type"*:
+
+```
+weight(t,D) = Σ_f  w_f · tf(t,f,D) / [ (1 − b_f) + b_f·(l_f / avl_f) ]
+score       = Σ_t  idf(t) · weight(t,D)·(k1+1) / (k1 + weight(t,D))
+```
+Note the saturation applies **once** to the combined pseudo-frequency — one k1, one b_f and one w_f per field (3F+1 params total). Length normalization is per-field: a hit in a 1-token `speaker` field is not diluted by the 30-token `text` field.
+
+**Variant B — saturate-then-combine (per-field BM25, then weighted sum).** `score = Σ_f w_f · BM25_f`. This is ES `most_fields`/`best_fields` and the Lucene `MultiSimilarity` approach. Robertson's CIKM'04 paper demonstrates it double-counts: each field's saturation already credits the term near-maximally, so a term split across fields out-scores a term concentrated in one high-value field. The ES *Definitive Guide* documents the same pathology in `most_fields` ("a document matching just the word 'poland' in two fields could score higher than a document matching 'poland' and 'street' in one field"). **Reject.**
+
+**Worked example** (computed, not copied): 2 docs, fields {title(l=2,avl=2), body(l=6,avl=6)}, q=`marathon`, df=10/100 (idf=2.154), w={title:5, body:1}, b_f=0.6, k1=1.2. D1: title×1 + body×2. D2: body×3.
+
+| Doc | saturate-then-combine (B) | combine-then-saturate (A) | per-field-norm (C) |
+|---|---|---|---|
+| D1 | **13.60** ← pathological | 3.99 | 4.03 |
+| D2 | 3.51 | 3.58 | 3.48 |
+
+B inflates D1 3.4× — the title hit and the body hits each earn a nearly-saturated score then sum. A and C preserve the intended ranking (D1 > D2 because of the title hit, but not absurdly). For Verbatim's fields — which differ in length by ~30× (text ≈28 tokens vs speaker ≈1 vs tlabel ≈3) — variant C is the right member of the family; variant A's single doc-level length under-differentiates.
+
+**Published field weights** — TREC-13 Table 4 (optimised on Prec@10, 2003 topics):
+- Topic-distillation: k1=27.5, b_title=0.95, b_body=0.7, b_anchor=0.6; w_title=**38.4**, w_body=1.0, w_anchor=**35.0**
+- Named-page: k1=4.9, b_title=0.6, b_body=0.5, b_anchor=0.6; w_title=**13.5**, w_body=1.0, w_anchor=**11.5**
+
+The reliable signal: short, high-precision fields (title, anchor) get weights **one order of magnitude above** the body field, and k1 itself compensates for the inflated weighted tf (hence huge tuned k1). These absolute values are web-corpus-specific — extrapolate the *pattern* (≫1 for sparse high-signal fields), not the numbers.
+
+### 1.5 What SQLite FTS5's `bm25()` actually computes (source-verified)
+
+From `ext/fts5/fts5_aux.c` (SQLite master) and sqlite.org/fts5.html §5.1.1:
+
+- Signature: `bm25(t)` or `bm25(t, w0, w1, ...)` — **yes, positional per-column weights**; missing columns default to 1.0, extras ignored.
+- Column-weight semantics (line ~718): `aFreq[ip] += w` where `w` = the weight of the column containing each matched instance. i.e. **f(q_i,D) = Σ_c w_c·n(q_i,c)** — column weights fold into the frequency *before* saturation: **FTS5 bm25() is already canonical combine-then-saturate BM25F** (variant A shape).
+- Doc length: `D = xColumnSize(pFts,-1)` = total tokens summed over **all columns** (unweighted pseudo-document length); avgdl likewise global. No per-field length norm — variant A, not C.
+- k1=1.2, b=0.75 **hardcoded**; idf = `ln((nRow−nHit+0.5)/(nHit+0.5))` floored at 1e-6, where `nRow` = **all rows in the table** — global df, ineligible docs included. This violates the eligible-set rule for the *score*, though not for candidate generation.
+- Returns `−1·score` (ascending sort; lower = better).
+
+Conclusion: FTS5 bm25() can legitimately serve as the BM25F *candidate-generation* lane (correct shape, negligible measured cost), but the ranking score must be recomputed with eligible-set statistics — Python-side rescore over the candidate window (hundreds of docs) is the right place; a custom C auxiliary is unnecessary at this scale.
+
+### 1.6 Adjacent variants worth noting
+
+- **BM25+** (Lv & Zhai): adds constant δ to the length-normalized tf term so long docs that match are never scored below docs that don't. One extra constant (δ=1.0 default; rank_bm25's `BM25L` uses δ=0.5). Optional insurance if long memories get systematically under-ranked; one-line change.
+- **BM25T/term-pivot variants**: not needed — chemistry is in fields + eligible stats.
+
+---
+
+## 2. The eligible-set df/idf problem (assignment q3)
+
+`idf` and `avgdl` must be over the eligible set E, not the table. Three ways:
+
+**Option A1 — query-time exact df via postings ∩ eligible bitmap (recommended ship).** The engine already materializes E during admission; keep it as (a) a Python `set`/`bytes` bitmap and (b) a lazily-built **Python big-int bitset per query term**: for term t, `int(t) = Σ 2^rowid` built once per unique term from `SELECT rowid FROM fts WHERE fts MATCH 't'`, cached for the session. Then `df_E(t) = (int(t) & E_int).bit_count()` — an O(N/64) machine-word op. Measured: cold fetch+build ~13ms worst-case per query @100k (dominated by marshalling ~12k rowids through sqlite), **warm cache ≈0.02ms**. Exact, ~zero resident cost, no write-path work. avgdl_E: maintain per-memory token length array (4B/mem); Σ over E once per query is ~1-2ms @100k pure Python — or keep a running `tokens_in_scope` counter per static eligibility signature when scopes repeat across queries. Per-field avl: global constants are fine (measured shift global→eligible avgdl = 28.3→27.4, ~3%); field lengths barely move under eligibility filtering while df moves by orders of magnitude — spend exactness where it matters.
+
+**Option A2 — SQL-side intersect** `SELECT COUNT(*) FROM meta WHERE eligible AND rowid IN (SELECT rowid FROM fts WHERE fts MATCH ?)`: measured 18ms @100k — slower than Python set ∩ (13ms); the IN-subquery materializes the posting list anyway plus a hash build. Reject.
+
+**Option B — precomputed per-scope docfreq tables.** Store df(t, s) for each eligibility scope s. Feasible only if eligibility decomposes into few static scopes (auth×quarantine×suppression = ≤16 bitmaps of combos). Cost: V=30,070 terms (measured) × S scopes × ~24B/row incl. index → **2.9MB (S=4) to 11.5MB (S=16) @100k**, plus write-path updates on every eligibility flip, plus it cannot express query-dynamic purposes (purpose is open-ended, so the scope lattice is unbounded). Keep as a fallback only if memories grow past ~1M and eligible sets recur identically; at 100k it is strictly dominated by A1.
+
+**Worked example** — same term, two statistics: N=100, df=10 → classic idf=2.154 (Lucene 2.264). Eligible subset N_E=40, df_E=2 → idf=**2.734**. Global idf under-scores terms that are locally rare in the eligible scope and *over*-scores terms that saturate it — exactly the systematic bias the spec forbids.
+
+---
+
+## 3. Per-query time complexity → milliseconds (measured on this box)
+
+Synthetic corpus: 4-column FTS5 (text, speaker, entities, tlabel), avgdl≈28, V≈30k, avg posting len≈103 @100k, 3–4-term queries, 60% eligible.
+
+| Stage | 10k | 100k | Notes |
+|---|---|---|---|
+| FTS5 MATCH + bm25(t) (uniform wts) | 0.03ms | 0.04ms | candidate lane |
+| FTS5 MATCH + bm25(t,1,2,2.5,0.5) | 0.03ms | 0.05ms | column weights add ~nothing |
+| eligible-df via posting∩Py-set | 1.4ms | 13.2ms | Σ df_t rowids marshalled |
+| eligible-df via int-bitset (warm) | — | 0.02ms | cached per unique term |
+| full BM25F variant-C rescore, 500 cands | 1.5ms | 13.3ms | incl. field fetch + df (cold); rescore alone ≈1-2ms |
+
+Arithmetic for rescore: C=500 candidates × T=4 terms × F=4 fields = 8,000 tf-count ops ≈ ~1.5–2ms CPython. Bound C at ~500; deeper windows buy nothing before fusion.
+
+**Total added latency** for exact-eligible BM25F: ≈**1.5ms @10k**, ≈**13–15ms @100k cold** (first time those query terms are seen), ≈**2ms warm**. Inside the measured budget (search p50≈46ms / p95≈85ms).
+
+## 4. Index/resident bytes @100k
+
+- FTS5 4-column table on disk: measured **34.6MB / 100k turns ≈ 346B/memory** (incl. content).
+- Per-field token lengths in meta: 4×4B = 16B/mem → 1.6MB.
+- Eligible bitmap: N/8 = 12.2KB.
+- Lazy term bitsets: ~12.5KB per distinct query term — bound with an LRU (~500 terms → ~6MB; worst-case 5k terms ≈62MB if unbounded — cap it).
+- Per-scope df alternative (rejected): 2.9–11.5MB + write-path cost + can't express dynamic purposes.
+
+## 5. Where this lands in Verbatim's pipeline
+
+- **Lexical lane**: FTS5 `bm25(turn_fts, w_text, w_speaker, w_entities, w_tlabel)` stays as the approximate candidate generator (allowed — candidate gen may be approximate; the lane now also exploits speaker/entity/tlabel columns the plain 40-line BM25 couldn't see).
+- **After eligibility admission**: exact eligible-set idf via int-bitset df (A1); Python-side variant-C BM25F rescore over the eligible candidate window (≤500) — this *is* the score that enters fusion, fixing "BM25 on the whole table".
+- **Fusion** unchanged (RRF k=60 — the lane just emits better-ordered, correctly-normalized scores).
+- **Write path**: maintain `ntok` + per-field token counts per memory (16B); rebuild nothing else. Tokenization for the rescore can reuse the stored field strings.
+
+## 6. Recommended field list & weights for conversational turns
+
+| field | w_f | b_f | rationale |
+|---|---|---|---|
+| text | 1.0 | 0.6 | the body-equivalent; carries most evidence |
+| speaker | 1.5 | 0.2 | ~1 token; near-constant length → low b; matters on "who said" queries |
+| entities | 2.5 | 0.3 | resolved entities = the anchor/title analog — short, high-precision; TREC-13 pattern says ≫1 |
+| tlabel | 0.4 | 0.2 | system-generated bucket tokens ("2023-05-w2"); should only fire on explicit time tokens — keep sub-unity so it can't dominate |
+
+Tune w on the LoCoMo harness (entities ∈ [2,4], speaker ∈ [1,2], tlabel ∈ [0.2,0.6]); expect the *direction* (entities≫text>tlabel) to be robust — it matches the published title/anchor≫body pattern and the field semantics.
+
+## Verdicts
+
+- Okapi BM25, idf = `ln(1+(N_E−df_E+0.5)/(df_E+0.5))` on the eligible set, k1=1.2, b≈0.6 (grid-search) → **ship**. Confidence high — the formula is invariant across 4 independent implementations; only open knob is k1/b tuning, and Anserini's tuning table shows the cost of leaving them lazy (+0.048 MRR@100 on MSMARCO-doc).
+- BM25F variant C (per-field b_f, weighted-tf combine, single saturation) as the lexical lane's exact rescore → **ship**. Confidence high — canonical in Terrier + Lucene patch + TREC-13; verified numerically that B (ES most_fields shape) pathologically over-credits split-term docs (13.6 vs ~3.5).
+- FTS5 `bm25(t, weights…)` for candidate generation → **ship** as approximate lane; never as the final score (global idf, doc-level length, hardcoded k1/b). Confidence high — semantics verified in fts5_aux.c source, not just docs.
+- Eligible-df via lazy per-term int-bitset ∩ eligible bitmap → **ship** (LRU-bound cache). 13ms cold worst-case amortized to ~0 warm; exact; ~0 bytes standing.
+- Per-scope docfreq tables → **reject at ≤100k** (2.9–11.5MB + write cost, can't cover dynamic purposes); revisit >1M memories. Confidence medium — would flip if profiling at scale shows posting scans dominate.
+- SQLite 1e-6 floor / rank_bm25 ε·avg_idf floor as the idf policy → **reject** in favor of ln(1+x): floors pick a constant with no derivation; +1 is smooth and ends at exactly 0 for the all-docs term. Medium-high confidence — ordering-identical except on the saturated-term edge.
+- Saturate-then-combine BM25F (per-field BM25 summed) → **reject**: violates tf-saturation nonlinearity by construction (worked example: 3.4× inflation).
+- BM25+ δ-floor on the tf-length term → **optional** (quality/max profile): one constant, protects long memories from under-scoring; only if eval shows long-doc suppression.
+- Field set {text 1.0/0.6, speaker 1.5/0.2, entities 2.5/0.3, tlabel 0.4/0.2} → **ship** pending harness tuning. Medium confidence — direction is evidence-backed (TREC-13 11–38× on sparse fields); magnitudes are priors to tune, not constants to trust.

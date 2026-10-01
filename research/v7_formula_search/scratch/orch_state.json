@@ -1,0 +1,47 @@
+{
+ "running": {
+  "c4-graph-expansion": "99342f41c3b94b65af887c85cc5ef162",
+  "c5-consolidation": "fc6395599e1f4ff58228bce49d8eefda",
+  "c6-dual-time-resolution": "?",
+  "d1-hindsight-code": "?",
+  "d2-mem0-code": "?"
+ },
+ "done": [
+  "a1-hindsight-tempr",
+  "a2-mem0",
+  "a3-zep-graphiti",
+  "a4-chronos",
+  "a5-mastra-observational",
+  "a6-longmemeval",
+  "a7-locomo",
+  "a8-memory-survey-sweep",
+  "b1-bm25-bm25f",
+  "b2-rrf-sensitivity",
+  "b3-combsum-calibration",
+  "b4-ltr-features",
+  "b5-cross-encoder",
+  "b6-ce-distillation",
+  "b7-colbert",
+  "b8-splade",
+  "b9-static-embeddings",
+  "b10-ann-vs-exact",
+  "c1-entity-resolution",
+  "c2-coreference",
+  "c3-temporal-policy",
+  "d5-fts5-sqlite",
+  "e2-ppr-vs-onehop",
+  "e5-coref-fixture"
+ ],
+ "queued": [
+  "d3-graphiti-code",
+  "d4-ranx-pyserini",
+  "e1-ce-kcurve-latency",
+  "e3-embed-tier-sizing",
+  "e4-fact-index-ceiling"
+ ],
+ "self_cover": [
+  "d5-fts5-sqlite",
+  "e2-ppr-vs-onehop",
+  "e5-coref-fixture"
+ ]
+}
