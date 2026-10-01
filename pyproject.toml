@@ -42,7 +42,16 @@ dependencies = [
 
 [project.optional-dependencies]
 semantic = ["numpy>=1.26,<3"]
-dev = ["pytest>=8,<9", "pytest-xdist>=3,<4", "pyyaml>=6,<7"]
+dev = [
+    "pytest>=8,<9",
+    "pytest-xdist>=3,<4",
+    "pyyaml>=6,<7",
+    # The packaging tests build a wheel with --no-build-isolation, which needs
+    # the build backend importable in the environment. A venv install of
+    # `.[dev]` otherwise has no setuptools at all, and the fixture fails with
+    # BackendUnavailable instead of testing the wheel.
+    "setuptools>=77",
+]
 
 [project.urls]
 Homepage = "https://github.com/mosesman831/verbatim"
