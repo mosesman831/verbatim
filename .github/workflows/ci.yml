@@ -60,7 +60,11 @@ jobs:
       - name: Run mutation suite
         run: python -m pytest tests/mutation -q -rf
       # Wall-clock assertions, run with nothing else competing for the box.
-      - name: Run timing-sensitive tests
+      # Advisory, not gating: these verdicts are derived from wall-clock
+      # anchors, so they are stable on a quiet machine and can flip on a
+      # shared runner. The mutation suite above IS gating.
+      - name: Run timing-sensitive tests (advisory)
+        continue-on-error: true
         run: |
           python -m pytest -q -rf \
             tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_perf_not_slower_than_add \
