@@ -30,18 +30,27 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
+      # Deselected here and run in the serial job, where nothing else competes
+      # for the box:
+      #   * wall-clock assertions (p95 budgets, "not slower than" comparisons,
+      #     calibration verdicts) - these are real signals but they are
+      #     measured in milliseconds and four workers on four cores make them
+      #     flaky, not wrong
+      #   * the packaging fixture, which shells out to `pip wheel` on the repo
+      #     while the other workers are chewing the same CPU
       - name: Run test suite
-        # Wall-clock assertions run in the serial job below: four workers
-        # sharing four cores make "not slower than" style checks flaky.
         run: |
           python -m pytest tests/ -q -n auto --ignore=tests/mutation \
+            --deselect tests/v6/test_packaging.py \
+            --deselect tests/ops/test_operational.py::test_t1_workload_p95 \
+            --deselect tests/ops/test_operational.py::test_t2_workload_p95 \
             --deselect tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_perf_not_slower_than_add \
             --deselect tests/jobs/test_source_coalesce.py::test_ordinary_drain_coalesces_siblings \
             --deselect tests/v5/test_scenarios_e.py::test_e86_per_class_calibration_honest_insufficient \
             --durations=15
 
-  mutation:
-    name: mutation suite + timing assertions (serial)
+  serial:
+    name: serial suite (mutation, packaging, wall-clock)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -55,18 +64,22 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
-      # These tests apply mutants to the real worktree and restore them, so a
-      # concurrent test run can observe a half-applied mutant. They run alone.
+      # These apply mutants to the real worktree and restore them, so a
+      # concurrent test run can observe a half-applied mutant.
       - name: Run mutation suite
         run: python -m pytest tests/mutation -q -rf
-      # Wall-clock assertions, run with nothing else competing for the box.
-      # Advisory, not gating: these verdicts are derived from wall-clock
-      # anchors, so they are stable on a quiet machine and can flip on a
-      # shared runner. The mutation suite above IS gating.
-      - name: Run timing-sensitive tests (advisory)
+      # Builds a wheel and inspects its contents; deterministic on its own.
+      - name: Run packaging tests
+        run: python -m pytest tests/v6/test_packaging.py -q -rf
+      # Wall-clock assertions. Advisory, not gating: the verdicts are derived
+      # from millisecond budgets and can flip on a shared runner. Read the
+      # output rather than trusting the colour.
+      - name: Run wall-clock assertions (advisory)
         continue-on-error: true
         run: |
           python -m pytest -q -rf \
+            tests/ops/test_operational.py::test_t1_workload_p95 \
+            tests/ops/test_operational.py::test_t2_workload_p95 \
             tests/memory/test_add_turns.py::TestBulkAdd::test_bulk_perf_not_slower_than_add \
             tests/jobs/test_source_coalesce.py::test_ordinary_drain_coalesces_siblings \
             tests/v5/test_scenarios_e.py::test_e86_per_class_calibration_honest_insufficient
