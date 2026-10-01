@@ -126,7 +126,11 @@ def _build_memory_httpd(factory: Any, args: argparse.Namespace, creds: Any):
         kwargs["tokens"] = creds if creds else None
     if "token_file" in params and args.token_file:
         kwargs["token_file"] = args.token_file
-    for key in ("cfg", "config", "http_config"):
+    # ``config`` on the frozen §4 signature is the ENGINE config (a
+    # VerbatimConfig or mapping), never the transport config — only
+    # transport-named parameters may take the HttpConfig. Binding the two
+    # together crashes every default launch (Memory rejects an HttpConfig).
+    for key in ("http_config", "cfg"):
         if key in params:
             kwargs[key] = cfg
             break

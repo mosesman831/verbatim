@@ -15,6 +15,7 @@ import sqlite3
 import threading
 import time
 from contextlib import contextmanager
+from pathlib import Path
 from typing import Any, Optional
 
 import pytest
@@ -126,3 +127,54 @@ def grant_consent(
             (cid, scope_id, processor, purpose, int(time.time() * 1e6), revoked_us, "digest-1"),
         )
     return cid
+
+
+# --- spec corpus guard ------------------------------------------------------
+# The internal spec corpus (SPEC v1-v8.5, REQUIREMENTS, THREAT_MODEL) is
+# maintained privately and is deliberately not part of this distribution, so
+# evidence-audit tests that parse it cannot run from a released tree. Each
+# such test names the spec file it audits; the audit is skipped only when that
+# file is genuinely absent, so a development tree carrying the corpus still
+# runs every one of them unchanged.
+_CORPUS_AUDITS: dict[str, str] = {
+    "tests/eval/test_v3_harness.py::test_registry_parses_all_requirements": "SPEC_V3.md",
+    "tests/eval/test_v3_harness.py::test_seed_ledger_is_idempotent": "SPEC_V3.md",
+    "tests/eval/test_v4_ledger.py::test_real_check_passes_on_seed_map": "SPEC_V4.md",
+    "tests/eval/test_v4_ledger.py::test_real_spec_ids_all_enumerated": "SPEC_V4.md",
+    "tests/eval/test_v5_ledger.py::test_live_overlay_claims_carry_evidence": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_repo_check_passes": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_spec_all_requirements_parsed": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_spec_gate_and_scenario_anchors": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_spec_honest_start_state": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_spec_scenarios_and_gates": "SPEC_V5.md",
+    "tests/eval/test_v5_ledger.py::test_real_spec_stage_inference_spot_checks": "SPEC_V5.md",
+    "tests/eval/test_v6_ledger.py::test_carried_real_repo_v5_tail": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_live_overlay_validate_clean": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_real_repo_check_passes": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_real_spec_all_requirements_parsed": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_real_spec_honest_start_state": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_real_spec_phase_and_anchor_inference": "SPEC_V6.md",
+    "tests/eval/test_v6_ledger.py::test_real_spec_scenarios_and_gates": "SPEC_V6.md",
+    "tests/eval/test_v7_ledger.py::test_gate_aggregation_rules": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_id_section_semantics_for_playbook_definitions": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_ledger_json_on_disk_parses_and_matches_spec": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_real_repo_check_passes": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_real_spec_all_requirements_parsed": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_real_spec_honest_start_state": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_real_spec_named_collections": "SPEC_V7.md",
+    "tests/eval/test_v7_ledger.py::test_real_spec_validate_clean": "SPEC_V7.md",
+    "tests/v45/test_scenarios_d2.py::test_d22_m5_report_names_every_parent_registry_comparator": "SPEC_V4_5.md",
+    "tests/v5/test_scenarios_d.py::test_e72_ledger_covers_all_scenarios_nothing_falsely_verified": "SPEC_V5.md",
+}
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
+    root = Path(__file__).resolve().parents[1]
+    for item in items:
+        spec = _CORPUS_AUDITS.get(item.nodeid)
+        if spec and not (root / spec).exists():
+            item.add_marker(
+                pytest.mark.skip(
+                    reason=f"{spec} is not part of this distribution (private spec corpus)"
+                )
+            )
