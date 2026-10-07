@@ -107,7 +107,7 @@ jobs:
           /tmp/pkg/bin/verbatim --help > /dev/null
           /tmp/pkg/bin/verbatim-service --help > /dev/null
           /tmp/pkg/bin/python "$GITHUB_WORKSPACE/tools/ci_smoke.py"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
