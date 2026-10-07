@@ -135,12 +135,6 @@ Releases are cut by pushing a `v*` tag: `.github/workflows/release.yml`
 builds, verifies the wheel, publishes to PyPI via trusted publishing, and
 attaches the distributions to the GitHub release.
 
-Pre-release, active development. The internal spec corpus (SPEC v1-v8.5,
-REQUIREMENTS, THREAT_MODEL) is maintained privately and is not part of this
-distribution. `RELEASE_MANIFEST_V4.json` records declared capability and gate
-status for this codebase, including declared limitations and the measured
-targets that currently miss - see `known_limitations`.
-
 ## License
 
 MIT - see `LICENSE`.
