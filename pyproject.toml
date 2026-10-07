@@ -37,13 +37,13 @@ classifiers = [
 dependencies = [
     # V3 vault (SPEC_V3 §35): reviewed AEAD provider — no custom crypto,
     # no plaintext fallback. Required for V3.0, not an optional extra.
-    "cryptography>=42,<47",
+    "cryptography>=42,<51",
 ]
 
 [project.optional-dependencies]
 semantic = ["numpy>=1.26,<3"]
 dev = [
-    "pytest>=8,<9",
+    "pytest>=8,<10",
     "pytest-xdist>=3,<4",
     "pyyaml>=6,<7",
     # The packaging tests build a wheel with --no-build-isolation, which needs
