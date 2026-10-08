@@ -61,5 +61,3 @@ Ordered by expected cat-2 lift (any@10 / 175; estimates vs measured baselines):
 7. **Date-range surfacing in pack** — recall-neutral; ship opportunistically for answer correctness.
 
 **Bottom line:** the formula-search temporal composite as specced applies to only ~26/175 queries and fixes ≈11–12% of misses. The cat-2 gap is dominated by two upstream defects: (i) `occurred` never populated — `when` metadata ignored — which vacuates the window scan, nulls events_v7 occurred, anchors claim valid-times to ingest-2026, and stamps idf≈0 junk into every `when` field; (ii) date/stopword posting floods starve the 500ms deadline — 60/61 never-surfaced misses are OR-FTS-reachable yet invisible to the fused pool. Fix (i)+(ii) → plausibly ~0.55–0.65 item any@10 (bm25 parity); the composite then adds the last few points on anchored/relative/ordering residuals.
-
-ATTACHMENT:{\"url\":\"https://app.devin.ai/attachments/271b7f7a-3087-4a16-851c-ed37512def37/cat2_temporal_notes.md\",\"fileSize\":23183}
