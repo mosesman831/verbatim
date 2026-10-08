@@ -93,5 +93,3 @@ Concrete changes (cheapest first):
 7. Residual gap after unit fix: 4/157 gold are nomination-misses at cap2000/t8000 [measured] — the true paraphrase/lexical-recall problem the diagnosis attributes ~38% of misses to; unit granularity does not touch it (needs dense/fuzzy lanes or rewritten units per Dialogue-RAG).
 
 Expected combined effect on any@10 (calculated estimate): cap-slot waste + deadline-truncation jointly drove ~62% of lane_miss; the unit fix removes the dominant share of slot waste and ~60% of wasted scoring work — plausibly +8-15 points of evidence recall at current caps/deadlines, to be confirmed by a track_r rerun.
-
-ATTACHMENT:{\"url\":\"https://app.devin.ai/attachments/76e5069a-e8c4-4820-bc04-959e2ce2b493/unit_granularity_notes.md\",\"fileSize\":15467}

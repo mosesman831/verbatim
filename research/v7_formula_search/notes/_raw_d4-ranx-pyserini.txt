@@ -1,17 +1,9 @@
-Session devin-cc990df0b91a469e8345388cc896181d:
-  session_id: cc990df0b91a469e8345388cc896181d
-  title: fs-v7 d4-ranx-pyserini
-  status: running
-  status_detail: waiting_for_user
-  url: https://app.devin.ai/sessions/cc990df0b91a469e8345388cc896181d
-  acus_consumed: 0.0
-  tags: formula-search-v7, d4-ranx-pyserini
-  structured_output:
-    topic: d4-ranx-pyserini
-    sources: https://github.com/AmenRa/ranx/blob/master/ranx/fusion/rrf.py | repo | ranx 0.3.21 wheel source | RRF = rescoring to 1/(k+rank) then comb_sum; k=60 default; rank from lane order, no weights, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/comb_sum.py | repo | verbatim sum of lane scores, no normalization inside fusion functions, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/comb_mnz.py | repo | CombMNZ = sum(scores) x covering-lane count — verified 43.2 on the worked example, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/wsum.py , wmnz.py | repo | WSUM = Σ w·s; WMNZ = (Σ s)·(Σ w over covering lanes) — verified 32.4, https://github.com/AmenRa/ranx/blob/master/ranx/normalization/min_max_norm.py , rank_norm.py, zmuv_norm.py | repo | min-max den floored 1e-9 (flat lane -> all zeros); rank_norm = 1 - i/n; zmuv z-score, https://github.com/AmenRa/ranx/blob/master/ranx/meta/fuse.py | repo | fuse(runs, norm='min-max', method='wsum') — normalization is a caller stage, not built into fusion, https://github.com/castorini/pyserini/blob/master/pyserini/search/lucene/_searcher.py | repo | set_bm25(k1=0.9,b=0.4) line 583 and bm25(0.9,0.4) line 675 — the pyserini-side defaults, https://github.com/castorini/pyserini/blob/master/pyserini/trectools/_base.py | repo | RRF rescore = 1/(rrf_k + rank), rank via score.rank(first); NORMALIZE flat-lane -> ones (line ~155); merge = SUM, https://github.com/castorini/pyserini/blob/master/pyserini/fusion/_base.py | repo | reciprocal_rank_fusion(rrf_k=60, depth, k) = per-run RRF rescore + SUM aggregation, https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/SearchCollection.java | repo | lines 270-280: k1=0.9/b=0.4 adopted per Trotman et al. SIGIR 2012 OSIR, tuned on INEX 2008; comment says Lucene 1.2/0.75 'don't work very well for modern collections', https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/index/IndexCollection.java | repo | index-time norms baked by similarity — default new BM25Similarity() (Lucene 1.2/0.75) unless -bm25.accurate, https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/similarity/AccurateBM25Similarity.java | repo | query-time idf=log(1+(N-n+0.5)/(n+0.5)), avgdl=sumTotalTermFreq/docCount — the eligible-set-stats pattern to port, https://github.com/castorini/pyserini/blob/master/pyserini/util.py , prebuilt_index_info.py | repo | INDEX_INFO registry {urls, md5}; checksum-pinned materialization '{name}.{md5}' — prebuilt-index contract to mimic, https://dl.acm.org/doi/10.1145/1571941.1572114 | paper | Cormack, Clarke, Buttcher SIGIR 2009 — RRF origin, k=60 (cited in ranx docstring), https://doi.org/10.1145/3511808.3557207 | paper | Bassani & Romelli CIKM 2022 'ranx.fuse' — 25 fusion algorithms + 6 norms + grid-search optimization workflow; abstract only (body not fetched), calculated (this machine) | local runs | FTS5 bm25() constants solved from rank ratios: k1=1.2,b=0.75, idf floored 1e-6; FTS5 0.06ms@10k/0.36ms@100k top-60, 394B/doc; pure-Python fusion 136-360us; BM25 k1/b sensitivity table on 15-60-token docs; ranx bit-exact verification + numba-wrapper quirks (lane drop, empty wmnz)
-    summary: Read ranx 0.3.21 source and executed its fusion functions locally: RRF is Σ 1/(k+rank) with k=60 and rank taken from lane ordering (ties resolved by position, not score), implemented as rescoring then CombSUM — verified bit-exact (d1 = 1/61+1/63+1/64 = 0.047891458495966696). CombMNZ is (Σ s over covering lanes) × covering-lane count; WMNZ is (Σ s) × (Σ weights of covering lanes), both verified numerically. ranx fusion functions never normalize internally — normalization is an explicit caller stage (fuse() defaults to min-max then wsum); on a flat lane ranx min-max yields all-zeros while pyserini NORMALIZE yields all-ones, which is exactly the tie-collapse decision Verbatim's filed bug must settle deliberately. Anserini/pyserini BM25 defaults are k1=0.9, b=0.4 (SearchCollection.java:277-280, provenance Trotman et al. SIGIR 2012 OSIR tuned on INEX 2008) vs Lucene's hardcoded 1.2/0.75; computed sensitivity shows k1 is near-inert on short dialogue turns (identical scores at tf=1) while b is the live lever, moving scores ±12-18% per 2x length deviation — and SQLite FTS5's built-in bm25() is locked at k1=1.2/b=0.75 with a 1e-6 idf floor and whole-table stats (measured), so Verbatim must score BM25 itself on the eligible set with the Anserini form idf=log(1+(N-n+0.5)/(n+0.5)), storing raw doc-lengths rather than baked norms (the exact reason Anserini built AccurateBM25Similarity). Measured on this machine: FTS5 candidate generation costs 0.06ms at 10k and 0.36ms at 100k memories top-60 with ~394B/doc index; pure-Python fusion costs 136-360us per query — the bottleneck is eligible-set stats, not fusion. pyserini's prebuilt-index pattern (registry + md5-pinned artifacts + in-index collection stats) ports cleanly to SQLite as a sha256-sidecar single .db plus a docstats table maintained at write time. The single most important finding: FTS5's bm25() cannot be used for scoring at all (untunable constants AND wrong-set statistics) — Verbatim must implement eligible-set BM25 scoring itself, which is fortunately only ~15 lines and costs ~1-3ms at 100k. ranx.fuse (CIKM 2022) validates grid-searching method×norm×weights as a tuning workflow. Keep weighted-RRF k=60 as the default fusion; make min-max+WMNZ the score-based alternative; treat all formula-level ports as dependency-free (ranx=MIT, pyserini/anserini/Lucene=Apache-2.0). ranx's own numba-parallel wrappers showed version-dependent wrongness on this box (dropped lanes, empty WMNZ output) — port the math, not the library.
-    verdicts: Weighted RRF k=60 -> ship: scale-free, verified identical semantics in ranx and pyserini, ~140us measured, per-lane weights extend it trivially to match {1.0,0.75,0.5}, min-max normalization -> ship with fix: caller-side explicit stage; adopt deliberate flat-lane policy (recommend flat->0.5*w) instead of ranx's silent all-zero or pyserini's all-one, CombSUM+min-max -> optional: needs comparable scales; use as score-fusion alternative once eligible stats land, CombMNZ+min-max -> optional: verified semantics sum x count; multiplicative coverage bonus — candidate to beat RRF post-fix, must fix tie policy first, WSUM+min-max -> optional: ranx's own default combo; reasonable if a tuning step ever runs, WMNZ+min-max -> optional: strictly more expressive than MNZ for weighted lanes ((Σs)·(Σw covering)) — the best score-fusion candidate for Verbatim's weight scheme, rank_norm (1-i/n) -> optional: score-free linear-ramp alternative to RRF's 1/(k+r) curve; sharper tail decay if only lane-tops should matter, zmuv/sum norms -> reject: outlier leverage and lane-length bias respectively; both risky for heterogeneous lanes, FTS5 builtin bm25() -> reject for scoring: k1=1.2/b=0.75 locked, idf floored, stats over whole table violating the eligible-set rule (measured); ship as candidate generator only (0.36ms@100k measured), Custom BM25 scorer k1=0.9/b=0.4, idf=log(1+(N-n+0.5)/(n+0.5)) over eligible set -> ship: b=0.4 dampens short-turn length variance; Anserini defaults proven over a decade of TREC reproductions, Raw dl column + docstats table, no baked norms -> ship: Lucene's index-time norm baking is exactly why Anserini needed AccurateBM25Similarity; eligible-set avgdl/df needs live stats, Prebuilt-index pattern (registry + sha256-pinned .db + stats-in-file) -> ship: ports pyserini's INDEX_INFO contract to the single-file model, ranx as a runtime dependency -> reject: numba/JIT weight vs one-file local-first ethos; observed wrapper-level quirks (dropped lanes, empty WMNZ) under this numba version; port the ~30 lines of formulas instead, BM25F pooled-tf (multi-field) -> optional: only if a second scored field (entities/speaker) is indexed; Lucene/pyserini 'fields' boosts are disjunctive per-field BM25, not true BM25F — port Zaragoza et al. pooled form if needed
-    notes_markdown: # d4-ranx-pyserini — ranx fusion semantics + pyserini/Anserini BM25 defaults → ported formulas for Verbatim's lane-fusion stage
+title: fs-v7 d4-ranx-pyserini
+topic: d4-ranx-pyserini
+sources: https://github.com/AmenRa/ranx/blob/master/ranx/fusion/rrf.py | repo | ranx 0.3.21 wheel source | RRF = rescoring to 1/(k+rank) then comb_sum; k=60 default; rank from lane order, no weights, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/comb_sum.py | repo | verbatim sum of lane scores, no normalization inside fusion functions, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/comb_mnz.py | repo | CombMNZ = sum(scores) x covering-lane count — verified 43.2 on the worked example, https://github.com/AmenRa/ranx/blob/master/ranx/fusion/wsum.py , wmnz.py | repo | WSUM = Σ w·s; WMNZ = (Σ s)·(Σ w over covering lanes) — verified 32.4, https://github.com/AmenRa/ranx/blob/master/ranx/normalization/min_max_norm.py , rank_norm.py, zmuv_norm.py | repo | min-max den floored 1e-9 (flat lane -> all zeros); rank_norm = 1 - i/n; zmuv z-score, https://github.com/AmenRa/ranx/blob/master/ranx/meta/fuse.py | repo | fuse(runs, norm='min-max', method='wsum') — normalization is a caller stage, not built into fusion, https://github.com/castorini/pyserini/blob/master/pyserini/search/lucene/_searcher.py | repo | set_bm25(k1=0.9,b=0.4) line 583 and bm25(0.9,0.4) line 675 — the pyserini-side defaults, https://github.com/castorini/pyserini/blob/master/pyserini/trectools/_base.py | repo | RRF rescore = 1/(rrf_k + rank), rank via score.rank(first); NORMALIZE flat-lane -> ones (line ~155); merge = SUM, https://github.com/castorini/pyserini/blob/master/pyserini/fusion/_base.py | repo | reciprocal_rank_fusion(rrf_k=60, depth, k) = per-run RRF rescore + SUM aggregation, https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/SearchCollection.java | repo | lines 270-280: k1=0.9/b=0.4 adopted per Trotman et al. SIGIR 2012 OSIR, tuned on INEX 2008; comment says Lucene 1.2/0.75 'don't work very well for modern collections', https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/index/IndexCollection.java | repo | index-time norms baked by similarity — default new BM25Similarity() (Lucene 1.2/0.75) unless -bm25.accurate, https://github.com/castorini/anserini/blob/master/src/main/java/io/anserini/search/similarity/AccurateBM25Similarity.java | repo | query-time idf=log(1+(N-n+0.5)/(n+0.5)), avgdl=sumTotalTermFreq/docCount — the eligible-set-stats pattern to port, https://github.com/castorini/pyserini/blob/master/pyserini/util.py , prebuilt_index_info.py | repo | INDEX_INFO registry {urls, md5}; checksum-pinned materialization '{name}.{md5}' — prebuilt-index contract to mimic, https://dl.acm.org/doi/10.1145/1571941.1572114 | paper | Cormack, Clarke, Buttcher SIGIR 2009 — RRF origin, k=60 (cited in ranx docstring), https://doi.org/10.1145/3511808.3557207 | paper | Bassani & Romelli CIKM 2022 'ranx.fuse' — 25 fusion algorithms + 6 norms + grid-search optimization workflow; abstract only (body not fetched), calculated (this machine) | local runs | FTS5 bm25() constants solved from rank ratios: k1=1.2,b=0.75, idf floored 1e-6; FTS5 0.06ms@10k/0.36ms@100k top-60, 394B/doc; pure-Python fusion 136-360us; BM25 k1/b sensitivity table on 15-60-token docs; ranx bit-exact verification + numba-wrapper quirks (lane drop, empty wmnz)
+summary: Read ranx 0.3.21 source and executed its fusion functions locally: RRF is Σ 1/(k+rank) with k=60 and rank taken from lane ordering (ties resolved by position, not score), implemented as rescoring then CombSUM — verified bit-exact (d1 = 1/61+1/63+1/64 = 0.047891458495966696). CombMNZ is (Σ s over covering lanes) × covering-lane count; WMNZ is (Σ s) × (Σ weights of covering lanes), both verified numerically. ranx fusion functions never normalize internally — normalization is an explicit caller stage (fuse() defaults to min-max then wsum); on a flat lane ranx min-max yields all-zeros while pyserini NORMALIZE yields all-ones, which is exactly the tie-collapse decision Verbatim's filed bug must settle deliberately. Anserini/pyserini BM25 defaults are k1=0.9, b=0.4 (SearchCollection.java:277-280, provenance Trotman et al. SIGIR 2012 OSIR tuned on INEX 2008) vs Lucene's hardcoded 1.2/0.75; computed sensitivity shows k1 is near-inert on short dialogue turns (identical scores at tf=1) while b is the live lever, moving scores ±12-18% per 2x length deviation — and SQLite FTS5's built-in bm25() is locked at k1=1.2/b=0.75 with a 1e-6 idf floor and whole-table stats (measured), so Verbatim must score BM25 itself on the eligible set with the Anserini form idf=log(1+(N-n+0.5)/(n+0.5)), storing raw doc-lengths rather than baked norms (the exact reason Anserini built AccurateBM25Similarity). Measured on this machine: FTS5 candidate generation costs 0.06ms at 10k and 0.36ms at 100k memories top-60 with ~394B/doc index; pure-Python fusion costs 136-360us per query — the bottleneck is eligible-set stats, not fusion. pyserini's prebuilt-index pattern (registry + md5-pinned artifacts + in-index collection stats) ports cleanly to SQLite as a sha256-sidecar single .db plus a docstats table maintained at write time. The single most important finding: FTS5's bm25() cannot be used for scoring at all (untunable constants AND wrong-set statistics) — Verbatim must implement eligible-set BM25 scoring itself, which is fortunately only ~15 lines and costs ~1-3ms at 100k. ranx.fuse (CIKM 2022) validates grid-searching method×norm×weights as a tuning workflow. Keep weighted-RRF k=60 as the default fusion; make min-max+WMNZ the score-based alternative; treat all formula-level ports as dependency-free (ranx=MIT, pyserini/anserini/Lucene=Apache-2.0). ranx's own numba-parallel wrappers showed version-dependent wrongness on this box (dropped lanes, empty WMNZ output) — port the math, not the library.
+verdicts: Weighted RRF k=60 -> ship: scale-free, verified identical semantics in ranx and pyserini, ~140us measured, per-lane weights extend it trivially to match {1.0,0.75,0.5}, min-max normalization -> ship with fix: caller-side explicit stage; adopt deliberate flat-lane policy (recommend flat->0.5*w) instead of ranx's silent all-zero or pyserini's all-one, CombSUM+min-max -> optional: needs comparable scales; use as score-fusion alternative once eligible stats land, CombMNZ+min-max -> optional: verified semantics sum x count; multiplicative coverage bonus — candidate to beat RRF post-fix, must fix tie policy first, WSUM+min-max -> optional: ranx's own default combo; reasonable if a tuning step ever runs, WMNZ+min-max -> optional: strictly more expressive than MNZ for weighted lanes ((Σs)·(Σw covering)) — the best score-fusion candidate for Verbatim's weight scheme, rank_norm (1-i/n) -> optional: score-free linear-ramp alternative to RRF's 1/(k+r) curve; sharper tail decay if only lane-tops should matter, zmuv/sum norms -> reject: outlier leverage and lane-length bias respectively; both risky for heterogeneous lanes, FTS5 builtin bm25() -> reject for scoring: k1=1.2/b=0.75 locked, idf floored, stats over whole table violating the eligible-set rule (measured); ship as candidate generator only (0.36ms@100k measured), Custom BM25 scorer k1=0.9/b=0.4, idf=log(1+(N-n+0.5)/(n+0.5)) over eligible set -> ship: b=0.4 dampens short-turn length variance; Anserini defaults proven over a decade of TREC reproductions, Raw dl column + docstats table, no baked norms -> ship: Lucene's index-time norm baking is exactly why Anserini needed AccurateBM25Similarity; eligible-set avgdl/df needs live stats, Prebuilt-index pattern (registry + sha256-pinned .db + stats-in-file) -> ship: ports pyserini's INDEX_INFO contract to the single-file model, ranx as a runtime dependency -> reject: numba/JIT weight vs one-file local-first ethos; observed wrapper-level quirks (dropped lanes, empty WMNZ) under this numba version; port the ~30 lines of formulas instead, BM25F pooled-tf (multi-field) -> optional: only if a second scored field (entities/speaker) is indexed; Lucene/pyserini 'fields' boosts are disjunctive per-field BM25, not true BM25F — port Zaragoza et al. pooled form if needed
+notes_markdown: # d4-ranx-pyserini — ranx fusion semantics + pyserini/Anserini BM25 defaults → ported formulas for Verbatim's lane-fusion stage
 
 Method note: all ranx behavior below was read from the shipped source (ranx 0.3.21 wheel, `ranx/fusion/*.py`, `ranx/normalization/*.py`, `ranx/meta/fuse.py`) AND executed locally to confirm semantics. All pyserini/Anserini behavior was read from source (`pyserini/search/lucene/_searcher.py`, `pyserini/fusion/_base.py`, `pyserini/trectools/_base.py`, `anserini/.../SearchCollection.java`, `IndexCollection.java`, `AccurateBM25Similarity.java`). Numbers marked [measured] were computed on this machine (4-core-class Linux box, CPython 3.10, SQLite 3.37.2); numbers marked [source] are code-verified constants; [paper] are literature claims.
 
@@ -31,7 +23,7 @@ Key fact: **the fusion functions themselves never normalize**. `comb_sum`/`wsum`
 
 ```
 _rrf_score(results, k):  for i, doc_id in enumerate(results.keys()):
-                             combined[doc_id] = 1 / (k + i + 1)
+                         combined[doc_id] = 1 / (k + i + 1)
 rrf(runs, k=60):         return comb_sum([_rrf_score(run) for run in runs])
 ```
 
@@ -177,65 +169,65 @@ Eligible-df arithmetic shown: term postings for a mid-df term ≈ 50-500 rows at
 ```python
 # ---------- normalization (per lane, per query) ----------
 def minmax_norm(lane, flat="half"):          # lane = [(doc, score)] score-desc
-    lo = min(s for _, s in lane); hi = max(s for _, s in lane)
-    if hi - lo < 1e-12:
-        return [(d, FLAT_VALUE[flat]) for d, _ in lane]   # "one"->1.0 (pyserini), "zero"->0.0 (ranx), "half"->0.5 (recommended)
-    den = hi - lo
-    return [(d, (s - lo) / den) for d, s in lane]
+lo = min(s for _, s in lane); hi = max(s for _, s in lane)
+if hi - lo < 1e-12:
+    return [(d, FLAT_VALUE[flat]) for d, _ in lane]   # "one"->1.0 (pyserini), "zero"->0.0 (ranx), "half"->0.5 (recommended)
+den = hi - lo
+return [(d, (s - lo) / den) for d, s in lane]
 
 def rank_linear(lane):                       # ranx rank_norm
-    n = len(lane)
-    return [(d, 1 - i / n) for i, (d, _) in enumerate(lane)]
+n = len(lane)
+return [(d, 1 - i / n) for i, (d, _) in enumerate(lane)]
 
 # ---------- score fusion (needs normalized, comparable scales) ----------
 def comb_sum(norm_lanes):
-    acc = {}
-    for lane in norm_lanes:
-        for d, s in lane: acc[d] = acc.get(d, 0.0) + s
-    return acc
+acc = {}
+for lane in norm_lanes:
+    for d, s in lane: acc[d] = acc.get(d, 0.0) + s
+return acc
 
 def comb_mnz(norm_lanes):                    # ranx-verified: sum × covering-lane count
-    acc, cnt = {}, {}
-    for lane in norm_lanes:
-        for d, s in lane:
-            acc[d] = acc.get(d, 0.0) + s
-            cnt[d] = cnt.get(d, 0) + 1
-    return {d: acc[d] * cnt[d] for d in acc}
+acc, cnt = {}, {}
+for lane in norm_lanes:
+    for d, s in lane:
+        acc[d] = acc.get(d, 0.0) + s
+        cnt[d] = cnt.get(d, 0) + 1
+return {d: acc[d] * cnt[d] for d in acc}
 
 def wsum(norm_lanes, w):                     # w: per-lane weights {1.0, .75, .5}
-    acc = {}
-    for lane, wl in zip(norm_lanes, w):
-        for d, s in lane: acc[d] = acc.get(d, 0.0) + wl * s
-    return acc
+acc = {}
+for lane, wl in zip(norm_lanes, w):
+    for d, s in lane: acc[d] = acc.get(d, 0.0) + wl * s
+return acc
 
 def wmnz(norm_lanes, w):                     # ranx-verified: Σs × Σw over covering lanes
-    acc, wacc = {}, {}
-    for lane, wl in zip(norm_lanes, w):
-        for d, s in lane:
-            acc[d]  = acc.get(d, 0.0)  + s
-            wacc[d] = wacc.get(d, 0.0) + wl
-    return {d: acc[d] * wacc[d] for d in acc}
+acc, wacc = {}, {}
+for lane, wl in zip(norm_lanes, w):
+    for d, s in lane:
+        acc[d]  = acc.get(d, 0.0)  + s
+        wacc[d] = wacc.get(d, 0.0) + wl
+return {d: acc[d] * wacc[d] for d in acc}
 
 # ---------- rank fusion (score-free, scale-immune) ----------
 def wrrf(lanes, w, k=60):                    # ranx/pyserini RRF + optional weights
-    acc = {}
-    for lane, wl in zip(lanes, w):
-        for rank, (d, _) in enumerate(lane, start=1):
-            acc[d] = acc.get(d, 0.0) + wl / (k + rank)
-    return acc                               # top-k via heapq.nlargest
+acc = {}
+for lane, wl in zip(lanes, w):
+    for rank, (d, _) in enumerate(lane, start=1):
+        acc[d] = acc.get(d, 0.0) + wl / (k + rank)
+return acc                               # top-k via heapq.nlargest
 
 # ---------- eligible-set BM25 (the whole reason for custom scoring) ----------
 def bm25_eligible(q_terms, eligible, postings, dl, stats, k1=0.9, b=0.4):
-    # stats over ELIGIBLE set only: N_e, df_e(t), avgdl_e — Anserini-style idf
-    N_e, avgdl_e = stats["N"], stats["avgdl"]          # computed on eligible rows
-    out = {}
-    for t in q_terms:
-        df_e = stats["df"][t]                         # df within eligible set
-        idf = math.log(1 + (N_e - df_e + 0.5) / (df_e + 0.5))   # >= 0, no floor
-        for d, tf in postings[t]:                     # only eligible d's
-            denom = tf + k1 * (1 - b + b * dl[d] / avgdl_e)
-            out[d] = out.get(d, 0.0) + idf * tf * (k1 + 1) / denom
-    return out
+# stats over ELIGIBLE set only: N_e, df_e(t), avgdl_e — Anserini-style idf
+N_e, avgdl_e = stats["N"], stats["avgdl"]          # computed on eligible rows
+out = {}
+for t in q_terms:
+    df_e = stats["df"][t]                         # df within eligible set
+    idf = math.log(1 + (N_e - df_e + 0.5) / (df_e + 0.5))   # >= 0, no floor
+    for d, tf in postings[t]:                     # only eligible d's
+        denom = tf + k1 * (1 - b + b * dl[d] / avgdl_e)
+        out[d] = out.get(d, 0.0) + idf * tf * (k1 + 1) / denom
+return out
 ```
 
 **Worked example** (3 lanes × 5 candidates from §1.2 — all numbers verified against ranx output):

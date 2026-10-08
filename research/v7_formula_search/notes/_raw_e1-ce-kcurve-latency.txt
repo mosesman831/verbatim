@@ -1,17 +1,9 @@
-Session devin-87e84d150e694ccd8e8101aa1c6bbe05:
-  session_id: 87e84d150e694ccd8e8101aa1c6bbe05
-  title: fs-v7 e1-ce-kcurve-latency
-  status: running
-  status_detail: waiting_for_user
-  url: https://app.devin.ai/sessions/87e84d150e694ccd8e8101aa1c6bbe05
-  acus_consumed: 0.0
-  tags: formula-search-v7, e1-ce-kcurve-latency
-  structured_output:
-    topic: e1-ce-kcurve-latency
-    sources: https://huggingface.co/temsa/ms-marco-MiniLM-L-6-v2-onnx-cpu-qint8 | repo | ONNX QInt8 CPU benchmark of ms-marco-MiniLM-L-6-v2 on i7-9750H AVX2: 95.2 pairs/s (20/req), 86.5 (50/req), p95/avg ~1.18; the calibration anchor for g≈34-46 GFLOP/s/core and ~16 ms/pair on 4 cores, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 | model card (vendor) | per-model MRR@10/NDCG@10 and V100 docs/s for L-2 vs L-6 vs L-12 vs TinyBERT — quality deltas for the alternative-head comparison (vendor self-reported), https://github.com/zeeshan56656/flashrank-js | repo | second independent CPU datapoint: quantized L-6 ONNX ~4.9 ms/pair on 20 docs incl. tokenization — triangulates the ~5-16 ms/pair band, https://www.elastic.co/search-labs/blog/elastic-semantic-reranker-part-3 | vendor (Elastic research, BEIR) | depth-vs-nDCG@10 curve taxonomy: 72.6% saturate <~100, 20.2% unimodal-decay (MiniLM-L12-v2 example), 7.1% decay; 90%-of-max rule ≈ depth 100, compute-constrained pick ≈ 30; basis for the within-0.005 k pick, https://arxiv.org/abs/2411.11767 | paper (Databricks/ReNeuIR'25) | 'Drowning in Documents': reranker recall drops precipitously at large K via phantom hits — grounds for rejecting k=300 on quality, not just latency, https://eprints.gla.ac.uk/383304/2/383304.pdf | paper (U. Glasgow) | per-query optimal rerank depth on MSMARCO DEV: oracle depth ~5x shallower with +7% effectiveness — evidence deep fixed pools are both slower and worse, calculated | derived this session | strict-FLOPs model F(T)=2·10.78M·T+24·T²·384, 4-core tables for k∈{0,16,32,64,128,300}×B∈{8,32}, and the k_max=(150/1.2-5)/(0.85·ms_pair)≈8-17 budget cut
-    summary: Derived per-pair latency for an ms-marco-MiniLM-L-6-v2-class cross-encoder on the 4-core reference CPU: strict compute F(T)=2·P_compute·T+24·T²·384 with P_compute=10.78M gives 2.97 GFLOP/pair at T=128; calibrated against a measured ONNX QInt8 benchmark (95.2 pairs/s on a 6-core i7-9750H AVX2, temsa repo) the effective throughput is ~34-46 GFLOP/s/core — the prompt's 2-6 GFLOP/s/core assumption is ~10x too pessimistic for GEMM-dominated int8 inference and was treated as a sensitivity bound. Nominal per-pair ≈11-16 ms on 4 cores (≈63 pairs/s), so p95 lands ~186 ms at k=16/B=32, ~365 ms at k=32, ~730 ms at k=64, ~1.5 s at k=128, ~3.4 s at k=300 — identical at 10k and 100k memories since CE cost is O(pool depth), not O(N). The most important number: the ≤150 ms p95 budget admits only k_max ≈ 8-17 pairs for the L-6 class, below the smallest useful pool (16), so L-6 is rejected for the default profile. A MiniLM-L-2-class head (~15.4M params, ~6 ms/pair) fits at k=16/B=32 (~104-127 ms p95) and is the recommended default CE. Quality profile: L-6 at k=32 (~365-500 ms p95) — published depth studies (Elastic BEIR: 72.6% Pareto-saturating mostly <depth 100; MiniLM-L12-v2 shows unimodal decay; Elastic's compute-constrained rule picks ~30; Databricks' Drowning-in-Documents shows recall collapses at large K) put the within-~0.005-of-best depth at ~32-64 for this model class. k=300 is rejected twice: ~3.4-5.6 s p95 and measured quality regression from phantom hits. Recommend replacing the provisional 'CE pool capped at 32' with default=16 (L-2 head) / quality=32 (L-6). One measured sweep on the real box and the post-fix eval pins down the two open numbers (real ms_pair, lift A).
-    verdicts: CE off (k=0) -> ship: status-quo default, ~85 ms p95 stays, MiniLM-L-2-class CE @ k=16, batch 32 -> ship: ~104-127 ms p95 fits the 150 ms budget; ~10% rel MRR loss vs L-6 for ~2.7x speed, MiniLM-L-6-v2 CE @ default profile -> reject: ~186-300 ms p95 at minimum-useful k=16 exceeds the 150 ms target; only VNNI+short-doc (~120 ms) escapes and cannot be assumed, MiniLM-L-6-v2 CE @ k=32, batch 32 -> optional: quality/max profile, ~365-500 ms p95, smallest k within ~0.005 of best for this model class, CE @ k=64-128 -> optional (max only): 730-1980 ms p95 for <~1% expected lift inside the saturation zone, CE @ k=300 -> reject: ~3.4-5.6 s p95 AND quality regresses (phantom hits, unimodal decay evidence), batch size 32 -> ship: single batched call; throughput ~flat past B≈20 so it is a simplicity win, not a speed win, provisional 'CE pool cap 32' -> replace: default 16 with L-2-class head; quality 32 with L-6
-    notes_markdown: # e1-ce-kcurve-latency — Cross-encoder pool depth vs p95 on the 4-core reference machine
+title: fs-v7 e1-ce-kcurve-latency
+topic: e1-ce-kcurve-latency
+sources: https://huggingface.co/temsa/ms-marco-MiniLM-L-6-v2-onnx-cpu-qint8 | repo | ONNX QInt8 CPU benchmark of ms-marco-MiniLM-L-6-v2 on i7-9750H AVX2: 95.2 pairs/s (20/req), 86.5 (50/req), p95/avg ~1.18; the calibration anchor for g≈34-46 GFLOP/s/core and ~16 ms/pair on 4 cores, https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 | model card (vendor) | per-model MRR@10/NDCG@10 and V100 docs/s for L-2 vs L-6 vs L-12 vs TinyBERT — quality deltas for the alternative-head comparison (vendor self-reported), https://github.com/zeeshan56656/flashrank-js | repo | second independent CPU datapoint: quantized L-6 ONNX ~4.9 ms/pair on 20 docs incl. tokenization — triangulates the ~5-16 ms/pair band, https://www.elastic.co/search-labs/blog/elastic-semantic-reranker-part-3 | vendor (Elastic research, BEIR) | depth-vs-nDCG@10 curve taxonomy: 72.6% saturate <~100, 20.2% unimodal-decay (MiniLM-L12-v2 example), 7.1% decay; 90%-of-max rule ≈ depth 100, compute-constrained pick ≈ 30; basis for the within-0.005 k pick, https://arxiv.org/abs/2411.11767 | paper (Databricks/ReNeuIR'25) | 'Drowning in Documents': reranker recall drops precipitously at large K via phantom hits — grounds for rejecting k=300 on quality, not just latency, https://eprints.gla.ac.uk/383304/2/383304.pdf | paper (U. Glasgow) | per-query optimal rerank depth on MSMARCO DEV: oracle depth ~5x shallower with +7% effectiveness — evidence deep fixed pools are both slower and worse, calculated | derived this session | strict-FLOPs model F(T)=2·10.78M·T+24·T²·384, 4-core tables for k∈{0,16,32,64,128,300}×B∈{8,32}, and the k_max=(150/1.2-5)/(0.85·ms_pair)≈8-17 budget cut
+summary: Derived per-pair latency for an ms-marco-MiniLM-L-6-v2-class cross-encoder on the 4-core reference CPU: strict compute F(T)=2·P_compute·T+24·T²·384 with P_compute=10.78M gives 2.97 GFLOP/pair at T=128; calibrated against a measured ONNX QInt8 benchmark (95.2 pairs/s on a 6-core i7-9750H AVX2, temsa repo) the effective throughput is ~34-46 GFLOP/s/core — the prompt's 2-6 GFLOP/s/core assumption is ~10x too pessimistic for GEMM-dominated int8 inference and was treated as a sensitivity bound. Nominal per-pair ≈11-16 ms on 4 cores (≈63 pairs/s), so p95 lands ~186 ms at k=16/B=32, ~365 ms at k=32, ~730 ms at k=64, ~1.5 s at k=128, ~3.4 s at k=300 — identical at 10k and 100k memories since CE cost is O(pool depth), not O(N). The most important number: the ≤150 ms p95 budget admits only k_max ≈ 8-17 pairs for the L-6 class, below the smallest useful pool (16), so L-6 is rejected for the default profile. A MiniLM-L-2-class head (~15.4M params, ~6 ms/pair) fits at k=16/B=32 (~104-127 ms p95) and is the recommended default CE. Quality profile: L-6 at k=32 (~365-500 ms p95) — published depth studies (Elastic BEIR: 72.6% Pareto-saturating mostly <depth 100; MiniLM-L12-v2 shows unimodal decay; Elastic's compute-constrained rule picks ~30; Databricks' Drowning-in-Documents shows recall collapses at large K) put the within-~0.005-of-best depth at ~32-64 for this model class. k=300 is rejected twice: ~3.4-5.6 s p95 and measured quality regression from phantom hits. Recommend replacing the provisional 'CE pool capped at 32' with default=16 (L-2 head) / quality=32 (L-6). One measured sweep on the real box and the post-fix eval pins down the two open numbers (real ms_pair, lift A).
+verdicts: CE off (k=0) -> ship: status-quo default, ~85 ms p95 stays, MiniLM-L-2-class CE @ k=16, batch 32 -> ship: ~104-127 ms p95 fits the 150 ms budget; ~10% rel MRR loss vs L-6 for ~2.7x speed, MiniLM-L-6-v2 CE @ default profile -> reject: ~186-300 ms p95 at minimum-useful k=16 exceeds the 150 ms target; only VNNI+short-doc (~120 ms) escapes and cannot be assumed, MiniLM-L-6-v2 CE @ k=32, batch 32 -> optional: quality/max profile, ~365-500 ms p95, smallest k within ~0.005 of best for this model class, CE @ k=64-128 -> optional (max only): 730-1980 ms p95 for <~1% expected lift inside the saturation zone, CE @ k=300 -> reject: ~3.4-5.6 s p95 AND quality regresses (phantom hits, unimodal decay evidence), batch size 32 -> ship: single batched call; throughput ~flat past B≈20 so it is a simplicity win, not a speed win, provisional 'CE pool cap 32' -> replace: default 16 with L-2-class head; quality 32 with L-6
+notes_markdown: # e1-ce-kcurve-latency — Cross-encoder pool depth vs p95 on the 4-core reference machine
 
 **Question:** for an ms-marco-MiniLM-L-6-v2-class cross-encoder (~23M params, 6 layers,
 hidden 384) scoring (query, turn) pairs at seq len ~96–160 on a 4-core CPU with ONNX
@@ -28,7 +20,7 @@ reject k≥128 for latency **and** for accuracy (deep pools actively degrade, se
 
 ### 1.1 Compute FLOPs per scored pair
 
-    F(T) = 2 · P_compute · T  +  L · 4 · T² · D
+F(T) = 2 · P_compute · T  +  L · 4 · T² · D
 
 - `P_compute` = parameters that see GEMM work per token = **10.78M**.
   Derived from config `microsoft/MiniLM-L12-H384-uncased` → distilled 6-layer head:
@@ -52,7 +44,7 @@ Evaluated:
 
 ### 1.2 Per-pair latency
 
-    ms_pair = F(T) / (C · g)          C = 4 cores, g = effective GFLOP/s/core
+ms_pair = F(T) / (C · g)          C = 4 cores, g = effective GFLOP/s/core
 
 - **g nominal = 45 GFLOP/s/core (AVX2 int8, calibrated)** — see §2. Band: 30
   pessimistic, 75 optimistic (AVX-512 VNNI, ~2× int8 MAC throughput).
@@ -61,9 +53,9 @@ Evaluated:
 
 ### 1.3 Pool latency and p95
 
-    t_avg(k, B) = k · ms_eff(B) + ceil(k/B) · c0
-    p95 ≈ 1.2 · t_avg
-    ms_eff(8) = ms_pair,   ms_eff(32) = 0.85 · ms_pair,   c0 = 5 ms/batch
+t_avg(k, B) = k · ms_eff(B) + ceil(k/B) · c0
+p95 ≈ 1.2 · t_avg
+ms_eff(8) = ms_pair,   ms_eff(32) = 0.85 · ms_pair,   c0 = 5 ms/batch
 
 - `c0` = tokenize + session/dispatch overhead per call (one tokenizer pass is shared
   across the batch; ONNX input-packing is the residue).
@@ -74,7 +66,7 @@ Evaluated:
 
 ### 1.4 Depth-vs-quality model (for the k pick)
 
-    nDCG@10(k) = A · [1 − (1 + k/β)^(−γ)]          (scaled generalized-Pareto CDF)
+nDCG@10(k) = A · [1 − (1 + k/β)^(−γ)]          (scaled generalized-Pareto CDF)
 
 Elastic's rerank-depth study fits this to BEIR curves; solving their "90 % of max at
 ~depth 100" plus ~50 % at ~depth 10 gives β≈10, γ≈1 — the params used below for the
